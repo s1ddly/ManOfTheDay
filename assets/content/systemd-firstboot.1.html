@@ -1,0 +1,36 @@
+<pre>
+       <b>systemd-firstboot </b>initializes the most basic system settings
+       interactively on the first boot, or optionally non-interactively
+       when a system image is created. The service is started if
+       <i>ConditionFirstBoot=yes</i> is satisfied. This essentially means that
+       /etc/ is empty, see <a href="https://man7.org/linux/man-pages/man5/systemd.unit.5.html">systemd.unit(5)</a> for details.
+
+       The following settings may be set up:
+
+       •   The system locale, more specifically the two locale variables
+           <i>LANG=</i> and <i>LC_MESSAGES</i>
+
+       •   The system keyboard map
+
+       •   The system time zone
+
+       •   The system hostname
+
+       •   The machine ID of the system
+
+       •   The root user's password
+
+       Each of the fields may either be queried interactively by users,
+       set non-interactively on the tool's command line, or be copied
+       from a host system that is used to set up the system image.
+
+       If a setting is already initialized, it will not be overwritten
+       and the user will not be prompted for the setting.
+
+       Note that this tool operates directly on the file system and does
+       not involve any running system services, unlike <a href="https://man7.org/linux/man-pages/man1/localectl.1.html">localectl(1)</a>,
+       <a href="https://man7.org/linux/man-pages/man1/timedatectl.1.html">timedatectl(1)</a> or <a href="https://man7.org/linux/man-pages/man1/hostnamectl.1.html">hostnamectl(1)</a>. This allows <b>systemd-firstboot</b>
+       to operate on mounted but not booted disk images and in early
+       boot. It is not recommended to use <b>systemd-firstboot </b>on the
+       running system while it is up.
+</pre>

@@ -1,0 +1,48 @@
+<pre>
+       A Babeltrace 2 <b>source.ctf.lttng-live </b>message iterator connects to
+       a local or remote LTTng (see &lt;<a href="https://man7.org/linux/man-pagestps://lttng.org/">https://lttng.org/</a>&gt;) relay daemon,
+       receives the streams of a specific tracing session, and emits
+       corresponding messages.
+
+           CTF streams over
+           LTTng live (TCP)
+             |
+             |   +--------------------+
+             |   | src.ctf.lttng-live |
+             '--&gt;|                    |
+                 |                out @--&gt; Sorted messages of one
+                 +--------------------+    or more streams
+
+       More information about LTTng live is available in the LTTng
+       Documentation (see &lt;<a href="https://man7.org/linux/man-pagestps://lttng.org/docs/#doc-lttng-live">https://lttng.org/docs/#doc-lttng-live</a>&gt;).
+
+       See <a href="https://man7.org/linux/man-pages/man7/babeltrace2-intro.7.html">babeltrace2-intro(7)</a> to learn more about the Babeltrace 2
+       project and its core concepts.
+
+       A <b>source.ctf.lttng-live </b>component has a single output port: its
+       message iterator muxes (sorts) the messages from the various CTF
+       data streams internally.
+
+       A <b>source.ctf.lttng-live </b>message iterator handles the messages of
+       one, and only one LTTng tracing session. A single LTTng tracing
+       session can contain one or more traces, depending on the active
+       tracing domains and the configured user space buffering scheme.
+
+       The component connects to an LTTng relay daemon using the <b>inputs</b>
+       parameter. This is an array of exactly one string which is the
+       URL of the LTTng relay daemon to connect to.
+
+       By default, if the remote tracing session name does not exist,
+       the message iterator returns "try again later". This default mode
+       makes the message iterator never end: even if the remote tracing
+       session is destroyed, the message iterator keeps on waiting for a
+       tracing session with the same name to exist. You can change this
+       behaviour with the <b>session-not-found-action </b>initialization
+       parameter.
+
+           <b>Note</b>
+           As of this version, you can only create one message iterator
+           per <b>source.ctf.lttng-live </b>component. This is because the
+           LTTng live protocol accepts at most one client per tracing
+           session per LTTng relay daemon.
+</pre>

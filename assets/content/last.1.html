@@ -1,0 +1,23 @@
+<pre>
+       <b>last </b>looks through the file <i>wtmp</i> (which records all
+       logins/logouts) and prints information about connect times of
+       users. Records are printed from most recent to least recent.
+       Records can be specified by tty and username.  tty names can be
+       abbreviated:
+                                    <b>last </b>0
+       is equivalent to
+                                  <b>last </b>tty0.
+
+       Multiple arguments can be specified:
+                               <b>last </b>root console
+       will print all of the entries for the user <i>root</i> and all entries
+       logged in on the <i>console</i> tty.
+
+       The special users <i>reboot</i> and <i>shutdown</i> log in when the system
+       reboots or (surprise) shuts down.
+                                  <b>last </b>reboot
+       will produce a record of reboot times.
+
+       If <b>last </b>is interrupted by a quit signal, it prints out how far
+       its search in the <i>wtmp</i> file had reached and then quits.
+</pre>

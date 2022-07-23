@@ -1,0 +1,21 @@
+<pre>
+       This utility generates an entry suitable for use in the
+       /etc/ppp/srp-secrets file on a PPP EAP SRP-SHA1 authenticator
+       ("server").  This file has the same basic layout as the other
+       pppd(8) authentication files, /etc/ppp/pap-secrets and
+       /etc/ppp/chap-secrets.  Thus, the entry generated has at least
+       four main fields separated by spaces.  The first field is the
+       authenticatee ("client") name.  The second is the server name.
+       The third is the secret.  The fourth is the allowed (or assigned)
+       IP address for the client, and defaults to "*".  Additional
+       fields can contain additional IP addresses or pppd options; see
+       pppd(8) for details.
+
+       The third field has three subfields, separated by colons.  The
+       first subfield is the index of the modulus and generator from
+       SRP's /etc/tpasswd.conf.  The special value 0 is used to
+       represent the well-known modulus and generator specified in the
+       EAP SRP-SHA1 draft.  The second subfield is the password
+       validator.  The third is the password salt.  These latter two
+       values are encoded in base64 notation.
+</pre>

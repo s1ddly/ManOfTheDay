@@ -1,0 +1,15 @@
+<pre>
+       The <i>uncompress</i> utility shall restore files to their original
+       state after they have been compressed using the <i>compress</i> utility.
+       If no files are specified, the standard input shall be
+       uncompressed to the standard output. If the invoking process has
+       appropriate privileges, the ownership, modes, access time, and
+       modification time of the original file shall be preserved.
+
+       This utility shall support the uncompressing of any files
+       produced by the <i>compress</i> utility on the same implementation. For
+       files produced by <i>compress</i> on other systems, <i>uncompress</i> supports
+       9 to 14-bit compression (see <a href="https://man7.org/linux/man-pages/man1/compress.1p.html">compress(1p)</a>, <b>-b</b>); it is
+       implementation-defined whether values of <b>-b </b>greater than 14 are
+       supported.
+</pre>

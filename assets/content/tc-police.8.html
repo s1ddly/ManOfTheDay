@@ -1,0 +1,18 @@
+<pre>
+       The <b>police </b>action allows limiting of the byte or packet rate of
+       traffic matched by the filter it is attached to.
+
+       There are two different algorithms available to measure the byte
+       rate: The first one uses an internal dual token bucket and is
+       configured using the <b>rate</b>, <b>burst</b>, <b>mtu</b>, <b>peakrate</b>, <b>overhead </b>and
+       <b>linklayer </b>parameters. The second one uses an in-kernel sampling
+       mechanism. It can be fine-tuned using the <b>estimator </b>filter
+       parameter.
+
+       There is one algorithm available to measure packet rate and it is
+       similar to the first algorithm described for byte rate. It is
+       configured using the <b>pkt_rate </b>and <b>pkt_burst </b>parameters.
+
+       At least one of the <b>rate </b>and <b>pkt_rate </b>parameters must be
+       configured.
+</pre>

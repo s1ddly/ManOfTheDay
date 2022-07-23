@@ -1,0 +1,47 @@
+<pre>
+       <b>Rsyslogd </b>is a system utility providing support for message
+       logging.  Support of both internet and unix domain sockets
+       enables this utility to support both local and remote logging.
+
+       <b>Note that this version of rsyslog ships with extensive</b>
+       <b>documentation in HTML format.  </b>This is provided in the ./doc
+       subdirectory and probably in a separate package if you installed
+       rsyslog via a packaging system.  To use rsyslog's advanced
+       features, you <b>need </b>to look at the HTML documentation, because the
+       man pages only covers basic aspects of operation.  <b>For details</b>
+       <b>and configuration examples, see the rsyslog.conf (5) man page and</b>
+       <b>the online documentation at <a href="https://man7.org/linux/man-pagestps://www.rsyslog.com/doc/&lt;/b&gt;">https://www.rsyslog.com/doc/</a></b>
+
+       <a href="https://man7.org/linux/man-pages/man8/rsyslogd.8.html">Rsyslogd(8)</a> is derived from the sysklogd package which in turn is
+       derived from the stock BSD sources.
+
+       <b>Rsyslogd </b>provides a kind of logging that many modern programs
+       use.  Every logged message contains at least a time and a
+       hostname field, normally a program name field, too, but that
+       depends on how trusty the logging program is. The rsyslog package
+       supports free definition of output formats via templates. It also
+       supports precise timestamps and writing directly to databases. If
+       the database option is used, tools like phpLogCon can be used to
+       view the log data.
+
+       While the <b>rsyslogd </b>sources have been heavily modified a couple of
+       notes are in order.  First of all there has been a systematic
+       attempt to ensure that rsyslogd follows its default, standard BSD
+       behavior. Of course, some configuration file changes are
+       necessary in order to support the template system. However,
+       rsyslogd should be able to use a standard syslog.conf and act
+       like the original syslogd. However, an original syslogd will not
+       work correctly with a rsyslog-enhanced configuration file. At
+       best, it will generate funny looking file names.  The second
+       important concept to note is that this version of rsyslogd
+       interacts transparently with the version of syslog found in the
+       standard libraries.  If a binary linked to the standard shared
+       libraries fails to function correctly we would like an example of
+       the anomalous behavior.
+
+       The main configuration file <i>/etc/rsyslog.conf</i> or an alternative
+       file, given with the <b>-f </b>option, is read at startup.  Any lines
+       that begin with the hash mark (``#'') and empty lines are
+       ignored.  If an error occurs during parsing the error element is
+       ignored. It is tried to parse the rest of the line.
+</pre>

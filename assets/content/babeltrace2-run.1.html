@@ -1,0 +1,142 @@
+<pre>
+       The <b>run </b>command creates a Babeltrace 2 trace processing graph and
+       runs it.
+
+       See <a href="https://man7.org/linux/man-pages/man7/babeltrace2-intro.7.html">babeltrace2-intro(7)</a> to learn more about the Babeltrace 2
+       project and its core concepts.
+
+       The <b>run </b>command dynamically loads Babeltrace 2 plugins which
+       supply component classes. With the <b>run </b>command, you specify which
+       component classes to instantiate as components and how to connect
+       them.
+
+       The steps to write a <b>babeltrace2 run </b>command line are:
+
+        1. Specify which component classes to instantiate as components
+           with many <b>--component </b>options and how to configure them.
+
+           This is the <i>COMPONENTS</i> part of the synopsis. See “Create
+           components” to learn more.
+
+        2. Specify how to connect components together with one or more
+           <b>--connect </b>options.
+
+           See “Connect components” to learn more.
+
+           <b>Note</b>
+           The <a href="https://man7.org/linux/man-pages/man1/babeltrace2-convert.1.html">babeltrace2-convert(1)</a> command is a specialization of the
+           <b>run </b>command for the very common case of converting one or
+           more traces: it generates a <b>run </b>command line and executes it.
+           You can use its <b>--run-args </b>or <b>--run-args-0 </b>option to make it
+           print the equivalent <b>run </b>command line instead.
+
+   <b>Create components</b>
+       To create a component, use the <b>--component </b>option. This option
+       specifies:
+
+       •   The name of the component, unique amongst all the component
+           names of the trace processing graph.
+
+       •   The type of the component class to instantiate: source,
+           filter, or sink.
+
+       •   The name of the plugin in which to find the component class
+           to instantiate.
+
+       •   The name of the component class to instantiate.
+
+       Use the <b>--component </b>option multiple times to create multiple
+       components. You can instantiate the same component class multiple
+       times as different components.
+
+       At any point in the command line, the <b>--base-params </b>sets the
+       current base initialization parameters and the <b>--reset-base-</b>
+       <b>params </b>resets them. When you specify a <b>--component </b>option, its
+       initial initialization parameters are a copy of the current base
+       initialization parameters.
+
+       Immediately following a <b>--component </b>option on the command line,
+       the created component is known as the <i>current component</i> (until
+       the next <b>--component </b>option).
+
+       The <b>--params</b>=<i>PARAMS</i> option adds parameters to the current
+       component’s initialization parameters. If <i>PARAMS</i> contains a key
+       which exists in the current component’s initialization
+       parameters, this parameter is replaced.
+
+   <b>Connect components</b>
+       The components which you create from component classes with the
+       <b>--component </b>option (see “Create components”) add input and output
+       <i>ports</i> depending on their type. An output port is from where
+       messages, like trace events, are sent. An input port is where
+       messages are received. For a given component, each port has a
+       unique name.
+
+       The purpose of the <b>run </b>command is to create a trace processing
+       graph, that is, to know which component ports to connect
+       together. The command achieves this with the help of the
+       connection rules that you provide with one or more
+       <b>--connect</b>=<i>CONN-RULE</i> options.
+
+       The format of <i>CONN-RULE</i> is:
+
+           <i>UP-COMP-PAT</i>[.<i>UP-PORT-PAT</i>]:<i>DOWN-COMP-PAT</i>[.<i>DOWN-PORT-PAT</i>]
+
+       <i>UP-COMP-PAT</i>
+           Upstream component name pattern.
+
+       <i>UP-PORT-PAT</i>
+           Upstream (output) port name pattern.
+
+       <i>DOWN-COMP-PAT</i>
+           Downstream component name pattern.
+
+       <i>DOWN-PORT-PAT</i>
+           Downstream (input) port name pattern.
+
+       When a source or filter component adds a new output port within
+       the processing graph, the <b>run </b>command does the following to find
+       an input port to connect it to:
+
+           For each connection rule (--connect options, in order):
+             If the output port's component's name matches UP-COMP-PAT and the
+             output port's name matches UP-PORT-PAT:
+               For each component COMP in the trace processing graph:
+                 If the name of COMP matches DOWN-COMP-PAT:
+                   Select the first input port of COMP of which the name matches
+                   DOWN-PORT-PAT, or fail with no match.
+
+           No possible connection: fail with no match.
+
+       <i>UP-COMP-PAT</i>, <i>UP-PORT-PAT</i>, <i>DOWN-COMP-PAT</i>, and <i>DOWN-PORT-PAT</i> are
+       globbing patterns where only the wildcard character, <b>*</b>, is
+       special: it matches zero or more characters. You must escape the
+       <b>*</b>, <b>?</b>, <b>[</b>, <b>.</b>, <b>:</b>, and <b>\ </b>characters with <b>\</b>.
+
+       When you do not specify <i>UP-PORT-PAT</i> or <i>DOWN-PORT-PAT</i>, they are
+       equivalent to <b>*</b>.
+
+       You can leverage this connection mechanism to specify fallbacks
+       with a careful use of wildcards, as the order of the <b>--connect</b>
+       options on the command line is significant. For example:
+
+           --connect='A.out*:B.in*' --connect=A:B --connect='*:C'
+
+       With those connection rules, the <b>run </b>command connects:
+
+       •   Any output port of which the name starts with <b>out </b>of
+           component <b>A </b>to the first input port of which the name starts
+           with <b>in </b>of component <b>B</b>.
+
+       •   Any other output port of component <b>A </b>to the first available
+           input port of component <b>B</b>.
+
+       •   Any other output port (of any component except <b>A</b>) to the
+           first available input port of component <b>C</b>.
+
+       The <b>run </b>command fails when it cannot find an input port to which
+       to connect a given output port using the provided connection
+       rules.
+
+       See “EXAMPLES” for more examples.
+</pre>

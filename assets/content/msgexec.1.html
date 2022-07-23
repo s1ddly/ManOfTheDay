@@ -1,0 +1,41 @@
+<pre>
+       Applies a command to all translations of a translation catalog.
+       The COMMAND can be any program that reads a translation from
+       standard input.  It is invoked once for each translation.  Its
+       output becomes msgexec's output.  msgexec's return code is the
+       maximum return code across all invocations.
+
+       A special builtin command called '0' outputs the translation,
+       followed by a null byte.  The output of "msgexec 0" is suitable
+       as input for "xargs <b>-0</b>".
+
+   <b>Command input:</b>
+       <b>--newline</b>
+              add newline at the end of input
+
+       Mandatory arguments to long options are mandatory for short
+       options too.
+
+   <b>Input file location:</b>
+       <b>-i</b>, <b>--input</b>=<i>INPUTFILE</i>
+              input PO file
+
+       <b>-D</b>, <b>--directory</b>=<i>DIRECTORY</i>
+              add DIRECTORY to list for input files search
+
+       If no input file is given or if it is -, standard input is read.
+
+   <b>Input file syntax:</b>
+       <b>-P</b>, <b>--properties-input</b>
+              input file is in Java .properties syntax
+
+       <b>--stringtable-input</b>
+              input file is in NeXTstep/GNUstep .strings syntax
+
+   <b>Informative output:</b>
+       <b>-h</b>, <b>--help</b>
+              display this help and exit
+
+       <b>-V</b>, <b>--version</b>
+              output version information and exit
+</pre>

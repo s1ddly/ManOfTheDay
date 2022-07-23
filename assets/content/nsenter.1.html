@@ -1,0 +1,55 @@
+<pre>
+       The <b>nsenter </b>command executes <i>program</i> in the namespace(s) that are
+       specified in the command-line options (described below). If
+       <i>program</i> is not given, then "${SHELL}" is run (default: <i>/bin/sh</i>).
+
+       Enterable namespaces are:
+
+       <b>mount namespace</b>
+           Mounting and unmounting filesystems will not affect the rest
+           of the system, except for filesystems which are explicitly
+           marked as shared (with <b>mount --make-shared</b>; see
+           <i>/proc/self/mountinfo</i> for the <b>shared </b>flag). For further
+           details, see <a href="https://man7.org/linux/man-pages/man7/mount_namespaces.7.html">mount_namespaces(7)</a> and the discussion of the
+           <b>CLONE_NEWNS </b>flag in <a href="https://man7.org/linux/man-pages/man2/clone.2.html">clone(2)</a>.
+
+       <b>UTS namespace</b>
+           Setting hostname or domainname will not affect the rest of
+           the system. For further details, see <a href="https://man7.org/linux/man-pages/man7/uts_namespaces.7.html">uts_namespaces(7)</a>.
+
+       <b>IPC namespace</b>
+           The process will have an independent namespace for POSIX
+           message queues as well as System V message queues, semaphore
+           sets and shared memory segments. For further details, see
+           <a href="https://man7.org/linux/man-pages/man7/ipc_namespaces.7.html">ipc_namespaces(7)</a>.
+
+       <b>network namespace</b>
+           The process will have independent IPv4 and IPv6 stacks, IP
+           routing tables, firewall rules, the <i>/proc/net</i> and
+           <i>/sys/class/net</i> directory trees, sockets, etc. For further
+           details, see <a href="https://man7.org/linux/man-pages/man7/network_namespaces.7.html">network_namespaces(7)</a>.
+
+       <b>PID namespace</b>
+           Children will have a set of PID to process mappings separate
+           from the <b>nsenter </b>process. <b>nsenter </b>will fork by default if
+           changing the PID namespace, so that the new program and its
+           children share the same PID namespace and are visible to each
+           other. If <b>--no-fork </b>is used, the new program will be exec’ed
+           without forking. For further details, see <a href="https://man7.org/linux/man-pages/man7/pid_namespaces.7.html">pid_namespaces(7)</a>.
+
+       <b>user namespace</b>
+           The process will have a distinct set of UIDs, GIDs and
+           capabilities. For further details, see <a href="https://man7.org/linux/man-pages/man7/user_namespaces.7.html">user_namespaces(7)</a>.
+
+       <b>cgroup namespace</b>
+           The process will have a virtualized view of
+           <i>/proc/self/cgroup</i>, and new cgroup mounts will be rooted at
+           the namespace cgroup root. For further details, see
+           <a href="https://man7.org/linux/man-pages/man7/cgroup_namespaces.7.html">cgroup_namespaces(7)</a>.
+
+       <b>time namespace</b>
+           The process can have a distinct view of <b>CLOCK_MONOTONIC</b>
+           and/or <b>CLOCK_BOOTTIME </b>which can be changed using
+           <i>/proc/self/timens_offsets</i>. For further details, see
+           <a href="https://man7.org/linux/man-pages/man7/time_namespaces.7.html">time_namespaces(7)</a>.
+</pre>

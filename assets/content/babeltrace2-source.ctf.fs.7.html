@@ -1,0 +1,134 @@
+<pre>
+       A Babeltrace 2 <b>source.ctf.fs </b>message iterator reads one or more
+       CTF (see &lt;<a href="https://man7.org/linux/man-pagestps://diamon.org/ctf/">https://diamon.org/ctf/</a>&gt;) 1.8 streams on the file
+       system and emits corresponding messages.
+
+           CTF streams on
+           the file system
+             |
+             |   +---------------------+
+             |   |      src.ctf.fs     |
+             |   |                     |
+             '--&gt;|    ...5c847 | 0 | 0 @--&gt; Stream 0 messages
+                 |    ...5c847 | 0 | 1 @--&gt; Stream 1 messages
+                 |    ...5c847 | 0 | 2 @--&gt; Stream 2 messages
+                 +---------------------+
+
+       See <a href="https://man7.org/linux/man-pages/man7/babeltrace2-intro.7.html">babeltrace2-intro(7)</a> to learn more about the Babeltrace 2
+       project and its core concepts.
+
+   <b>Input</b>
+       A <b>source.ctf.fs </b>component opens a single <i>logical</i> CTF trace. A
+       logical CTF trace contains one or more <i>physical</i> CTF traces. A
+       physical CTF trace on the file system is a directory which
+       contains:
+
+       •   One metadata stream file named <b>metadata</b>.
+
+       •   One or more data stream files, that is, any file with a name
+           that does not start with <b>.  </b>and which is not <b>metadata</b>.
+
+       •   <b>Optional</b>: One LTTng (see &lt;<a href="https://man7.org/linux/man-pagestps://lttng.org/">https://lttng.org/</a>&gt;) index
+           directory named <b>index</b>.
+
+       If the logical CTF trace to handle contains more than one
+       physical CTF trace, then all the physical CTF traces must have a
+       trace UUID and all UUIDs must be the same. Opening more than one
+       physical CTF trace to constitute a single logical CTF trace is
+       needed to support LTTng’s tracing session rotation feature, for
+       example (see <a href="https://man7.org/linux/man-pages/man1/lttng-rotate.1.html">lttng-rotate(1)</a> starting from LTTng 2.11).
+
+       You specify which physical CTF traces to open and read with the
+       <b>inputs </b>array parameter. Each entry in this array is the path to a
+       physical CTF trace directory, that is, the directory directly
+       containing the stream files.
+
+       A <b>source.ctf.fs </b>component does not recurse into directories to
+       find CTF traces. However, the component class provides the
+       <b>babeltrace.support-info </b>query object which indicates whether or
+       not a given directory looks like a CTF trace directory (see
+       “<b>babeltrace.support-info</b>”).
+
+       The component creates one output port for each logical CTF data
+       stream. More than one physical CTF data stream file can support a
+       single logical CTF data stream (LTTng’s trace file rotation and
+       tracing session rotation can cause this).
+
+       If two or more data stream files contain the same packets, a
+       <b>source.ctf.fs </b>message iterator reads each of them only once so
+       that it never emits duplicated messages. This feature makes it
+       possible, for example, to open overlapping LTTng snapshots (see
+       &lt;<a href="https://man7.org/linux/man-pagestps://lttng.org/docs/#doc-taking-a-snapshot">https://lttng.org/docs/#doc-taking-a-snapshot</a>&gt;) with a single
+       <b>source.ctf.fs </b>component and silently discard the duplicated
+       packets.
+
+   <b>Trace quirks</b>
+       Many tracers produce CTF traces. A <b>source.ctf.fs </b>component makes
+       some effort to support as many CTF traces as possible, even those
+       with malformed streams.
+
+       Generally:
+
+       •   If the <b>timestamp_begin </b>or <b>timestamp_end </b>packet context field
+           class exists, but it is not mapped to a clock class, and
+           there’s only one clock class at this point in the metadata
+           stream, the component maps the field class to this unique
+           clock class.
+
+       A <b>source.ctf.fs </b>component has special quirk handling for some
+       LTTng (see &lt;<a href="https://man7.org/linux/man-pagestps://lttng.org/">https://lttng.org/</a>&gt;) and barectf (see
+       &lt;<a href="https://man7.org/linux/man-pagestps://lttng.org/">https://lttng.org/</a>&gt;) traces, depending on the tracer’s version:
+
+       All LTTng versions
+
+           •   The component sets the <b>monotonic </b>clock class’s origin to
+               the Unix epoch so that different LTTng traces are always
+               correlatable.
+
+               This is the equivalent of setting the <b>force-clock-class-</b>
+               <b>origin-unix-epoch </b>parameter to true.
+
+           •   For a given data stream, for all the contiguous last
+               packets of which the <b>timestamp_end </b>context field is 0,
+               the message iterator uses the packet’s last event
+               record’s time as the packet end message’s time.
+
+               This is useful for the traces which <a href="https://man7.org/linux/man-pages/man1/lttng-crash.1.html">lttng-crash(1)</a>
+               generates.
+
+       LTTng-UST up to, but excluding, 2.11.0, LTTng-modules up to, but
+       excluding, 2.9.13, LTTng-modules from 2.10.0 to 2.10.9
+
+           •   For a given packet, the message iterator uses the
+               packet’s last event record’s time as the packet end
+               message’s time, ignoring the packet context’s
+               <b>timestamp_end </b>field.
+
+       barectf up to, but excluding, 2.3.1
+
+           •   For a given packet, the message iterator uses the
+               packet’s first event record’s time as the packet
+               beginning message’s time, ignoring the packet context’s
+               <b>timestamp_begin </b>field.
+
+   <b>CTF compliance</b>
+       A <b>source.ctf.fs </b>component decodes traces as per CTF 1.8.3 (see
+       &lt;<a href="https://man7.org/linux/man-pagestps://diamon.org/ctf/v1.8.3/">https://diamon.org/ctf/v1.8.3/</a>&gt;), except:
+
+       •   It only supports integer field classes (TSDL <b>integer </b>block)
+           with sizes from 1 to 64.
+
+       •   It only supports 32-bit and 64-bit floating point number
+           classes (TSDL <b>floating_point </b>block).
+
+       •   It doesn’t support § 4.1.6 (“GNU/C bitfields”).
+
+       •   It doesn’t support TSDL <b>callsite </b>blocks: the parser simply
+           ignores them.
+
+       •   It only supports a single clock class (TSDL <b>clock </b>block)
+           reference per stream class (TSDL <b>stream </b>block).
+
+       •   It doesn’t support the checksum, compression, and encryption
+           features of metadata stream packets.
+</pre>

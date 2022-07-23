@@ -1,0 +1,21 @@
+<pre>
+       Flatpak maintains a list of patterns that define which refs are
+       pinned. A pinned ref will never be automatically uninstalled (as
+       are unused runtimes periodically). This can be useful if for
+       example you are using a runtime for development purposes.
+
+       Runtimes that are explicitly installed, rather than installed as
+       a dependency of something else, are automatically pinned.
+
+       The patterns are just a partial ref, with the * character
+       matching anything within that part of the ref. Only runtimes can
+       be pinned, not apps. Here are some example patterns:
+
+           org.some.Runtime
+           org.some.Runtime//unstable
+           runtime/org.domain.*
+           org.some.Runtime/arm
+
+       To list the current set of pins, run this command without any
+       patterns.
+</pre>

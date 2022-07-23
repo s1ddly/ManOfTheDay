@@ -1,0 +1,14 @@
+<pre>
+       <b>ping </b>uses the ICMP protocol's mandatory ECHO_REQUEST datagram to
+       elicit an ICMP ECHO_RESPONSE from a host or gateway. ECHO_REQUEST
+       datagrams (“pings”) have an IP and ICMP header, followed by a
+       struct timeval and then an arbitrary number of “pad” bytes used
+       to fill out the packet.
+
+       <b>ping </b>works with both IPv4 and IPv6. Using only one of them
+       explicitly can be enforced by specifying <b>-4 </b>or <b>-6</b>.
+
+       <b>ping </b>can also send IPv6 Node Information Queries (RFC4620).
+       Intermediate <i>hop</i>s may not be allowed, because IPv6 source routing
+       was deprecated (RFC5095).
+</pre>

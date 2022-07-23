@@ -1,0 +1,27 @@
+<pre>
+       The <b>chpasswd </b>command reads a list of user name and password pairs
+       from standard input and uses this information to update a group
+       of existing users. Each line is of the format:
+
+       <i>user_name</i>:<i>password</i>
+
+       By default the passwords must be supplied in clear-text, and are
+       encrypted by <b>chpasswd</b>. Also the password age will be updated, if
+       present.
+
+       By default, passwords are encrypted by PAM, but (even if not
+       recommended) you can select a different encryption method with
+       the <b>-e</b>, <b>-m</b>, or <b>-c </b>options.
+
+       Except when PAM is used to encrypt the passwords, <b>chpasswd </b>first
+       updates all the passwords in memory, and then commits all the
+       changes to disk if no errors occurred for any user.
+
+       When PAM is used to encrypt the passwords (and update the
+       passwords in the system database) then if a password cannot be
+       updated <b>chpasswd </b>continues updating the passwords of the next
+       users, and will return an error code on exit.
+
+       This command is intended to be used in a large system environment
+       where many accounts are created at a single time.
+</pre>

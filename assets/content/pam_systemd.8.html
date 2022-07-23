@@ -1,0 +1,53 @@
+<pre>
+       <b>pam_systemd </b>registers user sessions with the systemd login
+       manager <a href="https://man7.org/linux/man-pages/man8/systemd-logind.service.8.html">systemd-logind.service(8)</a>, and hence the systemd control
+       group hierarchy.
+
+       The module also applies various resource management and runtime
+       parameters to the new session, as configured in the <b>JSON User</b>
+       <b>Records</b><b></b>[1] of the user, when one is defined.
+
+       On login, this module — in conjunction with
+       systemd-logind.service — ensures the following:
+
+        1. If it does not exist yet, the user runtime directory
+           /run/user/$UID is either created or mounted as new "tmpfs"
+           file system with quota applied, and its ownership changed to
+           the user that is logging in.
+
+        2. The <i>$XDG_SESSION_ID</i> environment variable is initialized. If
+           auditing is available and <b>pam_loginuid.so </b>was run before this
+           module (which is highly recommended), the variable is
+           initialized from the auditing session id
+           (/proc/self/sessionid). Otherwise, an independent session
+           counter is used.
+
+        3. A new systemd scope unit is created for the session. If this
+           is the first concurrent session of the user, an implicit
+           per-user slice unit below user.slice is automatically created
+           and the scope placed into it. An instance of the system
+           service user@.service, which runs the systemd user manager
+           instance, is started.
+
+        4. The "$TZ", "$EMAIL" and "$LANG" environment variables are
+           configured for the user, based on the respective data from
+           the user's JSON record (if it is defined). Moreover, any
+           environment variables explicitly configured in the user
+           record are imported, and the umask, nice level, and resource
+           limits initialized.
+
+       On logout, this module ensures the following:
+
+        1. If enabled in <a href="https://man7.org/linux/man-pages/man5/logind.conf.5.html">logind.conf(5)</a> (<i>KillUserProcesses=</i>), all
+           processes of the session are terminated. If the last
+           concurrent session of a user ends, the user's systemd
+           instance will be terminated too, and so will the user's slice
+           unit.
+
+        2. If the last concurrent session of a user ends, the user
+           runtime directory /run/user/$UID and all its contents are
+           removed, too.
+
+       If the system was not booted up with systemd as init system, this
+       module does nothing and immediately returns <b>PAM_SUCCESS</b>.
+</pre>

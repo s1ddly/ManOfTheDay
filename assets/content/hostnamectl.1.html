@@ -1,0 +1,22 @@
+<pre>
+       <b>hostnamectl </b>may be used to query and change the system hostname
+       and related settings.
+
+       <a href="https://man7.org/linux/man-pages/man8/systemd-hostnamed.service.8.html">systemd-hostnamed.service(8)</a> and this tool distinguish three
+       different hostnames: the high-level "pretty" hostname which might
+       include all kinds of special characters (e.g. "Lennart's
+       Laptop"), the "static" hostname which is the user-configured
+       hostname (e.g. "lennarts-laptop"), and the transient hostname
+       which is a fallback value received from network configuration
+       (e.g. "node12345678"). If a static hostname is set to a valid
+       value, then the transient hostname is not used.
+
+       Note that the pretty hostname has little restrictions on the
+       characters and length used, while the static and transient
+       hostnames are limited to the usually accepted characters of
+       Internet domain names, and 64 characters at maximum (the latter
+       being a Linux limitation).
+
+       Use <a href="https://man7.org/linux/man-pages/man1/systemd-firstboot.1.html">systemd-firstboot(1)</a> to initialize the system hostname for
+       mounted (but not booted) system images.
+</pre>

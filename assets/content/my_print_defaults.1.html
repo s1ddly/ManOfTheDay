@@ -1,0 +1,65 @@
+<pre>
+       <b>my_print_defaults </b>displays the options that are present in option
+       groups of option files. The output indicates what options will be
+       used by programs that read the specified option groups. For
+       example, the <b>mysqlcheck </b>program reads the [mysqlcheck] and
+       [client] option groups. To see what options are present in those
+       groups in the standard option files, invoke <b>my_print_defaults</b>
+       like this:
+
+           shell&gt; <b>my_print_defaults mysqlcheck client</b>
+           --user=myusername
+           --password=secret
+           --host=localhost
+
+       The output consists of options, one per line, in the form that
+       they would be specified on the command line.
+
+       <b>my_print_defaults </b>supports the following options.
+
+       •   <b>--help</b>, <b>-?</b>
+
+           Display a help message and exit.
+
+       •    <b>--defaults-file=</b><i>file_name</i>, <b>-c </b><i>file_name</i>
+
+           Read only the given option file. If no extension is given,
+           default extension(.ini or .cnf) will be used. If
+           <b>--defaults-file </b>is the first option, then read this file
+           only, do not read global or per-user config files; should be
+           the first option.
+
+       •   <b>--debug=</b><i>debug_options</i>, <b>-# </b><i>debug_options</i>
+
+           Write a debugging log. A typical <i>debug_options</i> string is
+           ´d:t:o,<i>file_name</i>´. The default is
+           ´d:t:o,/tmp/my_print_defaults.trace´.
+
+       •   <b>--defaults-extra-file=</b><i>file_name</i>, <b>-e </b><i>file_name</i>
+
+           Read this option file after the global option file but (on
+           Unix) before the user option file. Should be the first
+           option.
+
+       •   <b>--defaults-group-suffix=</b><i>suffix</i>, <b>-g </b><i>suffix</i>
+
+           In addition to the groups named on the command line, read
+           groups that have the given suffix.
+
+       •   <b>--mysqld</b>
+
+           Read the same set of groups that the mysqld binary does.
+
+       •   <b>--no-defaults</b>, <b>-n</b>
+
+           Return an empty string (useful for scripts).
+
+       •   <b>--verbose</b>, <b>-v</b>
+
+           Verbose mode. Print more information about what the program
+           does.
+
+       •   <b>--version</b>, <b>-V</b>
+
+           Display version information and exit.
+</pre>

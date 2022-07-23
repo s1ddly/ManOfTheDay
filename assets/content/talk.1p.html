@@ -1,0 +1,62 @@
+<pre>
+       The <i>talk</i> utility is a two-way, screen-oriented communication
+       program.
+
+       When first invoked, <i>talk</i> shall send a message similar to:
+
+           Message from &lt;<i>unspecified string</i>&gt;
+           talk: connection requested by <i>your_address</i>
+           talk: respond with: talk <i>your_address</i>
+
+       to the specified <i>address</i>.  At this point, the recipient of the
+       message can reply by typing:
+
+           talk <i>your_address</i>
+
+       Once communication is established, the two parties can type
+       simultaneously, with their output displayed in separate regions
+       of the screen. Characters shall be processed as follows:
+
+        *  Typing the &lt;alert&gt; character shall alert the recipient's
+           terminal.
+
+        *  Typing &lt;control&gt;‐L shall cause the sender's screen regions to
+           be refreshed.
+
+        *  Typing the erase and kill characters shall affect the
+           sender's terminal in the manner described by the <b>termios</b>
+           interface in the Base Definitions volume of POSIX.1‐2017,
+           <i>Chapter 11</i>, <i>General Terminal Interface</i>.
+
+        *  Typing the interrupt or end-of-file characters shall
+           terminate the local <i>talk</i> utility. Once the <i>talk</i> session has
+           been terminated on one side, the other side of the <i>talk</i>
+           session shall be notified that the <i>talk</i> session has been
+           terminated and shall be able to do nothing except exit.
+
+        *  Typing characters from <i>LC_CTYPE</i> classifications <b>print </b>or
+           <b>space </b>shall cause those characters to be sent to the
+           recipient's terminal.
+
+        *  When and only when the <i>stty</i> <b>iexten </b>local mode is enabled, the
+           existence and processing of additional special control
+           characters and multi-byte or single-byte functions shall be
+           implementation-defined.
+
+        *  Typing other non-printable characters shall cause
+           implementation-defined sequences of printable characters to
+           be sent to the recipient's terminal.
+
+       Permission to be a recipient of a <i>talk</i> message can be denied or
+       granted by use of the <i>mesg</i> utility. However, a user's privilege
+       may further constrain the domain of accessibility of other users'
+       terminals. The <i>talk</i> utility shall fail when the user lacks
+       appropriate privileges to perform the requested action.
+
+       Certain block-mode terminals do not have all the capabilities
+       necessary to support the simultaneous exchange of messages
+       required for <i>talk</i>.  When this type of exchange cannot be
+       supported on such terminals, the implementation may support an
+       exchange with reduced levels of simultaneous interaction or it
+       may report an error describing the terminal-related deficiency.
+</pre>

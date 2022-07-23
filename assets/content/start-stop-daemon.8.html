@@ -1,0 +1,16 @@
+<pre>
+       <b>start-stop-daemon </b>is used to control the creation and termination
+       of system-level processes.  Using one of the matching options,
+       <b>start-stop-daemon </b>can be configured to find existing instances of
+       a running process.
+
+       Note: unless <b>--pid </b>or <b>--pidfile </b>are specified, <b>start-stop-daemon</b>
+       behaves similar to <a href="https://man7.org/linux/man-pages/man1/killall.1.html">killall(1)</a>.  <b>start-stop-daemon </b>will scan the
+       process table looking for any processes which match the process
+       name, parent pid, uid, and/or gid (if specified). Any matching
+       process will prevent <b>--start </b>from starting the daemon. All
+       matching processes will be sent the TERM signal (or the one
+       specified via <b>--signal </b>or <b>--retry</b>) if <b>--stop </b>is specified. For
+       daemons which have long-lived children which need to live through
+       a <b>--stop</b>, you must specify a pidfile.
+</pre>

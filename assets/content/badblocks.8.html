@@ -1,0 +1,18 @@
+<pre>
+       <b>badblocks </b>is used to search for bad blocks on a device (usually a
+       disk partition).  <i>device</i> is the special file corresponding to the
+       device (e.g <i>/dev/hdc1</i>).  <i>last_block</i> is the last block to be
+       checked; if it is not specified, the last block on the device is
+       used as a default.  <i>first_block</i> is an optional parameter
+       specifying the starting block number for the test, which allows
+       the testing to start in the middle of the disk.  If it is not
+       specified the first block on the disk is used as a default.
+
+       <b>Important note: </b>If the output of <b>badblocks </b>is going to be fed to
+       the <b>e2fsck </b>or <b>mke2fs </b>programs, it is important that the block
+       size is properly specified, since the block numbers which are
+       generated are very dependent on the block size in use by the file
+       system.  For this reason, it is strongly recommended that users
+       <b>not </b>run <b>badblocks </b>directly, but rather use the <b>-c </b>option of the
+       <b>e2fsck </b>and <b>mke2fs </b>programs.
+</pre>

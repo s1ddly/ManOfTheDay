@@ -1,0 +1,36 @@
+<pre>
+       The <b>sadc </b>command samples system data a specified number of times
+       (<i>count</i>) at a specified interval measured in seconds (<i>interval</i>).
+       It writes in binary format to the specified <i>outfile</i> or to
+       standard output. If <i>outfile</i> is set to <b>-</b>, then <b>sadc </b>uses the
+       standard system activity daily data file (see below).  In this
+       case, if the file already exists, <b>sadc </b>will overwrite it if it is
+       from a previous month. By default <b>sadc </b>collects most of the data
+       available from the kernel.  But there are also optional metrics,
+       for which the relevant options must be explicitly passed to <b>sadc</b>
+       to be collected (see option <b>-S </b>below).
+
+       The standard system activity daily data file is named <i>saDD</i> unless
+       option <b>-D </b>is used, in which case its name is <i>saYYYYMMDD</i>, where
+       <i>YYYY</i> stands for the current year, <i>MM</i> for the current month and <i>DD</i>
+       for the current day. By default it is located in the <i>/var/log/sa</i>
+       directory. Yet it is possible to specify an alternate location
+       for it: If <i>outfile</i> is a directory (instead of a plain file) then
+       it will be considered as the directory where the standard system
+       activity daily data file will be saved.
+
+       When the <i>count</i> parameter is not specified, <b>sadc </b>writes its data
+       endlessly. When both <i>interval</i> and <i>count</i> are not specified, and
+       option <b>-C </b>is not used, a dummy record, which is used at system
+       startup to mark the time when the counter restarts from 0, will
+       be written.  For example, one of the system startup script may
+       write the restart mark to the daily data file by the command
+       entry:
+
+       <b>/usr/local/lib64/sa/sadc -</b>
+
+       The <b>sadc </b>command is intended to be used as a backend to the <b>sar</b>
+       command.
+
+       Note: The <b>sadc </b>command only reports on local activities.
+</pre>

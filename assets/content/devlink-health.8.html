@@ -1,0 +1,79 @@
+<pre>
+   <b>devlink health show - Show status and configuration on all supported</b>
+       <b>reporters.</b>
+       Displays info about reporters registered on devlink devices and
+       ports.
+
+       <i>DEV</i> - specifies the devlink device.
+       <i>DEV/PORT_INDEX</i> - specifies the devlink port.
+
+       <i>REPORTER</i> - specifies the reporter's name registered on specified
+       devlink device or port.
+
+   <b>devlink health recover - Initiate a recovery operation on a reporter.</b>
+       This action performs a recovery and increases the recoveries
+       counter on success.
+
+       <i>DEV</i> - specifies the devlink device.
+       <i>DEV/PORT_INDEX</i> - specifies the devlink port.
+
+       <i>REPORTER</i> - specifies the reporter's name registered on specified
+       devlink device or port.
+
+   <b>devlink health diagnose - Retrieve diagnostics data on a reporter.</b>
+       <i>DEV</i> - specifies the devlink device.
+       <i>DEV/PORT_INDEX</i> - specifies the devlink port.
+
+       <i>REPORTER</i> - specifies the reporter's name registered on specified
+       devlink device or port.
+
+   <b>devlink health test - Trigger a test event on a reporter.</b>
+       <i>DEV</i> - specifies the devlink device.
+
+       <i>REPORTER</i> - specifies the reporter's name registered on the
+       devlink device.
+
+   <b>devlink health dump show - Display the last saved dump.</b>
+       devlink health saves a single dump per reporter. If an dump is
+       not already stored by the Devlink, this command will generate a
+       new
+       dump. The dump can be generated either automatically when a
+       reporter reports on an error or manually at the user's request.
+
+       <i>DEV</i> - specifies the devlink device.
+       <i>DEV/PORT_INDEX</i> - specifies the devlink port.
+
+       <i>REPORTER</i> - specifies the reporter's name registered on specified
+       devlink device or port.
+
+   <b>devlink health dump clear - Delete the saved dump.</b>
+       Deleting the saved dump enables a generation of a new dump on
+       the next "devlink health dump show" command.
+
+       <i>DEV</i> - specifies the devlink device.
+       <i>DEV/PORT_INDEX</i> - specifies the devlink port.
+
+       <i>REPORTER</i> - specifies the reporter's name registered on specified
+       devlink device or port.
+
+   <b>devlink health set - Configure health reporter.</b>
+       Please note that some params are not supported on a reporter
+       which doesn't support a recovery or dump method.
+
+       <i>DEV</i> - specifies the devlink device.
+       <i>DEV/PORT_INDEX</i> - specifies the devlink port.
+
+       <i>REPORTER</i> - specifies the reporter's name registered on specified
+       devlink device or port.
+
+       <b>grace_period </b><i>MSEC</i>
+              Time interval between consecutive auto recoveries.
+
+       <b>auto_recover </b>{ <b>true </b>| <b>false </b>}
+              Indicates whether the devlink should execute automatic
+              recover on error.
+
+       <b>auto_dump </b>{ <b>true </b>| <b>false </b>}
+              Indicates whether the devlink should execute automatic
+              dump on error.
+</pre>

@@ -1,0 +1,77 @@
+<pre>
+       POSIX semaphores allow processes and threads to synchronize their
+       actions.
+
+       A semaphore is an integer whose value is never allowed to fall
+       below zero.  Two operations can be performed on semaphores:
+       increment the semaphore value by one (<a href="https://man7.org/linux/man-pages/man3/sem_post.3.html">sem_post(3)</a>); and decrement
+       the semaphore value by one (<a href="https://man7.org/linux/man-pages/man3/sem_wait.3.html">sem_wait(3)</a>).  If the value of a
+       semaphore is currently zero, then a <a href="https://man7.org/linux/man-pages/man3/sem_wait.3.html">sem_wait(3)</a> operation will
+       block until the value becomes greater than zero.
+
+       POSIX semaphores come in two forms: named semaphores and unnamed
+       semaphores.
+
+       <b>Named semaphores</b>
+              A named semaphore is identified by a name of the form
+              <i>/somename</i>; that is, a null-terminated string of up to
+              <b>NAME_MAX</b><i>-4</i> (i.e., 251) characters consisting of an initial
+              slash, followed by one or more characters, none of which
+              are slashes.  Two processes can operate on the same named
+              semaphore by passing the same name to <a href="https://man7.org/linux/man-pages/man3/sem_open.3.html">sem_open(3)</a>.
+
+              The <a href="https://man7.org/linux/man-pages/man3/sem_open.3.html">sem_open(3)</a> function creates a new named semaphore or
+              opens an existing named semaphore.  After the semaphore
+              has been opened, it can be operated on using <a href="https://man7.org/linux/man-pages/man3/sem_post.3.html">sem_post(3)</a>
+              and <a href="https://man7.org/linux/man-pages/man3/sem_wait.3.html">sem_wait(3)</a>.  When a process has finished using the
+              semaphore, it can use <a href="https://man7.org/linux/man-pages/man3/sem_close.3.html">sem_close(3)</a> to close the semaphore.
+              When all processes have finished using the semaphore, it
+              can be removed from the system using <a href="https://man7.org/linux/man-pages/man3/sem_unlink.3.html">sem_unlink(3)</a>.
+
+       <b>Unnamed semaphores (memory-based semaphores)</b>
+              An unnamed semaphore does not have a name.  Instead the
+              semaphore is placed in a region of memory that is shared
+              between multiple threads (a <i>thread-shared semaphore</i>) or
+              processes (a <i>process-shared semaphore</i>).  A thread-shared
+              semaphore is placed in an area of memory shared between
+              the threads of a process, for example, a global variable.
+              A process-shared semaphore must be placed in a shared
+              memory region (e.g., a System V shared memory segment
+              created using <a href="https://man7.org/linux/man-pages/man2/shmget.2.html">shmget(2)</a>, or a POSIX shared memory object
+              built created using <a href="https://man7.org/linux/man-pages/man3/shm_open.3.html">shm_open(3)</a>).
+
+              Before being used, an unnamed semaphore must be
+              initialized using <a href="https://man7.org/linux/man-pages/man3/sem_init.3.html">sem_init(3)</a>.  It can then be operated on
+              using <a href="https://man7.org/linux/man-pages/man3/sem_post.3.html">sem_post(3)</a> and <a href="https://man7.org/linux/man-pages/man3/sem_wait.3.html">sem_wait(3)</a>.  When the semaphore is
+              no longer required, and before the memory in which it is
+              located is deallocated, the semaphore should be destroyed
+              using <a href="https://man7.org/linux/man-pages/man3/sem_destroy.3.html">sem_destroy(3)</a>.
+
+       The remainder of this section describes some specific details of
+       the Linux implementation of POSIX semaphores.
+
+   <b>Versions</b>
+       Prior to kernel 2.6, Linux supported only unnamed, thread-shared
+       semaphores.  On a system with Linux 2.6 and a glibc that provides
+       the NPTL threading implementation, a complete implementation of
+       POSIX semaphores is provided.
+
+   <b>Persistence</b>
+       POSIX named semaphores have kernel persistence: if not removed by
+       <a href="https://man7.org/linux/man-pages/man3/sem_unlink.3.html">sem_unlink(3)</a>, a semaphore will exist until the system is shut
+       down.
+
+   <b>Linking</b>
+       Programs using the POSIX semaphores API must be compiled with <i>cc</i>
+       <i>-pthread</i> to link against the real-time library, <i>librt</i>.
+
+   <b>Accessing named semaphores via the filesystem</b>
+       On Linux, named semaphores are created in a virtual filesystem,
+       normally mounted under <i>/dev/shm</i>, with names of the form
+       <b>sem.</b><i>somename</i>.  (This is the reason that semaphore names are
+       limited to <b>NAME_MAX</b><i>-4</i> rather than <b>NAME_MAX </b>characters.)
+
+       Since Linux 2.6.19, ACLs can be placed on files under this
+       directory, to control object permissions on a per-user and per-
+       group basis.
+</pre>

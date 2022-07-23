@@ -1,0 +1,34 @@
+<pre>
+       <b>mysql_waitpid </b>signals a process to terminate and waits for the
+       process to exit. It uses the kill() system call and Unix signals,
+       so it runs on Unix and Unix-like systems.
+
+       Invoke <b>mysql_waitpid </b>like this:
+
+           shell&gt; <b>mysql_waitpid [</b><i>options</i><b>] </b><i>pid wait_time</i>
+
+       <b>mysql_waitpid </b>sends signal 0 to the process identified by <i>pid</i> and
+       waits up to <i>wait_time</i> seconds for the process to terminate.  <i>pid</i>
+       and <i>wait_time</i> must be positive integers.
+
+       If process termination occurs within the wait time or the process
+       does not exist, <b>mysql_waitpid </b>returns 0. Otherwise, it returns 1.
+
+       If the kill() system call cannot handle signal 0, <b>mysql_waitpid()</b>
+       uses signal 1 instead.
+
+       <b>mysql_waitpid </b>supports the following options:
+
+       •   <b>--help</b>, <b>-?</b>, <b>-I</b>
+
+           Display a help message and exit.
+
+       •   <b>--verbose</b>, <b>-v</b>
+
+           Verbose mode. Display a warning if signal 0 could not be used
+           and signal 1 is used instead.
+
+       •   <b>--version</b>, <b>-V</b>
+
+           Display version information and exit.
+</pre>

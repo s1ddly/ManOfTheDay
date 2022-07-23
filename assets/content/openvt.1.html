@@ -1,0 +1,50 @@
+<pre>
+       <b>openvt </b>will find the first available VT, and run on it the given
+       <b>command </b>with the given <b>command options , </b>standard input, output
+       and error are directed to that terminal. The current search path
+       ($PATH) is used to find the requested command. If no command is
+       specified then the environment variable $SHELL is used.
+
+   <b>OPTIONS</b>
+       <i>-c, --console=VTNUMBER</i>
+              Use the given VT number and not the first available. Note
+              you must have write access to the supplied VT for this to
+              work.
+
+       <i>-f, --force</i>
+              Force opening a VT without checking whether it is already
+              in use.
+
+       <i>-e, --exec</i>
+              Directly execute the given command, without forking.  This
+              option is meant for use in <i>/etc/inittab</i>.
+
+       <i>-s, --switch</i>
+              Switch to the new VT when starting the command. The VT of
+              the new command will be made the new current VT.
+
+       <i>-u, --user</i>
+              Figure out the owner of the current VT, and run login as
+              that user.  Suitable to be called by init. Shouldn't be
+              used with <i>-c</i> or <i>-l</i>.
+
+       <i>-l, --login</i>
+              Make the command a login shell. A - is prepended to the
+              name of the command to be executed.
+
+       <i>-v, --verbose</i>
+              Be a bit more verbose.
+
+       <i>-w, --wait</i>
+              wait for command to complete. If -w and -s are used
+              together then <b>openvt </b>will switch back to the controlling
+              terminal when the command completes.
+
+       <i>-V, --version</i>
+              print program version and exit.
+
+       <i>-h, --help</i>
+              show this text and exit.
+
+       <i>--</i>     end of options to <b>openvt</b>.
+</pre>

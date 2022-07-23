@@ -1,0 +1,43 @@
+<pre>
+       For each <i>directory</i> argument, <i>xfs_estimate</i> estimates the space
+       that directory would take if it were copied to an XFS filesystem.
+       <i>xfs_estimate</i> does not cross mount points.  The following
+       definitions are used:
+              KB = *1024
+              MB = *1024*1024
+              GB = *1024*1024*1024
+
+       The <i>xfs_estimate</i> options are:
+
+       <b>-b </b><i>blocksize</i>
+              Use <i>blocksize</i> instead of the default blocksize of 4096
+              bytes.  The modifier <b>k </b>can be used after the number to
+              indicate multiplication by 1024.  For example,
+
+                   <b>xfs_estimate -b 64k /</b>
+
+              requests an estimate of the space required by the
+              directory / on an XFS filesystem using a blocksize of 64K
+              (65536) bytes.
+
+       <b>-v     </b>Display more information, formatted.
+
+       <b>-h     </b>Display usage message.
+
+       <b>-i, -e </b><i>logsize</i>
+              Use <i>logsize</i> instead of the default log size of 1000
+              blocks.  <b>-i </b>refers to an internal log, while <b>-e </b>refers to
+              an external log.  The modifiers <b>k </b>or <b>m </b>can be used after
+              the number to indicate multiplication by 1024 or 1048576,
+              respectively.
+
+              For example,
+
+                   <b>xfs_estimate -i 1m /</b>
+
+              requests an estimate of the space required by the
+              directory / on an XFS filesystem using an internal log of
+              1 megabyte.
+
+       <b>-V     </b>Print the version number and exits.
+</pre>

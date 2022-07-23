@@ -1,0 +1,27 @@
+<pre>
+       <b>dpkg-scansources </b>scans the given <i>binary-dir</i> for <i>.dsc</i> files.
+       These are used to create a Debian source index, which is output
+       to stdout.
+
+       The <i>override-file</i>, if given, is used to set priorities in the
+       resulting index records and to override the maintainer field
+       given in the <i>.dsc</i> files.  The file can be compressed (since dpkg
+       1.15.5).  See <a href="https://man7.org/linux/man-pages/man5/deb-override.5.html">deb-override(5)</a> for the format of this file. Note:
+       Since the override file is indexed by binary, not source
+       packages, there's a bit of a problem here. The current
+       implementation uses the highest priority of all the binary
+       packages produced by a <i>.dsc</i> file for the priority of the source
+       package, and the override entry for the first binary package
+       listed in the <i>.dsc</i> file to modify maintainer information. This
+       might change.
+
+       The <i>path-prefix</i>, if given, is prepended to the directory field in
+       the generated source index. You generally use this to make the
+       directory fields contain the path from the top of the Debian
+       archive hierarchy.
+
+       <b>Note: </b>If you want to access the generated Sources file with
+       <b>apt</b>(8) you will probably need to compress the file with <b>gzip</b>(1)
+       (generating a Sources.gz file). apt ignores uncompressed Sources
+       files except on local access (i.e.  <b>file:// </b>sources).
+</pre>

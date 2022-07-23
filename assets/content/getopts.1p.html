@@ -1,0 +1,69 @@
+<pre>
+       The <i>getopts</i> utility shall retrieve options and option-arguments
+       from a list of parameters. It shall support the Utility Syntax
+       Guidelines 3 to 10, inclusive, described in the Base Definitions
+       volume of POSIX.1‐2017, <i>Section 12.2</i>, <i>Utility Syntax Guidelines</i>.
+
+       Each time it is invoked, the <i>getopts</i> utility shall place the
+       value of the next option in the shell variable specified by the
+       <i>name</i> operand and the index of the next argument to be processed
+       in the shell variable <i>OPTIND</i>.  Whenever the shell is invoked,
+       <i>OPTIND</i> shall be initialized to 1.
+
+       When the option requires an option-argument, the <i>getopts</i> utility
+       shall place it in the shell variable <i>OPTARG</i>.  If no option was
+       found, or if the option that was found does not have an option-
+       argument, <i>OPTARG</i> shall be unset.
+
+       If an option character not contained in the <i>optstring</i> operand is
+       found where an option character is expected, the shell variable
+       specified by <i>name</i> shall be set to the &lt;question-mark&gt; (<b>'?'</b>)
+       character. In this case, if the first character in <i>optstring</i> is a
+       &lt;colon&gt; (<b>':'</b>), the shell variable <i>OPTARG</i> shall be set to the
+       option character found, but no output shall be written to
+       standard error; otherwise, the shell variable <i>OPTARG</i> shall be
+       unset and a diagnostic message shall be written to standard
+       error. This condition shall be considered to be an error detected
+       in the way arguments were presented to the invoking application,
+       but shall not be an error in <i>getopts</i> processing.
+
+       If an option-argument is missing:
+
+        *  If the first character of <i>optstring</i> is a &lt;colon&gt;, the shell
+           variable specified by <i>name</i> shall be set to the &lt;colon&gt;
+           character and the shell variable <i>OPTARG</i> shall be set to the
+           option character found.
+
+        *  Otherwise, the shell variable specified by <i>name</i> shall be set
+           to the &lt;question-mark&gt; character, the shell variable <i>OPTARG</i>
+           shall be unset, and a diagnostic message shall be written to
+           standard error. This condition shall be considered to be an
+           error detected in the way arguments were presented to the
+           invoking application, but shall not be an error in <i>getopts</i>
+           processing; a diagnostic message shall be written as stated,
+           but the exit status shall be zero.
+
+       When the end of options is encountered, the <i>getopts</i> utility shall
+       exit with a return value greater than zero; the shell variable
+       <i>OPTIND</i> shall be set to the index of the first operand, or the
+       value <b>"$#"</b>+1 if there are no operands; the <i>name</i> variable shall be
+       set to the &lt;question-mark&gt; character. Any of the following shall
+       identify the end of options: the first <b>"--" </b>argument that is not
+       an option-argument, finding an argument that is not an option-
+       argument and does not begin with a <b>'-'</b>, or encountering an error.
+
+       The shell variables <i>OPTIND</i> and <i>OPTARG</i> shall be local to the
+       caller of <i>getopts</i> and shall not be exported by default.
+
+       The shell variable specified by the <i>name</i> operand, <i>OPTIND</i>, and
+       <i>OPTARG</i> shall affect the current shell execution environment; see
+       <i>Section 2.12</i>, <i>Shell Execution Environment</i>.
+
+       If the application sets <i>OPTIND</i> to the value 1, a new set of
+       parameters can be used: either the current positional parameters
+       or new <i>arg</i> values. Any other attempt to invoke <i>getopts</i> multiple
+       times in a single shell execution environment with parameters
+       (positional parameters or <i>arg</i> operands) that are not the same in
+       all invocations, or with an <i>OPTIND</i> value modified to be a value
+       other than 1, produces unspecified results.
+</pre>

@@ -1,0 +1,146 @@
+<pre>
+       This is an implementation of the User Datagram Protocol described
+       in RFC 768.  It implements a connectionless, unreliable datagram
+       packet service.  Packets may be reordered or duplicated before
+       they arrive.  UDP generates and checks checksums to catch
+       transmission errors.
+
+       When a UDP socket is created, its local and remote addresses are
+       unspecified.  Datagrams can be sent immediately using <a href="https://man7.org/linux/man-pages/man2/sendto.2.html">sendto(2)</a>
+       or <a href="https://man7.org/linux/man-pages/man2/sendmsg.2.html">sendmsg(2)</a> with a valid destination address as an argument.
+       When <a href="https://man7.org/linux/man-pages/man2/connect.2.html">connect(2)</a> is called on the socket, the default destination
+       address is set and datagrams can now be sent using <a href="https://man7.org/linux/man-pages/man2/send.2.html">send(2)</a> or
+       <a href="https://man7.org/linux/man-pages/man2/write.2.html">write(2)</a> without specifying a destination address.  It is still
+       possible to send to other destinations by passing an address to
+       <a href="https://man7.org/linux/man-pages/man2/sendto.2.html">sendto(2)</a> or <a href="https://man7.org/linux/man-pages/man2/sendmsg.2.html">sendmsg(2)</a>.  In order to receive packets, the socket
+       can be bound to a local address first by using <a href="https://man7.org/linux/man-pages/man2/bind.2.html">bind(2)</a>.
+       Otherwise, the socket layer will automatically assign a free
+       local port out of the range defined by
+       <i>/proc/sys/net/ipv4/ip_local_port_range</i> and bind the socket to
+       <b>INADDR_ANY</b>.
+
+       All receive operations return only one packet.  When the packet
+       is smaller than the passed buffer, only that much data is
+       returned; when it is bigger, the packet is truncated and the
+       <b>MSG_TRUNC </b>flag is set.  <b>MSG_WAITALL </b>is not supported.
+
+       IP options may be sent or received using the socket options
+       described in <a href="https://man7.org/linux/man-pages/man7/ip.7.html">ip(7)</a>.  They are processed by the kernel only when
+       the appropriate <i>/proc</i> parameter is enabled (but still passed to
+       the user even when it is turned off).  See <a href="https://man7.org/linux/man-pages/man7/ip.7.html">ip(7)</a>.
+
+       When the <b>MSG_DONTROUTE </b>flag is set on sending, the destination
+       address must refer to a local interface address and the packet is
+       sent only to that interface.
+
+       By default, Linux UDP does path MTU (Maximum Transmission Unit)
+       discovery.  This means the kernel will keep track of the MTU to a
+       specific target IP address and return <b>EMSGSIZE </b>when a UDP packet
+       write exceeds it.  When this happens, the application should
+       decrease the packet size.  Path MTU discovery can be also turned
+       off using the <b>IP_MTU_DISCOVER </b>socket option or the
+       <i>/proc/sys/net/ipv4/ip_no_pmtu_disc</i> file; see <a href="https://man7.org/linux/man-pages/man7/ip.7.html">ip(7)</a> for details.
+       When turned off, UDP will fragment outgoing UDP packets that
+       exceed the interface MTU.  However, disabling it is not
+       recommended for performance and reliability reasons.
+
+   <b>Address format</b>
+       UDP uses the IPv4 <i>sockaddr_in</i> address format described in <a href="https://man7.org/linux/man-pages/man7/ip.7.html">ip(7)</a>.
+
+   <b>Error handling</b>
+       All fatal errors will be passed to the user as an error return
+       even when the socket is not connected.  This includes
+       asynchronous errors received from the network.  You may get an
+       error for an earlier packet that was sent on the same socket.
+       This behavior differs from many other BSD socket implementations
+       which don't pass any errors unless the socket is connected.
+       Linux's behavior is mandated by <b>RFC 1122</b>.
+
+       For compatibility with legacy code, in Linux 2.0 and 2.2 it was
+       possible to set the <b>SO_BSDCOMPAT SOL_SOCKET </b>option to receive
+       remote errors only when the socket has been connected (except for
+       <b>EPROTO </b>and <b>EMSGSIZE</b>).  Locally generated errors are always
+       passed.  Support for this socket option was removed in later
+       kernels; see <a href="https://man7.org/linux/man-pages/man7/socket.7.html">socket(7)</a> for further information.
+
+       When the <b>IP_RECVERR </b>option is enabled, all errors are stored in
+       the socket error queue, and can be received by <a href="https://man7.org/linux/man-pages/man2/recvmsg.2.html">recvmsg(2)</a> with
+       the <b>MSG_ERRQUEUE </b>flag set.
+
+   <b>/proc interfaces</b>
+       System-wide UDP parameter settings can be accessed by files in
+       the directory <i>/proc/sys/net/ipv4/</i>.
+
+       <i>udp_mem</i> (since Linux 2.6.25)
+              This is a vector of three integers governing the number of
+              pages allowed for queueing by all UDP sockets.
+
+              <i>min</i>    Below this number of pages, UDP is not bothered
+                     about its memory appetite.  When the amount of
+                     memory allocated by UDP exceeds this number, UDP
+                     starts to moderate memory usage.
+
+              <i>pressure</i>
+                     This value was introduced to follow the format of
+                     <i>tcp_mem</i> (see <a href="https://man7.org/linux/man-pages/man7/tcp.7.html">tcp(7)</a>).
+
+              <i>max</i>    Number of pages allowed for queueing by all UDP
+                     sockets.
+
+              Defaults values for these three items are calculated at
+              boot time from the amount of available memory.
+
+       <i>udp_rmem_min</i> (integer; default value: PAGE_SIZE; since Linux
+       2.6.25)
+              Minimal size, in bytes, of receive buffers used by UDP
+              sockets in moderation.  Each UDP socket is able to use the
+              size for receiving data, even if total pages of UDP
+              sockets exceed <i>udp_mem</i> pressure.
+
+       <i>udp_wmem_min</i> (integer; default value: PAGE_SIZE; since Linux
+       2.6.25)
+              Minimal size, in bytes, of send buffer used by UDP sockets
+              in moderation.  Each UDP socket is able to use the size
+              for sending data, even if total pages of UDP sockets
+              exceed <i>udp_mem</i> pressure.
+
+   <b>Socket options</b>
+       To set or get a UDP socket option, call <a href="https://man7.org/linux/man-pages/man2/getsockopt.2.html">getsockopt(2)</a> to read or
+       <a href="https://man7.org/linux/man-pages/man2/setsockopt.2.html">setsockopt(2)</a> to write the option with the option level argument
+       set to <b>IPPROTO_UDP</b>.  Unless otherwise noted, <i>optval</i> is a pointer
+       to an <i>int</i>.
+
+       Following is a list of UDP-specific socket options.  For details
+       of some other socket options that are also applicable for UDP
+       sockets, see <a href="https://man7.org/linux/man-pages/man7/socket.7.html">socket(7)</a>.
+
+       <b>UDP_CORK </b>(since Linux 2.5.44)
+              If this option is enabled, then all data output on this
+              socket is accumulated into a single datagram that is
+              transmitted when the option is disabled.  This option
+              should not be used in code intended to be portable.
+
+   <b>Ioctls</b>
+       These ioctls can be accessed using <a href="https://man7.org/linux/man-pages/man2/ioctl.2.html">ioctl(2)</a>.  The correct syntax
+       is:
+
+              <b>int </b><i>value</i><b>;</b>
+              <i>error</i> <b>= ioctl(</b><i>udp_socket</i><b>, </b><i>ioctl_type</i><b>, &amp;</b><i>value</i><b>);</b>
+
+       <b>FIONREAD </b>(<b>SIOCINQ</b>)
+              Gets a pointer to an integer as argument.  Returns the
+              size of the next pending datagram in the integer in bytes,
+              or 0 when no datagram is pending.  <b>Warning: </b>Using
+              <b>FIONREAD</b>, it is impossible to distinguish the case where
+              no datagram is pending from the case where the next
+              pending datagram contains zero bytes of data.  It is safer
+              to use <a href="https://man7.org/linux/man-pages/man2/select.2.html">select(2)</a>, <a href="https://man7.org/linux/man-pages/man2/poll.2.html">poll(2)</a>, or <a href="https://man7.org/linux/man-pages/man7/epoll.7.html">epoll(7)</a> to distinguish
+              these cases.
+
+       <b>TIOCOUTQ </b>(<b>SIOCOUTQ</b>)
+              Returns the number of data bytes in the local send queue.
+              Supported only with Linux 2.4 and above.
+
+       In addition, all ioctls documented in <a href="https://man7.org/linux/man-pages/man7/ip.7.html">ip(7)</a> and <a href="https://man7.org/linux/man-pages/man7/socket.7.html">socket(7)</a> are
+       supported.
+</pre>

@@ -1,0 +1,21 @@
+<pre>
+       The <i>chgrp</i> utility shall set the group ID of the file named by
+       each <i>file</i> operand to the group ID specified by the <i>group</i> operand.
+
+       For each <i>file</i> operand, or, if the <b>-R </b>option is used, each file
+       encountered while walking the directory trees specified by the
+       <i>file</i> operands, the <i>chgrp</i> utility shall perform actions equivalent
+       to the <i>chown</i>() function defined in the System Interfaces volume
+       of POSIX.1‐2017, called with the following arguments:
+
+        *  The <i>file</i> operand shall be used as the <i>path</i> argument.
+
+        *  The user ID of the file shall be used as the <i>owner</i> argument.
+
+        *  The specified group ID shall be used as the <i>group</i> argument.
+
+       Unless <i>chgrp</i> is invoked by a process with appropriate privileges,
+       the set-user-ID and set-group-ID bits of a regular file shall be
+       cleared upon successful completion; the set-user-ID and set-
+       group-ID bits of other file types may be cleared.
+</pre>

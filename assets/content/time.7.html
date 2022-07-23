@@ -1,0 +1,110 @@
+<pre>
+   <b>Real time and process time</b>
+       <i>Real time</i> is defined as time measured from some fixed point,
+       either from a standard point in the past (see the description of
+       the Epoch and calendar time below), or from some point (e.g., the
+       start) in the life of a process (<i>elapsed time</i>).
+
+       <i>Process time</i> is defined as the amount of CPU time used by a
+       process.  This is sometimes divided into <i>user</i> and <i>system</i>
+       components.  User CPU time is the time spent executing code in
+       user mode.  System CPU time is the time spent by the kernel
+       executing in system mode on behalf of the process (e.g.,
+       executing system calls).  The <a href="https://man7.org/linux/man-pages/man1/time.1.html">time(1)</a> command can be used to
+       determine the amount of CPU time consumed during the execution of
+       a program.  A program can determine the amount of CPU time it has
+       consumed using <a href="https://man7.org/linux/man-pages/man2/times.2.html">times(2)</a>, <a href="https://man7.org/linux/man-pages/man2/getrusage.2.html">getrusage(2)</a>, or <a href="https://man7.org/linux/man-pages/man3/clock.3.html">clock(3)</a>.
+
+   <b>The hardware clock</b>
+       Most computers have a (battery-powered) hardware clock which the
+       kernel reads at boot time in order to initialize the software
+       clock.  For further details, see <a href="https://man7.org/linux/man-pages/man4/rtc.4.html">rtc(4)</a> and <a href="https://man7.org/linux/man-pages/man8/hwclock.8.html">hwclock(8)</a>.
+
+   <b>The software clock, HZ, and jiffies</b>
+       The accuracy of various system calls that set timeouts, (e.g.,
+       <a href="https://man7.org/linux/man-pages/man2/select.2.html">select(2)</a>, <a href="https://man7.org/linux/man-pages/man2/sigtimedwait.2.html">sigtimedwait(2)</a>) and measure CPU time (e.g.,
+       <a href="https://man7.org/linux/man-pages/man2/getrusage.2.html">getrusage(2)</a>) is limited by the resolution of the <i>software clock</i>,
+       a clock maintained by the kernel which measures time in <i>jiffies</i>.
+       The size of a jiffy is determined by the value of the kernel
+       constant <i>HZ</i>.
+
+       The value of <i>HZ</i> varies across kernel versions and hardware
+       platforms.  On i386 the situation is as follows: on kernels up to
+       and including 2.4.x, HZ was 100, giving a jiffy value of 0.01
+       seconds; starting with 2.6.0, HZ was raised to 1000, giving a
+       jiffy of 0.001 seconds.  Since kernel 2.6.13, the HZ value is a
+       kernel configuration parameter and can be 100, 250 (the default)
+       or 1000, yielding a jiffies value of, respectively, 0.01, 0.004,
+       or 0.001 seconds.  Since kernel 2.6.20, a further frequency is
+       available: 300, a number that divides evenly for the common video
+       frame rates (PAL, 25 HZ; NTSC, 30 HZ).
+
+       The <a href="https://man7.org/linux/man-pages/man2/times.2.html">times(2)</a> system call is a special case.  It reports times
+       with a granularity defined by the kernel constant <i>USER_HZ</i>.  User-
+       space applications can determine the value of this constant using
+       <i>sysconf(_SC_CLK_TCK)</i>.
+
+   <b>System and process clocks; time namespaces</b>
+       The kernel supports a range of clocks that measure various kinds
+       of elapsed and virtual (i.e., consumed CPU) time.  These clocks
+       are described in <a href="https://man7.org/linux/man-pages/man2/clock_gettime.2.html">clock_gettime(2)</a>.  A few of the clocks are
+       settable using <a href="https://man7.org/linux/man-pages/man2/clock_settime.2.html">clock_settime(2)</a>.  The values of certain clocks
+       are virtualized by time namespaces; see <a href="https://man7.org/linux/man-pages/man7/time_namespaces.7.html">time_namespaces(7)</a>.
+
+   <b>High-resolution timers</b>
+       Before Linux 2.6.21, the accuracy of timer and sleep system calls
+       (see below) was also limited by the size of the jiffy.
+
+       Since Linux 2.6.21, Linux supports high-resolution timers (HRTs),
+       optionally configurable via <b>CONFIG_HIGH_RES_TIMERS</b>.  On a system
+       that supports HRTs, the accuracy of sleep and timer system calls
+       is no longer constrained by the jiffy, but instead can be as
+       accurate as the hardware allows (microsecond accuracy is typical
+       of modern hardware).  You can determine whether high-resolution
+       timers are supported by checking the resolution returned by a
+       call to <a href="https://man7.org/linux/man-pages/man2/clock_getres.2.html">clock_getres(2)</a> or looking at the "resolution" entries in
+       <i>/proc/timer_list</i>.
+
+       HRTs are not supported on all hardware architectures.  (Support
+       is provided on x86, arm, and powerpc, among others.)
+
+   <b>The Epoch</b>
+       UNIX systems represent time in seconds since the <i>Epoch</i>,
+       1970-01-01 00:00:00 +0000 (UTC).
+
+       A program can determine the <i>calendar time</i> via the
+       <a href="https://man7.org/linux/man-pages/man2/clock_gettime.2.html">clock_gettime(2)</a> <b>CLOCK_REALTIME </b>clock, which returns time (in
+       seconds and nanoseconds) that have elapsed since the Epoch;
+       <a href="https://man7.org/linux/man-pages/man2/time.2.html">time(2)</a> provides similar information, but only with accuracy to
+       the nearest second.  The system time can be changed using
+       <a href="https://man7.org/linux/man-pages/man2/clock_settime.2.html">clock_settime(2)</a>.
+
+   <b>Broken-down time</b>
+       Certain library functions use a structure of type <i>tm</i> to represent
+       <i>broken-down time</i>, which stores time value separated out into
+       distinct components (year, month, day, hour, minute, second,
+       etc.).  This structure is described in <a href="https://man7.org/linux/man-pages/man3/ctime.3.html">ctime(3)</a>, which also
+       describes functions that convert between calendar time and
+       broken-down time.  Functions for converting between broken-down
+       time and printable string representations of the time are
+       described in <a href="https://man7.org/linux/man-pages/man3/ctime.3.html">ctime(3)</a>, <a href="https://man7.org/linux/man-pages/man3/strftime.3.html">strftime(3)</a>, and <a href="https://man7.org/linux/man-pages/man3/strptime.3.html">strptime(3)</a>.
+
+   <b>Sleeping and setting timers</b>
+       Various system calls and functions allow a program to sleep
+       (suspend execution) for a specified period of time; see
+       <a href="https://man7.org/linux/man-pages/man2/nanosleep.2.html">nanosleep(2)</a>, <a href="https://man7.org/linux/man-pages/man2/clock_nanosleep.2.html">clock_nanosleep(2)</a>, and <a href="https://man7.org/linux/man-pages/man3/sleep.3.html">sleep(3)</a>.
+
+       Various system calls allow a process to set a timer that expires
+       at some point in the future, and optionally at repeated
+       intervals; see <a href="https://man7.org/linux/man-pages/man2/alarm.2.html">alarm(2)</a>, <a href="https://man7.org/linux/man-pages/man2/getitimer.2.html">getitimer(2)</a>, <a href="https://man7.org/linux/man-pages/man2/timerfd_create.2.html">timerfd_create(2)</a>, and
+       <a href="https://man7.org/linux/man-pages/man2/timer_create.2.html">timer_create(2)</a>.
+
+   <b>Timer slack</b>
+       Since Linux 2.6.28, it is possible to control the "timer slack"
+       value for a thread.  The timer slack is the length of time by
+       which the kernel may delay the wake-up of certain system calls
+       that block with a timeout.  Permitting this delay allows the
+       kernel to coalesce wake-up events, thus possibly reducing the
+       number of system wake-ups and saving power.  For more details,
+       see the description of <b>PR_SET_TIMERSLACK </b>in <a href="https://man7.org/linux/man-pages/man2/prctl.2.html">prctl(2)</a>.
+</pre>

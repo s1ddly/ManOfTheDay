@@ -1,0 +1,49 @@
+<pre>
+       The <i>touch</i> utility shall change the last data modification
+       timestamps, the last data access timestamps, or both.
+
+       The time used can be specified by the <b>-t </b><i>time</i> option-argument,
+       the corresponding <i>time</i> fields of the file referenced by the <b>-r</b>
+       <i>ref_file</i> option-argument, or the <b>-d </b><i>date_time</i> option-argument, as
+       specified in the following sections. If none of these are
+       specified, <i>touch</i> shall use the current time.
+
+       For each <i>file</i> operand, <i>touch</i> shall perform actions equivalent to
+       the following functions defined in the System Interfaces volume
+       of POSIX.1‐2017:
+
+        1. If <i>file</i> does not exist:
+
+            a. The <i>creat</i>() function is called with the following
+               arguments:
+
+               --  The <i>file</i> operand is used as the <i>path</i> argument.
+
+               --  The value of the bitwise-inclusive OR of S_IRUSR,
+                   S_IWUSR, S_IRGRP, S_IWGRP, S_IROTH, and S_IWOTH is
+                   used as the <i>mode</i> argument.
+
+            b. The <i>futimens</i>() function is called with the following
+               arguments:
+
+               --  The file descriptor opened in step 1a.
+
+               --  The access time and the modification time, set as
+                   described in the OPTIONS section, are used as the
+                   first and second elements of the <i>times</i> array
+                   argument, respectively.
+
+        2. If <i>file</i> exists, the <i>utimensat</i>() function is called with the
+           following arguments:
+
+            a. The AT_FDCWD special value is used as the <i>fd</i> argument.
+
+            b. The <i>file</i> operand is used as the <i>path</i> argument.
+
+            c. The access time and the modification time, set as
+               described in the OPTIONS section, are used as the first
+               and second elements of the <i>times</i> array argument,
+               respectively.
+
+            d. The <i>flag</i> argument is set to zero.
+</pre>

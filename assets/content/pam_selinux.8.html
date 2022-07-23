@@ -1,0 +1,21 @@
+<pre>
+       pam_selinux is a PAM module that sets up the default SELinux
+       security context for the next executed process.
+
+       When a new session is started, the open_session part of the
+       module computes and sets up the execution security context used
+       for the next <a href="https://man7.org/linux/man-pages/man2/execve.2.html">execve(2)</a> call, the file security context for the
+       controlling terminal, and the security context used for creating
+       a new kernel keyring.
+
+       When the session is ended, the close_session part of the module
+       restores old security contexts that were in effect before the
+       change made by the open_session part of the module.
+
+       Adding pam_selinux into the PAM stack might disrupt behavior of
+       other PAM modules which execute applications. To avoid that,
+       <i>pam_selinux.so open</i> should be placed after such modules in the
+       PAM stack, and <i>pam_selinux.so close</i> should be placed before them.
+       When such a placement is not feasible, <i>pam_selinux.so restore</i>
+       could be used to temporary restore original security contexts.
+</pre>

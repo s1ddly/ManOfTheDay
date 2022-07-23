@@ -1,0 +1,124 @@
+<pre>
+   <b>devlink dev show - display devlink device attributes</b>
+       <i>DEV</i> - specifies the devlink device to show.  If this argument is
+       omitted all devices are listed.
+
+           Format is:
+             BUS_NAME/BUS_ADDRESS
+
+   <b>devlink dev eswitch show - display devlink device eswitch attributes</b>
+   <b>devlink dev eswitch set - sets devlink device eswitch attributes</b>
+       <b>mode </b>{ <b>legacy </b>| <b>switchdev </b>}
+              Set eswitch mode
+
+              <i>legacy</i> - Legacy SRIOV
+
+              <i>switchdev</i> - SRIOV switchdev offloads
+
+       <b>inline-mode </b>{ <b>none </b>| <b>link </b>| <b>network </b>| <b>transport </b>}
+              Some HWs need the VF driver to put part of the packet
+              headers on the TX descriptor so the e-switch can do proper
+              matching and steering.
+
+              <i>none</i> - None
+
+              <i>link</i> - L2 mode
+
+              <i>network</i> - L3 mode
+
+              <i>transport</i> - L4 mode
+
+       <b>encap-mode </b>{ <b>none </b>| <b>basic </b>}
+              Set eswitch encapsulation support
+
+              <i>none</i> - Disable encapsulation support
+
+              <i>basic</i> - Enable encapsulation support
+
+   <b>devlink dev param set - set new value to devlink device configuration</b>
+       <b>parameter</b>
+       <b>name </b><i>PARAMETER</i>
+              Specify parameter name to set.
+
+       <b>value </b><i>VALUE</i>
+              New value to set.
+
+       <b>cmode </b>{ <b>runtime </b>| <b>driverinit </b>| <b>permanent </b>}
+              Configuration mode in which the new value is set.
+
+              <i>runtime</i> - Set new value while driver is running. This
+              configuration mode doesn't require any reset to apply the
+              new value.
+
+              <i>driverinit</i> - Set new value which will be applied during
+              driver initialization. This configuration mode requires
+              restart driver by devlink reload command to apply the new
+              value.
+
+              <i>permanent</i> - New value is written to device's non-volatile
+              memory. This configuration mode requires hard reset to
+              apply the new value.
+
+   <b>devlink dev param show - display devlink device supported</b>
+       <b>configuration parameters attributes</b>
+       <b>name </b><i>PARAMETER</i> Specify parameter name to show.  If this argument
+       is omitted all parameters supported by devlink devices are
+       listed.
+
+   <b>devlink dev reload - perform hot reload of the driver.</b>
+       <i>DEV</i> - Specifies the devlink device to reload.
+
+       <b>netns </b>{ <i>PID</i> | <i>NAME</i> | <i>ID</i> } - Specifies the network namespace to
+       reload into, either by pid, name or id.
+
+       <b>action </b>{ <b>driver_reinit </b>| <b>fw_activate </b>} - Specifies the reload
+       action required.  If this argument is omitted <i>driver_reinit</i>
+       action will be used.  Note that even though user asks for a
+       specific action, the driver implementation might require to
+       perform another action alongside with it. For example, some
+       driver do not support driver reinitialization being performed
+       without fw activation. Therefore, the devlink reload command
+       returns the list of actions which were actrually performed.
+
+       <i>driver_reinit</i> - Driver entities re-initialization, applying
+       devlink-param and devlink-resource values.
+
+       <i>fw_activate</i> - Activates new firmware if such image is stored and
+       pending activation. If no limitation specified this action may
+       involve firmware reset. If no new image pending this action will
+       reload current firmware image.
+
+       <b>limit no_reset </b>- Specifies limitation on reload action.  If this
+       argument is omitted limit is unspecificed and the reload action
+       is not limited. In such case driver implementation may include
+       reset or downtime as needed to perform the actions.
+
+       <i>no_reset</i> - No reset allowed, no down time allowed, no link flap
+       and no configuration is lost.
+
+   <b>devlink dev info - display device information.</b>
+       Display device information provided by the driver. This command
+       can be used to query versions of the hardware components or
+       device components which can't be updated ( <i>fixed</i> ) as well as
+       device firmware which can be updated. For firmware components
+       <i>running</i> displays the versions of firmware currently loaded into
+       the device, while <i>stored</i> reports the versions in device's flash.
+       <i>Running</i> and <i>stored</i> versions may differ after flash has been
+       updated, but before reboot.
+
+       <i>DEV</i> - specifies the devlink device to show.  If this argument is
+       omitted all devices are listed.
+
+   <b>devlink dev flash - write device's non-volatile memory.</b>
+       <i>DEV</i> - specifies the devlink device to write to.
+
+       <b>file </b><i>PATH</i> - Path to the file which will be written into device's
+       flash. The path needs to be relative to one of the directories
+       searched by the kernel firmware loaded, such as /lib/firmware.
+
+       <b>component </b><i>NAME</i> - If device stores multiple firmware images in
+       non-volatile memory, this parameter may be used to indicate which
+       firmware image should be written.  The value of <i>NAME</i> should match
+       the component names from <b>devlink dev info </b>and may be driver-
+       dependent.
+</pre>

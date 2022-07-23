@@ -1,0 +1,26 @@
+<pre>
+       systemd-timedated.service is a system service that may be used as
+       a mechanism to change the system clock and timezone, as well as
+       to enable/disable network time synchronization.
+       systemd-timedated is automatically activated on request and
+       terminates itself when it is unused.
+
+       The tool <a href="https://man7.org/linux/man-pages/man1/timedatectl.1.html">timedatectl(1)</a> is a command line client to this service.
+
+       systemd-timedated currently offers access to the following four
+       settings:
+
+       •   The system time
+
+       •   The system timezone
+
+       •   A boolean controlling whether the system RTC is in local or
+           UTC timezone
+
+       •   Whether the time synchronization service is enabled/started
+           or disabled/stopped, see next section.
+
+       See <a href="https://man7.org/linux/man-pages/man5/org.freedesktop.timedate1.5.html">org.freedesktop.timedate1(5)</a> and
+       <a href="https://man7.org/linux/man-pages/man5/org.freedesktop.LogControl1.5.html">org.freedesktop.LogControl1(5)</a> for information about the D-Bus
+       API.
+</pre>

@@ -1,0 +1,18 @@
+<pre>
+       The <i>mkdir</i> utility shall create the directories specified by the
+       operands, in the order specified.
+
+       For each <i>dir</i> operand, the <i>mkdir</i> utility shall perform actions
+       equivalent to the <i>mkdir</i>() function defined in the System
+       Interfaces volume of POSIX.1‐2017, called with the following
+       arguments:
+
+        1. The <i>dir</i> operand is used as the <i>path</i> argument.
+
+        2. The value of the bitwise-inclusive OR of S_IRWXU, S_IRWXG,
+           and S_IRWXO is used as the <i>mode</i> argument. (If the <b>-m </b>option
+           is specified, the value of the <i>mkdir</i>() <i>mode</i> argument is
+           unspecified, but the directory shall at no time have
+           permissions less restrictive than the <b>-m </b><i>mode</i> option-
+           argument.)
+</pre>

@@ -1,0 +1,14 @@
+<pre>
+       <b>dh_perl </b>is a debhelper program that is responsible for generating
+       the <b>${perl:Depends} </b>substitutions and adding them to substvars
+       files.
+
+       The program will look at Perl scripts and modules in your
+       package, and will use this information to generate a dependency
+       on <b>perl </b>or <b>perlapi</b>. The dependency will be substituted into your
+       package's <i>control</i> file wherever you place the token
+       <b>${perl:Depends}</b>.
+
+       <b>dh_perl </b>also cleans up empty directories that MakeMaker can
+       generate when installing Perl modules.
+</pre>

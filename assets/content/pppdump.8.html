@@ -1,0 +1,35 @@
+<pre>
+       The <b>pppdump </b>utility converts the files written using the <i>record</i>
+       option of <b>pppd </b>into a human-readable format.  If one or more
+       filenames are specified, <b>pppdump </b>will read each in turn;
+       otherwise it will read its standard input.  In each case the
+       result is written to standard output.
+
+       The options are as follows:
+
+       <b>-h     </b>Prints the bytes sent and received in hexadecimal.  If
+              neither this option nor the <b>-p </b>option is specified, the
+              bytes are printed as the characters themselves, with non-
+              printing and non-ASCII characters printed as escape
+              sequences.
+
+       <b>-p     </b>Collects the bytes sent and received into PPP packets,
+              interpreting the async HDLC framing and escape characters
+              and checking the FCS (frame check sequence) of each
+              packet.  The packets are printed as hex values and as
+              characters (non-printable characters are printed as `.').
+
+       <b>-d     </b>With the <b>-p </b>option, this option causes <b>pppdump </b>to
+              decompress packets which have been compressed with the
+              BSD-Compress or Deflate methods.
+
+       <b>-r     </b>Reverses the direction indicators, so that `sent' is
+              printed for bytes or packets received, and `rcvd' is
+              printed for bytes or packets sent.
+
+       <b>-a     </b>Prints absolute times.
+
+       <b>-m </b><i>mru</i> Use <i>mru</i> as the MRU (maximum receive unit) for both
+              directions of the link when checking for over-length PPP
+              packets (with the <b>-p </b>option).
+</pre>

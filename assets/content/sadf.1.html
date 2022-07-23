@@ -1,0 +1,39 @@
+<pre>
+       The <b>sadf </b>command is used for displaying the contents of data
+       files created by the <a href="https://man7.org/linux/man-pages/man1/sar.1.html">sar(1)</a> command. But unlike <b>sar</b>, <b>sadf </b>can
+       write its data in many different formats (CSV, XML, etc.)  The
+       default format is one that can easily be handled by pattern
+       processing commands like <b>awk </b>(see option <b>-p</b>). The <b>sadf </b>command
+       can also be used to draw graphs for the various activities
+       collected by <b>sar </b>and display them as SVG (Scalable Vector
+       Graphics) graphics in your web browser (see option <b>-g</b>).
+
+       The <b>sadf </b>command extracts and writes to standard output records
+       saved in the <i>datafile</i> file. This file must have been created by a
+       version of <b>sar </b>which is compatible with that of <b>sadf</b>. If <i>datafile</i>
+       is omitted, <b>sadf </b>uses the standard system activity daily data
+       file.  It is also possible to enter <b>-1</b>, <b>-2 </b>etc. as an argument to
+       <b>sadf </b>to display data of that days ago. For example, <b>-1 </b>will point
+       at the standard system activity file of yesterday.
+
+       The standard system activity daily data file is named <i>saDD</i> or
+       <i>saYYYYMMDD</i>, where <i>YYYY</i> stands for the current year, <i>MM</i> for the
+       current month and <i>DD</i> for the current day.  <b>sadf </b>will look for the
+       most recent of <i>saDD</i> and <i>saYYYYMMDD</i>, and use it. By default it is
+       located in the <i>/var/log/sa</i> directory. Yet it is possible to
+       specify an alternate location for it: If <i>datafile</i> is a directory
+       (instead of a plain file) then it will be considered as the
+       directory where the standard system activity daily data file is
+       located.
+
+       The <i>interval</i> and <i>count</i> parameters are used to tell <b>sadf </b>to select
+       <i>count</i> records at <i>interval</i> seconds apart. If the <i>count</i> parameter
+       is not set, then all the records saved in the data file will be
+       displayed.
+
+       All the activity flags of <b>sar </b>may be entered on the command line
+       to indicate which activities are to be reported. Before
+       specifying them, put a pair of dashes (<b>--</b>) on the command line in
+       order not to confuse the flags with those of <b>sadf.  </b>Not
+       specifying any flags selects only CPU activity.
+</pre>

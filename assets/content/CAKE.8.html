@@ -1,0 +1,16 @@
+<pre>
+       CAKE (Common Applications Kept Enhanced) is a shaping-capable
+       queue discipline which uses both AQM and FQ.  It combines COBALT,
+       which is an AQM algorithm combining Codel and BLUE, a shaper
+       which operates in deficit mode, and a variant of DRR++ for flow
+       isolation.  8-way set-associative hashing is used to virtually
+       eliminate hash collisions.  Priority queuing is available through
+       a simplified diffserv implementation.  Overhead compensation for
+       various encapsulation schemes is tightly integrated.
+
+       All settings are optional; the default settings are chosen to be
+       sensible in most common deployments.  Most people will only need
+       to set the <b>bandwidth </b>parameter to get useful results, but reading
+       the <b>Overhead Compensation </b>and <b>Round Trip Time </b>sections is
+       strongly encouraged.
+</pre>

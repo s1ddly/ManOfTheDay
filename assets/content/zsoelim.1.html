@@ -1,0 +1,19 @@
+<pre>
+       <b>zsoelim </b>parses <i>file</i> arguments, or if none are specified, its
+       standard input for lines of the form:
+
+       <b>.so </b>&lt;<i>filename</i>&gt;
+
+       These requests are replaced by the contents of the <i>filename</i>
+       specified.  If the request cannot be met, <b>zsoelim </b>looks for
+       <i>filename.ext</i> where <i>.ext</i> can be one of <b>.gz</b>, <b>.Z </b>or <b>.z</b>.  Other
+       extension types may be supported depending upon compile time
+       options.  If the request can be met by a compressed file, this
+       file is decompressed using an appropriate decompressor and its
+       output is used to satisfy the request.
+
+       Traditionally, <b>soelim </b>programs were used to allow roff
+       preprocessors to be able to preprocess the files referred to by
+       the requests.  This particular version was written to circumvent
+       problems created by support for compressed manual pages.
+</pre>

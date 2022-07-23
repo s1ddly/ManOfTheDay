@@ -1,0 +1,54 @@
+<pre>
+       <i>traceroute</i> tracks the route packets taken from an IP network on
+       their way to a given host. It utilizes the IP protocol's time to
+       live (TTL) field and attempts to elicit an ICMP TIME_EXCEEDED
+       response from each gateway along the path to the host.
+
+       <i>traceroute6</i> is equivalent to <i>traceroute</i> <b>-6</b>
+
+       The only required parameter is the name or IP address of the
+       destination <b>host </b>.  The optional <b>packet_len</b>`gth is the total size
+       of the probing packet (default 60 bytes for IPv4 and 80 for
+       IPv6). The specified size can be ignored in some situations or
+       increased up to a minimal value.
+
+       This program attempts to trace the route an IP packet would
+       follow to some internet host by launching probe packets with a
+       small ttl (time to live) then listening for an ICMP "time
+       exceeded" reply from a gateway.  We start our probes with a ttl
+       of one and increase by one until we get an ICMP "port
+       unreachable" (or TCP reset), which means we got to the "host", or
+       hit a max (which defaults to 30 hops). Three probes (by default)
+       are sent at each ttl setting and a line is printed showing the
+       ttl, address of the gateway and round trip time of each probe.
+       The address can be followed by additional information when
+       requested. If the probe answers come from different gateways, the
+       address of each responding system will be printed.  If there is
+       no response within a certain timeout, an "*" (asterisk) is
+       printed for that probe.
+
+       After the trip time, some additional annotation can be printed:
+       <b>!H</b>, <b>!N</b>, or <b>!P </b>(host, network or protocol unreachable), <b>!S </b>(source
+       route failed), <b>!F </b>(fragmentation needed), <b>!X </b>(communication
+       administratively prohibited), <b>!V </b>(host precedence violation), <b>!C</b>
+       (precedence cutoff in effect), or <b>!&lt;num&gt; </b>(ICMP unreachable code
+       &lt;num&gt;).  If almost all the probes result in some kind of
+       unreachable, traceroute will give up and exit.
+
+       We don't want the destination host to process the UDP probe
+       packets, so the destination port is set to an unlikely value (you
+       can change it with the <b>-p </b>flag). There is no such a problem for
+       ICMP or TCP tracerouting (for TCP we use half-open technique,
+       which prevents our probes to be seen by applications on the
+       destination host).
+
+       In the modern network environment the traditional traceroute
+       methods can not be always applicable, because of widespread use
+       of firewalls.  Such firewalls filter the "unlikely" UDP ports, or
+       even ICMP echoes.  To solve this, some additional tracerouting
+       methods are implemented (including tcp), see <b>LIST OF AVAILABLE</b>
+       <b>METHODS </b>below. Such methods try to use particular protocol and
+       source/destination port, in order to bypass firewalls (to be seen
+       by firewalls just as a start of allowed type of a network
+       session).
+</pre>

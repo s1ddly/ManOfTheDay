@@ -1,0 +1,35 @@
+<pre>
+       <b>pcp-dstat </b>is a general performance analysis tool allowing you to
+       view multiple system resources instantly, for example you can
+       compare disk usage in combination with interrupts from a disk
+       controller, or compare the network bandwidth numbers directly
+       with the disk throughput (in the same interval).
+
+       It also cleverly gives you the most detailed information in
+       columns and clearly indicates in what magnitude and unit the
+       output is being displayed.  Less confusion, fewer mistakes, more
+       efficient.
+
+       The <i>delay</i> is the delay in seconds between each update, and the
+       <i>count</i> is the number of updates to display before exiting.  The
+       default <i>delay</i> is 1 second and <i>count</i> is unspecified (run until
+       interrupted or end of archive is reached).
+
+       This latest generation of Dstat, <b>pcp-dstat</b>, allows for analysis
+       of historical performance data (in the PCP archive format created
+       by <a href="https://man7.org/linux/man-pages/man1/pmlogger.1.html">pmlogger(1)</a>), as well as distributed systems analysis of live
+       performance data from remote hosts running the <a href="https://man7.org/linux/man-pages/man1/pmcd.1.html">pmcd(1)</a> process.
+
+       The original Dstat notion of ``plugins'' is replaced by use of
+       named metrics in a Performance Metric Name Space (<a href="https://man7.org/linux/man-pages/man5/PMNS.5.html">PMNS(5)</a>)
+       supplied by Performance Metric Domain Agents (PMDAs).  Metrics
+       and other formatting information is now specified as plugin
+       configuration files in <a href="https://man7.org/linux/man-pages/man5/pcp-dstat.5.html">pcp-dstat(5)</a> format.  This new style of
+       plugin is either built-in (time-related reporting only), or
+       sourced from the system-wide location (<b>$PCP_SYSCONF_DIR/dstat</b>)
+       and/or sourced from an individual users set of personal plugins
+       (<b>$HOME/.pcp/dstat</b>).
+
+       The list of all available plugins can be seen using the <b>--list</b>
+       dstat command line option.
+</pre>

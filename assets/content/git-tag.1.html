@@ -1,0 +1,34 @@
+<pre>
+       Add a tag reference in <b>refs/tags/</b>, unless <b>-d/-l/-v </b>is given to
+       delete, list or verify tags.
+
+       Unless <b>-f </b>is given, the named tag must not yet exist.
+
+       If one of <b>-a</b>, <b>-s</b>, or <b>-u &lt;keyid&gt; </b>is passed, the command creates a
+       <i>tag</i> object, and requires a tag message. Unless <b>-m &lt;msg&gt; </b>or <b>-F</b>
+       <b>&lt;file&gt; </b>is given, an editor is started for the user to type in the
+       tag message.
+
+       If <b>-m &lt;msg&gt; </b>or <b>-F &lt;file&gt; </b>is given and <b>-a</b>, <b>-s</b>, and <b>-u &lt;keyid&gt; </b>are
+       absent, <b>-a </b>is implied.
+
+       Otherwise, a tag reference that points directly at the given
+       object (i.e., a lightweight tag) is created.
+
+       A GnuPG signed tag object will be created when <b>-s </b>or <b>-u &lt;keyid&gt;</b>
+       is used. When <b>-u &lt;keyid&gt; </b>is not used, the committer identity for
+       the current user is used to find the GnuPG key for signing. The
+       configuration variable <b>gpg.program </b>is used to specify custom
+       GnuPG binary.
+
+       Tag objects (created with <b>-a</b>, <b>-s</b>, or <b>-u</b>) are called "annotated"
+       tags; they contain a creation date, the tagger name and e-mail, a
+       tagging message, and an optional GnuPG signature. Whereas a
+       "lightweight" tag is simply a name for an object (usually a
+       commit object).
+
+       Annotated tags are meant for release while lightweight tags are
+       meant for private or temporary object labels. For this reason,
+       some git commands for naming objects (like <b>git describe</b>) will
+       ignore lightweight tags by default.
+</pre>

@@ -1,0 +1,19 @@
+<pre>
+       <b>pmlogsummary </b>prints statistical information about metrics of
+       numeric type contained within the files of a set of Performance
+       Co-Pilot (PCP) archive logs.  The default output prints time
+       averages for both counter and non-counter metrics.  The set of
+       archive logs is identified by <i>archive</i>, which is a comma-separated
+       list of names, each of which may be the base name of an archive
+       or the name of a directory containing one or more archives.  The
+       archive logs are typically created using <a href="https://man7.org/linux/man-pages/man1/pmlogger.1.html">pmlogger(1)</a>.
+
+       The metrics of interest are named in the <i>metricname</i> arguments.
+       If <i>metricname</i> is a non-leaf node in the Performance Metrics Name
+       Space (<a href="https://man7.org/linux/man-pages/man5/PMNS.5.html">PMNS(5)</a>), then <b>pmlogsummary </b>will recursively descend the
+       PMNS and report on all leaf nodes.  If no <i>metricname</i> argument is
+       given, the root of the namespace is used.
+
+       Metrics with counter semantics are converted to rates before
+       being evaluated.
+</pre>

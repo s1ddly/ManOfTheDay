@@ -1,0 +1,30 @@
+<pre>
+       Create an initramfs &lt;image&gt; for the kernel with the version
+       &lt;kernel version&gt;. If &lt;kernel version&gt; is omitted, then the
+       version of the actual running kernel is used. If &lt;image&gt; is
+       omitted or empty, then the default location
+       /boot/initramfs-&lt;kernel version&gt;.img is used.
+
+       dracut creates an initial image used by the kernel for preloading
+       the block device modules (such as IDE, SCSI or RAID) which are
+       needed to access the root filesystem, mounting the root
+       filesystem and booting into the real system.
+
+       At boot time, the kernel unpacks that archive into RAM disk,
+       mounts and uses it as initial root file system. All finding of
+       the root device happens in this early userspace.
+
+       Initramfs images are also called "initrd".
+
+       For a complete list of kernel command line options see
+       <a href="https://man7.org/linux/man-pages/man7/dracut.cmdline.7.html">dracut.cmdline(7)</a>.
+
+       If you are dropped to an emergency shell, while booting your
+       initramfs, the file <i>/run/initramfs/rdsosreport.txt</i> is created,
+       which can be saved to a (to be mounted by hand) partition
+       (usually /boot) or a USB stick. Additional debugging info can be
+       produced by adding <b>rd.debug </b>to the kernel command line.
+       <i>/run/initramfs/rdsosreport.txt</i> contains all logs and the output
+       of some tools. It should be attached to any report about dracut
+       problems.
+</pre>

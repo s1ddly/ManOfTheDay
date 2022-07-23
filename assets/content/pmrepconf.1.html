@@ -1,0 +1,41 @@
+<pre>
+       <b>pmrepconf </b>may be used to create and modify a generic
+       configuration file for <a href="https://man7.org/linux/man-pages/man1/pmrep.1.html">pmrep(1)</a> and related utilities in the
+       <a href="https://man7.org/linux/man-pages/man5/pmrep.conf.5.html">pmrep.conf(5)</a> format.
+
+       If <i>configfile</i> does not exist, <b>pmrepconf </b>will create a generic
+       configuration file with a set of discovered metrics in a
+       [metrics] section.
+
+       Once created, <i>configfile</i> may be used with the <b>-c </b>option to
+       <a href="https://man7.org/linux/man-pages/man1/pmrep.1.html">pmrep(1)</a> and related utilities such as <b>pcp2elasticsearch</b>(2) and
+       <b>pcp2spark</b>(2).
+
+       If <i>configfile</i> does exist, <b>pmrepconf </b>will prompt for input from
+       the user to enable or disable groups of related performance
+       metrics.
+
+       Group selection requires a simple <b>y </b>(yes) or <b>n </b>(no) response to
+       the prompt <b>Log this group?</b>.
+
+       Other responses at this point may be used to select additional
+       control functions as follows:
+
+       <b>m         </b>Report the names of the metrics in the current group.
+
+       <b>q         </b>Finish with group selection (quit) and make no further
+                 changes to this group or any subsequent group.
+
+       <b>/</b><i>pattern</i>  Make no change to this group but search for a group
+                 containing <i>pattern</i> in the description of the group or
+                 the names of the associated metrics.
+
+       When run from automated setup processes, the <b>-c </b>option is used to
+       indicate that <i>pmrepconf</i> is in auto-create mode and no interactive
+       dialog takes place.  The output <i>configfile</i> has an additional
+       comment message and timestamp indicating this fact, so that it
+       can be identified and subsequently updated using <b>-c </b>again.  This
+       option is not appropriate for interactive use of the tool.
+
+       More verbose output may be enabled with the <b>-v </b>option.
+</pre>

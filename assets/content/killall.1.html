@@ -1,0 +1,20 @@
+<pre>
+       <b>killall </b>sends a signal to all processes running any of the
+       specified commands.  If no signal name is specified, SIGTERM is
+       sent.
+
+       Signals can be specified either by name (e.g.  <b>-HUP </b>or <b>-SIGHUP</b>)
+       or by number (e.g.  <b>-1</b>) or by option <b>-s</b>.
+
+       If the command name is not regular expression (option <b>-r</b>) and
+       contains a slash (<b>/</b>), processes executing that particular file
+       will be selected for killing, independent of their name.
+
+       <b>killall </b>returns a zero return code if at least one process has
+       been killed for each listed command, or no commands were listed
+       and at least one process matched the <b>-u </b>and <b>-Z </b>search criteria.
+       <b>killall </b>returns non-zero otherwise.
+
+       A <b>killall </b>process never kills itself (but may kill other <b>killall</b>
+       processes).
+</pre>

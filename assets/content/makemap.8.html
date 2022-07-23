@@ -1,0 +1,49 @@
+<pre>
+     Maps provide a generic interface for associating a textual key to a
+     value.  Such associations may be accessed through a plaintext file,
+     database, or DNS.  The format of these file types is described
+     below.  <b>makemap </b>itself creates the database maps used by keyed map
+     lookups specified in smtpd.conf(5).
+
+     <b>makemap </b>reads input from <i>file</i> and writes data to a file which is
+     named by adding a “.db” suffix to <i>file</i>.  The current line can be
+     extended over multiple lines using a backslash (‘\’).  Comments can
+     be put anywhere in the file using a hash mark (‘#’), and extend to
+     the end of the current line.  Care should be taken when commenting
+     out multi-line text: the comment is effective until the end of the
+     entire block.  In all cases, <b>makemap </b>reads lines consisting of
+     words separated by whitespace.  The first word of a line is the
+     database key; the remainder represents the mapped value.  The
+     database key and value may optionally be separated by the colon
+     character.
+
+     The options are as follows:
+
+     <b>-d </b><i>dbtype</i>
+             Specify the format of the database.  Available formats are
+             <i>hash</i> and <i>btree</i>.  The default value is <i>hash</i>.
+
+     <b>-o </b><i>dbfile</i>
+             Write the generated database to <i>dbfile</i>.
+
+     <b>-t </b><i>type</i>
+             Specify the format of the resulting map file.  The default
+             map format is suitable for storing simple, unstructured,
+             key-to-value string associations.  However, if the mapped
+             value has special meaning, as in the case of a virtual
+             domains file, a suitable <i>type</i> must be provided.  The
+             available output types are:
+
+             <b>aliases  </b>The mapped value is a comma-separated list of mail
+                      destinations.  This format can be used for
+                      building user aliases and user mappings for
+                      virtual domain files.
+
+             <b>set      </b>There is no mapped value – a map of this type will
+                      only allow for the lookup of keys.  This format
+                      can be used for building primary domain maps.
+
+     <b>-U      </b>Instead of generating a database map from text input, dump
+             the contents of a database map as text with the key and
+             value separated with a tab.
+</pre>

@@ -1,0 +1,92 @@
+<pre>
+       The MariaDB slow query log contains information about queries
+       that take a long time to execute.  <b>mysqldumpslow </b>parses MariaDB
+       slow query log files and prints a summary of their contents.
+
+       Normally, <b>mysqldumpslow </b>groups queries that are similar except
+       for the particular values of number and string data values. It
+       “abstracts” these values to N and ´S´ when displaying summary
+       output. The <b>-a </b>and <b>-n </b>options can be used to modify value
+       abstracting behavior.
+
+       Invoke <b>mysqldumpslow </b>like this:
+
+           shell&gt; <b>mysqldumpslow [</b><i>options</i><b>] [</b><i>log_file</i> <b>...]</b>
+
+       <b>mysqldumpslow </b>supports the following options.
+
+       •   <b>--help</b>
+
+           Display a help message and exit.
+
+       •   <b>-a</b>
+
+           Do not abstract all numbers to N and strings to ´S´.
+
+       •   <b>--debug</b>, <b>-d</b>
+
+           Run in debug mode.
+
+       •   <b>-g </b><i>pattern</i>
+
+           Consider only queries that match the (<b>grep</b>-style) pattern.
+
+       •   <b>-h </b><i>host_name</i>
+
+           Host name of MariaDB server for *-slow.log file name. The
+           value can contain a wildcard. The default is * (match all).
+
+       •   <b>-i </b><i>name</i>
+
+           Name of server instance (if using <b>mysql.server </b>startup
+           script).
+
+       •   <b>-l</b>
+
+           Do not subtract lock time from total time.
+
+       •   <b>-n </b><i>N</i>
+
+           Abstract numbers with at least <i>N</i> digits within names.
+
+       •   <b>-r</b>
+
+           Reverse the sort order.
+
+       •   <b>-s </b><i>sort_type</i>
+
+           How to sort the output. The value of <i>sort_type</i> should be
+           chosen from the following list:
+
+           •   t, aa: Sort by rows affected or average rows affected
+
+           •   l, ae: Sort by rows examined or aggregate rows examined
+
+           •   l, at: Sort by query time or average query time
+
+           •   l, al: Sort by lock time or average lock time
+
+           •   s, as: Sort by rows sent or average rows sent
+
+           •   c: Sort by count
+
+       •   <b>-t </b><i>N</i>
+
+           Display only the first <i>N</i> queries in the output.
+
+       •   <b>--verbose</b>, <b>-v</b>
+
+           Verbose mode. Print more information about what the program
+           does.
+
+       Example of usage:
+
+           shell&gt; <b>mysqldumpslow</b>
+           Reading mysql slow query log from /usr/local/mysql/data/mysqld51-apple-slow.log
+           Count: 1  Time=4.32s (4s)  Lock=0.00s (0s)  Rows=0.0 (0), root[root]@localhost
+            insert into t2 select * from t1
+           Count: 3  Time=2.53s (7s)  Lock=0.00s (0s)  Rows=0.0 (0), root[root]@localhost
+            insert into t2 select * from t1 limit N
+           Count: 3  Time=2.13s (6s)  Lock=0.00s (0s)  Rows=0.0 (0), root[root]@localhost
+            insert into t1 select * from t1
+</pre>

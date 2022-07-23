@@ -1,0 +1,14 @@
+<pre>
+       <b>rpm2archive </b>converts the .rpm files specified as arguments to tar
+       files.  By default they are gzip compressed and saved with
+       postfix ".tgz".
+
+       If '-' is given as argument, an rpm stream is read from standard
+       in and written to standard out.
+
+       In opposite to <b>rpm2cpio rpm2archive </b>also works with RPM packages
+       containing files greater than 4GB which are not supported by
+       cpio.  Unless <b>rpm2cpio rpm2archive </b>needs a working rpm
+       installation which limits its usefulness for some disaster
+       recovery scenarios.
+</pre>

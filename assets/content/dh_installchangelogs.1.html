@@ -1,0 +1,29 @@
+<pre>
+       <b>dh_installchangelogs </b>is a debhelper program that is responsible
+       for installing changelogs into package build directories.
+
+       An upstream <i>changelog</i> file may be specified as an option. If none
+       is specified, <b>dh_installchangelogs </b>may look for files with names
+       that seem likely to be changelogs as described in the next
+       paragraphs.
+
+       In non-native packages, <b>dh_installchangelogs </b>will first look for
+       changelog files installed by the upstream build system into
+       <i>usr/share/doc/package</i> (of the package build directory) and rename
+       the most likely candidate (if any) to
+       <i>usr/share/doc/package/changelog</i>.  Note that <b>dh_installchangelogs</b>
+       does <i>not</i> look into any source directory (such as <i>debian/tmp</i>).
+       Otherwise, <b>dh_installchangelogs </b>(at compatibility level 7 or any
+       later) will look for changelog files in the source directory
+       (e.g. the root or the <i>docs</i> subdirectory).  It will look for
+       <i>changelog</i>, <i>changes</i> and <i>history</i> optionally with common extensions
+       (such as <i>.txt</i>, <i>.md</i> and <i>.rst</i>).
+
+       If a changelog file is specified and is an <i>html</i> file (determined
+       by file extension), it will be installed as
+       <i>usr/share/doc/package/changelog.html</i> instead. If the html
+       changelog is converted to plain text, that variant can be
+       specified as a second parameter. When no plain text variant is
+       specified, a short <i>usr/share/doc/package/changelog</i> is generated,
+       pointing readers at the html changelog file.
+</pre>

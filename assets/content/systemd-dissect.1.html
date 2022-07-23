@@ -1,0 +1,48 @@
+<pre>
+       <b>systemd-dissect </b>is a tool for introspecting and interacting with
+       file system OS disk images. It supports four different
+       operations:
+
+        1. Show general OS image information, including the image's
+           <a href="https://man7.org/linux/man-pages/man5/os-release.5.html">os-release(5)</a> data, machine ID, partition information and
+           more.
+
+        2. Mount an OS image to a local directory. In this mode it will
+           dissect the OS image and mount the included partitions
+           according to their designation onto a directory and possibly
+           sub-directories.
+
+        3. Copy files and directories in and out of an OS image.
+
+       The tool may operate on three types of OS images:
+
+        1. OS disk images containing a GPT partition table envelope,
+           with partitions marked according to the <b>Discoverable</b>
+           <b>Partitions Specification</b><b></b>[1].
+
+        2. OS disk images containing just a plain file-system without an
+           enveloping partition table. (This file system is assumed to
+           be the root file system of the OS.)
+
+        3. OS disk images containing a GPT or MBR partition table, with
+           a single partition only. (This partition is assumed to
+           contain the root file system of the OS.)
+
+       OS images may use any kind of Linux-supported file systems. In
+       addition they may make use of LUKS disk encryption, and contain
+       Verity integrity information. Note that qualifying OS images may
+       be booted with <a href="https://man7.org/linux/man-pages/man1/systemd-nspawn.1.html">systemd-nspawn(1)</a>'s <b>--image= </b>switch, and be used
+       as root file system for system service using the <i>RootImage=</i> unit
+       file setting, see <a href="https://man7.org/linux/man-pages/man5/systemd.exec.5.html">systemd.exec(5)</a>.
+
+       Note that the partition table shown when invoked without command
+       switch (as listed below) does not necessarily show all partitions
+       included in the image, but just the partitions that are
+       understood and considered part of an OS disk image. Specifically,
+       partitions of unknown types are ignored, as well as duplicate
+       partitions (i.e. more than one per partition type), as are root
+       and /usr/ partitions of architectures not compatible with the
+       local system. In other words: this tool will display what it
+       operates with when mounting the image. To display the complete
+       list of partitions use a tool such as <a href="https://man7.org/linux/man-pages/man8/fdisk.8.html">fdisk(8)</a>.
+</pre>

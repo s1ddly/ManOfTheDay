@@ -1,0 +1,35 @@
+<pre>
+       The <i>cksum</i> utility shall calculate and write to standard output a
+       cyclic redundancy check (CRC) for each input file, and also write
+       to standard output the number of octets in each file. The CRC
+       used is based on the polynomial used for CRC error checking in
+       the ISO/IEC 8802‐3:1996 standard (Ethernet).
+
+       The encoding for the CRC checksum is defined by the generating
+       polynomial:
+
+           <i>G</i>(<i>x</i>)=<i>x</i>32+<i>x</i>26+<i>x</i>23+<i>x</i>22+<i>x</i>16+<i>x</i>12+<i>x</i>11+<i>x</i>10+<i>x</i>8+<i>x</i>7+<i>x</i>5+<i>x</i>4+<i>x</i>2+<i>x</i>+1
+
+       Mathematically, the CRC value corresponding to a given file shall
+       be defined by the following procedure:
+
+        1. The <i>n</i> bits to be evaluated are considered to be the
+           coefficients of a mod 2 polynomial <i>M</i>(<i>x</i>) of degree <i>n</i>-1.  These
+           <i>n</i> bits are the bits from the file, with the most significant
+           bit being the most significant bit of the first octet of the
+           file and the last bit being the least significant bit of the
+           last octet, padded with zero bits (if necessary) to achieve
+           an integral number of octets, followed by one or more octets
+           representing the length of the file as a binary value, least
+           significant octet first. The smallest number of octets
+           capable of representing this integer shall be used.
+
+        2. <i>M</i>(<i>x</i>) is multiplied by <i>x</i>32 (that is, shifted left 32 bits) and
+           divided by <i>G</i>(<i>x</i>) using mod 2 division, producing a remainder
+           <i>R</i>(<i>x</i>) of degree ≤ 31.
+
+        3. The coefficients of <i>R</i>(<i>x</i>) are considered to be a 32-bit
+           sequence.
+
+        4. The bit sequence is complemented and the result is the CRC.
+</pre>

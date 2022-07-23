@@ -1,0 +1,302 @@
+<pre>
+       The <b>ovsdb-client </b>program is a command-line client for interacting
+       with a running <b>ovsdb-server </b>process.  Each command connects to
+       the specified OVSDB <i>server</i>, which may be an OVSDB active or
+       passive connection method, as described in <b>ovsdb</b>(7).  The default
+       server is <b>unix:/usr/local/var/run/openvswitch/db.sock </b>and the
+       default <i>database</i> is <b>Open_vSwitch</b>.
+
+       <b>ovsdb-client </b>supports the <i>method1</i><b>,</b><i>method2</i><b>,</b>...<b>,</b><i>methodN</i> syntax
+       described in <b>ovsdb</b>(7) for connecting to a cluster.  When this
+       syntax is used, <b>ovsdb-client </b>tries the cluster members in random
+       order until it finds the cluster leader.  Specify the
+       <b>--no-leader-only </b>option to instead accept any server that is
+       connected to the cluster.
+
+       For an introduction to OVSDB and its implementation in Open
+       vSwitch, see <b>ovsdb</b>(7).
+
+       The following sections describe the commands that <b>ovsdb-client</b>
+       supports.
+
+   <b>Server-Level Commands</b>
+       Most <b>ovsdb-client </b>commands work with an individual database, but
+       these commands apply to an entire database server.
+
+       <b>list-dbs </b>[<i>server</i>]
+              Connects to <i>server</i>, retrieves the list of known databases,
+              and prints them one per line.  These database names are
+              the ones that other commands may use for <i>database</i>.
+
+   <b>Database Schema Commands</b>
+       These commands obtain the schema from a database and print it or
+       part of it.
+
+       <b>get-schema </b>[<i>server</i>] [<i>database</i>]
+              Connects to <i>server</i>, retrieves the schema for <i>database</i>, and
+              prints it in JSON format.
+
+       <b>list-tables </b>[<i>server</i>] [<i>database</i>]
+              Connects to <i>server</i>, retrieves the schema for <i>database</i>, and
+              prints a table listing the name of each table within the
+              database.
+
+       <b>list-columns </b>[<i>server</i>] [<i>database</i>] <i>table</i>
+              Connects to <i>server</i>, retrieves the schema for <i>database</i>, and
+              prints a table listing the name and type of each column.
+              If <i>table</i> is specified, only columns in that table are
+              listed; otherwise, the tables include columns in all
+              tables.
+
+   <b>Database Version Management Commands</b>
+       An OVSDB schema has a schema version number, and an OVSDB
+       database embeds a particular version of an OVSDB schema.  These
+       version numbers take the form <i>x</i><b>.</b><i>y</i><b>.</b><i>z</i>, e.g. <b>1.2.3</b>.  The OVSDB
+       implementation does not enforce a particular version numbering
+       scheme, but schemas managed within the Open vSwitch project use
+       the following approach.  Whenever the database schema is changed
+       in a non-backward compatible way (e.g. deleting a column or a
+       table), <i>x</i> is incremented (and <i>y</i> and <i>z</i> are reset to 0).  When the
+       database schema is changed in a backward compatible way (e.g.
+       adding a new column), <i>y</i> is incremented (and <i>z</i> is reset to 0).
+       When the database schema is changed cosmetically (e.g.
+       reindenting its syntax), <i>z</i> is incremented.
+
+       Some OVSDB databases and schemas, especially very old ones, do
+       not have a version number.
+
+       Schema version numbers and Open vSwitch version numbers are
+       independent.
+
+       These commands work with different versions of OVSDB schemas and
+       databases.
+
+       <b>convert </b>[<i>server</i>] <i>schema</i>
+              Reads an OVSDB schema in JSON format, as specified in the
+              OVSDB specification, from <i>schema</i>, then connects to <i>server</i>
+              and requests the server to convert the database whose name
+              is specified in <i>schema</i> to the schema also specified in
+              <i>schema</i>.
+
+              The conversion is atomic, consistent, isolated, and
+              durable.  Following the schema change, the server notifies
+              clients that use the <b>set_db_change_aware </b>RPC introduced in
+              Open vSwitch 2.9 and cancels their outstanding
+              transactions and monitors.  The server disconnects other
+              clients, enabling them to notice the change when they
+              reconnect.
+
+              This command can do simple ``upgrades'' and ``downgrades''
+              on a database's schema.  The data in the database must be
+              valid when interpreted under <i>schema</i>, with only one
+              exception: data for tables and columns that do not exist
+              in <i>schema</i> are ignored.  Columns that exist in <i>schema</i> but
+              not in the database are set to their default values.  All
+              of <i>schema</i>'s constraints apply in full.
+
+              Some uses of this command can cause unrecoverable data
+              loss.  For example, converting a database from a schema
+              that has a given column or table to one that does not will
+              delete all data in that column or table.  Back up critical
+              databases before converting them.
+
+              This command works with clustered and standalone
+              databases.  Standalone databases may also be converted
+              (offline) with <b>ovsdb-tool</b>'s <b>convert </b>command.
+
+       <b>needs-conversion </b>[<i>server</i>] <i>schema</i>
+              Reads the schema from <i>schema</i>, then connects to <i>server</i> and
+              requests the schema from the database whose name is
+              specified in <i>schema</i>.  If the two schemas are the same,
+              prints <b>no </b>on stdout; if they differ, prints <b>yes</b>.
+
+       <b>get-schema-version </b>[<i>server</i>] [<i>database</i>]
+              Connects to <i>server</i>, retrieves the schema for <i>database</i>, and
+              prints its version number on stdout.  If <i>database</i> was
+              created before schema versioning was introduced, then it
+              will not have a version number and this command will print
+              a blank line.
+
+       <b>get-schema-cksum </b>[<i>server</i>] [<i>database</i>]
+              Connects to <i>server</i>, retrieves the schema for <i>database</i>, and
+              prints its checksum on stdout.  If <i>database</i> does not
+              include a checksum, prints a blank line.
+
+   <b>Data Management Commands</b>
+       These commands read or modify the data in a database.
+
+       <b>transact </b>[<i>server</i>] <i>transaction</i>
+              Connects to <i>server</i>, sends it the specified <i>transaction</i>,
+              which must be a JSON array appropriate for use as the
+              <b>params </b>to a JSON-RPC <b>transact </b>request, and prints the
+              received reply on stdout.
+
+       <b>query </b>[<i>server</i>] <i>transaction</i>
+              This commands acts like a read-only version of <b>transact</b>.
+              It connects to <i>server</i>, sends it the specified <i>transaction</i>,
+              which must be a JSON array appropriate for use as the
+              <b>params </b>to a JSON-RPC <b>transact </b>request, and prints the
+              received reply on stdout.  To ensure that the transaction
+              does not modify the database, this command appends an
+              <b>abort </b>operation to the set of operations included in
+              <i>transaction</i> before sending it to the database, and then
+              removes the <b>abort </b>result from the reply (if it is
+              present).
+
+       <b>dump </b>[<i>server</i>] [<i>database</i>] [<i>table</i> [<i>column</i>...]]
+              Connects to <i>server</i>, retrieves all of the data in <i>database</i>,
+              and prints it on stdout as a series of tables. If <i>table</i> is
+              specified, only that table is retrieved.  If at least one
+              <i>column</i> is specified, only those columns are retrieved.
+
+       <b>backup </b>[<i>server</i>] [<i>database</i>] <b>&gt; </b><i>snapshot</i>
+              Connects to <i>server</i>, retrieves a snapshot of the schema and
+              data in <i>database</i>, and prints it on stdout in the format
+              used for OVSDB standalone and active-backup databases.
+              This is an appropriate way to back up any remote database.
+              The database snapshot that it outputs is suitable to be
+              served up directly by <b>ovsdb-server </b>or used as the input to
+              <b>ovsdb-client restore</b>.
+
+              Another way to back up a standalone or active-backup
+              database is to copy its database file, e.g. with <b>cp</b>.  This
+              is safe even if the database is in use.
+
+              The output does not include ephemeral columns, which by
+              design do not survive across restarts of <b>ovsdb-server</b>.
+
+       [<b>--force</b>] <b>restore </b>[<i>server</i>] [<i>database</i>] <b>&lt; </b><i>snapshot</i>
+              Reads <i>snapshot</i>, which must be a OVSDB standalone or
+              active-backup database (possibly but not necessarily
+              created by <b>ovsdb-client backup).  Then, connects to</b>
+              <i>server</i>, verifies that <i>database</i> and <i>snapshot</i> have the same
+              schema, then deletes all of the data in <i>database</i> and
+              replaces it by <i>snapshot</i>.  The replacement happens
+              atomically, in a single transaction.
+
+              UUIDs for rows in the restored database will differ from
+              those in <i>snapshot</i>, because the OVSDB protocol does not
+              allow clients to specify row UUIDs.  Another way to
+              restore a standalone or active-backup database, which does
+              also restore row UUIDs, is to stop the server or servers,
+              replace the database file by the snapshot, then restart
+              the database.  Either way, ephemeral columns are not
+              restored, since by design they do not survive across
+              restarts of <b>ovsdb-server</b>.
+
+              Normally <b>restore </b>exits with a failure if <b>snapshot </b>and the
+              server's database have different schemas.  In such a case,
+              it is a good idea to convert the database to the new
+              schema before restoring, e.g. with <b>ovsdb-client convert</b>.
+              Use <b>--force </b>to proceed regardless of schema differences
+              even though the restore might fail with an error or
+              succeed with surprising results.
+
+       <b>monitor </b>[<i>server</i>] [<i>database</i>] <i>table</i> [<i>column</i>[<b>,</b><i>column</i>]...]...
+       <b>monitor-cond </b>[<i>server</i>] [<i>database</i>] <i>conditions table</i>
+       [<i>column</i>[<b>,</b><i>column</i>]...]...
+       <b>monitor-cond-since </b>[<i>server</i>] [<i>database</i>] [<i>last-id</i>] <i>conditions table</i>
+       [<i>column</i>[<b>,</b><i>column</i>]...]...
+              Connects to <i>server</i> and monitors the contents of rows that
+              match conditions in <i>table</i> in <i>database</i>. By default, the
+              initial contents of <i>table</i> are printed, followed by each
+              change as it occurs.  If conditions empty, all rows will
+              be monitored. If at least one <i>column</i> is specified, only
+              those columns are monitored.  The following <i>column</i> names
+              have special meanings:
+
+              <b>!initial</b>
+                     Do not print the initial contents of the specified
+                     columns.
+
+              <b>!insert</b>
+                     Do not print newly inserted rows.
+
+              <b>!delete</b>
+                     Do not print deleted rows.
+
+              <b>!modify</b>
+                     Do not print modifications to existing rows.
+
+              Multiple [<i>column</i>[<b>,</b><i>column</i>]...] groups may be specified as
+              separate arguments, e.g. to apply different reporting
+              parameters to each group.  Whether multiple groups or only
+              a single group is specified, any given column may only be
+              mentioned once on the command line.
+
+              <b>conditions </b>is a JSON array of &lt;condition&gt; as defined in
+              RFC 7047 5.1 with the following change: A condition can be
+              either a 3-element JSON array as described in the RFC or a
+              boolean value.
+
+              If <b>--detach </b>is used with <b>monitor</b>, <b>monitor-cond </b>or
+              <b>monitor-cond-since</b>, then <b>ovsdb-client </b>detaches after it
+              has successfully received and printed the initial contents
+              of <i>table</i>.
+
+              The <b>monitor </b>command uses RFC 7047 "monitor" method to open
+              a monitor session with the server. The <b>monitor-cond </b>and
+              <b>monitor-cond-since </b>commandls uses RFC 7047 extension
+              "monitor_cond" and "monitor_cond_since" methods. See
+              <a href="https://man7.org/linux/man-pages/man1/ovsdb-server.1.html">ovsdb-server(1)</a> for details.
+
+       <b>monitor </b>[<i>server</i>] [<i>database</i>] <b>ALL</b>
+              Connects to <i>server</i> and monitors the contents of all tables
+              in <i>database</i>.  Prints initial values and all kinds of
+              changes to all columns in the database.  The <b>--detach</b>
+              option causes <b>ovsdb-client </b>to detach after it successfully
+              receives and prints the initial database contents.
+
+              The <b>monitor </b>command uses RFC 7047 "monitor" method to open
+              a monitor session with the server.
+
+       <b>wait </b>[<i>server</i>] <i>database state</i>
+              Waits for <i>database</i> on <i>server</i> to enter a desired <i>state</i>,
+              which may be one of:
+
+              <b>added  </b>Waits until a database with the given name has been
+                     added to <i>server</i>.
+
+              <b>connected</b>
+                     Waits until a database with the given name has been
+                     added to <i>server</i>.  Then, if <i>database</i> is clustered,
+                     additionally waits until it has joined and
+                     connected to its cluster.
+
+              <b>removed</b>
+                     Waits until <i>database</i> has been removed from the
+                     database server.  This can also be used to wait for
+                     a database to complete leaving its cluster, because
+                     <b>ovsdb-server </b>removes a database at that point.
+
+              <i>database</i> is mandatory for this command because it is often
+              used to check for databases that have not yet been added
+              to the server, so that the <b>ovsdb-client </b>semantics of
+              acting on a default database do not work.
+
+              This command acts on a particular database server, not on
+              a cluster, so <i>server</i> must name a single server, not a
+              comma-delimited list of servers.
+
+   <b>Testing commands</b>
+       These commands are mostly of interest for testing the correctness
+       of the OVSDB server.
+
+       <b>lock </b>[<i>server</i>] <i>lock</i>
+       <b>steal </b>[<i>server</i>] <i>lock</i>
+       <b>unlock </b>[<i>server</i>] <i>lock</i>
+              Connects to <i>server</i> and issues corresponding RFC 7047 lock
+              operations on <i>lock</i>. Prints json reply or subsequent update
+              messages.  The <b>--detach </b>option causes <b>ovsdb-client </b>to
+              detach after it successfully receives and prints the
+              initial reply.
+
+              When running with the <b>--detach </b>option, <b>lock</b>, <b>steal</b>, <b>unlock</b>
+              and <b>exit </b>commands can be issued by using <b>ovs-appctl</b>. <b>exit</b>
+              command causes the <b>ovsdb-client </b>to close its <b>ovsdb-server</b>
+              connection before exit.  The <b>lock</b>, <b>steal </b>and <b>unlock</b>
+              commands can be used to issue additional lock operations
+              over the same <b>ovsdb-server </b>connection. All above commands
+              take a single <i>lock</i> argument, which does not have to be the
+              same as the <i>lock</i> that <b>ovsdb-client </b>started with.
+</pre>

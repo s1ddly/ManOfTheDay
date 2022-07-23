@@ -1,0 +1,31 @@
+<pre>
+       <b>rdisc </b>implements client side of the ICMP Internet Router
+       Discovery Protocol (IRDP).  <b>rdisc </b>is invoked at boot time to
+       populate the network routing tables with default routes.
+
+       <b>rdisc </b>listens on the ALL_HOSTS (224.0.0.1) multicast address (or
+       <i>receive_address</i> if it is provided) for ROUTER_ADVERTISE messages
+       from routers. The received messages are handled by first ignoring
+       those listed router addresses with which the host does not share
+       a network. Among the remaining addresses the ones with the
+       highest preference are selected as default routers and a default
+       route is entered in the kernel routing table for each one of
+       them.
+
+       Optionally, <b>rdisc </b>can avoid waiting for routers to announce
+       themselves by sending out a few ROUTER_SOLICITATION messages to
+       the ALL_ROUTERS (224.0.0.2) multicast address (or <i>send_address</i> if
+       it is provided) when it is started.
+
+       A timer is associated with each router address and the address
+       will no longer be considered for inclusion in the routing tables
+       if the timer expires before a new <b>advertise </b>message is received
+       from the router. The address will also be excluded from
+       consideration if the received <b>advertise </b>message has a preference
+       of maximum negative.
+
+       Server side of router discovery protocol is supported by Cisco
+       IOS and by any more or less complete UNIX routing daemon, for
+       example <b>gated</b>. If compiled with ENABLE_RDISC_SERVER, <b>rdisc </b>can
+       act as responder.
+</pre>

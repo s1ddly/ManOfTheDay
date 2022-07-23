@@ -1,0 +1,121 @@
+<pre>
+   <b>devlink sb show - display available shared buffers and their</b>
+       <b>attributes</b>
+       <i>DEV</i> - specifies the devlink device to show shared buffers.  If
+       this argument is omitted all shared buffers of all devices are
+       listed.
+
+       <i>SB_INDEX</i> - specifies the shared buffer.  If this argument is
+       omitted shared buffer with index 0 is selected.  Behaviour of
+       this argument it the same for every command.
+
+   <b>devlink sb pool show - display available pools and their attributes</b>
+       <i>DEV</i> - specifies the devlink device to show pools.  If this
+       argument is omitted all pools of all devices are listed.
+
+       Display available pools listing their <b>type, size, thtype </b>and
+       <b>cell_size. cell_size </b>is the allocation granularity of memory
+       within the shared buffer. Drivers may round up, round down or
+       reject <b>size </b>passed to the set command if it is not multiple of
+       <b>cell_size.</b>
+
+   <b>devlink sb pool set - set attributes of pool</b>
+       <i>DEV</i> - specifies the devlink device to set pool.
+
+       <b>size </b><i>POOL_SIZE</i>
+              size of the pool in Bytes.
+
+       <b>thtype </b>{ <b>static </b>| <b>dynamic </b>}
+              pool threshold type.
+
+              <i>static</i> - Threshold values for the pool will be passed in
+              Bytes.
+
+              <i>dynamic</i> - Threshold values ("to_alpha") for the pool will
+              be used to compute alpha parameter according to formula:
+                              alpha = 2 ^ (to_alpha - 10)
+
+                        The range of the passed value is between 0 to
+                        20. The computed alpha is used to determine the
+                        maximum usage of the flow:
+                              max_usage = alpha / (1 + alpha) *
+                              Free_Buffer
+
+   <b>devlink sb port pool show - display port-pool combinations and</b>
+       <b>threshold for each</b>
+       <i>DEV/PORT_INDEX</i> - specifies the devlink port.
+
+       <b>pool </b><i>POOL_INDEX</i>
+              pool index.
+
+   <b>devlink sb port pool set - set port-pool threshold</b>
+       <i>DEV/PORT_INDEX</i> - specifies the devlink port.
+
+       <b>pool </b><i>POOL_INDEX</i>
+              pool index.
+
+       <b>th </b><i>THRESHOLD</i>
+              threshold value. Type of the value is either Bytes or
+              "to_alpha", depends on <b>thtype </b>set for the pool.
+
+   <b>devlink sb tc bind show - display port-TC to pool bindings and</b>
+       <b>threshold for each</b>
+       <i>DEV/PORT_INDEX</i> - specifies the devlink port.
+
+       <b>tc </b><i>TC_INDEX</i>
+              index of either ingress or egress TC, usually in range 0
+              to 8 (depends on device).
+
+       <b>type </b>{ <b>ingress </b>| <b>egress </b>}
+              TC type.
+
+   <b>devlink sb tc bind set - set port-TC to pool binding with specified</b>
+       <b>threshold</b>
+       <i>DEV/PORT_INDEX</i> - specifies the devlink port.
+
+       <b>tc </b><i>TC_INDEX</i>
+              index of either ingress or egress TC, usually in range 0
+              to 8 (depends on device).
+
+       <b>type </b>{ <b>ingress </b>| <b>egress </b>}
+              TC type.
+
+       <b>pool </b><i>POOL_INDEX</i>
+              index of pool to bind this to.
+
+       <b>th </b><i>THRESHOLD</i>
+              threshold value. Type of the value is either Bytes or
+              "to_alpha", depends on <b>thtype </b>set for the pool.
+
+   <b>devlink sb occupancy show - display shared buffer occupancy values</b>
+       <b>for device or port</b>
+       This command is used to browse shared buffer occupancy values.
+       Values are showed for every port-pool combination as well as for
+       all port-TC combinations (with pool this port-TC is bound to).
+       Format of value is:
+                       current_value/max_value
+       Note that before showing values, one has to issue <b>occupancy</b>
+       <b>snapshot </b>command first.
+
+       <i>DEV</i> - specifies the devlink device to show occupancy values for.
+
+       <i>DEV/PORT_INDEX</i> - specifies the devlink port to show occupancy
+       values for.
+
+   <b>devlink sb occupancy snapshot - take occupancy snapshot of shared</b>
+       <b>buffer for device</b>
+       This command is used to take a snapshot of shared buffer
+       occupancy values. After that, the values can be showed using
+       <b>occupancy show </b>command.
+
+       <i>DEV</i> - specifies the devlink device to take occupancy snapshot on.
+
+   <b>devlink sb occupancy clearmax - clear occupancy watermarks of shared</b>
+       <b>buffer for device</b>
+       This command is used to reset maximal occupancy values reached
+       for whole device. Note that before browsing reset values, one has
+       to issue <b>occupancy snapshot </b>command.
+
+       <i>DEV</i> - specifies the devlink device to clear occupancy watermarks
+       on.
+</pre>

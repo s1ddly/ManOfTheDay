@@ -1,0 +1,34 @@
+<pre>
+       <b>pmdammv </b>is a Performance Metrics Domain Agent (PMDA) which
+       exports application level performance metrics using memory mapped
+       files.  It offers an extremely low overhead instrumentation
+       facility that is well-suited to long running, mission critical
+       applications where it is desirable to have performance metrics
+       and availability information permanently enabled.
+
+       The <b>mmv </b>PMDA exports instrumentation that has been added to an
+       application using the MMV APIs (refer to <a href="https://man7.org/linux/man-pages/man3/mmv_stats_init.3.html">mmv_stats_init(3)</a> and
+       <a href="https://man7.org/linux/man-pages/man5/mmv.5.html">mmv(5)</a> for further details).  These APIs can be called from
+       several languages, including C, C++, Perl, Python, Java (via the
+       separate ``Parfait'' class library) and GoLang (via the separate
+       ``Speed'' library).
+
+       A brief description of the <b>pmdammv </b>command line options follows:
+
+       <b>-d   </b>It is absolutely crucial that the performance metrics <i>domain</i>
+            number specified here is unique and consistent.  That is,
+            <i>domain</i> should be different for every PMDA on the one host,
+            and the same <i>domain</i> number should be used for the same PMDA
+            on all hosts.
+
+       <b>-l   </b>Location of the log file.  By default, a log file named
+            <i>mmv.log</i> is written in the current directory of <a href="https://man7.org/linux/man-pages/man1/pmcd.1.html">pmcd(1)</a> when
+            <b>pmdammv </b>is started, i.e.  <b>$PCP_LOG_DIR/pmcd</b>.  If the log
+            file cannot be created or is not writable, output is written
+            to the standard error instead.
+
+       <b>-U   </b>User account under which to run the agent.  The default is
+            the unprivileged "pcp" account in current versions of PCP,
+            but in older versions the superuser account ("root") was
+            used by default.
+</pre>

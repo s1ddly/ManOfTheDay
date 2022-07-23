@@ -1,0 +1,100 @@
+<pre>
+       For an overview of namespaces, see <a href="https://man7.org/linux/man-pages/man7/namespaces.7.html">namespaces(7)</a>.
+
+       Cgroup namespaces virtualize the view of a process's cgroups (see
+       <a href="https://man7.org/linux/man-pages/man7/cgroups.7.html">cgroups(7)</a>) as seen via <i>/proc/[pid]/cgroup</i> and
+       <i>/proc/[pid]/mountinfo</i>.
+
+       Each cgroup namespace has its own set of cgroup root directories.
+       These root directories are the base points for the relative
+       locations displayed in the corresponding records in the
+       <i>/proc/[pid]/cgroup</i> file.  When a process creates a new cgroup
+       namespace using <a href="https://man7.org/linux/man-pages/man2/clone.2.html">clone(2)</a> or <a href="https://man7.org/linux/man-pages/man2/unshare.2.html">unshare(2)</a> with the <b>CLONE_NEWCGROUP</b>
+       flag, its current cgroups directories become the cgroup root
+       directories of the new namespace.  (This applies both for the
+       cgroups version 1 hierarchies and the cgroups version 2 unified
+       hierarchy.)
+
+       When reading the cgroup memberships of a "target" process from
+       <i>/proc/[pid]/cgroup</i>, the pathname shown in the third field of each
+       record will be relative to the reading process's root directory
+       for the corresponding cgroup hierarchy.  If the cgroup directory
+       of the target process lies outside the root directory of the
+       reading process's cgroup namespace, then the pathname will show
+       <i>../</i> entries for each ancestor level in the cgroup hierarchy.
+
+       The following shell session demonstrates the effect of creating a
+       new cgroup namespace.
+
+       First, (as superuser) in a shell in the initial cgroup namespace,
+       we create a child cgroup in the <i>freezer</i> hierarchy, and place a
+       process in that cgroup that we will use as part of the
+       demonstration below:
+
+           # <b>mkdir -p /sys/fs/cgroup/freezer/sub2</b>
+           # <b>sleep 10000 &amp;     </b># Create a process that lives for a while
+           [1] 20124
+           # <b>echo 20124 &gt; /sys/fs/cgroup/freezer/sub2/cgroup.procs</b>
+
+       We then create another child cgroup in the <i>freezer</i> hierarchy and
+       put the shell into that cgroup:
+
+           # <b>mkdir -p /sys/fs/cgroup/freezer/sub</b>
+           # <b>echo $$                      </b># Show PID of this shell
+           30655
+           # <b>echo 30655 &gt; /sys/fs/cgroup/freezer/sub/cgroup.procs</b>
+           # <b>cat /proc/self/cgroup | grep freezer</b>
+           7:freezer:/sub
+
+       Next, we use <a href="https://man7.org/linux/man-pages/man1/unshare.1.html">unshare(1)</a> to create a process running a new shell
+       in new cgroup and mount namespaces:
+
+           # <b>PS1="sh2# " unshare -Cm bash</b>
+
+       From the new shell started by <a href="https://man7.org/linux/man-pages/man1/unshare.1.html">unshare(1)</a>, we then inspect the
+       <i>/proc/[pid]/cgroup</i> files of, respectively, the new shell, a
+       process that is in the initial cgroup namespace (<i>init</i>, with PID
+       1), and the process in the sibling cgroup (<i>sub2</i>):
+
+           sh2# <b>cat /proc/self/cgroup | grep freezer</b>
+           7:freezer:/
+           sh2# <b>cat /proc/1/cgroup | grep freezer</b>
+           7:freezer:/..
+           sh2# <b>cat /proc/20124/cgroup | grep freezer</b>
+           7:freezer:/../sub2
+
+       From the output of the first command, we see that the freezer
+       cgroup membership of the new shell (which is in the same cgroup
+       as the initial shell) is shown defined relative to the freezer
+       cgroup root directory that was established when the new cgroup
+       namespace was created.  (In absolute terms, the new shell is in
+       the <i>/sub</i> freezer cgroup, and the root directory of the freezer
+       cgroup hierarchy in the new cgroup namespace is also <i>/sub</i>.  Thus,
+       the new shell's cgroup membership is displayed as '/'.)
+
+       However, when we look in <i>/proc/self/mountinfo</i> we see the
+       following anomaly:
+
+           sh2# <b>cat /proc/self/mountinfo | grep freezer</b>
+           155 145 0:32 /.. /sys/fs/cgroup/freezer ...
+
+       The fourth field of this line (<i>/..</i>)  should show the directory in
+       the cgroup filesystem which forms the root of this mount.  Since
+       by the definition of cgroup namespaces, the process's current
+       freezer cgroup directory became its root freezer cgroup
+       directory, we should see '/' in this field.  The problem here is
+       that we are seeing a mount entry for the cgroup filesystem
+       corresponding to the initial cgroup namespace (whose cgroup
+       filesystem is indeed rooted at the parent directory of <i>sub</i>).  To
+       fix this problem, we must remount the freezer cgroup filesystem
+       from the new shell (i.e., perform the mount from a process that
+       is in the new cgroup namespace), after which we see the expected
+       results:
+
+           sh2# <b>mount --make-rslave /     </b># Don't propagate mount events
+                                          # to other namespaces
+           sh2# <b>umount /sys/fs/cgroup/freezer</b>
+           sh2# <b>mount -t cgroup -o freezer freezer /sys/fs/cgroup/freezer</b>
+           sh2# <b>cat /proc/self/mountinfo | grep freezer</b>
+           155 145 0:32 / /sys/fs/cgroup/freezer rw,relatime ...
+</pre>

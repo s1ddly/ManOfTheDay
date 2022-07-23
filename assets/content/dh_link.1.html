@@ -1,0 +1,28 @@
+<pre>
+       <b>dh_link </b>is a debhelper program that creates symlinks in package
+       build directories.
+
+       <b>dh_link </b>accepts a list of pairs of source and destination files.
+       The source files are the already existing files that will be
+       symlinked from (called <b>target </b>by <a href="https://man7.org/linux/man-pages/man1/ln.1.html">ln(1)</a>). The destination files
+       are the symlinks that will be created (called <b>link name </b>by
+       <a href="https://man7.org/linux/man-pages/man1/ln.1.html">ln(1)</a>). There <b>must </b>be an equal number of source and destination
+       files specified.
+
+       Be sure you <b>do </b>specify the absolute path to both the source and
+       destination files (unlike you would do if you were using
+       something like <a href="https://man7.org/linux/man-pages/man1/ln.1.html">ln(1)</a>).  Please note that the leading slash is
+       optional.
+
+       <b>dh_link </b>will generate symlinks that comply with Debian policy -
+       absolute when policy says they should be absolute, and relative
+       links with as short a path as possible. It will also create any
+       subdirectories it needs to put the symlinks in.
+
+       Any pre-existing destination files will be replaced with
+       symlinks.
+
+       <b>dh_link </b>also scans the package build tree for existing symlinks
+       which do not conform to Debian policy, and corrects them (v4 or
+       later).
+</pre>

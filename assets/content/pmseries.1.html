@@ -1,0 +1,55 @@
+<pre>
+       <b>pmseries </b>displays various types of information about performance
+       metrics available through the scalable timeseries facilities of
+       the Performance Co-Pilot (PCP) and the Redis distributed data
+       store.
+
+       By default <b>pmseries </b>communicates with a local <b>redis-server</b>(1),
+       however the <b>-h </b>and <b>-p </b>options can be used to specify an alternate
+       Redis instance.  If this instance is a node of a Redis cluster,
+       all other instances in the cluster will be discovered and used
+       automatically.
+
+       <b>pmseries </b>runs in several different modes - either querying
+       timeseries identifiers, metadata or values (already stored in
+       Redis), or manually loading timeseries into Redis.  The latter
+       mode is seldom used, however, since <a href="https://man7.org/linux/man-pages/man1/pmproxy.1.html">pmproxy(1)</a> will automatically
+       perform this function for local <a href="https://man7.org/linux/man-pages/man1/pmlogger.1.html">pmlogger(1)</a> instances, when
+       running in its default time series mode.
+
+       Without command line options specifying otherwise, <b>pmseries </b>will
+       issue a timeseries query to find matching timeseries and values.
+       All timeseries are identified using a unique SHA-1 hash which is
+       always displayed in a 40-hexdigit human readable form.  These
+       hashes are formed using the metadata associated with every
+       metric.
+
+       Importantly, this includes all metric metadata (labels, names,
+       descriptors).  Metric labels in particular are (as far as
+       possible) unique for every machine - on Linux for example the
+       labels associated with every metric include the unique
+       <i>/etc/machine-id</i>, the hostname, domainname, and other
+       automatically generated machine labels, as well as any
+       administrator-defined labels from <i>/etc/pcp/labels</i>.  These labels
+       can be reported with <a href="https://man7.org/linux/man-pages/man1/pminfo.1.html">pminfo(1)</a> and the <i>pmcd.labels</i> metric.
+
+       See <a href="https://man7.org/linux/man-pages/man3/pmLookupLabels.3.html">pmLookupLabels(3)</a>, <a href="https://man7.org/linux/man-pages/man3/pmLookupInDom.3.html">pmLookupInDom(3)</a>, <a href="https://man7.org/linux/man-pages/man3/pmLookupName.3.html">pmLookupName(3)</a> and
+       <a href="https://man7.org/linux/man-pages/man3/pmLookupDesc.3.html">pmLookupDesc(3)</a> for detailed information about metric labels and
+       other metric metadata used in each timeseries identifier hash
+       calculation.
+
+       The timeseries identifiers provide a higher level (and machine
+       independent) identifier than the traditional PCP performance
+       metric identifiers (pmID), instance domain identifiers (pmInDom)
+       and metric names.  See <a href="https://man7.org/linux/man-pages/man1/PCPIntro.1.html">PCPIntro(1)</a> for more details about these
+       traditional identifiers.  However, <b>pmseries </b>uses timeseries
+       identifiers in much the same way that <a href="https://man7.org/linux/man-pages/man1/pminfo.1.html">pminfo(1)</a> uses the lower
+       level indom, metric identifiers and metric names.
+
+       The default mode of <b>pmseries </b>operation (i.e. with no command line
+       options) depends on the arguments it is presented.  If all non-
+       option arguments appear to be timeseries identifiers (in 40 hex
+       digit form) <b>pmseries </b>will report metadata for these timeseries -
+       refer to the <b>-a </b>option for details.  Otherwise, the parameters
+       will be treated as a timeseries query.
+</pre>

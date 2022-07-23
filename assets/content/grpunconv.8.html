@@ -1,0 +1,36 @@
+<pre>
+       The <b>pwconv </b>command creates <i>shadow</i> from <i>passwd</i> and an optionally
+       existing <i>shadow</i>.
+
+       The <b>pwunconv </b>command creates <i>passwd</i> from <i>passwd</i> and <i>shadow</i> and
+       then removes <i>shadow</i>.
+
+       The <b>grpconv </b>command creates <i>gshadow</i> from <i>group</i> and an optionally
+       existing <i>gshadow</i>.
+
+       The <b>grpunconv </b>command creates <i>group</i> from <i>group</i> and <i>gshadow</i> and
+       then removes <i>gshadow</i>.
+
+       These four programs all operate on the normal and shadow password
+       and group files: /etc/passwd, /etc/group, /etc/shadow, and
+       /etc/gshadow.
+
+       Each program acquires the necessary locks before conversion.
+       <b>pwconv </b>and <b>grpconv </b>are similar. First, entries in the shadowed
+       file which don't exist in the main file are removed. Then,
+       shadowed entries which don't have `x' as the password in the main
+       file are updated. Any missing shadowed entries are added.
+       Finally, passwords in the main file are replaced with `x'. These
+       programs can be used for initial conversion as well to update the
+       shadowed file if the main file is edited by hand.
+
+       <b>pwconv </b>will use the values of <i>PASS_MIN_DAYS</i>, <i>PASS_MAX_DAYS</i>, and
+       <i>PASS_WARN_AGE</i> from /etc/login.defs when adding new entries to
+       /etc/shadow.
+
+       Likewise <b>pwunconv </b>and <b>grpunconv </b>are similar. Passwords in the
+       main file are updated from the shadowed file. Entries which exist
+       in the main file but not in the shadowed file are left alone.
+       Finally, the shadowed file is removed. Some password aging
+       information is lost by <b>pwunconv</b>. It will convert what it can.
+</pre>

@@ -1,0 +1,32 @@
+<pre>
+       dracut uses a modular system to build and extend the initramfs
+       image. All modules are located in <i>/usr/lib/dracut/modules.d</i> or in
+       <i>&lt;git-src&gt;/modules.d</i>. The most basic dracut module is <i>99base</i>. In
+       <i>99base</i> the initial shell script init is defined, which gets run
+       by the kernel after initramfs loading. Although you can replace
+       init with your own version of <i>99base</i>, this is not encouraged.
+       Instead you should use, if possible, the hooks of dracut. All
+       hooks, and the point of time in which they are executed, are
+       described in the section called “BOOT PROCESS STAGES”.
+
+       The main script, which creates the initramfs is dracut itself. It
+       parses all arguments and sets up the directory, in which
+       everything is installed. It then executes all check, install,
+       installkernel scripts found in the modules, which are to be
+       processed. After everything is installed, the install directory
+       is archived and compressed to the final initramfs image. All
+       helper functions used by check, install and installkernel are
+       found in in the file <i>dracut-functions</i>. These shell functions are
+       available to all module installer (install, installkernel)
+       scripts, without the need to source <i>dracut-functions</i>.
+
+       A module can check the preconditions for install and
+       installkernel with the check script. Also dependencies can be
+       expressed with check. If a module passed check, install and
+       installkernel will be called to install all of the necessary
+       files for the module. To split between kernel and non-kernel
+       parts of the installation, all kernel module related parts have
+       to be in installkernel. All other files found in a module
+       directory are module specific and mostly are hook scripts and
+       udev rules.
+</pre>

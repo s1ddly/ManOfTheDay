@@ -1,0 +1,16 @@
+<pre>
+       This manual page documents briefly the <b>rtmon </b>command.
+
+       <b>rtmon </b>listens on <i>netlink</i> socket and monitors routing table
+       changes.
+
+       <i>rtmon</i> can be started before the first network configuration
+       command is issued.  For example if you insert:
+
+       <b>rtmon file /var/log/rtmon.log</b>
+
+       in a startup script, you will be able to view the full history
+       later.  Certainly, it is possible to start rtmon at any time. It
+       prepends the history with the state snapshot dumped at the moment
+       of starting.
+</pre>

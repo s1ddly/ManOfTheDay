@@ -1,0 +1,13 @@
+<pre>
+       If job control is enabled (see the description of <i>set</i> <b>-m</b>), the <i>bg</i>
+       utility shall resume suspended jobs from the current environment
+       (see <i>Section 2.12</i>, <i>Shell Execution Environment</i>) by running them
+       as background jobs. If the job specified by <i>job_id</i> is already a
+       running background job, the <i>bg</i> utility shall have no effect and
+       shall exit successfully.
+
+       Using <i>bg</i> to place a job into the background shall cause its
+       process ID to become ``known in the current shell execution
+       environment'', as if it had been started as an asynchronous list;
+       see <i>Section 2.9.3.1</i>, <i>Examples</i>.
+</pre>

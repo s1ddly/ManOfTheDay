@@ -1,0 +1,66 @@
+<pre>
+       <b>mysql_convert_table_format </b>converts the tables in a database to
+       use a particular storage engine (MyISAM by default).
+       <b>mysql_convert_table_format </b>is written in Perl and requires that
+       the DBI and DBD::MariaDB Perl modules be installed (see
+       Section 2.15, “Perl Installation Notes”).
+
+       Invoke <b>mysql_convert_table_format </b>like this:
+
+           shell&gt; <b>mysql_convert_table_format [</b><i>options</i><b>]</b><i>db_name</i>
+
+       The <i>db_name</i> argument indicates the database containing the tables
+       to be converted.
+
+       <b>mysql_convert_table_format </b>supports the options described in the
+       following list.
+
+       •   <b>--help</b>
+
+           Display a help message and exit.
+
+       •   <b>--force</b>
+
+           Continue even if errors occur.
+
+       •   <b>--host=</b><i>host_name</i>
+
+           Connect to the MariaDB server on the given host.
+
+       •   <b>--password=</b><i>password</i>
+
+           The password to use when connecting to the server. Note that
+           the password value is not optional for this option, unlike
+           for other MariaDB programs.
+
+           Specifying a password on the command line should be
+           considered insecure. You can use an option file to avoid
+           giving the password on the command line.
+
+       •   <b>--port=</b><i>port_num</i>
+
+           The TCP/IP port number to use for the connection.
+
+       •   <b>--socket=</b><i>path</i>
+
+           For connections to localhost, the Unix socket file to use.
+
+       •   <b>--type=</b><i>engine_name</i>
+
+           Specify the storage engine that the tables should be
+           converted to use. The default is MyISAM if this option is not
+           given.
+
+       •   <b>--user=</b><i>user_name</i>
+
+           The MariaDB user name to use when connecting to the server.
+
+       •   <b>--verbose</b>
+
+           Verbose mode. Print more information about what the program
+           does.
+
+       •   <b>--version</b>
+
+           Display version information and exit.
+</pre>

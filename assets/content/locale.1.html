@@ -1,0 +1,75 @@
+<pre>
+       The <b>locale </b>command displays information about the current locale,
+       or all locales, on standard output.
+
+       When invoked without arguments, <b>locale </b>displays the current
+       locale settings for each locale category (see <a href="https://man7.org/linux/man-pages/man5/locale.5.html">locale(5)</a>), based
+       on the settings of the environment variables that control the
+       locale (see <a href="https://man7.org/linux/man-pages/man7/locale.7.html">locale(7)</a>).  Values for variables set in the
+       environment are printed without double quotes, implied values are
+       printed with double quotes.
+
+       If either the <b>-a </b>or the <b>-m </b>option (or one of their long-format
+       equivalents) is specified, the behavior is as follows:
+
+       <b>-a</b>, <b>--all-locales</b>
+              Display a list of all available locales.  The <b>-v </b>option
+              causes the <b>LC_IDENTIFICATION </b>metadata about each locale to
+              be included in the output.
+
+       <b>-m</b>, <b>--charmaps</b>
+              Display the available charmaps (character set description
+              files).  To display the current character set for the
+              locale, use <b>locale -c charmap</b>.
+
+       The <b>locale </b>command can also be provided with one or more
+       arguments, which are the names of locale keywords (for example,
+       <i>date_fmt</i>, <i>ctype-class-names</i>, <i>yesexpr</i>, or <i>decimal_point</i>) or locale
+       categories (for example, <b>LC_CTYPE </b>or <b>LC_TIME</b>).  For each
+       argument, the following is displayed:
+
+       *  For a locale keyword, the value of that keyword to be
+          displayed.
+
+       *  For a locale category, the values of all keywords in that
+          category are displayed.
+
+       When arguments are supplied, the following options are
+       meaningful:
+
+       <b>-c</b>, <b>--category-name</b>
+              For a category name argument, write the name of the locale
+              category on a separate line preceding the list of keyword
+              values for that category.
+
+              For a keyword name argument, write the name of the locale
+              category for this keyword on a separate line preceding the
+              keyword value.
+
+              This option improves readability when multiple name
+              arguments are specified.  It can be combined with the <b>-k</b>
+              option.
+
+       <b>-k</b>, <b>--keyword-name</b>
+              For each keyword whose value is being displayed, include
+              also the name of that keyword, so that the output has the
+              format:
+
+                  <i>keyword</i>="<i>value</i>"
+
+       The <b>locale </b>command also knows about the following options:
+
+       <b>-v</b>, <b>--verbose</b>
+              Display additional information for some command-line
+              option and argument combinations.
+
+       <b>-?</b>, <b>--help</b>
+              Display a summary of command-line options and arguments
+              and exit.
+
+       <b>--usage</b>
+              Display a short usage message and exit.
+
+       <b>-V</b>, <b>--version</b>
+              Display the program version and exit.
+</pre>

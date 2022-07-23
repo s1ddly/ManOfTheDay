@@ -1,0 +1,59 @@
+<pre>
+       <b>pv </b>shows the progress of data through a pipeline by giving
+       information such as time elapsed, percentage completed (with
+       progress bar), current throughput rate, total data transferred,
+       and ETA.
+
+       To use it, insert it in a pipeline between two processes, with
+       the appropriate options.  Its standard input will be passed
+       through to its standard output and progress will be shown on
+       standard error.
+
+       <b>pv </b>will copy each supplied <b>FILE </b>in turn to standard output (<b>-</b>
+       means standard input), or if no <b>FILE</b>s are specified just standard
+       input is copied. This is the same behaviour as <a href="https://man7.org/linux/man-pages/man1/cat.1.html">cat(1)</a>.
+
+       A simple example to watch how quickly a file is transferred using
+       <b>nc</b>(1):
+
+              <b>pv file | nc -w 1 somewhere.com 3000</b>
+
+       A similar example, transferring a file from another process and
+       passing the expected size to <b>pv</b>:
+
+              <b>cat file | pv -s 12345 | nc -w 1 somewhere.com 3000</b>
+
+       A more complicated example using numeric output to feed into the
+       <b>dialog</b>(1) program for a full-screen progress display:
+
+              <b>(tar cf - . \</b>
+               <b>| pv -n -s $(du -sb . | awk '{print $1}') \</b>
+               <b>| gzip -9 &gt; out.tgz) 2&gt;&amp;1 \</b>
+              <b>| dialog --gauge 'Progress' 7 70</b>
+
+       Taking an image of a disk, skipping errors:
+
+              <b>pv -EE /dev/sda &gt; disk-image.img</b>
+
+       Writing an image back to a disk:
+
+              <b>pv disk-image.img &gt; /dev/sda</b>
+
+       Zeroing a disk:
+
+              <b>pv &lt; /dev/zero &gt; /dev/sda</b>
+
+       Note that if the input size cannot be calculated, and the output
+       is a block device, then the size of the block device will be used
+       and <b>pv </b>will automatically stop at that size as if <b>-S </b>had been
+       given.
+
+       (Linux only): Watching file descriptor 3 opened by another
+       process 1234:
+
+              <b>pv -d 1234:3</b>
+
+       (Linux only): Watching all file descriptors used by process 1234:
+
+              <b>pv -d 1234</b>
+</pre>

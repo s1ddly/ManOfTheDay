@@ -1,0 +1,32 @@
+<pre>
+       Cryptsetup-reencrypt can be used to change reencryption
+       parameters which otherwise require full on-disk data change (re-
+       encryption).
+
+       You can regenerate <b>volume key </b>(the real key used in on-disk
+       encryption unclocked by passphrase), <b>cipher</b>, <b>cipher mode</b>.
+
+       Cryptsetup-reencrypt reencrypts data on LUKS device in-place.
+       During reencryption process the LUKS device is marked
+       unavailable.
+
+       <i>NOTE</i>: If you're looking for LUKS2 online reencryption manual
+       please read cryptsetup(8) man page instead (see reencrypt
+       action). This page is for legacy offline reencryption utility
+       only.
+
+       <i>WARNING</i>: The cryptsetup-reencrypt program is not resistant to
+       hardware or kernel failures during reencryption (you can lose
+       your data in this case).
+
+       <i>ALWAYS BE SURE YOU HAVE RELIABLE BACKUP BEFORE USING THIS TOOL.</i>
+       The reencryption can be temporarily suspended (by TERM signal or
+       by using ctrl+c) but you need to retain temporary files named
+       LUKS-&lt;uuid&gt;.[log|org|new].  LUKS device is unavailable until
+       reencryption is finished though.
+
+       Current working directory must be writable and temporary files
+       created during reencryption must be present.
+
+       For more info about LUKS see cryptsetup(8).
+</pre>

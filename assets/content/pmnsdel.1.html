@@ -1,0 +1,29 @@
+<pre>
+       <b>pmnsdel </b>removes subtrees of names from a Performance Metrics Name
+       Space (PMNS), as used by the components of the Performance Co-
+       Pilot (PCP).
+
+       Normally <b>pmnsdel </b>operates on the default Performance Metrics Name
+       Space (PMNS), however if the <b>-n </b>option is specified an
+       alternative namespace is used from the file <i>namespace</i>.
+
+       The default PMNS is found in the file <i>$PCP_VAR_DIR/pmns/root</i>
+       unless the environment variable <b>PMNS_DEFAULT </b>is set, in which
+       case the value is assumed to be the pathname to the file
+       containing the default PMNS.
+
+       The metric names to be deleted are all those for which one of the
+       <i>metricpath</i> arguments is a prefix in the PMNS, see <a href="https://man7.org/linux/man-pages/man5/PMNS.5.html">PMNS(5)</a>.
+
+       All of the files defining the PMNS must be located within the
+       directory that contains the root of the PMNS, and this would
+       typically be <b>$PCP_VAR_DIR/pmns </b>for the default PMNS, and this
+       would typically imply running <b>pmnsdel </b>as root.
+
+       Provided some initial integrity checks are satisfied, <b>pmnsdel</b>
+       will update the necessary PMNS files.  Should an error be
+       encountered the original namespace is restored.  Note that any
+       PMNS files that are no longer referenced by the modified
+       namespace will not be removed, even though their contents are not
+       part of the new namespace.
+</pre>

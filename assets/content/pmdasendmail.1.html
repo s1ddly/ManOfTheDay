@@ -1,0 +1,35 @@
+<pre>
+       <b>pmdasendmail </b>is a sendmail Performance Metrics Domain Agent
+       (PMDA) which exports mail traffic statistics as collected by
+       <b>sendmail</b>(1).
+
+       Before the sendmail PMDA can export any metrics, <b>sendmail</b>(1) must
+       have statistics collection enabled.  This involves checking the
+       name of the statistics file, as given by the <b>OS </b>or <b>O StatusFile</b>
+       control lines in <b>/etc/sendmail.cf</b>, and then creating this file if
+       it does not already exist.  Removing the file will terminate
+       statistics collection by <b>sendmail</b>(1) and hence the sendmail PMDA.
+
+       A brief description of the <b>pmdasendmail </b>command line options
+       follows:
+
+       <b>-d   </b>It is absolutely crucial that the performance metrics <i>domain</i>
+            number specified here is unique and consistent.  That is,
+            <i>domain</i> should be different for every PMDA on the one host,
+            and the same <i>domain</i> number should be used for the same PMDA
+            on all hosts.
+
+       <b>-l   </b>Location of the log file.  By default, a log file named
+            <i>sendmail.log</i> is written in the current directory of <a href="https://man7.org/linux/man-pages/man1/pmcd.1.html">pmcd(1)</a>
+            when <b>pmdasendmail </b>is started, i.e.  <b>$PCP_LOG_DIR/pmcd</b>.  If
+            the log file cannot be created or is not writable, output is
+            written to the standard error instead.
+
+       <b>-U   </b>User account under which to run the agent.  The default is
+            the unprivileged "pcp" account in current versions of PCP,
+            but in older versions the superuser account ("root") was
+            used by default.
+
+       There are no communication options, as the <i>Install</i> script ensures
+       the sendmail PMDA will be connected to PMCD by a pipe.
+</pre>

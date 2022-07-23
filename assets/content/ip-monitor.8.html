@@ -1,0 +1,50 @@
+<pre>
+       The <b>ip </b>utility can monitor the state of devices, addresses and
+       routes continuously. This option has a slightly different format.
+       Namely, the <b>monitor </b>command is the first in the command line and
+       then the object list follows:
+
+       <b>ip monitor </b>[ <b>all </b>| <i>OBJECT-LIST</i> ] [ <b>file </b><i>FILENAME</i> ] [ <b>label </b>] [
+       <b>all-nsid </b>] [ <b>dev </b><i>DEVICE</i> ]
+
+       <i>OBJECT-LIST</i> is the list of object types that we want to monitor.
+       It may contain <b>link</b>, <b>address</b>, <b>route</b>, <b>mroute</b>, <b>prefix</b>, <b>neigh</b>,
+       <b>netconf</b>, <b>rule</b>, <b>nsid </b>and <b>nexthop</b>.  If no <b>file </b>argument is given,
+       <b>ip </b>opens RTNETLINK, listens on it and dumps state changes in the
+       format described in previous sections.
+
+       If the <b>label </b>option is set, a prefix is displayed before each
+       message to show the family of the message. For example:
+
+         [NEIGH]10.16.0.112 dev eth0 lladdr 00:04:23:df:2f:d0 REACHABLE
+         [LINK]3: eth1: &lt;BROADCAST,MULTICAST&gt; mtu 1500 qdisc pfifo_fast
+         state DOWN group default
+             link/ether 52:54:00:12:34:57 brd ff:ff:ff:ff:ff:ff
+
+       If the <b>all-nsid </b>option is set, the program listens to all network
+       namespaces that have a nsid assigned into the network namespace
+       were the program is running.  A prefix is displayed to show the
+       network namespace where the message originates. Example:
+
+         [nsid 0]10.16.0.112 dev eth0 lladdr 00:04:23:df:2f:d0 REACHABLE
+
+       If the <b>file </b>option is given, the program does not listen on
+       RTNETLINK, but opens the given file, and dumps its contents. The
+       file should contain RTNETLINK messages saved in binary format.
+       Such a file can be generated with the <b>rtmon </b>utility. This utility
+       has a command line syntax similar to <b>ip monitor</b>.  Ideally, <b>rtmon</b>
+       should be started before the first network configuration command
+       is issued. F.e. if you insert:
+
+               rtmon file /var/log/rtmon.log
+
+       in a startup script, you will be able to view the full history
+       later.
+
+       Nevertheless, it is possible to start <b>rtmon </b>at any time.  It
+       prepends the history with the state snapshot dumped at the moment
+       of starting.
+
+       If the <b>dev </b>option is given, the program prints only events
+       related to this device.
+</pre>

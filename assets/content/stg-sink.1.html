@@ -1,0 +1,16 @@
+<pre>
+       This is the opposite operation of <a href="https://man7.org/linux/man-pages/man1/stg-float.1.html">stg-float(1)</a>: move the
+       specified patches down the stack. It is for example useful to
+       group stable patches near the bottom of the stack, where they are
+       less likely to be impacted by the push of another patch, and from
+       where they can be more easily committed or pushed.
+
+       If no patch is specified on command-line, the current patch gets
+       sunk. By default patches are sunk to the bottom of the stack, but
+       the <i>--to</i> option allows one to place them under any applied patch.
+
+       Sinking internally involves popping all patches (or all patches
+       including &lt;target patch&gt;), then pushing the patches to sink, and
+       then (unless <i>--nopush</i> is also given) pushing back into place the
+       formerly-applied patches.
+</pre>

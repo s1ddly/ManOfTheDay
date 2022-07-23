@@ -1,0 +1,37 @@
+<pre>
+       <b>systemd-cryptenroll </b>is a tool for enrolling hardware security
+       tokens and devices into a LUKS2 encrypted volume, which may then
+       be used to unlock the volume during boot. Specifically, it
+       supports tokens and credentials of the following kind to be
+       enrolled:
+
+        1. PKCS#11 security tokens and smartcards that may carry an RSA
+           key pair (e.g. various YubiKeys)
+
+        2. FIDO2 security tokens that implement the "hmac-secret"
+           extension (most FIDO2 keys, including YubiKeys)
+
+        3. TPM2 security devices
+
+        4. Recovery keys. These are similar to regular passphrases,
+           however are randomly generated on the computer and thus
+           generally have higher entropy than user chosen passphrases.
+           Their character set has been designed to ensure they are easy
+           to type in, while having high entropy. They may also be
+           scanned off screen using QR codes. Recovery keys may be used
+           for unlocking LUKS2 volumes wherever passphrases are
+           accepted. They are intended to be used in combination with an
+           enrolled hardware security token, as a recovery option when
+           the token is lost.
+
+        5. Regular passphrases
+
+       In addition, the tool may be used to enumerate currently enrolled
+       security tokens and wipe a subset of them. The latter may be
+       combined with the enrollment operation of a new security token,
+       in order to update or replace enrollments.
+
+       The tool supports only LUKS2 volumes, as it stores token
+       meta-information in the LUKS2 JSON token area, which is not
+       available in other encryption formats.
+</pre>

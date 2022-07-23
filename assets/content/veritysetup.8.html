@@ -1,0 +1,95 @@
+<pre>
+       Veritysetup is used to configure dm-verity managed device-mapper
+       mappings.
+
+       Device-mapper verity target provides read-only transparent
+       integrity checking of block devices using kernel crypto API.
+
+       The dm-verity devices are always read-only.
+
+       Veritysetup supports these operations:
+
+       <i>format</i> &lt;data_device&gt; &lt;hash_device&gt;
+
+              Calculates and permanently stores hash verification data
+              for data_device.  Hash area can be located on the same
+              device after data if specified by --hash-offset option.
+
+              Note you need to provide root hash string for device
+              verification or activation. Root hash must be trusted.
+
+              The data or hash device argument can be block device or
+              file image.  If hash device path doesn't exist, it will be
+              created as file.
+
+              <b>&lt;options&gt; </b>can be [--hash, --no-superblock, --format,
+              --data-block-size, --hash-block-size, --data-blocks,
+              --hash-offset, --salt, --uuid, --root-hash-file]
+
+              If option --root-hash-file is used, the root hash is
+              stored in hex-encoded text format in &lt;path&gt;.
+
+       <i>open</i> &lt;data_device&gt; &lt;name&gt; &lt;hash_device&gt; &lt;root_hash&gt;
+       <i>open</i> &lt;data_device&gt; &lt;name&gt; &lt;hash_device&gt; --root-hash-file &lt;path&gt;
+       <i>create</i> &lt;name&gt; &lt;data_device&gt; &lt;hash_device&gt; &lt;root_hash&gt;  (<b>OBSOLETE</b>
+       <b>syntax</b>)
+
+              Creates a mapping with &lt;name&gt; backed by device
+              &lt;data_device&gt; and using &lt;hash_device&gt; for in-kernel
+              verification.
+
+              The &lt;root_hash&gt; is a hexadecimal string.
+
+              <b>&lt;options&gt; </b>can be [--hash-offset, --no-superblock,
+              --ignore-corruption or --restart-on-corruption, --panic-
+              on-corruption, --ignore-zero-blocks, --check-at-most-once,
+              --root-hash-signature, --root-hash-file]
+
+              If option --root-hash-file is used, the root hash is read
+              from &lt;path&gt; instead of from the command line parameter.
+              Expects hex-encoded text, without terminating newline.
+
+              If option --no-superblock is used, you have to use as the
+              same options as in initial format operation.
+
+       <i>verify</i> &lt;data_device&gt; &lt;hash_device&gt; &lt;root_hash&gt;
+       <i>verify</i> &lt;data_device&gt; &lt;hash_device&gt; --root-hash-file &lt;path&gt;
+
+              Verifies data on data_device with use of hash blocks
+              stored on hash_device.
+
+              This command performs userspace verification, no kernel
+              device is created.
+
+              The &lt;root_hash&gt; is a hexadecimal string.
+
+              If option --root-hash-file is used, the root hash is read
+              from &lt;path&gt; instead of from the command line parameter.
+              Expects hex-encoded text, without terminating newline.
+
+              <b>&lt;options&gt; </b>can be [--hash-offset, --no-superblock, --root-
+              hash-file]
+
+              If option --no-superblock is used, you have to use as the
+              same options as in initial format operation.
+
+       <i>close</i> &lt;name&gt;
+
+              Removes existing mapping &lt;name&gt;.
+
+              For backward compatibility there is <b>remove </b>command alias
+              for <b>close </b>command.
+
+              <b>&lt;options&gt; </b>can be [--deferred] or [--cancel-deferred]
+
+       <i>status</i> &lt;name&gt;
+
+              Reports status for the active verity mapping &lt;name&gt;.
+
+       <i>dump</i> &lt;hash_device&gt;
+
+              Reports parameters of verity device from on-disk stored
+              superblock.
+
+              <b>&lt;options&gt; </b>can be [--hash-offset]
+</pre>

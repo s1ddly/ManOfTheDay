@@ -1,0 +1,12 @@
+<pre>
+       <i>ldapurl</i> is a command that allows one to either compose or
+       decompose LDAP URIs.
+
+       When invoked with the <b>-H </b>option, <b>ldapurl </b>extracts the components
+       of the <i>ldapuri</i> option argument, unescaping hex-escaped chars as
+       required.  It basically acts as a frontend to the
+       <a href="https://man7.org/linux/man-pages/man3/ldap_url_parse.3.html">ldap_url_parse(3)</a> call.  Otherwise, it builds an LDAP URI based
+       on the components passed with the appropriate options, performing
+       the inverse operation.  Option <b>-H </b>is incompatible with options
+       <b>-a</b>, <b>-b</b>, <b>-E</b>, <b>-f</b>, <b>-H</b>, <b>-h</b>, <b>-p</b>, <b>-S</b>, and <b>-s</b>.
+</pre>

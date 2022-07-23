@@ -1,0 +1,71 @@
+<pre>
+       <b>comp_err </b>creates the errmsg.sys file that is used by <b>mysqld </b>to
+       determine the error messages to display for different error
+       codes.  <b>comp_err </b>normally is run automatically when MariaDB is
+       built. It compiles the errmsg.sys file from the plaintext file
+       located at sql/share/errmsg.txt in MariaDB source distributions.
+
+       <b>comp_err </b>also generates mysqld_error.h, mysqld_ername.h, and
+       sql_state.h header files.
+
+       For more information about how error messages are defined, see
+       the MySQL Internals Manual.
+
+       Invoke <b>comp_err </b>like this:
+
+           shell&gt; <b>comp_err [</b><i>options</i><b>]</b>
+
+       <b>comp_err </b>supports the following options.
+
+       •   <b>--help</b>, <b>-?</b>
+
+           Display a help message and exit.
+
+       •   <b>--charset=</b><i>path</i>, <b>-C </b><i>path</i>
+
+           The character set directory. The default is
+           ../sql/share/charsets.
+
+       •   <b>--debug=</b><i>debug_options</i>, <b>-# </b><i>debug_options</i>
+
+           Write a debugging log. A typical <i>debug_options</i> string is
+           ´d:t:O,<i>file_name</i>´. The default is
+           ´d:t:O,/tmp/comp_err.trace´.
+
+       •   <b>--debug-info</b>, <b>-T</b>
+
+           Print some debugging information when the program exits.
+
+       •   <b>--header_file=</b><i>file_name</i>, <b>-H </b><i>file_name</i>
+
+           The name of the error header file. The default is
+           mysqld_error.h.
+
+       •   <b>--in_file=</b><i>file_name</i>, <b>-F </b><i>file_name</i>
+
+           The name of the input file. The default is
+           ../sql/share/errmsg.txt.
+
+       •   <b>--name_file=</b><i>file_name</i>, <b>-N </b><i>file_name</i>
+
+           The name of the error name file. The default is
+           mysqld_ername.h.
+
+       •   <b>--out_dir=</b><i>path</i>, <b>-D </b><i>path</i>
+
+           The name of the output base directory. The default is
+           ../sql/share/.
+
+       •   <b>--out_file=</b><i>file_name</i>, <b>-O </b><i>file_name</i>
+
+           The name of the output file. The default is errmsg.sys.
+
+       •   <b>--statefile=</b><i>file_name</i>, <b>-S </b><i>file_name</i>
+
+           The name for the SQLSTATE header file. The default is
+           sql_state.h.
+
+       •   <b>--version</b>, <b>-V</b>
+
+           Display version information and exit.
+</pre>

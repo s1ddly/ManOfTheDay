@@ -1,0 +1,11 @@
+<pre>
+       <b>ovn-controller </b>is the local controller daemon for OVN, the Open
+       Virtual Network. It connects up to the OVN Southbound database
+       (see <a href="https://man7.org/linux/man-pages/man5/ovn-sb.5.html">ovn-sb(5)</a>) over the OVSDB protocol, and down to the Open
+       vSwitch database (see <a href="https://man7.org/linux/man-pages/man5/ovs-vswitchd.conf.db.5.html">ovs-vswitchd.conf.db(5)</a>) over the OVSDB
+       protocol and to <a href="https://man7.org/linux/man-pages/man8/ovs-vswitchd.8.html">ovs-vswitchd(8)</a> via OpenFlow. Each hypervisor and
+       software gateway in an OVN deployment runs its own independent
+       copy of <b>ovn-controller</b>; thus, <b>ovn-controller</b>’s downward
+       connections are machine-local and do not run over a physical
+       network.
+</pre>

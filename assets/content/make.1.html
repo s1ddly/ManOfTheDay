@@ -1,0 +1,47 @@
+<pre>
+       The <i>make</i> utility will determine automatically which pieces of a
+       large program need to be recompiled, and issue the commands to
+       recompile them.  The manual describes the GNU implementation of
+       <b>make</b>, which was written by Richard Stallman and Roland McGrath,
+       and is currently maintained by Paul Smith.  Our examples show C
+       programs, since they are very common, but you can use <b>make </b>with
+       any programming language whose compiler can be run with a shell
+       command.  In fact, <b>make </b>is not limited to programs.  You can use
+       it to describe any task where some files must be updated
+       automatically from others whenever the others change.
+
+       To prepare to use <b>make</b>, you must write a file called the <i>makefile</i>
+       that describes the relationships among files in your program, and
+       the states the commands for updating each file.  In a program,
+       typically the executable file is updated from object files, which
+       are in turn made by compiling source files.
+
+       Once a suitable makefile exists, each time you change some source
+       files, this simple shell command:
+
+              <b>make</b>
+
+       suffices to perform all necessary recompilations.  The <b>make</b>
+       program uses the makefile description and the last-modification
+       times of the files to decide which of the files need to be
+       updated.  For each of those files, it issues the commands
+       recorded in the makefile.
+
+       <b>make </b>executes commands in the <i>makefile</i> to update one or more
+       target <i>names</i>, where <i>name</i> is typically a program.  If no <b>-f </b>option
+       is present, <b>make </b>will look for the makefiles <i>GNUmakefile</i>,
+       <i>makefile</i>, and <i>Makefile</i>, in that order.
+
+       Normally you should call your makefile either <i>makefile</i> or
+       <i>Makefile</i>.  (We recommend <i>Makefile</i> because it appears prominently
+       near the beginning of a directory listing, right near other
+       important files such as <i>README</i>.)  The first name checked,
+       <i>GNUmakefile</i>, is not recommended for most makefiles.  You should
+       use this name if you have a makefile that is specific to GNU
+       <b>make</b>, and will not be understood by other versions of <b>make</b>.  If
+       <i>makefile</i> is '-', the standard input is read.
+
+       <b>make </b>updates a target if it depends on prerequisite files that
+       have been modified since the target was last modified, or if the
+       target does not exist.
+</pre>

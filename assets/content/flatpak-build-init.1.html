@@ -1,0 +1,15 @@
+<pre>
+       Initializes a separate build directory.  DIRECTORY is the name of
+       the directory.  APPNAME is the application id of the app that
+       will be built.  SDK and RUNTIME specify the sdk and runtime that
+       the application should be built against and run in.  BRANCH
+       specify the version of sdk and runtime
+
+       Initializes a directory as build directory which can be used as
+       target directory of <b>flatpak build</b>. It creates a metadata inside
+       the given directory. Additionally, empty files and var
+       subdirectories are created.
+
+       It is an error to run build-init on a directory that has already
+       been initialized as a build directory.
+</pre>

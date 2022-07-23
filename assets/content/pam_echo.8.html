@@ -1,0 +1,26 @@
+<pre>
+       The <i>pam_echo</i> PAM module is for printing text messages to inform
+       user about special things. Sequences starting with the <i>%</i>
+       character are interpreted in the following way:
+
+       <i>%H</i>
+           The name of the remote host (PAM_RHOST).
+
+       <i>%h</i>
+           The name of the local host.
+
+       <i>%s</i>
+           The service name (PAM_SERVICE).
+
+       <i>%t</i>
+           The name of the controlling terminal (PAM_TTY).
+
+       <i>%U</i>
+           The remote user name (PAM_RUSER).
+
+       <i>%u</i>
+           The local user name (PAM_USER).
+
+       All other sequences beginning with <i>%</i> expands to the characters
+       following the <i>%</i> character.
+</pre>

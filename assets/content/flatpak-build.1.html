@@ -1,0 +1,10 @@
+<pre>
+       Runs a build command in a directory.  DIRECTORY must have been
+       initialized with <b>flatpak build-init</b>.
+
+       The sdk that is specified in the metadata file in the directory
+       is mounted at /usr and the files and var subdirectories are
+       mounted at /app and /var, respectively. They are writable, and
+       their contents are preserved between build commands, to allow
+       accumulating build artifacts there.
+</pre>

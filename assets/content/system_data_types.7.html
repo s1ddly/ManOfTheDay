@@ -1,0 +1,891 @@
+<pre>
+       <i>aiocb</i>
+              <i>Include</i>: <i>&lt;aio.h&gt;</i>.
+
+              struct aiocb {
+                  int             aio_fildes;    /* File descriptor */
+                  off_t           aio_offset;    /* File offset */
+                  volatile void  *aio_buf;       /* Location of buffer */
+                  size_t          aio_nbytes;    /* Length of transfer */
+                  int             aio_reqprio;   /* Request priority offset */
+                  struct sigevent aio_sigevent;  /* Signal number and value */
+                  int             aio_lio_opcode;/* Operation to be performed */
+              };
+
+              For further information about this structure, see <a href="https://man7.org/linux/man-pages/man7/aio.7.html">aio(7)</a>.
+
+              <i>Conforming to</i>: POSIX.1-2001 and later.
+
+              <i>See also</i>: <a href="https://man7.org/linux/man-pages/man3/aio_cancel.3.html">aio_cancel(3)</a>, <a href="https://man7.org/linux/man-pages/man3/aio_error.3.html">aio_error(3)</a>, <a href="https://man7.org/linux/man-pages/man3/aio_fsync.3.html">aio_fsync(3)</a>,
+              <a href="https://man7.org/linux/man-pages/man3/aio_read.3.html">aio_read(3)</a>, <a href="https://man7.org/linux/man-pages/man3/aio_return.3.html">aio_return(3)</a>, <a href="https://man7.org/linux/man-pages/man3/aio_suspend.3.html">aio_suspend(3)</a>, <a href="https://man7.org/linux/man-pages/man3/aio_write.3.html">aio_write(3)</a>,
+              <a href="https://man7.org/linux/man-pages/man3/lio_listio.3.html">lio_listio(3)</a>
+
+       <i>blkcnt_t</i>
+              <i>Include</i>: <i>&lt;sys/types.h&gt;</i>.  Alternatively, <i>&lt;sys/stat.h&gt;</i>.
+
+              Used for file block counts.  According to POSIX, it shall
+              be a signed integer type.
+
+              <i>Conforming to</i>: POSIX.1-2001 and later.
+
+              <i>See also</i>: <a href="https://man7.org/linux/man-pages/man2/stat.2.html">stat(2)</a>
+
+       <i>blksize_t</i>
+              <i>Include</i>: <i>&lt;sys/types.h&gt;</i>.  Alternatively, <i>&lt;sys/stat.h&gt;</i>.
+
+              Used for file block sizes.  According to POSIX, it shall
+              be a signed integer type.
+
+              <i>Conforming to</i>: POSIX.1-2001 and later.
+
+              <i>See also</i>: <a href="https://man7.org/linux/man-pages/man2/stat.2.html">stat(2)</a>
+
+       <i>cc_t</i>
+              <i>Include</i>: <i>&lt;termios.h&gt;</i>.
+
+              Used for terminal special characters.  According to POSIX,
+              it shall be an unsigned integer type.
+
+              <i>Conforming to</i>: POSIX.1-2001 and later.
+
+              <i>See also</i>: <a href="https://man7.org/linux/man-pages/man3/termios.3.html">termios(3)</a>
+
+       <i>clock_t</i>
+              <i>Include</i>: <i>&lt;time.h&gt;</i> or <i>&lt;sys/types.h&gt;</i>.  Alternatively,
+              <i>&lt;sys/time.h&gt;</i>.
+
+              Used for system time in clock ticks or <b>CLOCKS_PER_SEC</b>
+              (defined in <i>&lt;time.h&gt;</i>).  According to POSIX, it shall be an
+              integer type or a real-floating type.
+
+              <i>Conforming to</i>: C99 and later; POSIX.1-2001 and later.
+
+              <i>See also</i>: <a href="https://man7.org/linux/man-pages/man2/times.2.html">times(2)</a>, <a href="https://man7.org/linux/man-pages/man3/clock.3.html">clock(3)</a>
+
+       <i>clockid_t</i>
+              <i>Include</i>: <i>&lt;sys/types.h&gt;</i>.  Alternatively, <i>&lt;time.h&gt;</i>.
+
+              Used for clock ID type in the clock and timer functions.
+              According to POSIX, it shall be defined as an arithmetic
+              type.
+
+              <i>Conforming to</i>: POSIX.1-2001 and later.
+
+              <i>See also</i>: <a href="https://man7.org/linux/man-pages/man2/clock_adjtime.2.html">clock_adjtime(2)</a>, <a href="https://man7.org/linux/man-pages/man2/clock_getres.2.html">clock_getres(2)</a>,
+              <a href="https://man7.org/linux/man-pages/man2/clock_nanosleep.2.html">clock_nanosleep(2)</a>, <a href="https://man7.org/linux/man-pages/man2/timer_create.2.html">timer_create(2)</a>,
+              <a href="https://man7.org/linux/man-pages/man3/clock_getcpuclockid.3.html">clock_getcpuclockid(3)</a>
+
+       <i>dev_t</i>
+              <i>Include</i>: <i>&lt;sys/types.h&gt;</i>.  Alternatively, <i>&lt;sys/stat.h&gt;</i>.
+
+              Used for device IDs.  According to POSIX, it shall be an
+              integer type.  For further details of this type, see
+              <a href="https://man7.org/linux/man-pages/man3/makedev.3.html">makedev(3)</a>.
+
+              <i>Conforming to</i>: POSIX.1-2001 and later.
+
+              <i>See also</i>: <a href="https://man7.org/linux/man-pages/man2/mknod.2.html">mknod(2)</a>, <a href="https://man7.org/linux/man-pages/man2/stat.2.html">stat(2)</a>
+
+       <i>div_t</i>
+              <i>Include</i>: <i>&lt;stdlib.h&gt;</i>.
+
+              typedef struct {
+                  int quot; /* Quotient */
+                  int rem;  /* Remainder */
+              } div_t;
+
+              It is the type of the value returned by the <a href="https://man7.org/linux/man-pages/man3/div.3.html">div(3)</a>
+              function.
+
+              <i>Conforming to</i>: C99 and later; POSIX.1-2001 and later.
+
+              <i>See also</i>: <a href="https://man7.org/linux/man-pages/man3/div.3.html">div(3)</a>
+
+       <i>double_t</i>
+              <i>Include</i>: <i>&lt;math.h&gt;</i>.
+
+              The implementation's most efficient floating type at least
+              as wide as <i>double</i>.  Its type depends on the value of the
+              macro <b>FLT_EVAL_METHOD </b>(defined in <i>&lt;float.h&gt;</i>):
+
+              0      <i>double_t</i> is <i>double</i>.
+
+              1      <i>double_t</i> is <i>double</i>.
+
+              2      <i>double_t</i> is <i>long double</i>.
+
+              For other values of <b>FLT_EVAL_METHOD</b>, the type of <i>double_t</i>
+              is implementation-defined.
+
+              <i>Conforming to</i>: C99 and later; POSIX.1-2001 and later.
+
+              <i>See also</i>: the <i>float_t</i> type in this page.
+
+       <i>fd_set</i>
+              <i>Include</i>: <i>&lt;sys/select.h&gt;</i>.  Alternatively, <i>&lt;sys/time.h&gt;</i>.
+
+              A structure type that can represent a set of file
+              descriptors.  According to POSIX, the maximum number of
+              file descriptors in an <i>fd_set</i> structure is the value of
+              the macro <b>FD_SETSIZE</b>.
+
+              <i>Conforming to</i>: POSIX.1-2001 and later.
+
+              <i>See also</i>: <a href="https://man7.org/linux/man-pages/man2/select.2.html">select(2)</a>
+
+       <i>fenv_t</i>
+              <i>Include</i>: <i>&lt;fenv.h&gt;</i>.
+
+              This type represents the entire floating-point
+              environment, including control modes and status flags; for
+              further details, see <a href="https://man7.org/linux/man-pages/man3/fenv.3.html">fenv(3)</a>.
+
+              <i>Conforming to</i>: C99 and later; POSIX.1-2001 and later.
+
+              <i>See also</i>: <a href="https://man7.org/linux/man-pages/man3/fenv.3.html">fenv(3)</a>
+
+       <i>fexcept_t</i>
+              <i>Include</i>: <i>&lt;fenv.h&gt;</i>.
+
+              This type represents the floating-point status flags
+              collectively; for further details see <a href="https://man7.org/linux/man-pages/man3/fenv.3.html">fenv(3)</a>.
+
+              <i>Conforming to</i>: C99 and later; POSIX.1-2001 and later.
+
+              <i>See also</i>: <a href="https://man7.org/linux/man-pages/man3/fenv.3.html">fenv(3)</a>
+
+       <i>FILE</i>
+              <i>Include</i>: <i>&lt;stdio.h&gt;</i>.  Alternatively, <i>&lt;wchar.h&gt;</i>.
+
+              An object type used for streams.
+
+              <i>Conforming to</i>: C99 and later; POSIX.1-2001 and later.
+
+              <i>See also</i>: <a href="https://man7.org/linux/man-pages/man3/fclose.3.html">fclose(3)</a>, <a href="https://man7.org/linux/man-pages/man3/flockfile.3.html">flockfile(3)</a>, <a href="https://man7.org/linux/man-pages/man3/fopen.3.html">fopen(3)</a>, <a href="https://man7.org/linux/man-pages/man3/fprintf.3.html">fprintf(3)</a>,
+              <a href="https://man7.org/linux/man-pages/man3/fread.3.html">fread(3)</a>, <a href="https://man7.org/linux/man-pages/man3/fscanf.3.html">fscanf(3)</a>, <a href="https://man7.org/linux/man-pages/man3/stdin.3.html">stdin(3)</a>, <a href="https://man7.org/linux/man-pages/man3/stdio.3.html">stdio(3)</a>
+
+       <i>float_t</i>
+              <i>Include</i>: <i>&lt;math.h&gt;</i>.
+
+              The implementation's most efficient floating type at least
+              as wide as <i>float</i>.  Its type depends on the value of the
+              macro <b>FLT_EVAL_METHOD </b>(defined in <i>&lt;float.h&gt;</i>):
+
+              0      <i>float_t</i> is <i>float</i>.
+
+              1      <i>float_t</i> is <i>double</i>.
+
+              2      <i>float_t</i> is <i>long double</i>.
+
+              For other values of <b>FLT_EVAL_METHOD</b>, the type of <i>float_t</i>
+              is implementation-defined.
+
+              <i>Conforming to</i>: C99 and later; POSIX.1-2001 and later.
+
+              <i>See also</i>: the <i>double_t</i> type in this page.
+
+       <i>gid_t</i>
+              <i>Include</i>: <i>&lt;sys/types.h&gt;</i>.  Alternatively, <i>&lt;grp.h&gt;</i>, <i>&lt;pwd.h&gt;</i>,
+              <i>&lt;signal.h&gt;</i>, <i>&lt;stropts.h&gt;</i>, <i>&lt;sys/ipc.h&gt;</i>, <i>&lt;sys/stat.h&gt;</i>, or
+              <i>&lt;unistd.h&gt;</i>.
+
+              A type used to hold group IDs.  According to POSIX, this
+              shall be an integer type.
+
+              <i>Conforming to</i>: POSIX.1-2001 and later.
+
+              <i>See also</i>: <a href="https://man7.org/linux/man-pages/man2/chown.2.html">chown(2)</a>, <a href="https://man7.org/linux/man-pages/man2/getgid.2.html">getgid(2)</a>, <a href="https://man7.org/linux/man-pages/man2/getegid.2.html">getegid(2)</a>, <a href="https://man7.org/linux/man-pages/man2/getgroups.2.html">getgroups(2)</a>,
+              <a href="https://man7.org/linux/man-pages/man2/getresgid.2.html">getresgid(2)</a>, <a href="https://man7.org/linux/man-pages/man3/getgrnam.3.html">getgrnam(3)</a>, <a href="https://man7.org/linux/man-pages/man7/credentials.7.html">credentials(7)</a>
+
+       <i>id_t</i>
+              <i>Include</i>: <i>&lt;sys/types.h&gt;</i>.  Alternatively, <i>&lt;sys/resource.h&gt;</i>.
+
+              A type used to hold a general identifier.  According to
+              POSIX, this shall be an integer type that can be used to
+              contain a <i>pid_t</i>, <i>uid_t</i>, or <i>gid_t</i>.
+
+              <i>Conforming to</i>: POSIX.1-2001 and later.
+
+              <i>See also</i>: <a href="https://man7.org/linux/man-pages/man2/getpriority.2.html">getpriority(2)</a>, <a href="https://man7.org/linux/man-pages/man2/waitid.2.html">waitid(2)</a>
+
+       <i>imaxdiv_t</i>
+              <i>Include</i>: <i>&lt;inttypes.h&gt;</i>.
+
+              typedef struct {
+                  intmax_t    quot; /* Quotient */
+                  intmax_t    rem;  /* Remainder */
+              } imaxdiv_t;
+
+              It is the type of the value returned by the <a href="https://man7.org/linux/man-pages/man3/imaxdiv.3.html">imaxdiv(3)</a>
+              function.
+
+              <i>Conforming to</i>: C99 and later; POSIX.1-2001 and later.
+
+              <i>See also</i>: <a href="https://man7.org/linux/man-pages/man3/imaxdiv.3.html">imaxdiv(3)</a>
+
+       <i>intmax_t</i>
+              <i>Include</i>: <i>&lt;stdint.h&gt;</i>.  Alternatively, <i>&lt;inttypes.h&gt;</i>.
+
+              A signed integer type capable of representing any value of
+              any signed integer type supported by the implementation.
+              According to the C language standard, it shall be capable
+              of storing values in the range [<b>INTMAX_MIN</b>, <b>INTMAX_MAX</b>].
+
+              The macro <b>INTMAX_C</b>() expands its argument to an integer
+              constant of type <i>intmax_t</i>.
+
+              The length modifier for <i>intmax_t</i> for the <a href="https://man7.org/linux/man-pages/man3/printf.3.html">printf(3)</a> and the
+              <a href="https://man7.org/linux/man-pages/man3/scanf.3.html">scanf(3)</a> families of functions is <b>j</b>; resulting commonly in
+              <b>%jd </b>or <b>%ji </b>for printing <i>intmax_t</i> values.
+
+              <i>Conforming to</i>: C99 and later; POSIX.1-2001 and later.
+
+              <i>Bugs</i>: <i>intmax_t</i> is not large enough to represent values of
+              type <i>__int128</i> in implementations where <i>__int128</i> is defined
+              and <i>long long</i> is less than 128 bits wide.
+
+              <i>See also</i>: the <i>uintmax_t</i> type in this page.
+
+       <i>int</i>N<i>_t</i>
+              <i>Include</i>: <i>&lt;stdint.h&gt;</i>.  Alternatively, <i>&lt;inttypes.h&gt;</i>.
+
+              <i>int8_t</i>, <i>int16_t</i>, <i>int32_t</i>, <i>int64_t</i>
+
+              A signed integer type of a fixed width of exactly N bits,
+              N being the value specified in its type name.  According
+              to the C language standard, they shall be capable of
+              storing values in the range [<b>INT</b>N<b>_MIN</b>, <b>INT</b>N<b>_MAX</b>],
+              substituting N by the appropriate number.
+
+              According to POSIX, <i>int8_t</i>, <i>int16_t</i>, and <i>int32_t</i> are
+              required; <i>int64_t</i> is only required in implementations that
+              provide integer types with width 64; and all other types
+              of this form are optional.
+
+              The length modifiers for the <i>int</i>N<i>_t</i> types for the
+              <a href="https://man7.org/linux/man-pages/man3/printf.3.html">printf(3)</a> family of functions are expanded by macros of
+              the forms <b>PRId</b>N and <b>PRIi</b>N (defined in <i>&lt;inttypes.h&gt;</i>);
+              resulting for example in <b>%"PRId64" </b>or <b>%"PRIi64" </b>for
+              printing <i>int64_t</i> values.  The length modifiers for the
+              <i>int</i>N<i>_t</i> types for the <a href="https://man7.org/linux/man-pages/man3/scanf.3.html">scanf(3)</a> family of functions are
+              expanded by macros of the forms <b>SCNd</b>N and <b>SCNi</b>N, (defined
+              in <i>&lt;inttypes.h&gt;</i>); resulting for example in <b>%"SCNd8" </b>or
+              <b>%"SCNi8" </b>for scanning <i>int8_t</i> values.
+
+              <i>Conforming to</i>: C99 and later; POSIX.1-2001 and later.
+
+              <i>See also</i>: the <i>intmax_t</i>, <i>uint</i>N<i>_t</i>, and <i>uintmax_t</i> types in
+              this page.
+
+       <i>intptr_t</i>
+              <i>Include</i>: <i>&lt;stdint.h&gt;</i>.  Alternatively, <i>&lt;inttypes.h&gt;</i>.
+
+              A signed integer type such that any valid (<i>void *</i>) value
+              can be converted to this type and back.  According to the
+              C language standard, it shall be capable of storing values
+              in the range [<b>INTPTR_MIN</b>, <b>INTPTR_MAX</b>].
+
+              The length modifier for <i>intptr_t</i> for the <a href="https://man7.org/linux/man-pages/man3/printf.3.html">printf(3)</a> family
+              of functions is expanded by the macros <b>PRIdPTR </b>and <b>PRIiPTR</b>
+              (defined in <i>&lt;inttypes.h&gt;</i>); resulting commonly in
+              <b>%"PRIdPTR" </b>or <b>%"PRIiPTR" </b>for printing <i>intptr_t</i> values.
+              The length modifier for <i>intptr_t</i> for the <a href="https://man7.org/linux/man-pages/man3/scanf.3.html">scanf(3)</a> family
+              of functions is expanded by the macros <b>SCNdPTR </b>and
+              <b>SCNiPTR, </b>(defined in <i>&lt;inttypes.h&gt;</i>); resulting commonly in
+              <b>%"SCNdPTR" </b>or <b>%"SCNiPTR" </b>for scanning <i>intptr_t</i> values.
+
+              <i>Conforming to</i>: C99 and later; POSIX.1-2001 and later.
+
+              <i>See also</i>: the <i>uintptr_t</i> and <i>void *</i> types in this page.
+
+       <i>lconv</i>
+              <i>Include</i>: <i>&lt;locale.h&gt;</i>.
+
+              struct lconv {                  /* Values in the "C" locale: */
+                  char   *decimal_point;      /* "." */
+                  char   *thousands_sep;      /* "" */
+                  char   *grouping;           /* "" */
+                  char   *mon_decimal_point;  /* "" */
+                  char   *mon_thousands_sep;  /* "" */
+                  char   *mon_grouping;       /* "" */
+                  char   *positive_sign;      /* "" */
+                  char   *negative_sign;      /* "" */
+                  char   *currency_symbol;    /* "" */
+                  char    frac_digits;        /* CHAR_MAX */
+                  char    p_cs_precedes;      /* CHAR_MAX */
+                  char    n_cs_precedes;      /* CHAR_MAX */
+                  char    p_sep_by_space;     /* CHAR_MAX */
+                  char    n_sep_by_space;     /* CHAR_MAX */
+                  char    p_sign_posn;        /* CHAR_MAX */
+                  char    n_sign_posn;        /* CHAR_MAX */
+                  char   *int_curr_symbol;    /* "" */
+                  char    int_frac_digits;    /* CHAR_MAX */
+                  char    int_p_cs_precedes;  /* CHAR_MAX */
+                  char    int_n_cs_precedes;  /* CHAR_MAX */
+                  char    int_p_sep_by_space; /* CHAR_MAX */
+                  char    int_n_sep_by_space; /* CHAR_MAX */
+                  char    int_p_sign_posn;    /* CHAR_MAX */
+                  char    int_n_sign_posn;    /* CHAR_MAX */
+              };
+
+              Contains members related to the formatting of numeric
+              values.  In the "C" locale, its members have the values
+              shown in the comments above.
+
+              <i>Conforming to</i>: C11 and later; POSIX.1-2001 and later.
+
+              <i>See also</i>: <a href="https://man7.org/linux/man-pages/man3/setlocale.3.html">setlocale(3)</a>, <a href="https://man7.org/linux/man-pages/man3/localeconv.3.html">localeconv(3)</a>, <a href="https://man7.org/linux/man-pages/man7/charsets.7.html">charsets(7)</a>,
+              <a href="https://man7.org/linux/man-pages/man7/locale.7.html">locale(7)</a>
+
+       <i>ldiv_t</i>
+              <i>Include</i>: <i>&lt;stdlib.h&gt;</i>.
+
+              typedef struct {
+                  long    quot; /* Quotient */
+                  long    rem;  /* Remainder */
+              } ldiv_t;
+
+              It is the type of the value returned by the <a href="https://man7.org/linux/man-pages/man3/ldiv.3.html">ldiv(3)</a>
+              function.
+
+              <i>Conforming to</i>: C99 and later; POSIX.1-2001 and later.
+
+              <i>See also</i>: <a href="https://man7.org/linux/man-pages/man3/ldiv.3.html">ldiv(3)</a>
+
+       <i>lldiv_t</i>
+              <i>Include</i>: <i>&lt;stdlib.h&gt;</i>.
+
+              typedef struct {
+                  long long   quot; /* Quotient */
+                  long long   rem;  /* Remainder */
+              } lldiv_t;
+
+              It is the type of the value returned by the <a href="https://man7.org/linux/man-pages/man3/lldiv.3.html">lldiv(3)</a>
+              function.
+
+              <i>Conforming to</i>: C99 and later; POSIX.1-2001 and later.
+
+              <i>See also</i>: <a href="https://man7.org/linux/man-pages/man3/lldiv.3.html">lldiv(3)</a>
+
+       <i>mode_t</i>
+              <i>Include</i>: <i>&lt;sys/types.h&gt;</i>.  Alternatively, <i>&lt;fcntl.h&gt;</i>,
+              <i>&lt;ndbm.h&gt;</i>, <i>&lt;spawn.h&gt;</i>, <i>&lt;sys/ipc.h&gt;</i>, <i>&lt;sys/mman.h&gt;</i>, or
+              <i>&lt;sys/stat.h&gt;</i>.
+
+              Used for some file attributes (e.g., file mode).
+              According to POSIX, it shall be an integer type.
+
+              <i>Conforming to</i>: POSIX.1-2001 and later.
+
+              <i>See also</i>: <a href="https://man7.org/linux/man-pages/man2/chmod.2.html">chmod(2)</a>, <a href="https://man7.org/linux/man-pages/man2/mkdir.2.html">mkdir(2)</a>, <a href="https://man7.org/linux/man-pages/man2/open.2.html">open(2)</a>, <a href="https://man7.org/linux/man-pages/man2/stat.2.html">stat(2)</a>, <a href="https://man7.org/linux/man-pages/man2/umask.2.html">umask(2)</a>
+
+       <i>off64_t</i>
+              <i>Include</i>: <i>&lt;sys/types.h&gt;</i>.
+
+              Used for file sizes.  It is a 64-bit signed integer type.
+
+              <i>Conforming to</i>: Present in glibc.  It is not standardized
+              by the C language standard nor POSIX.
+
+              <i>Notes</i>: The feature test macro <b>_LARGEFILE64_SOURCE </b>has to
+              be defined for this type to be available.
+
+              <i>See also</i>: <a href="https://man7.org/linux/man-pages/man2/copy_file_range.2.html">copy_file_range(2)</a>, <a href="https://man7.org/linux/man-pages/man2/readahead.2.html">readahead(2)</a>,
+              <a href="https://man7.org/linux/man-pages/man2/sync_file_range.2.html">sync_file_range(2)</a>, <a href="https://man7.org/linux/man-pages/man3/lseek64.3.html">lseek64(3)</a>, <a href="https://man7.org/linux/man-pages/man7/feature_test_macros.7.html">feature_test_macros(7)</a>
+
+              See also the <i>off_t</i> type in this page.
+
+       <i>off_t</i>
+              <i>Include</i>: <i>&lt;sys/types.h&gt;</i>.  Alternatively, <i>&lt;aio.h&gt;</i>,
+              <i>&lt;fcntl.h&gt;</i>, <i>&lt;stdio.h&gt;</i>, <i>&lt;sys/mman.h&gt;</i>, <i>&lt;sys/stat.h.h&gt;</i>, or
+              <i>&lt;unistd.h&gt;</i>.
+
+              Used for file sizes.  According to POSIX, this shall be a
+              signed integer type.
+
+              <i>Versions</i>: <i>&lt;aio.h&gt;</i> and <i>&lt;stdio.h&gt;</i> define <i>off_t</i> since
+              POSIX.1-2008.
+
+              <i>Conforming to</i>: POSIX.1-2001 and later.
+
+              <i>Notes</i>: On some architectures, the width of this type can
+              be controlled with the feature test macro
+              <b>_FILE_OFFSET_BITS</b>.
+
+              <i>See also</i>: <a href="https://man7.org/linux/man-pages/man2/lseek.2.html">lseek(2)</a>, <a href="https://man7.org/linux/man-pages/man2/mmap.2.html">mmap(2)</a>, <a href="https://man7.org/linux/man-pages/man2/posix_fadvise.2.html">posix_fadvise(2)</a>, <a href="https://man7.org/linux/man-pages/man2/pread.2.html">pread(2)</a>,
+              <a href="https://man7.org/linux/man-pages/man2/truncate.2.html">truncate(2)</a>, <a href="https://man7.org/linux/man-pages/man3/fseeko.3.html">fseeko(3)</a>, <a href="https://man7.org/linux/man-pages/man3/lockf.3.html">lockf(3)</a>, <a href="https://man7.org/linux/man-pages/man3/posix_fallocate.3.html">posix_fallocate(3)</a>,
+              <a href="https://man7.org/linux/man-pages/man7/feature_test_macros.7.html">feature_test_macros(7)</a>
+
+              See also the <i>off64_t</i> type in this page.
+
+       <i>pid_t</i>
+              <i>Include</i>: <i>&lt;sys/types.h&gt;</i>.  Alternatively, <i>&lt;fcntl.h&gt;</i>,
+              <i>&lt;sched.h&gt;</i>, <i>&lt;signal.h&gt;</i>, <i>&lt;spawn.h&gt;</i>, <i>&lt;sys/msg.h&gt;</i>,
+              <i>&lt;sys/sem.h&gt;</i>, <i>&lt;sys/shm.h&gt;</i>, <i>&lt;sys/wait.h&gt;</i>, <i>&lt;termios.h&gt;</i>,
+              <i>&lt;time.h&gt;</i>, <i>&lt;unistd.h&gt;</i>, or <i>&lt;utmpx.h&gt;</i>.
+
+              This type is used for storing process IDs, process group
+              IDs, and session IDs.  According to POSIX, it shall be a
+              signed integer type, and the implementation shall support
+              one or more programming environments where the width of
+              <i>pid_t</i> is no greater than the width of the type <i>long</i>.
+
+              <i>Conforming to</i>: POSIX.1-2001 and later.
+
+              <i>See also</i>: <a href="https://man7.org/linux/man-pages/man2/fork.2.html">fork(2)</a>, <a href="https://man7.org/linux/man-pages/man2/getpid.2.html">getpid(2)</a>, <a href="https://man7.org/linux/man-pages/man2/getppid.2.html">getppid(2)</a>, <a href="https://man7.org/linux/man-pages/man2/getsid.2.html">getsid(2)</a>,
+              <a href="https://man7.org/linux/man-pages/man2/gettid.2.html">gettid(2)</a>, <a href="https://man7.org/linux/man-pages/man2/getpgid.2.html">getpgid(2)</a>, <a href="https://man7.org/linux/man-pages/man2/kill.2.html">kill(2)</a>, <a href="https://man7.org/linux/man-pages/man2/pidfd_open.2.html">pidfd_open(2)</a>,
+              <a href="https://man7.org/linux/man-pages/man2/sched_setscheduler.2.html">sched_setscheduler(2)</a>, <a href="https://man7.org/linux/man-pages/man2/waitpid.2.html">waitpid(2)</a>, <a href="https://man7.org/linux/man-pages/man3/sigqueue.3.html">sigqueue(3)</a>,
+              <a href="https://man7.org/linux/man-pages/man7/credentials.7.html">credentials(7)</a>,
+
+       <i>ptrdiff_t</i>
+              <i>Include</i>: <i>&lt;stddef.h&gt;</i>.
+
+              Used for a count of elements, and array indices.  It is
+              the result of subtracting two pointers.  According to the
+              C language standard, it shall be a signed integer type
+              capable of storing values in the range [<b>PTRDIFF_MIN</b>,
+              <b>PTRDIFF_MAX</b>].
+
+              The length modifier for <i>ptrdiff_t</i> for the <a href="https://man7.org/linux/man-pages/man3/printf.3.html">printf(3)</a> and
+              the <a href="https://man7.org/linux/man-pages/man3/scanf.3.html">scanf(3)</a> families of functions is <b>t</b>; resulting
+              commonly in <b>%td </b>or <b>%ti </b>for printing <i>ptrdiff_t</i> values.
+
+              <i>Conforming to</i>: C99 and later; POSIX.1-2001 and later.
+
+              <i>See also</i>: the <i>size_t</i> and <i>ssize_t</i> types in this page.
+
+       <i>regex_t</i>
+              <i>Include</i>: <i>&lt;regex.h&gt;</i>.
+
+              typedef struct {
+                  size_t  re_nsub; /* Number of parenthesized subexpressions */
+              } regex_t;
+
+              This is a structure type used in regular expression
+              matching.  It holds a compiled regular expression,
+              compiled with <a href="https://man7.org/linux/man-pages/man3/regcomp.3.html">regcomp(3)</a>.
+
+              <i>Conforming to</i>: POSIX.1-2001 and later.
+
+              <i>See also</i>: <a href="https://man7.org/linux/man-pages/man3/regex.3.html">regex(3)</a>
+
+       <i>regmatch_t</i>
+              <i>Include</i>: <i>&lt;regex.h&gt;</i>.
+
+              typedef struct {
+                  regoff_t    rm_so; /* Byte offset from start of string
+                                        to start of substring */
+                  regoff_t    rm_eo; /* Byte offset from start of string of
+                                        the first character after the end of
+                                        substring */
+              } regmatch_t;
+
+              This is a structure type used in regular expression
+              matching.
+
+              <i>Conforming to</i>: POSIX.1-2001 and later.
+
+              <i>See also</i>: <a href="https://man7.org/linux/man-pages/man3/regexec.3.html">regexec(3)</a>
+
+       <i>regoff_t</i>
+              <i>Include</i>: <i>&lt;regex.h&gt;</i>.
+
+              According to POSIX, it shall be a signed integer type
+              capable of storing the largest value that can be stored in
+              either a <i>ptrdiff_t</i> type or a <i>ssize_t</i> type.
+
+              <i>Versions</i>: Prior to POSIX.1-2008, the type was capable of
+              storing the largest value that can be stored in either an
+              <i>off_t</i> type or a <i>ssize_t</i> type.
+
+              <i>Conforming to</i>: POSIX.1-2001 and later.
+
+              <i>See also</i>: the <i>regmatch_t</i> structure and the <i>ptrdiff_t</i> and
+              <i>ssize_t</i> types in this page.
+
+       <i>sigevent</i>
+              <i>Include</i>: <i>&lt;signal.h&gt;</i>.  Alternatively, <i>&lt;aio.h&gt;</i>, <i>&lt;mqueue.h&gt;</i>,
+              or <i>&lt;time.h&gt;</i>.
+
+              struct sigevent {
+                  int             sigev_notify; /* Notification type */
+                  int             sigev_signo;  /* Signal number */
+                  union sigval    sigev_value;  /* Signal value */
+                  void          (*sigev_notify_function)(union sigval);
+                                                /* Notification function */
+                  pthread_attr_t *sigev_notify_attributes;
+                                                /* Notification attributes */
+              };
+
+              For further details about this type, see <a href="https://man7.org/linux/man-pages/man7/sigevent.7.html">sigevent(7)</a>.
+
+              <i>Versions</i>: <i>&lt;aio.h&gt;</i> and <i>&lt;time.h&gt;</i> define <i>sigevent</i> since
+              POSIX.1-2008.
+
+              <i>Conforming to</i>: POSIX.1-2001 and later.
+
+              <i>See also</i>: <a href="https://man7.org/linux/man-pages/man2/timer_create.2.html">timer_create(2)</a>, <a href="https://man7.org/linux/man-pages/man3/getaddrinfo_a.3.html">getaddrinfo_a(3)</a>,
+              <a href="https://man7.org/linux/man-pages/man3/lio_listio.3.html">lio_listio(3)</a>, <a href="https://man7.org/linux/man-pages/man3/mq_notify.3.html">mq_notify(3)</a>
+
+              See also the <i>aiocb</i> structure in this page.
+
+       <i>siginfo_t</i>
+              <i>Include</i>: <i>&lt;signal.h&gt;</i>.  Alternatively, <i>&lt;sys/wait.h&gt;</i>.
+
+              typedef struct {
+                  int      si_signo;  /* Signal number */
+                  int      si_code;   /* Signal code */
+                  pid_t    si_pid;    /* Sending process ID */
+                  uid_t    si_uid;    /* Real user ID of sending process */
+                  void    *si_addr;   /* Address of faulting instruction */
+                  int      si_status; /* Exit value or signal */
+                  union sigval si_value;  /* Signal value */
+              } siginfo_t;
+
+              Information associated with a signal.  For further details
+              on this structure (including additional, Linux-specific
+              fields), see <a href="https://man7.org/linux/man-pages/man2/sigaction.2.html">sigaction(2)</a>.
+
+              <i>Conforming to</i>: POSIX.1-2001 and later.
+
+              <i>See also</i>: <a href="https://man7.org/linux/man-pages/man2/pidfd_send_signal.2.html">pidfd_send_signal(2)</a>, <a href="https://man7.org/linux/man-pages/man2/rt_sigqueueinfo.2.html">rt_sigqueueinfo(2)</a>,
+              <a href="https://man7.org/linux/man-pages/man2/sigaction.2.html">sigaction(2)</a>, <a href="https://man7.org/linux/man-pages/man2/sigwaitinfo.2.html">sigwaitinfo(2)</a>, <a href="https://man7.org/linux/man-pages/man3/psiginfo.3.html">psiginfo(3)</a>
+
+       <i>sigset_t</i>
+              <i>Include</i>: <i>&lt;signal.h&gt;</i>.  Alternatively, <i>&lt;spawn.h&gt;</i>, or
+              <i>&lt;sys/select.h&gt;</i>.
+
+              This is a type that represents a set of signals.
+              According to POSIX, this shall be an integer or structure
+              type.
+
+              <i>Conforming to</i>: POSIX.1-2001 and later.
+
+              <i>See also</i>: <a href="https://man7.org/linux/man-pages/man2/epoll_pwait.2.html">epoll_pwait(2)</a>, <a href="https://man7.org/linux/man-pages/man2/ppoll.2.html">ppoll(2)</a>, <a href="https://man7.org/linux/man-pages/man2/pselect.2.html">pselect(2)</a>,
+              <a href="https://man7.org/linux/man-pages/man2/sigaction.2.html">sigaction(2)</a>, <a href="https://man7.org/linux/man-pages/man2/signalfd.2.html">signalfd(2)</a>, <a href="https://man7.org/linux/man-pages/man2/sigpending.2.html">sigpending(2)</a>, <a href="https://man7.org/linux/man-pages/man2/sigprocmask.2.html">sigprocmask(2)</a>,
+              <a href="https://man7.org/linux/man-pages/man2/sigsuspend.2.html">sigsuspend(2)</a>, <a href="https://man7.org/linux/man-pages/man2/sigwaitinfo.2.html">sigwaitinfo(2)</a>, <a href="https://man7.org/linux/man-pages/man7/signal.7.html">signal(7)</a>
+
+       <i>sigval</i>
+              <i>Include</i>: <i>&lt;signal.h&gt;</i>.
+
+              union sigval {
+                  int     sigval_int; /* Integer value */
+                  void   *sigval_ptr; /* Pointer value */
+              };
+
+              Data passed with a signal.
+
+              <i>Conforming to</i>: POSIX.1-2001 and later.
+
+              <i>See also</i>: <a href="https://man7.org/linux/man-pages/man3/pthread_sigqueue.3.html">pthread_sigqueue(3)</a>, <a href="https://man7.org/linux/man-pages/man3/sigqueue.3.html">sigqueue(3)</a>, <a href="https://man7.org/linux/man-pages/man7/sigevent.7.html">sigevent(7)</a>
+
+              See also the <i>sigevent</i> structure and the <i>siginfo_t</i> type in
+              this page.
+
+       <i>size_t</i>
+              <i>Include</i>: <i>&lt;stddef.h&gt;</i> or <i>&lt;sys/types.h&gt;</i>.  Alternatively,
+              <i>&lt;aio.h&gt;</i>, <i>&lt;glob.h&gt;</i>, <i>&lt;grp.h&gt;</i>, <i>&lt;iconv.h&gt;</i>, <i>&lt;monetary.h&gt;</i>,
+              <i>&lt;mqueue.h&gt;</i>, <i>&lt;ndbm.h&gt;</i>, <i>&lt;pwd.h&gt;</i>, <i>&lt;regex.h&gt;</i>, <i>&lt;search.h&gt;</i>,
+              <i>&lt;signal.h&gt;</i>, <i>&lt;stdio.h&gt;</i>, <i>&lt;stdlib.h&gt;</i>, <i>&lt;string.h&gt;</i>,
+              <i>&lt;strings.h&gt;</i>, <i>&lt;sys/mman.h&gt;</i>, <i>&lt;sys/msg.h&gt;</i>, <i>&lt;sys/sem.h&gt;</i>,
+              <i>&lt;sys/shm.h&gt;</i>, <i>&lt;sys/socket.h&gt;</i>, <i>&lt;sys/uio.h&gt;</i>, <i>&lt;time.h&gt;</i>,
+              <i>&lt;unistd.h&gt;</i>, <i>&lt;wchar.h&gt;</i>, or <i>&lt;wordexp.h&gt;</i>.
+
+              Used for a count of bytes.  It is the result of the <i>sizeof</i>
+              operator.  According to the C language standard, it shall
+              be an unsigned integer type capable of storing values in
+              the range [0, <b>SIZE_MAX</b>].  According to POSIX, the
+              implementation shall support one or more programming
+              environments where the width of <i>size_t</i> is no greater than
+              the width of the type <i>long</i>.
+
+              The length modifier for <i>size_t</i> for the <a href="https://man7.org/linux/man-pages/man3/printf.3.html">printf(3)</a> and the
+              <a href="https://man7.org/linux/man-pages/man3/scanf.3.html">scanf(3)</a> families of functions is <b>z</b>; resulting commonly in
+              <b>%zu </b>or <b>%zx </b>for printing <i>size_t</i> values.
+
+              <i>Versions</i>: <i>&lt;aio.h&gt;</i>, <i>&lt;glob.h&gt;</i>, <i>&lt;grp.h&gt;</i>, <i>&lt;iconv.h&gt;</i>,
+              <i>&lt;mqueue.h&gt;</i>, <i>&lt;pwd.h&gt;</i>, <i>&lt;signal.h&gt;</i>, and <i>&lt;sys/socket.h&gt;</i> define
+              <i>size_t</i> since POSIX.1-2008.
+
+              <i>Conforming to</i>: C99 and later; POSIX.1-2001 and later.
+
+              <i>See also</i>: <a href="https://man7.org/linux/man-pages/man2/read.2.html">read(2)</a>, <a href="https://man7.org/linux/man-pages/man2/write.2.html">write(2)</a>, <a href="https://man7.org/linux/man-pages/man3/fread.3.html">fread(3)</a>, <a href="https://man7.org/linux/man-pages/man3/fwrite.3.html">fwrite(3)</a>,
+              <a href="https://man7.org/linux/man-pages/man3/memcmp.3.html">memcmp(3)</a>, <a href="https://man7.org/linux/man-pages/man3/memcpy.3.html">memcpy(3)</a>, <a href="https://man7.org/linux/man-pages/man3/memset.3.html">memset(3)</a>, <a href="https://man7.org/linux/man-pages/man3/offsetof.3.html">offsetof(3)</a>
+
+              See also the <i>ptrdiff_t</i> and <i>ssize_t</i> types in this page.
+
+       <i>sockaddr</i>
+              <i>Include</i>: <i>&lt;sys/socket.h&gt;</i>.
+
+              struct sockaddr {
+                  sa_family_t sa_family; /* Address family */
+                  char        sa_data[]; /* Socket address */
+              };
+
+              Describes a socket address.
+
+              <i>Conforming to</i>: POSIX.1-2001 and later.
+
+              <i>See also</i>: <a href="https://man7.org/linux/man-pages/man2/accept.2.html">accept(2)</a>, <a href="https://man7.org/linux/man-pages/man2/getpeername.2.html">getpeername(2)</a>, <a href="https://man7.org/linux/man-pages/man2/getsockname.2.html">getsockname(2)</a>,
+              <a href="https://man7.org/linux/man-pages/man2/socket.2.html">socket(2)</a>
+
+       <i>socklen_t</i>
+              <i>Include</i>: <i>&lt;sys/socket.h&gt;</i>.  Alternatively, <i>&lt;netdb.h&gt;</i>.
+
+              Describes the length of a socket address.  According to
+              POSIX, this shall be an integer type of at least 32 bits.
+
+              <i>Conforming to</i>: POSIX.1-2001 and later.
+
+              <i>See also</i>: <a href="https://man7.org/linux/man-pages/man2/accept.2.html">accept(2)</a>, <a href="https://man7.org/linux/man-pages/man2/bind.2.html">bind(2)</a>, <a href="https://man7.org/linux/man-pages/man2/connect.2.html">connect(2)</a>,
+              <b>gethostbyaddr</b>(2), <b>getnameinfo</b>(2), <a href="https://man7.org/linux/man-pages/man2/socket.2.html">socket(2)</a>
+
+              See also the <i>sockaddr</i> structure in this page.
+
+       <i>ssize_t</i>
+              <i>Include</i>: <i>&lt;sys/types.h&gt;</i>.  Alternatively, <i>&lt;aio.h&gt;</i>,
+              <i>&lt;monetary.h&gt;</i>, <i>&lt;mqueue.h&gt;</i>, <i>&lt;stdio.h&gt;</i>, <i>&lt;sys/msg.h&gt;</i>,
+              <i>&lt;sys/socket.h&gt;</i>, <i>&lt;sys/uio.h&gt;</i>, or <i>&lt;unistd.h&gt;</i>.
+
+              Used for a count of bytes or an error indication.
+              According to POSIX, it shall be a signed integer type
+              capable of storing values at least in the range [-1,
+              <b>SSIZE_MAX</b>], and the implementation shall support one or
+              more programming environments where the width of <i>ssize_t</i>
+              is no greater than the width of the type <i>long</i>.
+
+              Glibc and most other implementations provide a length
+              modifier for <i>ssize_t</i> for the <a href="https://man7.org/linux/man-pages/man3/printf.3.html">printf(3)</a> and the <a href="https://man7.org/linux/man-pages/man3/scanf.3.html">scanf(3)</a>
+              families of functions, which is <b>z</b>; resulting commonly in
+              <b>%zd </b>or <b>%zi </b>for printing <i>ssize_t</i> values.  Although <b>z </b>works
+              for <i>ssize_t</i> on most implementations, portable POSIX
+              programs should avoid using it—for example, by converting
+              the value to <i>intmax_t</i> and using its length modifier (<b>j</b>).
+
+              <i>Conforming to</i>: POSIX.1-2001 and later.
+
+              <i>See also</i>: <a href="https://man7.org/linux/man-pages/man2/read.2.html">read(2)</a>, <a href="https://man7.org/linux/man-pages/man2/readlink.2.html">readlink(2)</a>, <a href="https://man7.org/linux/man-pages/man2/readv.2.html">readv(2)</a>, <a href="https://man7.org/linux/man-pages/man2/recv.2.html">recv(2)</a>,
+              <a href="https://man7.org/linux/man-pages/man2/send.2.html">send(2)</a>, <a href="https://man7.org/linux/man-pages/man2/write.2.html">write(2)</a>
+
+              See also the <i>ptrdiff_t</i> and <i>size_t</i> types in this page.
+
+       <i>suseconds_t</i>
+              <i>Include</i>: <i>&lt;sys/types.h&gt;</i>.  Alternatively, <i>&lt;sys/select.h&gt;</i>, or
+              <i>&lt;sys/time.h&gt;</i>.
+
+              Used for time in microseconds.  According to POSIX, it
+              shall be a signed integer type capable of storing values
+              at least in the range [-1, 1000000], and the
+              implementation shall support one or more programming
+              environments where the width of <i>suseconds_t</i> is no greater
+              than the width of the type <i>long</i>.
+
+              <i>Conforming to</i>: POSIX.1-2001 and later.
+
+              <i>See also</i>: the <i>timeval</i> structure in this page.
+
+       <i>time_t</i>
+              <i>Include</i>: <i>&lt;time.h&gt;</i> or <i>&lt;sys/types.h&gt;</i>.  Alternatively,
+              <i>&lt;sched.h&gt;</i>, <i>&lt;sys/msg.h&gt;</i>, <i>&lt;sys/select.h&gt;</i>, <i>&lt;sys/sem.h&gt;</i>,
+              <i>&lt;sys/shm.h&gt;</i>, <i>&lt;sys/stat.h&gt;</i>, <i>&lt;sys/time.h&gt;</i>, or <i>&lt;utime.h&gt;</i>.
+
+              Used for time in seconds.  According to POSIX, it shall be
+              an integer type.
+
+              <i>Versions</i>: <i>&lt;sched.h&gt;</i> defines <i>time_t</i> since POSIX.1-2008.
+
+              <i>Conforming to</i>: C99 and later; POSIX.1-2001 and later.
+
+              <i>See also</i>: <a href="https://man7.org/linux/man-pages/man2/stime.2.html">stime(2)</a>, <a href="https://man7.org/linux/man-pages/man2/time.2.html">time(2)</a>, <a href="https://man7.org/linux/man-pages/man3/ctime.3.html">ctime(3)</a>, <a href="https://man7.org/linux/man-pages/man3/difftime.3.html">difftime(3)</a>
+
+       <i>timer_t</i>
+              <i>Include</i>: <i>&lt;sys/types.h&gt;</i>.  Alternatively, <i>&lt;time.h&gt;</i>.
+
+              Used for timer ID returned by <a href="https://man7.org/linux/man-pages/man2/timer_create.2.html">timer_create(2)</a>.  According
+              to POSIX, there are no defined comparison or assignment
+              operators for this type.
+
+              <i>Conforming to</i>: POSIX.1-2001 and later.
+
+              <i>See also</i>: <a href="https://man7.org/linux/man-pages/man2/timer_create.2.html">timer_create(2)</a>, <a href="https://man7.org/linux/man-pages/man2/timer_delete.2.html">timer_delete(2)</a>,
+              <a href="https://man7.org/linux/man-pages/man2/timer_getoverrun.2.html">timer_getoverrun(2)</a>, <a href="https://man7.org/linux/man-pages/man2/timer_settime.2.html">timer_settime(2)</a>
+
+       <i>timespec</i>
+              <i>Include</i>: <i>&lt;time.h&gt;</i>.  Alternatively, <i>&lt;aio.h&gt;</i>, <i>&lt;mqueue.h&gt;</i>,
+              <i>&lt;sched.h&gt;</i>, <i>&lt;signal.h&gt;</i>, <i>&lt;sys/select.h&gt;</i>, or <i>&lt;sys/stat.h&gt;</i>.
+
+              struct timespec {
+                  time_t  tv_sec;  /* Seconds */
+                  long    tv_nsec; /* Nanoseconds */
+              };
+
+              Describes times in seconds and nanoseconds.
+
+              <i>Conforming to</i>: C11 and later; POSIX.1-2001 and later.
+
+              <i>See also</i>: <a href="https://man7.org/linux/man-pages/man2/clock_gettime.2.html">clock_gettime(2)</a>, <a href="https://man7.org/linux/man-pages/man2/clock_nanosleep.2.html">clock_nanosleep(2)</a>,
+              <a href="https://man7.org/linux/man-pages/man2/nanosleep.2.html">nanosleep(2)</a>, <a href="https://man7.org/linux/man-pages/man2/timerfd_gettime.2.html">timerfd_gettime(2)</a>, <a href="https://man7.org/linux/man-pages/man2/timer_gettime.2.html">timer_gettime(2)</a>
+
+       <i>timeval</i>
+              <i>Include</i>: <i>&lt;sys/time.h&gt;</i>.  Alternatively, <i>&lt;sys/resource.h&gt;</i>,
+              <i>&lt;sys/select.h&gt;</i>, or <i>&lt;utmpx.h&gt;</i>.
+
+              struct timeval {
+                  time_t      tv_sec;  /* Seconds */
+                  suseconds_t tv_usec; /* Microseconds */
+              };
+
+              Describes times in seconds and microseconds.
+
+              <i>Conforming to</i>: POSIX.1-2001 and later.
+
+              <i>See also</i>: <a href="https://man7.org/linux/man-pages/man2/gettimeofday.2.html">gettimeofday(2)</a>, <a href="https://man7.org/linux/man-pages/man2/select.2.html">select(2)</a>, <a href="https://man7.org/linux/man-pages/man2/utimes.2.html">utimes(2)</a>,
+              <a href="https://man7.org/linux/man-pages/man3/adjtime.3.html">adjtime(3)</a>, <a href="https://man7.org/linux/man-pages/man3/futimes.3.html">futimes(3)</a>, <a href="https://man7.org/linux/man-pages/man3/timeradd.3.html">timeradd(3)</a>
+
+       <i>uid_t</i>
+              <i>Include</i>: <i>&lt;sys/types.h&gt;</i>.  Alternatively, <i>&lt;pwd.h&gt;</i>,
+              <i>&lt;signal.h&gt;</i>, <i>&lt;stropts.h&gt;</i>, <i>&lt;sys/ipc.h&gt;</i>, <i>&lt;sys/stat.h&gt;</i>, or
+              <i>&lt;unistd.h&gt;</i>.
+
+              A type used to hold user IDs.  According to POSIX, this
+              shall be an integer type.
+
+              <i>Conforming to</i>: POSIX.1-2001 and later.
+
+              <i>See also</i>: <a href="https://man7.org/linux/man-pages/man2/chown.2.html">chown(2)</a>, <a href="https://man7.org/linux/man-pages/man2/getuid.2.html">getuid(2)</a>, <a href="https://man7.org/linux/man-pages/man2/geteuid.2.html">geteuid(2)</a>, <a href="https://man7.org/linux/man-pages/man2/getresuid.2.html">getresuid(2)</a>,
+              <a href="https://man7.org/linux/man-pages/man3/getpwnam.3.html">getpwnam(3)</a>, <a href="https://man7.org/linux/man-pages/man7/credentials.7.html">credentials(7)</a>
+
+       <i>uintmax_t</i>
+              <i>Include</i>: <i>&lt;stdint.h&gt;</i>.  Alternatively, <i>&lt;inttypes.h&gt;</i>.
+
+              An unsigned integer type capable of representing any value
+              of any unsigned integer type supported by the
+              implementation.  According to the C language standard, it
+              shall be capable of storing values in the range [0,
+              <b>UINTMAX_MAX</b>].
+
+              The macro <b>UINTMAX_C</b>() expands its argument to an integer
+              constant of type <i>uintmax_t</i>.
+
+              The length modifier for <i>uintmax_t</i> for the <a href="https://man7.org/linux/man-pages/man3/printf.3.html">printf(3)</a> and
+              the <a href="https://man7.org/linux/man-pages/man3/scanf.3.html">scanf(3)</a> families of functions is <b>j</b>; resulting
+              commonly in <b>%ju </b>or <b>%jx </b>for printing <i>uintmax_t</i> values.
+
+              <i>Conforming to</i>: C99 and later; POSIX.1-2001 and later.
+
+              <i>Bugs</i>: <i>uintmax_t</i> is not large enough to represent values of
+              type <i>unsigned __int128</i> in implementations where <i>unsigned</i>
+              <i>__int128</i> is defined and <i>unsigned long long</i> is less than
+              128 bits wide.
+
+              <i>See also</i>: the <i>intmax_t</i> type in this page.
+
+       <i>uint</i>N<i>_t</i>
+              <i>Include</i>: <i>&lt;stdint.h&gt;</i>.  Alternatively, <i>&lt;inttypes.h&gt;</i>.
+
+              <i>uint8_t</i>, <i>uint16_t</i>, <i>uint32_t</i>, <i>uint64_t</i>
+
+              An unsigned integer type of a fixed width of exactly N
+              bits, N being the value specified in its type name.
+              According to the C language standard, they shall be
+              capable of storing values in the range [0, <b>UINT</b>N<b>_MAX</b>],
+              substituting N by the appropriate number.
+
+              According to POSIX, <i>uint8_t</i>, <i>uint16_t</i>, and <i>uint32_t</i> are
+              required; <i>uint64_t</i> is only required in implementations
+              that provide integer types with width 64; and all other
+              types of this form are optional.
+
+              The length modifiers for the <i>uint</i>N<i>_t</i> types for the
+              <a href="https://man7.org/linux/man-pages/man3/printf.3.html">printf(3)</a> family of functions are expanded by macros of
+              the forms <b>PRIu</b>N, <b>PRIo</b>N, <b>PRIx</b>N, and <b>PRIX</b>N (defined in
+              <i>&lt;inttypes.h&gt;</i>); resulting for example in <b>%"PRIu32" </b>or
+              <b>%"PRIx32" </b>for printing <i>uint32_t</i> values.  The length
+              modifiers for the <i>uint</i>N<i>_t</i> types for the <a href="https://man7.org/linux/man-pages/man3/scanf.3.html">scanf(3)</a> family of
+              functions are expanded by macros of the forms <b>SCNu</b>N,
+              <b>SCNo</b>N, <b>SCNx</b>N, and <b>SCNX</b>N (defined in <i>&lt;inttypes.h&gt;</i>);
+              resulting for example in <b>%"SCNu16" </b>or <b>%"SCNx16" </b>for
+              scanning <i>uint16_t</i> values.
+
+              <i>Conforming to</i>: C99 and later; POSIX.1-2001 and later.
+
+              <i>See also</i>: the <i>intmax_t</i>, <i>int</i>N<i>_t</i>, and <i>uintmax_t</i> types in
+              this page.
+
+       <i>uintptr_t</i>
+              <i>Include</i>: <i>&lt;stdint.h&gt;</i>.  Alternatively, <i>&lt;inttypes.h&gt;</i>.
+
+              An unsigned integer type such that any valid (<i>void *</i>)
+              value can be converted to this type and back.  According
+              to the C language standard, it shall be capable of storing
+              values in the range [0, <b>UINTPTR_MAX</b>].
+
+              The length modifier for <i>uintptr_t</i> for the <a href="https://man7.org/linux/man-pages/man3/printf.3.html">printf(3)</a> family
+              of functions is expanded by the macros <b>PRIuPTR</b>, <b>PRIoPTR</b>,
+              <b>PRIxPTR</b>, and <b>PRIXPTR </b>(defined in <i>&lt;inttypes.h&gt;</i>); resulting
+              commonly in <b>%"PRIuPTR" </b>or <b>%"PRIxPTR" </b>for printing
+              <i>uintptr_t</i> values.  The length modifier for <i>uintptr_t</i> for
+              the <a href="https://man7.org/linux/man-pages/man3/scanf.3.html">scanf(3)</a> family of functions is expanded by the macros
+              <b>SCNuPTR, SCNoPTR, SCNxPTR</b>, and <b>SCNXPTR </b>(defined in
+              <i>&lt;inttypes.h&gt;</i>); resulting commonly in <b>%"SCNuPTR" </b>or
+              <b>%"SCNxPTR" </b>for scanning <i>uintptr_t</i> values.
+
+              <i>Conforming to</i>: C99 and later; POSIX.1-2001 and later.
+
+              <i>See also</i>: the <i>intptr_t</i> and <i>void *</i> types in this page.
+
+       <i>va_list</i>
+              <i>Include</i>: <i>&lt;stdarg&gt;</i>.  Alternatively, <i>&lt;stdio.h&gt;</i>, or
+              <i>&lt;wchar.h&gt;</i>.
+
+              Used by functions with a varying number of arguments of
+              varying types.  The function must declare an object of
+              type <i>va_list</i> which is used by the macros <a href="https://man7.org/linux/man-pages/man3/va_start.3.html">va_start(3)</a>,
+              <a href="https://man7.org/linux/man-pages/man3/va_arg.3.html">va_arg(3)</a>, <a href="https://man7.org/linux/man-pages/man3/va_copy.3.html">va_copy(3)</a>, and <a href="https://man7.org/linux/man-pages/man3/va_end.3.html">va_end(3)</a> to traverse the list
+              of arguments.
+
+              <i>Conforming to</i>: C99 and later; POSIX.1-2001 and later.
+
+              <i>See also</i>: <a href="https://man7.org/linux/man-pages/man3/va_start.3.html">va_start(3)</a>, <a href="https://man7.org/linux/man-pages/man3/va_arg.3.html">va_arg(3)</a>, <a href="https://man7.org/linux/man-pages/man3/va_copy.3.html">va_copy(3)</a>, <a href="https://man7.org/linux/man-pages/man3/va_end.3.html">va_end(3)</a>
+
+       <i>void *</i>
+              According to the C language standard, a pointer to any
+              object type may be converted to a pointer to <i>void</i> and
+              back.  POSIX further requires that any pointer, including
+              pointers to functions, may be converted to a pointer to
+              <i>void</i> and back.
+
+              Conversions from and to any other pointer type are done
+              implicitly, not requiring casts at all.  Note that this
+              feature prevents any kind of type checking: the programmer
+              should be careful not to convert a <i>void *</i> value to a type
+              incompatible to that of the underlying data, because that
+              would result in undefined behavior.
+
+              This type is useful in function parameters and return
+              value to allow passing values of any type.  The function
+              will typically use some mechanism to know the real type of
+              the data being passed via a pointer to <i>void</i>.
+
+              A value of this type can't be dereferenced, as it would
+              give a value of type <i>void</i>, which is not possible.
+              Likewise, pointer arithmetic is not possible with this
+              type.  However, in GNU C, pointer arithmetic is allowed as
+              an extension to the standard; this is done by treating the
+              size of a <i>void</i> or of a function as 1.  A consequence of
+              this is that <i>sizeof</i> is also allowed on <i>void</i> and on
+              function types, and returns 1.
+
+              The conversion specifier for <i>void *</i> for the <a href="https://man7.org/linux/man-pages/man3/printf.3.html">printf(3)</a> and
+              the <a href="https://man7.org/linux/man-pages/man3/scanf.3.html">scanf(3)</a> families of functions is <b>p</b>.
+
+              <i>Versions</i>: The POSIX requirement about compatibility
+              between <i>void *</i> and function pointers was added in
+              POSIX.1-2008 Technical Corrigendum 1 (2013).
+
+              <i>Conforming to</i>: C99 and later; POSIX.1-2001 and later.
+
+              <i>See also</i>: <a href="https://man7.org/linux/man-pages/man3/malloc.3.html">malloc(3)</a>, <a href="https://man7.org/linux/man-pages/man3/memcmp.3.html">memcmp(3)</a>, <a href="https://man7.org/linux/man-pages/man3/memcpy.3.html">memcpy(3)</a>, <a href="https://man7.org/linux/man-pages/man3/memset.3.html">memset(3)</a>
+
+              See also the <i>intptr_t</i> and <i>uintptr_t</i> types in this page.
+</pre>

@@ -1,0 +1,12 @@
+<pre>
+       <b>xfs_repair </b>repairs corrupt or damaged XFS filesystems (see
+       <a href="https://man7.org/linux/man-pages/man5/xfs.5.html">xfs(5)</a>).  The filesystem is specified using the <i>device</i> argument
+       which should be the device name of the disk partition or volume
+       containing the filesystem. If given the name of a block device,
+       <b>xfs_repair </b>will attempt to find the raw device associated with
+       the specified block device and will use the raw device instead.
+
+       Regardless, the filesystem to be repaired must be unmounted,
+       otherwise, the resulting filesystem may be inconsistent or
+       corrupt.
+</pre>

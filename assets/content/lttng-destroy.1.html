@@ -1,0 +1,33 @@
+<pre>
+       The <b>lttng destroy </b>command destroys one or more tracing sessions.
+
+       If no options are specified, the current tracing session is
+       destroyed (see <a href="https://man7.org/linux/man-pages/man1/lttng-create.1.html">lttng-create(1)</a> for more information about the
+       current tracing session).
+
+       If <i>SESSION</i> is specified, the existing tracing session named
+       <i>SESSION</i> is destroyed. <b>lttng list </b>outputs all the existing tracing
+       sessions (see <a href="https://man7.org/linux/man-pages/man1/lttng-list.1.html">lttng-list(1)</a>).
+
+       If the <b>--all </b>option is used, <b>all </b>the tracing sessions, as listed
+       in the output of <b>lttng list</b>, are destroyed.
+
+       Destroying a tracing session stops any tracing running within the
+       latter. By default, the implicit <a href="https://man7.org/linux/man-pages/man1/lttng-stop.1.html">lttng-stop(1)</a> command invoked by
+       the <b>lttng destroy </b>command ensures that the tracing session’s
+       trace data is valid before returning. With the <b>--no-wait </b>option,
+       the <a href="https://man7.org/linux/man-pages/man1/lttng-stop.1.html">lttng-stop(1)</a> command finishes immediately, hence a local
+       trace might not be valid when the command is done. In this case,
+       there is no way to know when the trace becomes valid.
+
+       Destroying a tracing session does not destroy the recorded trace
+       data, if any; it frees resources acquired by the session daemon
+       and tracer side, making sure to flush all trace data.
+
+       If at least one rotation occurred during the chosen tracing
+       session’s lifetime (see <a href="https://man7.org/linux/man-pages/man1/lttng-rotate.1.html">lttng-rotate(1)</a> and
+       <a href="https://man7.org/linux/man-pages/man1/lttng-enable-rotation.1.html">lttng-enable-rotation(1)</a>), and without the <b>--no-wait </b>option, all
+       the tracing session’s output directory’s subdirectories are
+       considered trace chunk archives once the command returns: it is
+       safe to read them, modify them, move them, or remove them.
+</pre>

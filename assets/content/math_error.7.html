@@ -1,0 +1,77 @@
+<pre>
+       When an error occurs, most library functions indicate this fact
+       by returning a special value (e.g., -1 or NULL).  Because they
+       typically return a floating-point number, the mathematical
+       functions declared in <i>&lt;math.h&gt;</i> indicate an error using other
+       mechanisms.  There are two error-reporting mechanisms: the older
+       one sets <i><a href="https://man7.org/linux/man-pages/man3/errno.3.html">errno</a></i>; the newer one uses the floating-point exception
+       mechanism (the use of <a href="https://man7.org/linux/man-pages/man3/feclearexcept.3.html">feclearexcept(3)</a> and <a href="https://man7.org/linux/man-pages/man3/fetestexcept.3.html">fetestexcept(3)</a>, as
+       outlined below) described in <a href="https://man7.org/linux/man-pages/man3/fenv.3.html">fenv(3)</a>.
+
+       A portable program that needs to check for an error from a
+       mathematical function should set <i><a href="https://man7.org/linux/man-pages/man3/errno.3.html">errno</a></i> to zero, and make the
+       following call
+
+           feclearexcept(FE_ALL_EXCEPT);
+
+       before calling a mathematical function.
+
+       Upon return from the mathematical function, if <i><a href="https://man7.org/linux/man-pages/man3/errno.3.html">errno</a></i> is nonzero,
+       or the following call (see <a href="https://man7.org/linux/man-pages/man3/fenv.3.html">fenv(3)</a>) returns nonzero
+
+           fetestexcept(FE_INVALID | FE_DIVBYZERO | FE_OVERFLOW |
+                        FE_UNDERFLOW);
+
+       then an error occurred in the mathematical function.
+
+       The error conditions that can occur for mathematical functions
+       are described below.
+
+   <b>Domain error</b>
+       A <i>domain error</i> occurs when a mathematical function is supplied
+       with an argument whose value falls outside the domain for which
+       the function is defined (e.g., giving a negative argument to
+       <a href="https://man7.org/linux/man-pages/man3/log.3.html">log(3)</a>).  When a domain error occurs, math functions commonly
+       return a NaN (though some functions return a different value in
+       this case); <i><a href="https://man7.org/linux/man-pages/man3/errno.3.html">errno</a></i> is set to <b>EDOM</b>, and an "invalid" (<b>FE_INVALID</b>)
+       floating-point exception is raised.
+
+   <b>Pole error</b>
+       A <i>pole error</i> occurs when the mathematical result of a function is
+       an exact infinity (e.g., the logarithm of 0 is negative
+       infinity).  When a pole error occurs, the function returns the
+       (signed) value <b>HUGE_VAL</b>, <b>HUGE_VALF</b>, or <b>HUGE_VALL</b>, depending on
+       whether the function result type is <i>double</i>, <i>float</i>, or <i>long</i>
+       <i>double</i>.  The sign of the result is that which is mathematically
+       correct for the function.  <i><a href="https://man7.org/linux/man-pages/man3/errno.3.html">errno</a></i> is set to <b>ERANGE</b>, and a "divide-
+       by-zero" (<b>FE_DIVBYZERO</b>) floating-point exception is raised.
+
+   <b>Range error</b>
+       A <i>range error</i> occurs when the magnitude of the function result
+       means that it cannot be represented in the result type of the
+       function.  The return value of the function depends on whether
+       the range error was an overflow or an underflow.
+
+       A floating result <i>overflows</i> if the result is finite, but is too
+       large to represented in the result type.  When an overflow
+       occurs, the function returns the value <b>HUGE_VAL</b>, <b>HUGE_VALF</b>, or
+       <b>HUGE_VALL</b>, depending on whether the function result type is
+       <i>double</i>, <i>float</i>, or <i>long double</i>.  <i><a href="https://man7.org/linux/man-pages/man3/errno.3.html">errno</a></i> is set to <b>ERANGE</b>, and an
+       "overflow" (<b>FE_OVERFLOW</b>) floating-point exception is raised.
+
+       A floating result <i>underflows</i> if the result is too small to be
+       represented in the result type.  If an underflow occurs, a
+       mathematical function typically returns 0.0 (C99 says a function
+       shall return "an implementation-defined value whose magnitude is
+       no greater than the smallest normalized positive number in the
+       specified type").  <i><a href="https://man7.org/linux/man-pages/man3/errno.3.html">errno</a></i> may be set to <b>ERANGE</b>, and an "underflow"
+       (<b>FE_UNDERFLOW</b>) floating-point exception may be raised.
+
+       Some functions deliver a range error if the supplied argument
+       value, or the correct function result, would be <i>subnormal</i>.  A
+       subnormal value is one that is nonzero, but with a magnitude that
+       is so small that it can't be presented in normalized form (i.e.,
+       with a 1 in the most significant bit of the significand).  The
+       representation of a subnormal number will contain one or more
+       leading zeros in the significand.
+</pre>

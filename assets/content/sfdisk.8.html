@@ -1,0 +1,50 @@
+<pre>
+       <b>sfdisk </b>is a script-oriented tool for partitioning any block
+       device. It runs in interactive mode if executed on a terminal
+       (stdin refers to a terminal).
+
+       Since version 2.26 <b>sfdisk </b>supports MBR (DOS), GPT, SUN and SGI
+       disk labels, but no longer provides any functionality for CHS
+       (Cylinder-Head-Sector) addressing. CHS has never been important
+       for Linux, and this addressing concept does not make any sense
+       for new devices.
+
+       <b>sfdisk </b>protects the first disk sector when create a new disk
+       label. The option <b>--wipe always </b>disables this protection. Note
+       that <a href="https://man7.org/linux/man-pages/man8/fdisk.8.html">fdisk(8)</a> and <a href="https://man7.org/linux/man-pages/man8/cfdisk.8.html">cfdisk(8)</a> completely erase this area by
+       default.
+
+       <b>sfdisk </b>(since version 2.26) <b>aligns the start and end of</b>
+       <b>partitions </b>to block-device I/O limits when relative sizes are
+       specified, when the default values are used or when
+       multiplicative suffixes (e.g., MiB) are used for sizes. It is
+       possible that partition size will be optimized (reduced or
+       enlarged) due to alignment if the start offset is specified
+       exactly in sectors and partition size relative or by
+       multiplicative suffixes.
+
+       The recommended way is not to specify start offsets at all and
+       specify partition size in MiB, GiB (or so). In this case <b>sfdisk</b>
+       aligns all partitions to block-device I/O limits (or when I/O
+       limits are too small then to megabyte boundary to keep disk
+       layout portable). If this default behaviour is unwanted (usually
+       for very small partitions) then specify offsets and sizes in
+       sectors. In this case <b>sfdisk </b>entirely follows specified numbers
+       without any optimization.
+
+       <b>sfdisk </b>does not create the standard system partitions for SGI and
+       SUN disk labels like <a href="https://man7.org/linux/man-pages/man8/fdisk.8.html">fdisk(8)</a> does. It is necessary to explicitly
+       create all partitions including whole-disk system partitions.
+
+       <b>sfdisk </b>uses <b>BLKRRPART </b>(reread partition table) ioctl to make sure
+       that the device is not used by system or other tools (see also
+       <b>--no-reread</b>). It’s possible that this feature or another <b>sfdisk</b>
+       activity races with <b>udevd</b>. The recommended way how to avoid
+       possible collisions is to use <b>--lock </b>option. The exclusive lock
+       will cause udevd to skip the event handling on the device.
+
+       The <b>sfdisk </b>prompt is only a hint for users and a displayed
+       partition number does not mean that the same partition table
+       entry will be created (if <b>-N </b>not specified), especially for
+       tables with gaps.
+</pre>

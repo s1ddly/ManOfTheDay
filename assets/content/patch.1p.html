@@ -1,0 +1,15 @@
+<pre>
+       The <i>patch</i> utility shall read a source (patch) file containing any
+       of four forms of difference (diff) listings produced by the <i>diff</i>
+       utility (normal, copied context, unified context, or in the style
+       of <i>ed</i>) and apply those differences to a file. By default, <i>patch</i>
+       shall read from the standard input.
+
+       The <i>patch</i> utility shall attempt to determine the type of the <i>diff</i>
+       listing, unless overruled by a <b>-c</b>, <b>-e</b>, <b>-n</b>, or <b>-u </b>option.
+
+       If the patch file contains more than one patch, <i>patch</i> shall
+       attempt to apply each of them as if they came from separate patch
+       files. (In this case, the application shall ensure that the name
+       of the patch file is determinable for each <i>diff</i> listing.)
+</pre>

@@ -1,0 +1,80 @@
+<pre>
+       <b>systemd-boot </b>(short: <b>sd-boot</b>) is a simple UEFI boot manager. It
+       provides a graphical menu to select the entry to boot and an
+       editor for the kernel command line.  <b>systemd-boot </b>supports
+       systems with UEFI firmware only.
+
+       <b>systemd-boot </b>loads boot entry information from the EFI system
+       partition (ESP), usually mounted at /efi/, /boot/, or /boot/efi/
+       during OS runtime, as well as from the Extended Boot Loader
+       partition if it exists (usually mounted to /boot/). Configuration
+       file fragments, kernels, initrds and other EFI images to boot
+       generally need to reside on the ESP or the Extended Boot Loader
+       partition. Linux kernels must be built with <b>CONFIG_EFI_STUB </b>to be
+       able to be directly executed as an EFI image. During boot
+       <b>systemd-boot </b>automatically assembles a list of boot entries from
+       the following sources:
+
+       •   Boot entries defined with <b>Boot Loader Specification</b><b></b>[1]
+           description files located in /loader/entries/ on the ESP and
+           the Extended Boot Loader Partition. These usually describe
+           Linux kernel images with associated initrd images, but
+           alternatively may also describe arbitrary other EFI
+           executables.
+
+       •   Unified kernel images following the <b>Boot Loader</b>
+           <b>Specification</b><b></b>[1], as executable EFI binaries in /EFI/Linux/
+           on the ESP and the Extended Boot Loader Partition.
+
+       •   The Microsoft Windows EFI boot manager, if installed
+
+       •   The Apple macOS boot manager, if installed
+
+       •   The EFI Shell binary, if installed
+
+       •   A reboot into the UEFI firmware setup option, if supported by
+           the firmware
+
+       <b>systemd-boot </b>supports the following features:
+
+       •   Basic boot manager configuration changes (such as timeout
+           configuration, default boot entry selection, ...) may be made
+           directly from the boot loader UI at boot-time, as well as
+           during system runtime with EFI variables.
+
+       •   The boot manager integrates with the <b>systemctl </b>command to
+           implement features such as <b>systemctl reboot</b>
+           <b>--boot-loader-entry=...  </b>(for rebooting into a specific boot
+           menu entry, i.e. "reboot into Windows") and <b>systemctl reboot</b>
+           <b>--boot-loader-menu=...  </b>(for rebooting into the boot loader
+           menu), by implementing the <b>Boot Loader Interface</b><b></b>[2]. See
+           <a href="https://man7.org/linux/man-pages/man1/systemctl.1.html">systemctl(1)</a> for details.
+
+       •   An EFI variable set by the boot loader informs the OS about
+           the EFI System Partition used during boot. This is then used
+           to automatically mount the correct EFI System Partition to
+           /efi/ or /boot/ during OS runtime. See
+           <a href="https://man7.org/linux/man-pages/man8/systemd-gpt-auto-generator.8.html">systemd-gpt-auto-generator(8)</a> for details.
+
+       •   The boot manager provides information about the boot time
+           spent in UEFI firmware using the <b>Boot Loader Interface</b><b></b>[2].
+           This information can be displayed using <a href="https://man7.org/linux/man-pages/man1/systemd-analyze.1.html">systemd-analyze(1)</a>.
+
+       •   The boot manager implements boot counting and automatic
+           fallback to older, working boot entries on failure. See
+           <b>Automatic Boot Assessment</b><b></b>[3].
+
+       •   The boot manager optionally reads a random seed from the ESP
+           partition, combines it with a 'system token' stored in a
+           persistent EFI variable and derives a random seed to use by
+           the OS as entropy pool initialization, providing a full
+           entropy pool during early boot.
+
+       <a href="https://man7.org/linux/man-pages/man1/bootctl.1.html">bootctl(1)</a> may be used from a running system to locate the ESP
+       and the Extended Boot Loader Partition, list available entries,
+       and install <b>systemd-boot </b>itself.
+
+       <a href="https://man7.org/linux/man-pages/man8/kernel-install.8.html">kernel-install(8)</a> may be used to copy kernel images onto the ESP
+       or the Extended Boot Loader Partition and to generate description
+       files compliant with the Boot Loader Specification.
+</pre>

@@ -1,0 +1,53 @@
+<pre>
+       <b>addr2line </b>translates addresses into file names and line numbers.
+       Given an address in an executable or an offset in a section of a
+       relocatable object, it uses the debugging information to figure
+       out which file name and line number are associated with it.
+
+       The executable or relocatable object to use is specified with the
+       <b>-e </b>option.  The default is the file <i>a.out</i>.  The section in the
+       relocatable object to use is specified with the <b>-j </b>option.
+
+       <b>addr2line </b>has two modes of operation.
+
+       In the first, hexadecimal addresses are specified on the command
+       line, and <b>addr2line </b>displays the file name and line number for
+       each address.
+
+       In the second, <b>addr2line </b>reads hexadecimal addresses from
+       standard input, and prints the file name and line number for each
+       address on standard output.  In this mode, <b>addr2line </b>may be used
+       in a pipe to convert dynamically chosen addresses.
+
+       The format of the output is <b>FILENAME:LINENO</b>.  By default each
+       input address generates one line of output.
+
+       Two options can generate additional lines before each
+       <b>FILENAME:LINENO </b>line (in that order).
+
+       If the <b>-a </b>option is used then a line with the input address is
+       displayed.
+
+       If the <b>-f </b>option is used, then a line with the <b>FUNCTIONNAME </b>is
+       displayed.  This is the name of the function containing the
+       address.
+
+       One option can generate additional lines after the
+       <b>FILENAME:LINENO </b>line.
+
+       If the <b>-i </b>option is used and the code at the given address is
+       present there because of inlining by the compiler then additional
+       lines are displayed afterwards.  One or two extra lines (if the
+       <b>-f </b>option is used) are displayed for each inlined function.
+
+       Alternatively if the <b>-p </b>option is used then each input address
+       generates a single, long, output line containing the address, the
+       function name, the file name and the line number.  If the <b>-i</b>
+       option has also been used then any inlined functions will be
+       displayed in the same manner, but on separate lines, and prefixed
+       by the text <b>(inlined by)</b>.
+
+       If the file name or function name can not be determined,
+       <b>addr2line </b>will print two question marks in their place.  If the
+       line number can not be determined, <b>addr2line </b>will print 0.
+</pre>

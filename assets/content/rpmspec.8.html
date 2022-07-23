@@ -1,0 +1,39 @@
+<pre>
+       <b>rpmspec </b>is a tool for querying a spec file.  More specifically
+       for querying hypothetical packages which would be created from
+       the given spec file.  So querying a spec file with <b>rpmspec </b>is
+       similar to querying a package built from that spec file.  But is
+       is not identical.  With <b>rpmspec </b>you can't query all fields which
+       you can query from a built package.  E.  g.  you can't query
+       BUILDTIME with <b>rpmspec </b>for obvious reasons.  You also cannot
+       query other fields automatically generated during a build of a
+       package like auto generated dependencies.
+
+   <b>select-options</b>
+       [<b>--rpms</b>] [<b>--srpm</b>]
+
+   <b>query-options</b>
+       [<b>--qf,--queryformat </b><i>QUERYFMT</i>] [<b>--target </b><i>TARGET_PLATFORM</i>]
+
+   <b>QUERY OPTIONS</b>
+       The general form of an rpm spec query command is
+
+       <b>rpm </b>{<b>-q|--query</b>} [<b>select-options</b>] [<b>query-options</b>]
+
+       You may specify the format that the information should be printed
+       in.  To do this, you use the
+
+       <b>--qf|--queryformat </b><i>QUERYFMT</i>
+
+       option, followed by the <i>QUERYFMT</i> format string.  See <b>rpm(8) </b>for
+       details.
+
+   <b>SELECT OPTIONS</b>
+       <b>--rpms </b>Operate on the all binary package headers generated from
+       spec.  <b>--builtrpms </b>Operate only on the binary package headers of
+       packages which would be built from spec.  That means ignoring
+       package headers of packages that won't be built from spec i.  e.
+       ignoring package headers of packages without file section.
+       <b>--srpm </b>Operate on the source package header(s) generated from
+       spec.
+</pre>

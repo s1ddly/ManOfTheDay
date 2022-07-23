@@ -1,0 +1,56 @@
+<pre>
+       This command reads the input file and displays the trace
+       recorded.
+
+       There are several variants of perf script:
+
+           'perf script' to see a detailed trace of the workload that was
+           recorded.
+
+           You can also run a set of pre-canned scripts that aggregate and
+           summarize the raw trace data in various ways (the list of scripts is
+           available via 'perf script -l').  The following variants allow you to
+           record and run those scripts:
+
+           'perf script record &lt;script&gt; &lt;command&gt;' to record the events required
+           for 'perf script report'.  &lt;script&gt; is the name displayed in the
+           output of 'perf script --list' i.e. the actual script name minus any
+           language extension.  If &lt;command&gt; is not specified, the events are
+           recorded using the -a (system-wide) 'perf record' option.
+
+           'perf script report &lt;script&gt; [args]' to run and display the results
+           of &lt;script&gt;.  &lt;script&gt; is the name displayed in the output of 'perf
+           script --list' i.e. the actual script name minus any language
+           extension.  The perf.data output from a previous run of 'perf script
+           record &lt;script&gt;' is used and should be present for this command to
+           succeed.  [args] refers to the (mainly optional) args expected by
+           the script.
+
+           'perf script &lt;script&gt; &lt;required-script-args&gt; &lt;command&gt;' to both
+           record the events required for &lt;script&gt; and to run the &lt;script&gt;
+           using 'live-mode' i.e. without writing anything to disk.  &lt;script&gt;
+           is the name displayed in the output of 'perf script --list' i.e. the
+           actual script name minus any language extension.  If &lt;command&gt; is
+           not specified, the events are recorded using the -a (system-wide)
+           'perf record' option.  If &lt;script&gt; has any required args, they
+           should be specified before &lt;command&gt;.  This mode doesn't allow for
+           optional script args to be specified; if optional script args are
+           desired, they can be specified using separate 'perf script record'
+           and 'perf script report' commands, with the stdout of the record step
+           piped to the stdin of the report script, using the '-o -' and '-i -'
+           options of the corresponding commands.
+
+           'perf script &lt;top-script&gt;' to both record the events required for
+           &lt;top-script&gt; and to run the &lt;top-script&gt; using 'live-mode'
+           i.e. without writing anything to disk.  &lt;top-script&gt; is the name
+           displayed in the output of 'perf script --list' i.e. the actual
+           script name minus any language extension; a &lt;top-script&gt; is defined
+           as any script name ending with the string 'top'.
+
+           [&lt;record-options&gt;] can be passed to the record steps of 'perf script
+           record' and 'live-mode' variants; this isn't possible however for
+           &lt;top-script&gt; 'live-mode' or 'perf script report' variants.
+
+           See the 'SEE ALSO' section for links to language-specific
+           information on how to write and run your own trace scripts.
+</pre>

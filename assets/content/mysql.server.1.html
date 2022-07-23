@@ -1,0 +1,64 @@
+<pre>
+       MariaDB distributions on Unix include a script named
+       <b>mysql.server</b>. It can be used on systems such as Linux and Solaris
+       that use System V-style run directories to start and stop system
+       services. It is also used by the Mac OS X Startup Item for
+       MariaDB.
+
+       <b>mysql.server </b>can be found in the support-files directory under
+       your MariaDB installation directory or in a MariaDB source
+       distribution.
+
+       If you use the Linux server RPM package
+       (MySQL-server-<i>VERSION</i>.rpm), the <b>mysql.server </b>script will be
+       installed in the /etc/init.d directory with the name mysql. You
+       need not install it manually.
+
+       Some vendors provide RPM packages that install a startup script
+       under a different name such as <b>mysqld</b>.
+
+       If you install MariaDB from a source distribution or using a
+       binary distribution format that does not install <b>mysql.server</b>
+       automatically, you can install it manually.
+
+       <b>mysql.server </b>reads options from the [mysql.server] and [mysqld]
+       sections of option files. For backward compatibility, it also
+       reads [mysql_server] sections, although you should rename such
+       sections to [mysql.server]&amp;.
+
+       <b>mysql.server </b>supports the following options.
+
+       •   <b>--basedir=</b><i>path</i>
+
+           The path to the MariaDB installation directory.
+
+       •   <b>--datadir=</b><i>path</i>
+
+           The path to the MariaDB data directory.
+
+       •   <b>--pid-file=</b><i>file_name</i>
+
+           The path name of the file in which the server should write
+           its process ID. If not provided, the default, "host_name.pid"
+           is used.
+
+       •   <b>--service-startup-timeout=</b><i>file_name</i>
+
+           How long in seconds to wait for confirmation of server
+           startup. If the server does not start within this time,
+           <b>mysql.server </b>exits with an error. The default value is 900. A
+           value of 0 means not to wait at all for startup. Negative
+           values mean to wait forever (no timeout).
+
+       •   <b>--use-mysqld_safe</b>
+
+           Use <b>mysqld_safe </b>to start the server. This is the default.
+
+       •   <b>--use-manager</b>
+
+           Use Instance Manager to start the server.
+
+       •   <b>--user=</b><i>user_name</i>
+
+           The login user name to use for running <b>mysqld</b>.
+</pre>

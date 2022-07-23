@@ -1,0 +1,54 @@
+<pre>
+       <b>ovs-sim </b>provides a convenient environment for running one or more
+       Open vSwitch instances and related software in a sandboxed
+       simulation environment.
+
+       To use <b>ovs-sim</b>, first build Open vSwitch, then invoke it directly
+       from the build directory, e.g.:
+
+       <b>git clone <a href="https://man7.org/linux/man-pagestps://github.com/openvswitch/ovs.git&lt;/b&gt;">https://github.com/openvswitch/ovs.git</a></b>
+       <b>cd ovs</b>
+       <b>./configure</b>
+       <b>make</b>
+       <b>utilities/ovs-sim</b>
+
+       When invoked in the most ordinary way as shown above, <b>ovs-sim</b>
+       does the following:
+
+              1.
+                Creates a directory <b>sandbox </b>as a subdirectory of the
+                current directory (first destroying such a directory if
+                it already exists) and <b>cd</b>s into that directory.
+
+              2.
+                Installs all of the Open vSwitch manpages into a <b>man</b>
+                subdirectory of <b>sandbox </b>and adjusts the <b>MANPATH</b>
+                environment variable so that <b>man </b>and other manpage
+                viewers can find them.
+
+              3.
+                Creates a simulated Open vSwitch named <b>main </b>and sets it
+                up as the default target for OVS commands, as if the
+                following <b>ovs-sim </b>commands had been run:
+
+                          <b>sim_add main</b>
+                          <b>as main</b>
+
+                See <b>Commands</b>, below, for an explanation.
+
+              4.
+                Runs any scripts specified on the command line (see
+                <b>Options </b>below). The scripts can use arbitrary Bash
+                syntax, plus the additional commands described under
+                <b>Commands</b>, below.
+
+              5.
+                If no scripts were specified, or if <b>-i </b>or <b>--interactive</b>
+                was specified, invokes an interactive Bash subshell. The
+                user can use arbitrary Bash commands, plus the
+                additional commands described under <b>Commands</b>, below.
+
+       <b>ovs-sim </b>and the sandbox environment that it creates does not
+       require superuser or other special privileges. Generally, it
+       should not be run with such privileges.
+</pre>

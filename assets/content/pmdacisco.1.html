@@ -1,0 +1,64 @@
+<pre>
+       <b>pmdacisco </b>is a Performance Metrics Domain Agent (PMDA) which
+       extracts performance metrics from one or more Cisco routers.
+
+       A brief description of the <b>pmdacisco </b>command line options
+       follows:
+
+       <b>-d   </b>It is absolutely crucial that the performance metrics <i>domain</i>
+            number specified here is unique and consistent.  That is,
+            <i>domain</i> should be different for every PMDA on the one host,
+            and the same <i>domain</i> number should be used for the same PMDA
+            on all hosts.
+
+       <b>-l   </b>Location of the log file.  By default, a log file named
+            <i>cisco.log</i> is written in the current directory of <a href="https://man7.org/linux/man-pages/man1/pmcd.1.html">pmcd(1)</a>
+            when <b>pmdacisco </b>is started, i.e.  <i>$PCP_LOG_DIR/pmcd</i>.  If the
+            log file cannot be created or is not writable, output is
+            written to the standard error instead.
+
+       <b>-P   </b>By default, it is assumed that no user-level password is
+            required to access the Cisco's telnet port.  If user-level
+            passwords have been enabled on the Ciscos, then those
+            passwords must be specified to <b>pmdacisco</b>.  If specified with
+            the <b>-P </b>option, <i>password</i> will be used as the default user-
+            level password for all Ciscos.  See also the INTERFACE
+            IDENTIFICATION section below.
+
+       <b>-r   pmdacisco </b>will refresh the current values for all
+            performance metrics by contacting each Cisco router once
+            every <i>refresh</i> seconds.  The default <i>refresh</i> is 120 seconds.
+
+       <b>-s   </b>The Cisco command prompt ends with the string <i>prompt</i>.  The
+            default value is ``&gt;''.  The only way <b>pmdacisco </b>can
+            synchronize the sending of commands and the parsing of
+            output is by recognizing <i>prompt</i> as a unique string that
+            comes at the end of all output, i.e. as the command prompt
+            when waiting for the next command.
+
+       <b>-U   </b>By default, it is assumed that no username login is required
+            to access the Cisco's telnet port.  If username login has
+            been enabled on the Ciscos, then the corresponding usernames
+            must be specified to <b>pmdacisco</b>.  If specified with the <b>-U</b>
+            option, <i>username</i> will be used as the default username login
+            for all Ciscos.  See also the INTERFACE IDENTIFICATION
+            section below.
+
+       <b>-M   </b>User account under which to run the agent.  The default is
+            the unprivileged "pcp" account in current versions of PCP,
+            but in older versions the superuser account ("root") was
+            used by default.
+
+       <b>-x   </b>Connect to the Cisco via TCP port number <i>port</i> rather than
+            the default 23 for a telnet connection.
+
+       For each interface, once the telnet connection is established,
+       <b>pmdacisco </b>is willing to wait up to 5 seconds for the Cisco to
+       provide a new snapshot of the requested information.  If this
+       does not happen, the telnet connection is broken and no values
+       are returned.  This prevents <b>pmdacisco </b>tying up the Cisco's
+       telnet ports waiting indefinitely when the response from the
+       router is not what is expected, e.g. if the format of the ``show
+       int'' output changes, or the command is in error because an
+       interface is no longer configured on the router.
+</pre>

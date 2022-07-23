@@ -1,0 +1,40 @@
+<pre>
+       Compare two files byte by byte.
+
+       The optional SKIP1 and SKIP2 specify the number of bytes to skip
+       at the beginning of each file (zero by default).
+
+       Mandatory arguments to long options are mandatory for short
+       options too.
+
+       <b>-b</b>, <b>--print-bytes</b>
+              print differing bytes
+
+       <b>-i</b>, <b>--ignore-initial</b>=<i>SKIP</i>
+              skip first SKIP bytes of both inputs
+
+       <b>-i</b>, <b>--ignore-initial</b>=<i>SKIP1</i>:SKIP2
+              skip first SKIP1 bytes of FILE1 and first SKIP2 bytes of
+              FILE2
+
+       <b>-l</b>, <b>--verbose</b>
+              output byte numbers and differing byte values
+
+       <b>-n</b>, <b>--bytes</b>=<i>LIMIT</i>
+              compare at most LIMIT bytes
+
+       <b>-s</b>, <b>--quiet</b>, <b>--silent</b>
+              suppress all normal output
+
+       <b>--help </b>display this help and exit
+
+       <b>-v</b>, <b>--version</b>
+              output version information and exit
+
+       SKIP values may be followed by the following multiplicative
+       suffixes: kB 1000, K 1024, MB 1,000,000, M 1,048,576, GB
+       1,000,000,000, G 1,073,741,824, and so on for T, P, E, Z, Y.
+
+       If a FILE is '-' or missing, read standard input.  Exit status is
+       0 if inputs are the same, 1 if different, 2 if trouble.
+</pre>

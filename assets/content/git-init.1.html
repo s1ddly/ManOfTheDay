@@ -1,0 +1,20 @@
+<pre>
+       This command creates an empty Git repository - basically a <b>.git</b>
+       directory with subdirectories for <b>objects</b>, <b>refs/heads</b>, <b>refs/tags</b>,
+       and template files. An initial branch without any commits will be
+       created (see the <b>--initial-branch </b>option below for its name).
+
+       If the <b>$GIT_DIR </b>environment variable is set then it specifies a
+       path to use instead of <b>./.git </b>for the base of the repository.
+
+       If the object storage directory is specified via the
+       <b>$GIT_OBJECT_DIRECTORY </b>environment variable then the sha1
+       directories are created underneath - otherwise the default
+       <b>$GIT_DIR/objects </b>directory is used.
+
+       Running <i>git init</i> in an existing repository is safe. It will not
+       overwrite things that are already there. The primary reason for
+       rerunning <i>git init</i> is to pick up newly added templates (or to
+       move the repository to another place if --separate-git-dir is
+       given).
+</pre>

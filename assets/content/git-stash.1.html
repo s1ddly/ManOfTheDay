@@ -1,0 +1,22 @@
+<pre>
+       Use <b>git stash </b>when you want to record the current state of the
+       working directory and the index, but want to go back to a clean
+       working directory. The command saves your local modifications
+       away and reverts the working directory to match the <b>HEAD </b>commit.
+
+       The modifications stashed away by this command can be listed with
+       <b>git stash list</b>, inspected with <b>git stash show</b>, and restored
+       (potentially on top of a different commit) with <b>git stash apply</b>.
+       Calling <b>git stash </b>without any arguments is equivalent to <b>git</b>
+       <b>stash push</b>. A stash is by default listed as "WIP on <i>branchname</i>
+       ...", but you can give a more descriptive message on the command
+       line when you create one.
+
+       The latest stash you created is stored in <b>refs/stash</b>; older
+       stashes are found in the reflog of this reference and can be
+       named using the usual reflog syntax (e.g. <b>stash@{0} </b>is the most
+       recently created stash, <b>stash@{1} </b>is the one before it,
+       <b>stash@{2.hours.ago} </b>is also possible). Stashes may also be
+       referenced by specifying just the stash index (e.g. the integer <b>n</b>
+       is equivalent to <b>stash@{n}</b>).
+</pre>

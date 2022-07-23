@@ -1,0 +1,67 @@
+<pre>
+       <b>myisamlog </b>processes the contents of a MyISAM log file.
+
+       Invoke <b>myisamlog </b>like this:
+
+           shell&gt; <b>myisamlog [</b><i>options</i><b>] [</b><i>log_file</i> <b>[</b><i>tbl_name</i><b>] ...]</b>
+           shell&gt; <b>isamlog [</b><i>options</i><b>] [</b><i>log_file</i> <b>[</b><i>tbl_name</i><b>] ...]</b>
+
+       The default operation is update (<b>-u</b>). If a recovery is done (<b>-r</b>),
+       all writes and possibly updates and deletes are done and errors
+       are only counted. The default log file name is myisam.log for
+       <b>myisamlog </b>and isam.log for <b>isamlog </b>if no <i>log_file</i> argument is
+       given. If tables are named on the command line, only those tables
+       are updated.
+
+       <b>myisamlog </b>supports the following options:
+
+       •   <b>-?</b>, <b>-I</b>
+
+           Display a help message and exit.
+
+       •   <b>-c </b><i>N</i>
+
+           Execute only <i>N</i> commands.
+
+       •   <b>-f </b><i>N</i>
+
+           Specify the maximum number of open files.
+
+       •   <b>-i</b>
+
+           Display extra information before exiting.
+
+       •   <b>-o </b><i>offset</i>
+
+           Specify the starting offset.
+
+       •   <b>-p </b><i>N</i>
+
+           Remove <i>N</i> components from path.
+
+       •   <b>-r</b>
+
+           Perform a recovery operation.
+
+       •   <b>-R </b><i>record_pos_file record_pos</i>
+
+           Specify record position file and record position.
+
+       •   <b>-u</b>
+
+           Perform an update operation.
+
+       •   <b>-v</b>
+
+           Verbose mode. Print more output about what the program does.
+           This option can be given multiple times to produce more and
+           more output.
+
+       •   <b>-w </b><i>write_file</i>
+
+           Specify the write file.
+
+       •   <b>-V</b>
+
+           Display version information.
+</pre>

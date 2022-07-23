@@ -1,0 +1,15 @@
+<pre>
+       The <i>exit</i> utility shall cause the shell to exit from its current
+       execution environment with the exit status specified by the
+       unsigned decimal integer <i>n</i>.  If the current execution environment
+       is a subshell environment, the shell shall exit from the subshell
+       environment with the specified exit status and continue in the
+       environment from which that subshell environment was invoked;
+       otherwise, the shell utility shall terminate with the specified
+       exit status. If <i>n</i> is specified, but its value is not between 0
+       and 255 inclusively, the exit status is undefined.
+
+       A <i>trap</i> on <b>EXIT </b>shall be executed before the shell terminates,
+       except when the <i>exit</i> utility is invoked in that <i>trap</i> itself, in
+       which case the shell shall exit immediately.
+</pre>

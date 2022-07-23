@@ -1,0 +1,32 @@
+<pre>
+       For an overview of namespaces, see <a href="https://man7.org/linux/man-pages/man7/namespaces.7.html">namespaces(7)</a>.
+
+       Mount namespaces provide isolation of the list of mounts seen by
+       the processes in each namespace instance.  Thus, the processes in
+       each of the mount namespace instances will see distinct single-
+       directory hierarchies.
+
+       The views provided by the <i>/proc/[pid]/mounts</i>,
+       <i>/proc/[pid]/mountinfo</i>, and <i>/proc/[pid]/mountstats</i> files (all
+       described in <a href="https://man7.org/linux/man-pages/man5/proc.5.html">proc(5)</a>) correspond to the mount namespace in which
+       the process with the PID <i>[pid]</i> resides.  (All of the processes
+       that reside in the same mount namespace will see the same view in
+       these files.)
+
+       A new mount namespace is created using either <a href="https://man7.org/linux/man-pages/man2/clone.2.html">clone(2)</a> or
+       <a href="https://man7.org/linux/man-pages/man2/unshare.2.html">unshare(2)</a> with the <b>CLONE_NEWNS </b>flag.  When a new mount namespace
+       is created, its mount list is initialized as follows:
+
+       *  If the namespace is created using <a href="https://man7.org/linux/man-pages/man2/clone.2.html">clone(2)</a>, the mount list of
+          the child's namespace is a copy of the mount list in the
+          parent process's mount namespace.
+
+       *  If the namespace is created using <a href="https://man7.org/linux/man-pages/man2/unshare.2.html">unshare(2)</a>, the mount list
+          of the new namespace is a copy of the mount list in the
+          caller's previous mount namespace.
+
+       Subsequent modifications to the mount list (<a href="https://man7.org/linux/man-pages/man2/mount.2.html">mount(2)</a> and
+       <a href="https://man7.org/linux/man-pages/man2/umount.2.html">umount(2)</a>) in either mount namespace will not (by default) affect
+       the mount list seen in the other namespace (but see the following
+       discussion of shared subtrees).
+</pre>

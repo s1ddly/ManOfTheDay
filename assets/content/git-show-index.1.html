@@ -1,0 +1,23 @@
+<pre>
+       Read the <b>.idx </b>file for a Git packfile (created with
+       <a href="https://man7.org/linux/man-pages/man1/git-pack-objects.1.html">git-pack-objects(1)</a> or <a href="https://man7.org/linux/man-pages/man1/git-index-pack.1.html">git-index-pack(1)</a>) from the standard
+       input, and dump its contents. The output consists of one object
+       per line, with each line containing two or three space-separated
+       columns:
+
+       •   the first column is the offset in bytes of the object within
+           the corresponding packfile
+
+       •   the second column is the object id of the object
+
+       •   if the index version is 2 or higher, the third column
+           contains the CRC32 of the object data
+
+       The objects are output in the order in which they are found in
+       the index file, which should be (in a correctly constructed file)
+       sorted by object id.
+
+       Note that you can get more information on a packfile by calling
+       <a href="https://man7.org/linux/man-pages/man1/git-verify-pack.1.html">git-verify-pack(1)</a>. However, as this command considers only the
+       index file itself, it’s both faster and more flexible.
+</pre>

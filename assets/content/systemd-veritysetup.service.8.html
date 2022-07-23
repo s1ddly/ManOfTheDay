@@ -1,0 +1,13 @@
+<pre>
+       systemd-veritysetup@.service is a service responsible for setting
+       up integrity protection (verity) block devices. It should be
+       instantiated for each device that requires integrity protection.
+
+       At early boot and when the system manager configuration is
+       reloaded kernel command line configuration for integrity
+       protected block devices is translated into
+       systemd-veritysetup@.service units by
+       <a href="https://man7.org/linux/man-pages/man8/systemd-veritysetup-generator.8.html">systemd-veritysetup-generator(8)</a>.
+
+       systemd-veritysetup@.service calls <b>systemd-veritysetup</b>.
+</pre>

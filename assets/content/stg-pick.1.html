@@ -1,0 +1,15 @@
+<pre>
+       Import one or more patches from a different branch or a commit
+       object into the current series. By default, the name of the
+       imported patch is used as the name of the current patch. It can
+       be overridden with the <i>--name</i> option. A commit object can be
+       reverted with the <i>--revert</i> option. The log and author information
+       are those of the commit object.
+
+       When using the <i>--expose</i> option, the format of the commit message
+       is determined by the <i>stgit.pick.expose-format</i> configuration
+       option. This option is a format string as may supplied as the
+       <i>--pretty</i> option to <a href="https://man7.org/linux/man-pages/man1/git-show.1.html">git-show(1)</a>. The default is
+       "format:%B%n(imported from commit %H)", which appends the commit
+       hash of the picked commit to the patch’s commit message.
+</pre>

@@ -1,0 +1,18 @@
+<pre>
+       <b>pmlogreduce </b>reads one set of Performance Co-Pilot (PCP) archives
+       identified by <i>input</i> and creates a temporally reduced PCP archive
+       in <i>output</i>.  <i>input</i> is a comma-separated list of names, each of
+       which may be the base name of an archive or the name of a
+       directory containing one or more archives.  The data reduction
+       involves statistical and temporal reduction of samples with an
+       output sampling interval defined by the <b>-t </b>option in the <i>output</i>
+       archive (independent of the sampling intervals in the <i>input</i>
+       archives), and is further controlled by other command line
+       arguments.
+
+       For some metrics, temporal data reduction is not going to be
+       helpful, so for metrics with types <b>PM_TYPE_AGGREGATE </b>or
+       <b>PM_TYPE_EVENT</b>, a warning is issued if these metrics are found in
+       <i>input</i> and they will be skipped and not appear in the <i>output</i>
+       archive.
+</pre>

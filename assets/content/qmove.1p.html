@@ -1,0 +1,25 @@
+<pre>
+       To move a batch job is to remove the batch job from the batch
+       queue in which it resides and instantiate the batch job in
+       another batch queue.  A batch job is moved by a request to the
+       batch server that manages the batch job. The <i>qmove</i> utility is a
+       user-accessible batch client that requests the movement of one or
+       more batch jobs.
+
+       The <i>qmove</i> utility shall move those batch jobs, and only those
+       batch jobs, for which a batch <i>job_identifier</i> is presented to the
+       utility.
+
+       The <i>qmove</i> utility shall move batch jobs in the order in which the
+       corresponding batch <i>job_identifier</i>s are presented to the utility.
+
+       If the <i>qmove</i> utility fails to process a batch <i>job_identifier</i>
+       successfully, the utility shall proceed to process the remaining
+       batch <i>job_identifier</i>s, if any.
+
+       The <i>qmove</i> utility shall move batch jobs by sending a <i>Move Job</i>
+       <i>Request</i> to the batch server that manages each batch job. The
+       <i>qmove</i> utility shall not exit before the batch jobs corresponding
+       to all successfully processed batch <i>job_identifier</i>s have been
+       moved.
+</pre>

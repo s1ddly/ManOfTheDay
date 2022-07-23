@@ -1,0 +1,26 @@
+<pre>
+       systemd-fstab-generator is a generator that translates /etc/fstab
+       (see <a href="https://man7.org/linux/man-pages/man5/fstab.5.html">fstab(5)</a> for details) into native systemd units early at
+       boot and when configuration of the system manager is reloaded.
+       This will instantiate mount and swap units as necessary.
+
+       The <i>passno</i> field is treated like a simple boolean, and the
+       ordering information is discarded. However, if the root file
+       system is checked, it is checked before all the other file
+       systems.
+
+       See <a href="https://man7.org/linux/man-pages/man5/systemd.mount.5.html">systemd.mount(5)</a> and <a href="https://man7.org/linux/man-pages/man5/systemd.swap.5.html">systemd.swap(5)</a> for more information
+       about special /etc/fstab mount options this generator
+       understands.
+
+       One special topic is handling of symbolic links. Historical init
+       implementations supported symlinks in /etc/fstab. Because mount
+       units will refuse mounts where the target is a symbolic link,
+       this generator will resolve any symlinks as far as possible when
+       processing /etc/fstab in order to enhance backwards
+       compatibility. If a symlink target does not exist at the time
+       that this generator runs, it is assumed that the symlink target
+       is the final target of the mount.
+
+       systemd-fstab-generator implements <a href="https://man7.org/linux/man-pages/man7/systemd.generator.7.html">systemd.generator(7)</a>.
+</pre>

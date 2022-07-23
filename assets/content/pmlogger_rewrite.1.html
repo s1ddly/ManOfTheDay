@@ -1,0 +1,18 @@
+<pre>
+       <b>pmlogger_rewrite </b>is a helper script that is used by
+       <a href="https://man7.org/linux/man-pages/man1/pmlogger_daily.1.html">pmlogger_daily(1)</a> when rewriting Performance Co-Pilot (PCP)
+       archives.  Rewriting is usually required to accommodate
+       evolutionary changes in metadata so old archives can be updated
+       and then merged with current archives.
+
+       <b>pmlogger_rewrite </b>is a wrapper script for <a href="https://man7.org/linux/man-pages/man1/pmlogrewrite.1.html">pmlogrewrite(1)</a> that
+       will potentially rewrite all of the archive logs matching the
+       <i>archive</i> arguments.  Each <i>archive</i> argument may be a PCP archive
+       file name, the basename for the files in a PCP archive, or a
+       directory (in which case all subordinate PCP archives are found
+       by recursive descent).
+
+       <b>pmlogrewrite </b>is run with the <b>-i </b>option so rewriting is done ``in
+       place''.  The <b>-q </b>option is also used, so if no rewriting is
+       required then no changes are made to the archive files.
+</pre>

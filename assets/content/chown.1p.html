@@ -1,0 +1,24 @@
+<pre>
+       The <i>chown</i> utility shall set the user ID of the file named by each
+       <i>file</i> operand to the user ID specified by the <i>owner</i> operand.
+
+       For each <i>file</i> operand, or, if the <b>-R </b>option is used, each file
+       encountered while walking the directory trees specified by the
+       <i>file</i> operands, the <i>chown</i> utility shall perform actions equivalent
+       to the <i>chown</i>() function defined in the System Interfaces volume
+       of POSIX.1‐2017, called with the following arguments:
+
+        1. The <i>file</i> operand shall be used as the <i>path</i> argument.
+
+        2. The user ID indicated by the <i>owner</i> portion of the first
+           operand shall be used as the <i>owner</i> argument.
+
+        3. If the <i>group</i> portion of the first operand is given, the group
+           ID indicated by it shall be used as the <i>group</i> argument;
+           otherwise, the group ownership shall not be changed.
+
+       Unless <i>chown</i> is invoked by a process with appropriate privileges,
+       the set-user-ID and set-group-ID bits of a regular file shall be
+       cleared upon successful completion; the set-user-ID and set-
+       group-ID bits of other file types may be cleared.
+</pre>

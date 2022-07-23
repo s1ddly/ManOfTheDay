@@ -1,0 +1,336 @@
+<pre>
+       The <i>inotify</i> API provides a mechanism for monitoring filesystem
+       events.  Inotify can be used to monitor individual files, or to
+       monitor directories.  When a directory is monitored, inotify will
+       return events for the directory itself, and for files inside the
+       directory.
+
+       The following system calls are used with this API:
+
+       *  <a href="https://man7.org/linux/man-pages/man2/inotify_init.2.html">inotify_init(2)</a> creates an inotify instance and returns a file
+          descriptor referring to the inotify instance.  The more recent
+          <a href="https://man7.org/linux/man-pages/man2/inotify_init1.2.html">inotify_init1(2)</a> is like <a href="https://man7.org/linux/man-pages/man2/inotify_init.2.html">inotify_init(2)</a>, but has a <i>flags</i>
+          argument that provides access to some extra functionality.
+
+       *  <a href="https://man7.org/linux/man-pages/man2/inotify_add_watch.2.html">inotify_add_watch(2)</a> manipulates the "watch list" associated
+          with an inotify instance.  Each item ("watch") in the watch
+          list specifies the pathname of a file or directory, along with
+          some set of events that the kernel should monitor for the file
+          referred to by that pathname.  <a href="https://man7.org/linux/man-pages/man2/inotify_add_watch.2.html">inotify_add_watch(2)</a> either
+          creates a new watch item, or modifies an existing watch.  Each
+          watch has a unique "watch descriptor", an integer returned by
+          <a href="https://man7.org/linux/man-pages/man2/inotify_add_watch.2.html">inotify_add_watch(2)</a> when the watch is created.
+
+       *  When events occur for monitored files and directories, those
+          events are made available to the application as structured
+          data that can be read from the inotify file descriptor using
+          <a href="https://man7.org/linux/man-pages/man2/read.2.html">read(2)</a> (see below).
+
+       *  <a href="https://man7.org/linux/man-pages/man2/inotify_rm_watch.2.html">inotify_rm_watch(2)</a> removes an item from an inotify watch
+          list.
+
+       *  When all file descriptors referring to an inotify instance
+          have been closed (using <a href="https://man7.org/linux/man-pages/man2/close.2.html">close(2)</a>), the underlying object and
+          its resources are freed for reuse by the kernel; all
+          associated watches are automatically freed.
+
+       With careful programming, an application can use inotify to
+       efficiently monitor and cache the state of a set of filesystem
+       objects.  However, robust applications should allow for the fact
+       that bugs in the monitoring logic or races of the kind described
+       below may leave the cache inconsistent with the filesystem state.
+       It is probably wise to do some consistency checking, and rebuild
+       the cache when inconsistencies are detected.
+
+   <b>Reading events from an inotify file descriptor</b>
+       To determine what events have occurred, an application <a href="https://man7.org/linux/man-pages/man2/read.2.html">read(2)</a>s
+       from the inotify file descriptor.  If no events have so far
+       occurred, then, assuming a blocking file descriptor, <a href="https://man7.org/linux/man-pages/man2/read.2.html">read(2)</a> will
+       block until at least one event occurs (unless interrupted by a
+       signal, in which case the call fails with the error <b>EINTR</b>; see
+       <a href="https://man7.org/linux/man-pages/man7/signal.7.html">signal(7)</a>).
+
+       Each successful <a href="https://man7.org/linux/man-pages/man2/read.2.html">read(2)</a> returns a buffer containing one or more
+       of the following structures:
+
+           struct inotify_event {
+               int      wd;       /* Watch descriptor */
+               uint32_t mask;     /* Mask describing event */
+               uint32_t cookie;   /* Unique cookie associating related
+                                     events (for rename(2)) */
+               uint32_t len;      /* Size of <i>name</i> field */
+               char     name[];   /* Optional null-terminated name */
+           };
+
+       <i>wd</i> identifies the watch for which this event occurs.  It is one
+       of the watch descriptors returned by a previous call to
+       <a href="https://man7.org/linux/man-pages/man2/inotify_add_watch.2.html">inotify_add_watch(2)</a>.
+
+       <i>mask</i> contains bits that describe the event that occurred (see
+       below).
+
+       <i>cookie</i> is a unique integer that connects related events.
+       Currently, this is used only for rename events, and allows the
+       resulting pair of <b>IN_MOVED_FROM </b>and <b>IN_MOVED_TO </b>events to be
+       connected by the application.  For all other event types, <i>cookie</i>
+       is set to 0.
+
+       The <i>name</i> field is present only when an event is returned for a
+       file inside a watched directory; it identifies the filename
+       within the watched directory.  This filename is null-terminated,
+       and may include further null bytes ('\0') to align subsequent
+       reads to a suitable address boundary.
+
+       The <i>len</i> field counts all of the bytes in <i>name</i>, including the null
+       bytes; the length of each <i>inotify_event</i> structure is thus
+       <i>sizeof(struct inotify_event)+len</i>.
+
+       The behavior when the buffer given to <a href="https://man7.org/linux/man-pages/man2/read.2.html">read(2)</a> is too small to
+       return information about the next event depends on the kernel
+       version: in kernels before 2.6.21, <a href="https://man7.org/linux/man-pages/man2/read.2.html">read(2)</a> returns 0; since
+       kernel 2.6.21, <a href="https://man7.org/linux/man-pages/man2/read.2.html">read(2)</a> fails with the error <b>EINVAL</b>.  Specifying a
+       buffer of size
+
+           sizeof(struct inotify_event) + NAME_MAX + 1
+
+       will be sufficient to read at least one event.
+
+   <b>inotify events</b>
+       The <a href="https://man7.org/linux/man-pages/man2/inotify_add_watch.2.html">inotify_add_watch(2)</a> <i>mask</i> argument and the <i>mask</i> field of the
+       <i>inotify_event</i> structure returned when <a href="https://man7.org/linux/man-pages/man2/read.2.html">read(2)</a>ing an inotify file
+       descriptor are both bit masks identifying inotify events.  The
+       following bits can be specified in <i>mask</i> when calling
+       <a href="https://man7.org/linux/man-pages/man2/inotify_add_watch.2.html">inotify_add_watch(2)</a> and may be returned in the <i>mask</i> field
+       returned by <a href="https://man7.org/linux/man-pages/man2/read.2.html">read(2)</a>:
+
+           <b>IN_ACCESS </b>(+)
+                  File was accessed (e.g., <a href="https://man7.org/linux/man-pages/man2/read.2.html">read(2)</a>, <a href="https://man7.org/linux/man-pages/man2/execve.2.html">execve(2)</a>).
+
+           <b>IN_ATTRIB </b>(*)
+                  Metadata changed—for example, permissions (e.g.,
+                  <a href="https://man7.org/linux/man-pages/man2/chmod.2.html">chmod(2)</a>), timestamps (e.g., <a href="https://man7.org/linux/man-pages/man2/utimensat.2.html">utimensat(2)</a>), extended
+                  attributes (<a href="https://man7.org/linux/man-pages/man2/setxattr.2.html">setxattr(2)</a>), link count (since Linux
+                  2.6.25; e.g., for the target of <a href="https://man7.org/linux/man-pages/man2/link.2.html">link(2)</a> and for
+                  <a href="https://man7.org/linux/man-pages/man2/unlink.2.html">unlink(2)</a>), and user/group ID (e.g., <a href="https://man7.org/linux/man-pages/man2/chown.2.html">chown(2)</a>).
+
+           <b>IN_CLOSE_WRITE </b>(+)
+                  File opened for writing was closed.
+
+           <b>IN_CLOSE_NOWRITE </b>(*)
+                  File or directory not opened for writing was closed.
+
+           <b>IN_CREATE </b>(+)
+                  File/directory created in watched directory (e.g.,
+                  <a href="https://man7.org/linux/man-pages/man2/open.2.html">open(2)</a> <b>O_CREAT</b>, <a href="https://man7.org/linux/man-pages/man2/mkdir.2.html">mkdir(2)</a>, <a href="https://man7.org/linux/man-pages/man2/link.2.html">link(2)</a>, <a href="https://man7.org/linux/man-pages/man2/symlink.2.html">symlink(2)</a>,
+                  <a href="https://man7.org/linux/man-pages/man2/bind.2.html">bind(2)</a> on a UNIX domain socket).
+
+           <b>IN_DELETE </b>(+)
+                  File/directory deleted from watched directory.
+
+           <b>IN_DELETE_SELF</b>
+                  Watched file/directory was itself deleted.  (This
+                  event also occurs if an object is moved to another
+                  filesystem, since <a href="https://man7.org/linux/man-pages/man1/mv.1.html">mv(1)</a> in effect copies the file to
+                  the other filesystem and then deletes it from the
+                  original filesystem.)  In addition, an <b>IN_IGNORED</b>
+                  event will subsequently be generated for the watch
+                  descriptor.
+
+           <b>IN_MODIFY </b>(+)
+                  File was modified (e.g., <a href="https://man7.org/linux/man-pages/man2/write.2.html">write(2)</a>, <a href="https://man7.org/linux/man-pages/man2/truncate.2.html">truncate(2)</a>).
+
+           <b>IN_MOVE_SELF</b>
+                  Watched file/directory was itself moved.
+
+           <b>IN_MOVED_FROM </b>(+)
+                  Generated for the directory containing the old
+                  filename when a file is renamed.
+
+           <b>IN_MOVED_TO </b>(+)
+                  Generated for the directory containing the new
+                  filename when a file is renamed.
+
+           <b>IN_OPEN </b>(*)
+                  File or directory was opened.
+
+       Inotify monitoring is inode-based: when monitoring a file (but
+       not when monitoring the directory containing a file), an event
+       can be generated for activity on any link to the file (in the
+       same or a different directory).
+
+       When monitoring a directory:
+
+       *  the events marked above with an asterisk (*) can occur both
+          for the directory itself and for objects inside the directory;
+          and
+
+       *  the events marked with a plus sign (+) occur only for objects
+          inside the directory (not for the directory itself).
+
+       <i>Note</i>: when monitoring a directory, events are not generated for
+       the files inside the directory when the events are performed via
+       a pathname (i.e., a link) that lies outside the monitored
+       directory.
+
+       When events are generated for objects inside a watched directory,
+       the <i>name</i> field in the returned <i>inotify_event</i> structure identifies
+       the name of the file within the directory.
+
+       The <b>IN_ALL_EVENTS </b>macro is defined as a bit mask of all of the
+       above events.  This macro can be used as the <i>mask</i> argument when
+       calling <a href="https://man7.org/linux/man-pages/man2/inotify_add_watch.2.html">inotify_add_watch(2)</a>.
+
+       Two additional convenience macros are defined:
+
+           <b>IN_MOVE</b>
+                  Equates to <b>IN_MOVED_FROM | IN_MOVED_TO</b>.
+
+           <b>IN_CLOSE</b>
+                  Equates to <b>IN_CLOSE_WRITE | IN_CLOSE_NOWRITE</b>.
+
+       The following further bits can be specified in <i>mask</i> when calling
+       <a href="https://man7.org/linux/man-pages/man2/inotify_add_watch.2.html">inotify_add_watch(2)</a>:
+
+           <b>IN_DONT_FOLLOW </b>(since Linux 2.6.15)
+                  Don't dereference <i>pathname</i> if it is a symbolic link.
+
+           <b>IN_EXCL_UNLINK </b>(since Linux 2.6.36)
+                  By default, when watching events on the children of a
+                  directory, events are generated for children even
+                  after they have been unlinked from the directory.
+                  This can result in large numbers of uninteresting
+                  events for some applications (e.g., if watching <i>/tmp</i>,
+                  in which many applications create temporary files
+                  whose names are immediately unlinked).  Specifying
+                  <b>IN_EXCL_UNLINK </b>changes the default behavior, so that
+                  events are not generated for children after they have
+                  been unlinked from the watched directory.
+
+           <b>IN_MASK_ADD</b>
+                  If a watch instance already exists for the filesystem
+                  object corresponding to <i>pathname</i>, add (OR) the events
+                  in <i>mask</i> to the watch mask (instead of replacing the
+                  mask); the error <b>EINVAL </b>results if <b>IN_MASK_CREATE </b>is
+                  also specified.
+
+           <b>IN_ONESHOT</b>
+                  Monitor the filesystem object corresponding to
+                  <i>pathname</i> for one event, then remove from watch list.
+
+           <b>IN_ONLYDIR </b>(since Linux 2.6.15)
+                  Watch <i>pathname</i> only if it is a directory; the error
+                  <b>ENOTDIR </b>results if <i>pathname</i> is not a directory.  Using
+                  this flag provides an application with a race-free way
+                  of ensuring that the monitored object is a directory.
+
+           <b>IN_MASK_CREATE </b>(since Linux 4.18)
+                  Watch <i>pathname</i> only if it does not already have a
+                  watch associated with it; the error <b>EEXIST </b>results if
+                  <i>pathname</i> is already being watched.
+
+                  Using this flag provides an application with a way of
+                  ensuring that new watches do not modify existing ones.
+                  This is useful because multiple paths may refer to the
+                  same inode, and multiple calls to <a href="https://man7.org/linux/man-pages/man2/inotify_add_watch.2.html">inotify_add_watch(2)</a>
+                  without this flag may clobber existing watch masks.
+
+       The following bits may be set in the <i>mask</i> field returned by
+       <a href="https://man7.org/linux/man-pages/man2/read.2.html">read(2)</a>:
+
+           <b>IN_IGNORED</b>
+                  Watch was removed explicitly (<a href="https://man7.org/linux/man-pages/man2/inotify_rm_watch.2.html">inotify_rm_watch(2)</a>) or
+                  automatically (file was deleted, or filesystem was
+                  unmounted).  See also BUGS.
+
+           <b>IN_ISDIR</b>
+                  Subject of this event is a directory.
+
+           <b>IN_Q_OVERFLOW</b>
+                  Event queue overflowed (<i>wd</i> is -1 for this event).
+
+           <b>IN_UNMOUNT</b>
+                  Filesystem containing watched object was unmounted.
+                  In addition, an <b>IN_IGNORED </b>event will subsequently be
+                  generated for the watch descriptor.
+
+   <b>Examples</b>
+       Suppose an application is watching the directory <i>dir</i> and the file
+       <i>dir/myfile</i> for all events.  The examples below show some events
+       that will be generated for these two objects.
+
+           fd = open("dir/myfile", O_RDWR);
+                  Generates <b>IN_OPEN </b>events for both <i>dir</i> and <i>dir/myfile</i>.
+
+           read(fd, buf, count);
+                  Generates <b>IN_ACCESS </b>events for both <i>dir</i> and
+                  <i>dir/myfile</i>.
+
+           write(fd, buf, count);
+                  Generates <b>IN_MODIFY </b>events for both <i>dir</i> and
+                  <i>dir/myfile</i>.
+
+           fchmod(fd, mode);
+                  Generates <b>IN_ATTRIB </b>events for both <i>dir</i> and
+                  <i>dir/myfile</i>.
+
+           close(fd);
+                  Generates <b>IN_CLOSE_WRITE </b>events for both <i>dir</i> and
+                  <i>dir/myfile</i>.
+
+       Suppose an application is watching the directories <i>dir1</i> and <i>dir2</i>,
+       and the file <i>dir1/myfile</i>.  The following examples show some
+       events that may be generated.
+
+           link("dir1/myfile", "dir2/new");
+                  Generates an <b>IN_ATTRIB </b>event for <i>myfile</i> and an
+                  <b>IN_CREATE </b>event for <i>dir2</i>.
+
+           rename("dir1/myfile", "dir2/myfile");
+                  Generates an <b>IN_MOVED_FROM </b>event for <i>dir1</i>, an
+                  <b>IN_MOVED_TO </b>event for <i>dir2</i>, and an <b>IN_MOVE_SELF </b>event
+                  for <i>myfile</i>.  The <b>IN_MOVED_FROM </b>and <b>IN_MOVED_TO </b>events
+                  will have the same <i>cookie</i> value.
+
+       Suppose that <i>dir1/xx</i> and <i>dir2/yy</i> are (the only) links to the same
+       file, and an application is watching <i>dir1</i>, <i>dir2</i>, <i>dir1/xx</i>, and
+       <i>dir2/yy</i>.  Executing the following calls in the order given below
+       will generate the following events:
+
+           unlink("dir2/yy");
+                  Generates an <b>IN_ATTRIB </b>event for <i>xx</i> (because its link
+                  count changes) and an <b>IN_DELETE </b>event for <i>dir2</i>.
+
+           unlink("dir1/xx");
+                  Generates <b>IN_ATTRIB</b>, <b>IN_DELETE_SELF</b>, and <b>IN_IGNORED</b>
+                  events for <i>xx</i>, and an <b>IN_DELETE </b>event for <i>dir1</i>.
+
+       Suppose an application is watching the directory <i>dir</i> and (the
+       empty) directory <i>dir/subdir</i>.  The following examples show some
+       events that may be generated.
+
+           mkdir("dir/new", mode);
+                  Generates an <b>IN_CREATE | IN_ISDIR </b>event for <i>dir</i>.
+
+           rmdir("dir/subdir");
+                  Generates <b>IN_DELETE_SELF </b>and <b>IN_IGNORED </b>events for
+                  <i>subdir</i>, and an <b>IN_DELETE | IN_ISDIR </b>event for <i>dir</i>.
+
+   <b>/proc interfaces</b>
+       The following interfaces can be used to limit the amount of
+       kernel memory consumed by inotify:
+
+       <i>/proc/sys/fs/inotify/max_queued_events</i>
+              The value in this file is used when an application calls
+              <a href="https://man7.org/linux/man-pages/man2/inotify_init.2.html">inotify_init(2)</a> to set an upper limit on the number of
+              events that can be queued to the corresponding inotify
+              instance.  Events in excess of this limit are dropped, but
+              an <b>IN_Q_OVERFLOW </b>event is always generated.
+
+       <i>/proc/sys/fs/inotify/max_user_instances</i>
+              This specifies an upper limit on the number of inotify
+              instances that can be created per real user ID.
+
+       <i>/proc/sys/fs/inotify/max_user_watches</i>
+              This specifies an upper limit on the number of watches
+              that can be created per real user ID.
+</pre>

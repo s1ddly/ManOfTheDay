@@ -1,0 +1,46 @@
+<pre>
+       <b>pmval </b>prints current or archived values for the nominated
+       performance metric.  The metric of interest is named in the
+       <i>metricname</i> argument, subject to instance qualification with the
+       <b>-i </b>flag as described below.
+
+       Unless directed to another host by the <b>-h </b>option, or to a set of
+       archives by the <b>-a </b>or <b>-U </b>options, <b>pmval </b>will contact the
+       Performance Metrics Collector Daemon (PMCD) on the local host to
+       obtain the required information.
+
+       The <i>metricname</i> argument may also be given in the metric
+       specification syntax, as described in <a href="https://man7.org/linux/man-pages/man1/PCPIntro.1.html">PCPIntro(1)</a>, where the
+       source, metric and instance may all be included in the
+       <i>metricname</i>, e.g. thathost:kernel.all.load["1 minute"].  When this
+       format is used, none of the <b>-h </b>or <b>-a </b>or <b>-U </b>options may be
+       specified.
+
+       When using the metric specification syntax, the ``hostname'' <b>@ </b>is
+       treated specially and causes <b>pmval </b>to use a local context to
+       collect metrics from PMDAs on the local host without PMCD.  Only
+       some metrics are available in this mode.
+
+       When processing a set of archives, <b>pmval </b>may relinquish its own
+       timing control, and operate under the control of a a <a href="https://man7.org/linux/man-pages/man1/pmtime.1.html">pmtime(1)</a>
+       process that uses a GUI dialog to provide timing control.  In
+       this case, either the <b>-g </b>option should be used to start <b>pmval </b>as
+       the sole client of a new <a href="https://man7.org/linux/man-pages/man1/pmtime.1.html">pmtime(1)</a> instance, or <b>-p </b>should be used
+       to attach <b>pmval </b>to an existing <a href="https://man7.org/linux/man-pages/man1/pmtime.1.html">pmtime(1)</a> instance via the IPC
+       channel identified by the <i>port</i> argument.
+
+       The <b>-S</b>, <b>-T</b>, <b>-O </b>and <b>-A </b>options may be used to define a time window
+       to restrict the samples retrieved, set an initial origin within
+       the time window, or specify a ``natural'' alignment of the sample
+       times; refer to <a href="https://man7.org/linux/man-pages/man1/PCPIntro.1.html">PCPIntro(1)</a> for a complete description of these
+       options.
+
+       The output from <b>pmval </b>is directed to standard output.  The
+       following symbols may occasionally appear, in place of a metric
+       value, in <b>pmval </b>output:  A question mark symbol (?) indicates
+       that a value is no longer available for that metric instance.  An
+       exclamation mark (!)  indicates that a 64-bit counter wrapped
+       during the sample.
+
+       <b>pmevent </b>is an alias for <b>pmval</b>.
+</pre>

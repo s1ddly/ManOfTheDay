@@ -1,0 +1,31 @@
+<pre>
+       <b>dcb app </b>is used to configure APP table, or application priority
+       table in the DCB (Data Center Bridging) subsystem. The APP table
+       is used to assign priority to traffic based on value in one of
+       several headers: EtherType, L4 destination port, or DSCP. It also
+       allows configuration of port-default priority that is chosen if
+       no other prioritization rule applies.
+
+       DCB APP entries are 3-tuples of selector, protocol ID, and
+       priority. Selector is an enumeration that picks one of the
+       prioritization namespaces. Currently it mostly corresponds to
+       configurable parameters described below. Protocol ID is a value
+       in the selector namespace. E.g. for EtherType selector, protocol
+       IDs are the individual EtherTypes, for DSCP they are individual
+       code points. The priority is the priority that should be assigned
+       to traffic that matches the selector and protocol ID.
+
+       The APP table is a set of DCB APP entries. The only requirement
+       is that duplicate entries are not added. Notably, it is valid to
+       have conflicting priority assignment for the same selector and
+       protocol ID. For example, the set of two APP entries (DSCP, 10,
+       1) and (DSCP, 10, 2), where packets with DSCP of 10 should get
+       priority of both 1 and 2, form a well-defined APP table. The <b>dcb</b>
+       <b>app </b>tool allows low-level management of the app table by adding
+       and deleting individual APP 3-tuples through <b>add </b>and <b>del</b>
+       commands. On the other other hand, the command <b>replace </b>does what
+       one would typically want in this situation--first adds the new
+       configuration, and then removes the obsolete one, so that only
+       one prioritization is in effect for a given selector and protocol
+       ID.
+</pre>

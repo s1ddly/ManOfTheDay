@@ -1,0 +1,49 @@
+<pre>
+       The <i>btrecord</i> and <i>btreplay</i> tools provide the ability to record and
+       replay IOs captured by the <i>blktrace</i> utility. Attempts are made to
+       maintain ordering, CPU mappings and time-separation of IOs.
+
+       The <i>blktrace</i> utility provides the ability to collect detailed
+       traces from the kernel for each IO processed by the block IO
+       layer. The traces provide a complete timeline for each IO
+       processed, including detailed information concerning when an IO
+       was first received by the block IO layer — indicating the device,
+       CPU number, time stamp, IO direction, sector number and IO size
+       (number of sectors). Using this information, one is able to
+       <b>replay </b>the IO again on the same machine or another set up
+       entirely.
+
+       The basic operating work-flow to replay IOs would be something
+       like:
+
+       -
+           Run <i>blktrace</i> to collect traces. Here you specify the
+           device or devices that you wish to trace and later replay IOs
+         upon. Note:
+           the only traces you are interested in are <b>QUEUE </b>requests —
+           thus, to save system resources (including storage for
+         traces), one could
+           specify the <i>-a queue</i> command line option to <i>blktrace</i>.
+
+       -
+           While <i>blktrace</i> is running, you run the workload that you
+           are interested in.
+
+       -
+           When the work load has completed, you stop the <i>blktrace</i>
+           utility (thus saving all traces over the complete workload).
+
+       -
+           You extract the pertinent IO information from the traces
+         saved by
+           <i>blktrace</i> using the <i>btrecord</i> utility. This will parse
+           each trace file created by <i>blktrace</i>, and crafty IO
+         descriptions
+           to be used in the next phase of the workload processing.
+
+       -
+           Once <i>btrecord</i> has successfully created a series of data
+           files to be processed, you can run the <i>btreplay</i> utility which
+           attempts to generate the same IOs seen during the sample
+         workload phase.
+</pre>

@@ -1,0 +1,12 @@
+<pre>
+       The <b>skbedit </b>action allows to change a packet's associated meta
+       data. It complements the <b>pedit </b>action, which in turn allows to
+       change parts of the packet data itself.
+
+       The most unique feature of <b>skbedit </b>is its ability to decide over
+       which queue of an interface with multiple transmit queues the
+       packet is to be sent out. The number of available transmit queues
+       is reflected by sysfs entries within
+       <i>/sys/class/net/&lt;interface&gt;/queues</i> with name <i>tx-N</i> (where <i>N</i> is the
+       actual queue number).
+</pre>

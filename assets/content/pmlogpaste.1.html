@@ -1,0 +1,16 @@
+<pre>
+       <b>pmlogpaste </b>takes input text from a file or the command line, and
+       writes it as a metric value in a new PCP archive.  This metric
+       value is timestamped with the current time, and is stored as a
+       string type metric.
+
+       The main purpose of this tool is to take captured output and
+       preserve this in a PCP archive.  This allows, for example, the
+       output of a benchmark run to be stored along with performance
+       metrics captured during that run, in a single archive.  Archives
+       can be merged using the <a href="https://man7.org/linux/man-pages/man1/pmlogextract.1.html">pmlogextract(1)</a> utility.
+
+       <b>pmlogpaste </b>uses the <a href="https://man7.org/linux/man-pages/man3/LOGIMPORT.3.html">LOGIMPORT(3)</a> library interfaces internally,
+       which support the creation of archives from external sources of
+       performance data.
+</pre>

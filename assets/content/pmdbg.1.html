@@ -1,0 +1,49 @@
+<pre>
+       The components of the Performance Co-Pilot (PCP) use a global
+       mechanism to control diagnostic and debug output.  Historically
+       this was a vector of bit-fields but this was later replaced by an
+       array of debug options.  All of the bit-field debug controls have
+       an equivalent in the new scheme, but some new debug options
+       cannot be represented in the old bit-field scheme.
+
+       <b>pmdbg </b>with a <b>-l </b>option prints out all the debug options.  If
+       there is no <b>-g </b>and no <b>-o </b>option then the output lists the name of
+       each option and some descriptive text.
+
+       With the <b>-l </b>and <b>-g </b>options the descriptive text is replaced with
+       an expression that can be used to set or print the corresponding
+       debug flag in <a href="https://man7.org/linux/man-pages/man1/gdb.1.html">gdb(1)</a>.
+
+       With the <b>-l </b>and <b>-o </b>options the output is for only the old bit-
+       fields with the mnemonic and decimal values of each the bit-field
+       along with some descriptive text.
+
+       Obviously the <b>-o </b>and <b>-g </b>options are mutually exclusive.
+
+       <b>pmdbg </b>with a <b>-D </b>option parses the list of <i>names</i>(s) using
+       <a href="https://man7.org/linux/man-pages/man3/__pmParseDebug.3.html">__pmParseDebug(3)</a> and reports the corresponding decimal value.
+       This use is not required in the new scheme, but for the old bit-
+       fields scheme it was useful when debugging and wanting to set the
+       internal value of the control vector (<b>pmDebug</b>) via a debugger,
+       e.g.  <a href="https://man7.org/linux/man-pages/man1/gdb.1.html">gdb(1)</a>.  For the new scheme, the same effect can be
+       achieved using the name of the option(s) and calling
+       <a href="https://man7.org/linux/man-pages/man3/pmSetDebug.3.html">pmSetDebug(3)</a> from within the debugger.
+
+       The alternative usage also relates to the old bit-field scheme
+       and the <i>code</i> arguments are values for the debug vector, and the
+       bit-fields that are enabled by each of these values is listed.
+
+       Each <i>code</i> may be an integer, a hexadecimal value or a hexadecimal
+       value prefixed by either ``0x'' or ``0X''.
+
+       Most applications using the facilities of the PCP support a <b>-D</b>
+       <i>name</i>[,<i>name</i> ...]  command-line syntax to enable debug control
+       using the name(s) of the desired debug options.
+
+       Alternatively the initial value of the debug control flags may be
+       set to either a value <i>N</i> (old scheme) or a comma-separated list if
+       option name(s) (new scheme) using the environment variable
+       <b>$PCP_DEBUG</b>.  If both mechanisms are used the effect is additive,
+       so the resultant flags are those set via <b>$PCP_DEBUG </b>combined with
+       those set via any <b>-D </b>command line options.
+</pre>

@@ -1,0 +1,28 @@
+<pre>
+       This command shows the differences between two versions of a
+       patch series, or more generally, two commit ranges (ignoring
+       merge commits).
+
+       To that end, it first finds pairs of commits from both commit
+       ranges that correspond with each other. Two commits are said to
+       correspond when the diff between their patches (i.e. the author
+       information, the commit message and the commit diff) is
+       reasonably small compared to the patches' size. See ``Algorithm``
+       below for details.
+
+       Finally, the list of matching commits is shown in the order of
+       the second commit range, with unmatched commits being inserted
+       just after all of their ancestors have been shown.
+
+       There are three ways to specify the commit ranges:
+
+       •   <b>&lt;range1&gt; &lt;range2&gt;</b>: Either commit range can be of the form
+           <b>&lt;base&gt;..&lt;rev&gt;</b>, <b>&lt;rev&gt;^!  </b>or <b>&lt;rev&gt;^-&lt;n&gt;</b>. See <b>SPECIFYING RANGES</b>
+           in <a href="https://man7.org/linux/man-pages/man7/gitrevisions.7.html">gitrevisions(7)</a> for more details.
+
+       •   <b>&lt;rev1&gt;...&lt;rev2&gt;</b>. This is equivalent to <b>&lt;rev2&gt;..&lt;rev1&gt;</b>
+           <b>&lt;rev1&gt;..&lt;rev2&gt;</b>.
+
+       •   <b>&lt;base&gt; &lt;rev1&gt; &lt;rev2&gt;</b>: This is equivalent to <b>&lt;base&gt;..&lt;rev1&gt;</b>
+           <b>&lt;base&gt;..&lt;rev2&gt;</b>.
+</pre>

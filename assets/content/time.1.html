@@ -1,0 +1,16 @@
+<pre>
+       The <b>time </b>command runs the specified program <i>command</i> with the
+       given arguments.  When <i>command</i> finishes, <b>time </b>writes a message to
+       standard error giving timing statistics about this program run.
+       These statistics consist of (i) the elapsed real time between
+       invocation and termination, (ii) the user CPU time (the sum of
+       the <i>tms_utime</i> and <i>tms_cutime</i> values in a <i>struct tms</i> as returned
+       by <a href="https://man7.org/linux/man-pages/man2/times.2.html">times(2)</a>), and (iii) the system CPU time (the sum of the
+       <i>tms_stime</i> and <i>tms_cstime</i> values in a <i>struct tms</i> as returned by
+       <a href="https://man7.org/linux/man-pages/man2/times.2.html">times(2)</a>).
+
+       Note: some shells (e.g., <a href="https://man7.org/linux/man-pages/man1/bash.1.html">bash(1)</a>) have a built-in <b>time </b>command
+       that provides similar information on the usage of time and
+       possibly other resources.  To access the real command, you may
+       need to specify its pathname (something like <i>/usr/bin/time</i>).
+</pre>

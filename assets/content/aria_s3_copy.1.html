@@ -1,0 +1,56 @@
+<pre>
+       Usage: aria_s3_copy --aws-access-key=# --aws-secret-access-key=#
+       --aws-region=# --op=(from_s3 | to_s3 | delete_from_s3) [OPTIONS]
+       tables[.MAI]
+
+       <b>-?</b>, <b>-h</b>, <b>--help</b>
+              Display help and exit.
+
+       <b>-k</b>, <b>--s3-access-key=name</b>
+              AWS access key ID
+
+       <b>-r</b>, <b>-s3-region=name</b>
+              AWS region
+
+       <b>-K</b>, <b>-s3-secret-key=name</b>
+              AWS secret access key ID
+
+       <b>-b</b>, <b>-s3-bucket=name</b>
+              AWS prefix for tables
+
+       <b>-h</b>, <b>-s3-host-name=name</b>
+              Host name to S3 provider
+
+       <b>-c</b>, <b>-compress</b>
+              Use compression
+
+       <b>-o</b>, <b>-op=name</b>
+              Operation to execute. One of 'from_s3', 'to_s3' or
+              'delete_from_s3'
+
+       <b>-d</b>, <b>-database=name</b>
+              Database for copied table (second prefix). If not given,
+              the directory of the table file is used
+
+       <b>-B</b>, <b>-s3-block-size=#</b>
+              Block size for data/index blocks in s3
+
+       <b>-L</b>, <b>-s3-protocol-version=name</b>
+              Protocol used to communication with S3. One of "Auto",
+              "Amazon" or "Original".
+
+       <b>-f</b>, <b>-force</b>
+              Force copy even if target exists
+
+       <b>-V</b>, <b>-version</b>
+              Print version and exit.
+
+       <b>--s3-debug</b>
+              Output debug log from marias3 to stdout
+
+       <b>-v</b>, <b>--verbose</b>
+              Be verbose.
+
+       For more information, please refer to the MariaDB Knowledge Base
+       page <a href="https://man7.org/linux/man-pagestps://mariadb.com/kb/en/aria_s3_copy/">https://mariadb.com/kb/en/aria_s3_copy/</a>
+</pre>

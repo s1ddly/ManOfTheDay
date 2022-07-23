@@ -1,0 +1,23 @@
+<pre>
+       The <b>lttng disable-event </b>command disables one or more event rules
+       previously enabled by the <a href="https://man7.org/linux/man-pages/man1/lttng-enable-event.1.html">lttng-enable-event(1)</a> command.
+
+       Event rules are always assigned to a channel when they are
+       created. If the <b>--channel </b>option is omitted, the default channel
+       named <b>channel0 </b>is used.
+
+       If the <b>--session </b>option is omitted, the chosen channel is picked
+       from the current tracing session.
+
+       If the <b>--all-events </b>option is used, all the existing event rules
+       of the chosen domain are disabled. Otherwise, at least one event
+       rule to disable named <i>EVENT</i> must be specified.
+
+       With the <b>--kernel </b>option, the event source type can be specified
+       using one of the <b>--tracepoint</b>, <b>--probe</b>, <b>--function</b>, or <b>--syscall</b>
+       options. See <a href="https://man7.org/linux/man-pages/man1/lttng-enable-event.1.html">lttng-enable-event(1)</a> for more details about event
+       source types.
+
+       Events can be disabled while tracing is active (use
+       <a href="https://man7.org/linux/man-pages/man1/lttng-start.1.html">lttng-start(1)</a> to make a tracing session active).
+</pre>

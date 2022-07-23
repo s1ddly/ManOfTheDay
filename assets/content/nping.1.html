@@ -1,0 +1,180 @@
+<pre>
+       Nping is an open-source tool for network packet generation,
+       response analysis and response time measurement. Nping allows
+       users to generate network packets of a wide range of protocols,
+       letting them tune virtually any field of the protocol headers.
+       While Nping can be used as a simple ping utility to detect active
+       hosts, it can also be used as a raw packet generator for network
+       stack stress tests, ARP poisoning, Denial of Service attacks,
+       route tracing, and other purposes.
+
+       Additionally, Nping offers a special mode of operation called the
+       "Echo Mode", that lets users see how the generated probes change
+       in transit, revealing the differences between the transmitted
+       packets and the packets received at the other end. See section
+       "Echo Mode" for details.
+
+       The output from Nping is a list of the packets that are being
+       sent and received. The level of detail depends on the options
+       used.
+
+       A typical Nping execution is shown in Example 1. The only Nping
+       arguments used in this example are <b>-c</b>, to specify the number of
+       times to target each host, <b>--tcp </b>to specify TCP Probe Mode, <b>-p</b>
+       <b>80,433 </b>to specify the target ports; and then the two target
+       hostnames.
+
+       <b>Example 1. A representative Nping execution</b>
+
+           # <b>nping -c 1 --tcp -p 80,433 scanme.nmap.org google.com</b>
+
+           Starting Nping ( <a href="https://man7.org/linux/man-pagestps://nmap.org/nping">https://nmap.org/nping</a> )
+           SENT (0.0120s) TCP 96.16.226.135:50091 &gt; 64.13.134.52:80 S ttl=64 id=52072 iplen=40  seq=1077657388 win=1480
+           RCVD (0.1810s) TCP 64.13.134.52:80 &gt; 96.16.226.135:50091 SA ttl=53 id=0 iplen=44  seq=4158134847 win=5840 &lt;mss 1460&gt;
+           SENT (1.0140s) TCP 96.16.226.135:50091 &gt; 74.125.45.100:80 S ttl=64 id=13932 iplen=40  seq=1077657388 win=1480
+           RCVD (1.1370s) TCP 74.125.45.100:80 &gt; 96.16.226.135:50091 SA ttl=52 id=52913 iplen=44  seq=2650443864 win=5720 &lt;mss 1430&gt;
+           SENT (2.0140s) TCP 96.16.226.135:50091 &gt; 64.13.134.52:433 S ttl=64 id=8373 iplen=40  seq=1077657388 win=1480
+           SENT (3.0140s) TCP 96.16.226.135:50091 &gt; 74.125.45.100:433 S ttl=64 id=23624 iplen=40  seq=1077657388 win=1480
+
+           Statistics for host scanme.nmap.org (64.13.134.52):
+            |  Probes Sent: 2 | Rcvd: 1 | Lost: 1  (50.00%)
+            |_ Max rtt: 169.720ms | Min rtt: 169.720ms | Avg rtt: 169.720ms
+           Statistics for host google.com (74.125.45.100):
+            |  Probes Sent: 2 | Rcvd: 1 | Lost: 1  (50.00%)
+            |_ Max rtt: 122.686ms | Min rtt: 122.686ms | Avg rtt: 122.686ms
+           Raw packets sent: 4 (160B) | Rcvd: 2 (92B) | Lost: 2 (50.00%)
+           Tx time: 3.00296s | Tx bytes/s: 53.28 | Tx pkts/s: 1.33
+           Rx time: 3.00296s | Rx bytes/s: 30.64 | Rx pkts/s: 0.67
+           Nping done: 2 IP addresses pinged in 4.01 seconds
+
+       The newest version of Nping can be obtained with Nmap at
+       <b><a href="https://man7.org/linux/man-pagestps://nmap.org">https://nmap.org</a> </b><b></b>. The newest version of this man page is
+       available at <b><a href="https://man7.org/linux/man-pagestps://nmap.org/book/nping-man.html">https://nmap.org/book/nping-man.html</a> </b><b></b>.
+
+       --&gt;
+         .SH "OPTIONS SUMMARY"
+
+       This options summary is printed when Nping is run with no
+       arguments. It helps people remember the most common options, but
+       is no substitute for the in-depth documentation in the rest of
+       this manual. Some obscure options aren't even included here.
+
+           Nping 0.5.59BETA1 ( <a href="https://man7.org/linux/man-pagestps://nmap.org/nping">https://nmap.org/nping</a> )
+           Usage: nping [Probe mode] [Options] {target specification}
+
+           TARGET SPECIFICATION:
+             Targets may be specified as hostnames, IP addresses, networks, etc.
+             Ex: scanme.nmap.org, microsoft.com/24, 192.168.0.1; 10.0.0-255.1-254
+           PROBE MODES:
+             --tcp-connect                    : Unprivileged TCP connect probe mode.
+             --tcp                            : TCP probe mode.
+             --udp                            : UDP probe mode.
+             --icmp                           : ICMP probe mode.
+             --arp                            : ARP/RARP probe mode.
+             --tr, --traceroute               : Traceroute mode (can only be used with
+                                                TCP/UDP/ICMP modes).
+           TCP CONNECT MODE:
+              -p, --dest-port &lt;port spec&gt;     : Set destination port(s).
+              -g, --source-port &lt;portnumber&gt;  : Try to use a custom source port.
+           TCP PROBE MODE:
+              -g, --source-port &lt;portnumber&gt;  : Set source port.
+              -p, --dest-port &lt;port spec&gt;     : Set destination port(s).
+              --seq &lt;seqnumber&gt;               : Set sequence number.
+              --flags &lt;flag list&gt;             : Set TCP flags (ACK,PSH,RST,SYN,FIN...)
+              --ack &lt;acknumber&gt;               : Set ACK number.
+              --win &lt;size&gt;                    : Set window size.
+              --badsum                        : Use a random invalid checksum.
+           UDP PROBE MODE:
+              -g, --source-port &lt;portnumber&gt;  : Set source port.
+              -p, --dest-port &lt;port spec&gt;     : Set destination port(s).
+              --badsum                        : Use a random invalid checksum.
+           ICMP PROBE MODE:
+             --icmp-type &lt;type&gt;               : ICMP type.
+             --icmp-code &lt;code&gt;               : ICMP code.
+             --icmp-id &lt;id&gt;                   : Set identifier.
+             --icmp-seq &lt;n&gt;                   : Set sequence number.
+             --icmp-redirect-addr &lt;addr&gt;      : Set redirect address.
+             --icmp-param-pointer &lt;pnt&gt;       : Set parameter problem pointer.
+             --icmp-advert-lifetime &lt;time&gt;    : Set router advertisement lifetime.
+             --icmp-advert-entry &lt;IP,pref&gt;    : Add router advertisement entry.
+             --icmp-orig-time  &lt;timestamp&gt;    : Set originate timestamp.
+             --icmp-recv-time  &lt;timestamp&gt;    : Set receive timestamp.
+             --icmp-trans-time &lt;timestamp&gt;    : Set transmit timestamp.
+           ARP/RARP PROBE MODE:
+             --arp-type &lt;type&gt;                : Type: ARP, ARP-reply, RARP, RARP-reply.
+             --arp-sender-mac &lt;mac&gt;           : Set sender MAC address.
+             --arp-sender-ip  &lt;addr&gt;          : Set sender IP address.
+             --arp-target-mac &lt;mac&gt;           : Set target MAC address.
+             --arp-target-ip  &lt;addr&gt;          : Set target IP address.
+           IPv4 OPTIONS:
+             -S, --source-ip                  : Set source IP address.
+             --dest-ip &lt;addr&gt;                 : Set destination IP address (used as an
+                                                alternative to {target specification} ).
+             --tos &lt;tos&gt;                      : Set type of service field (8bits).
+             --id  &lt;id&gt;                       : Set identification field (16 bits).
+             --df                             : Set Don't Fragment flag.
+             --mf                             : Set More Fragments flag.
+             --ttl &lt;hops&gt;                     : Set time to live [0-255].
+             --badsum-ip                      : Use a random invalid checksum.
+             --ip-options &lt;S|R [route]|L [route]|T|U ...&gt; : Set IP options
+             --ip-options &lt;hex string&gt;                    : Set IP options
+             --mtu &lt;size&gt;                     : Set MTU. Packets get fragmented if MTU is
+                                                small enough.
+           IPv6 OPTIONS:
+             -6, --IPv6                       : Use IP version 6.
+             --dest-ip                        : Set destination IP address (used as an
+                                                alternative to {target specification}).
+             --hop-limit                      : Set hop limit (same as IPv4 TTL).
+             --traffic-class &lt;class&gt; :        : Set traffic class.
+             --flow &lt;label&gt;                   : Set flow label.
+           ETHERNET OPTIONS:
+             --dest-mac &lt;mac&gt;                 : Set destination mac address. (Disables
+                                                ARP resolution)
+             --source-mac &lt;mac&gt;               : Set source MAC address.
+             --ether-type &lt;type&gt;              : Set EtherType value.
+           PAYLOAD OPTIONS:
+             --data &lt;hex string&gt;              : Include a custom payload.
+             --data-string &lt;text&gt;             : Include a custom ASCII text.
+             --data-length &lt;len&gt;              : Include len random bytes as payload.
+           ECHO CLIENT/SERVER:
+             --echo-client &lt;passphrase&gt;       : Run Nping in client mode.
+             --echo-server &lt;passphrase&gt;       : Run Nping in server mode.
+             --echo-port &lt;port&gt;               : Use custom &lt;port&gt; to listen or connect.
+             --no-crypto                      : Disable encryption and authentication.
+             --once                           : Stop the server after one connection.
+             --safe-payloads                  : Erase application data in echoed packets.
+           TIMING AND PERFORMANCE:
+             Options which take &lt;time&gt; are in seconds, or append 'ms' (milliseconds),
+             's' (seconds), 'm' (minutes), or 'h' (hours) to the value (e.g. 30m, 0.25h).
+             --delay &lt;time&gt;                   : Adjust delay between probes.
+             --rate  &lt;rate&gt;                   : Send num packets per second.
+           MISC:
+             -h, --help                       : Display help information.
+             -V, --version                    : Display current version number.
+             -c, --count &lt;n&gt;                  : Stop after &lt;n&gt; rounds.
+             -e, --interface &lt;name&gt;           : Use supplied network interface.
+             -H, --hide-sent                  : Do not display sent packets.
+             -N, --no-capture                 : Do not try to capture replies.
+             --privileged                     : Assume user is fully privileged.
+             --unprivileged                   : Assume user lacks raw socket privileges.
+             --send-eth                       : Send packets at the raw ethernet layer.
+             --send-ip                        : Send packets using raw IP sockets.
+             --bpf-filter &lt;filter spec&gt;       : Specify custom BPF filter.
+           OUTPUT:
+             -v                               : Increment verbosity level by one.
+             -v[level]                        : Set verbosity level. E.g: -v4
+             -d                               : Increment debugging level by one.
+             -d[level]                        : Set debugging level. E.g: -d3
+             -q                               : Decrease verbosity level by one.
+             -q[N]                            : Decrease verbosity level N times
+             --quiet                          : Set verbosity and debug level to minimum.
+             --debug                          : Set verbosity and debug to the max level.
+           EXAMPLES:
+             nping scanme.nmap.org
+             nping --tcp -p 80 --flags rst --ttl 2 192.168.1.1
+             nping --icmp --icmp-type time --delay 500ms 192.168.254.254
+             nping --echo-server "public" -e wlan0 -vvv
+             nping --echo-client "public" echo.nmap.org --tcp -p1-1024 --flags ack
+
+           SEE THE MAN PAGE FOR MANY MORE OPTIONS, DESCRIPTIONS, AND EXAMPLES
+</pre>

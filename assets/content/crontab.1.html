@@ -1,0 +1,36 @@
+<pre>
+       <i>Crontab</i> is the program used to install a crontab table <i>file</i>,
+       remove or list the existing tables used to serve the <a href="https://man7.org/linux/man-pages/man8/cron.8.html">cron(8)</a>
+       daemon.  Each user can have their own crontab, and though these
+       are files in <i>/var/spool/</i>, they are not intended to be edited
+       directly.  For SELinux in MLS mode, you can define more crontabs
+       for each range.  For more information, see <a href="https://man7.org/linux/man-pages/man8/selinux.8.html">selinux(8)</a>.
+
+       In this version of <i>Cron</i> it is possible to use a network-mounted
+       shared <i>/var/spool/cron</i> across a cluster of hosts and specify that
+       only one of the hosts should run the crontab jobs in the
+       particular directory at any one time.  You may also use <b>crontab</b>
+       from any of these hosts to edit the same shared set of crontab
+       files, and to set and query which host should run the crontab
+       jobs.
+
+       Scheduling cron jobs with <b>crontab </b>can be allowed or disallowed
+       for different users.  For this purpose, use the <i>cron.allow</i> and
+       <i>cron.deny</i> files.  If the <i>cron.allow</i> file exists, a user must be
+       listed in it to be allowed to use <b>crontab</b>.  If the <i>cron.allow</i>
+       file does not exist but the <i>cron.deny</i> file does exist, then a
+       user must <i>not</i> be listed in the <i>cron.deny</i> file in order to use
+       <b>crontab.  </b>If neither of these files exist, then only the super
+       user is allowed to use <b>crontab</b>.
+
+       Another way to restrict the scheduling of cron jobs beyond
+       <b>crontab </b>is to use PAM authentication in <i>/etc/security/access.conf</i>
+       to set up users, which are allowed or disallowed to use <b>crontab</b>
+       or modify system cron jobs in the <i>/etc/cron.d/</i> directory.
+
+       The temporary directory can be set in an environment variable.
+       If it is not set by the user, the <i>/tmp</i> directory is used.
+
+       When listing a crontab on a terminal the output will be colorized
+       unless an environment variable <i>NO_COLOR</i> is set.
+</pre>

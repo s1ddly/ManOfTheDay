@@ -1,0 +1,20 @@
+<pre>
+       <b>pmdazfs </b>is a Performance Metrics Domain Agent (PMDA) which
+       extracts performance metrics describing the state of the ZFS
+       filesystem from the stats files located in /proc.
+
+       The <b>zfs </b>PMDA exports metrics that measure information about
+       caching (ARC, L2ARC, ZIL, VDEV), buffering, RAIDZ, dnode
+       operations and pools IO.
+
+       A brief description of the <b>pmdazfs </b>command line options follows:
+
+       <b>-d   </b>The performance metrics <i>domain</i> number must be set to a
+            unique value.
+
+       <b>-l   </b>Location of the log file.  By default, a log file named
+            <i>zfs.log</i> is written in the current directory of <a href="https://man7.org/linux/man-pages/man1/pmcd.1.html">pmcd(1)</a> when
+            <b>pmdazfs </b>is started, i.e.  <b>$PCP_LOG_DIR/pmcd</b>.  If the log
+            file cannot be created or is not writable, output is written
+            to the standard error instead.
+</pre>

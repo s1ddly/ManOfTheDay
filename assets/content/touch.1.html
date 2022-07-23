@@ -1,0 +1,48 @@
+<pre>
+       Update the access and modification times of each FILE to the
+       current time.
+
+       A FILE argument that does not exist is created empty, unless <b>-c</b>
+       or <b>-h </b>is supplied.
+
+       A FILE argument string of - is handled specially and causes touch
+       to change the times of the file associated with standard output.
+
+       Mandatory arguments to long options are mandatory for short
+       options too.
+
+       <b>-a     </b>change only the access time
+
+       <b>-c</b>, <b>--no-create</b>
+              do not create any files
+
+       <b>-d</b>, <b>--date</b>=<i>STRING</i>
+              parse STRING and use it instead of current time
+
+       <b>-f     </b>(ignored)
+
+       <b>-h</b>, <b>--no-dereference</b>
+              affect each symbolic link instead of any referenced file
+              (useful only on systems that can change the timestamps of
+              a symlink)
+
+       <b>-m     </b>change only the modification time
+
+       <b>-r</b>, <b>--reference</b>=<i>FILE</i>
+              use this file's times instead of current time
+
+       <b>-t </b>STAMP
+              use [[CC]YY]MMDDhhmm[.ss] instead of current time
+
+       <b>--time</b>=<i>WORD</i>
+              change the specified time: WORD is access, atime, or use:
+              equivalent to <b>-a </b>WORD is modify or mtime: equivalent to <b>-m</b>
+
+       <b>--help </b>display this help and exit
+
+       <b>--version</b>
+              output version information and exit
+
+       Note that the <b>-d </b>and <b>-t </b>options accept different time-date
+       formats.
+</pre>

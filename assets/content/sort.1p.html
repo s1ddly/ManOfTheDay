@@ -1,0 +1,21 @@
+<pre>
+       The <i>sort</i> utility shall perform one of the following functions:
+
+        1. Sort lines of all the named files together and write the
+           result to the specified output.
+
+        2. Merge lines of all the named (presorted) files together and
+           write the result to the specified output.
+
+        3. Check that a single input file is correctly presorted.
+
+       Comparisons shall be based on one or more sort keys extracted
+       from each line of input (or, if no sort keys are specified, the
+       entire line up to, but not including, the terminating &lt;newline&gt;),
+       and shall be performed using the collating sequence of the
+       current locale. If this collating sequence does not have a total
+       ordering of all characters (see the Base Definitions volume of
+       POSIX.1‐2017, <i>Section 7.3.2</i>, <i>LC_COLLATE</i>), any lines of input that
+       collate equally should be further compared byte-by-byte using the
+       collating sequence for the POSIX locale.
+</pre>

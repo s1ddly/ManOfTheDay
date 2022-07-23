@@ -1,0 +1,14 @@
+<pre>
+       pam_exec is a PAM module that can be used to run an external
+       command.
+
+       The child's environment is set to the current PAM environment
+       list, as returned by <a href="https://man7.org/linux/man-pages/man3/pam_getenvlist.3.html">pam_getenvlist(3)</a> In addition, the following
+       PAM items are exported as environment variables: <i>PAM_RHOST</i>,
+       <i>PAM_RUSER</i>, <i>PAM_SERVICE</i>, <i>PAM_TTY</i>, <i>PAM_USER</i> and <i>PAM_TYPE</i>, which
+       contains one of the module types: <b>account</b>, <b>auth</b>, <b>password</b>,
+       <b>open_session </b>and <b>close_session</b>.
+
+       Commands called by pam_exec need to be aware of that the user can
+       have controll over the environment.
+</pre>

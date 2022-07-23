@@ -1,0 +1,11 @@
+<pre>
+       Sets or queries various Linux privilege settings that are
+       inherited across <a href="https://man7.org/linux/man-pages/man2/execve.2.html">execve(2)</a>.
+
+       In comparison to <a href="https://man7.org/linux/man-pages/man1/su.1.html">su(1)</a> and <a href="https://man7.org/linux/man-pages/man1/runuser.1.html">runuser(1)</a>, <b>setpriv </b>neither uses PAM,
+       nor does it prompt for a password. It is a simple,
+       non-set-user-ID wrapper around <a href="https://man7.org/linux/man-pages/man2/execve.2.html">execve(2)</a>, and can be used to drop
+       privileges in the same way as <b>setuidgid</b>(8) from <b>daemontools</b>,
+       <b>chpst</b>(8) from <b>runit</b>, or similar tools shipped by other service
+       managers.
+</pre>

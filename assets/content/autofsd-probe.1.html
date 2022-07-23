@@ -1,0 +1,23 @@
+<pre>
+       <b>autofsd-probe </b>will check the status of the <b>autofsd</b>(1) daemon on
+       the specified <i>host</i>.
+
+       Unless directed to another <i>host</i> by the <b>-h </b>option, <b>autofsd-probe</b>
+       will contact the <b>AutoFS </b>daemon on the local host.
+
+       The <b>AutoFS </b>file system is built on the Remote Procedure Call
+       (<a href="https://man7.org/linux/man-pages/man3/rpc.3.html">RPC(3)</a>) library routines.  The <b>-t </b>option allows the total
+       timeout and retry timeout intervals to be set for all remote
+       procedure call operations used with <b>autofsd-probe</b>.  This option
+       accepts an interval argument in the form described in the
+       <a href="https://man7.org/linux/man-pages/man1/PCPIntro.1.html">PCPIntro(1)</a> manual page.
+
+       <b>autofsd-probe </b>is typically used in an automated fashion from
+       within <a href="https://man7.org/linux/man-pages/man1/pmdashping.1.html">pmdashping(1)</a> and in conjunction with <a href="https://man7.org/linux/man-pages/man1/pmie.1.html">pmie(1)</a>, for
+       monitoring response time and service failure.
+
+       By default <b>autofsd-probe </b>will not produce any output, unless
+       there is an error in which case a diagnostic message will be
+       displayed and the exit status will indicate the reason for
+       failure.
+</pre>

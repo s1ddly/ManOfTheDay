@@ -1,0 +1,28 @@
+<pre>
+       This is an extremely simple script for easily bringing up a
+       WireGuard interface, suitable for a few common use cases.
+
+       Use <i>up</i> to add and set up an interface, and use <i>down</i> to tear down
+       and remove an interface. Running <i>up</i> adds a WireGuard interface,
+       brings up the interface with the supplied IP addresses, sets up
+       mtu and routes, and optionally runs pre/post up scripts. Running
+       <i>down</i> optionally saves the current configuration, removes the
+       WireGuard interface, and optionally runs pre/post down scripts.
+       Running <i>save</i> saves the configuration of an existing interface
+       without bringing the interface down. Use <i>strip</i> to output a
+       configuration file with all <a href="https://man7.org/linux/man-pages/man8/wg-quick.8.html">wg-quick(8)</a>-specific options removed,
+       suitable for use with <a href="https://man7.org/linux/man-pages/man8/wg.8.html">wg(8)</a>.
+
+       <i>CONFIG_FILE</i> is a configuration file, whose filename is the
+       interface name followed by `.conf'. Otherwise, <i>INTERFACE</i> is an
+       interface name, with configuration found at
+       `/etc/wireguard/<i>INTERFACE</i>.conf', searched first, followed by
+       distro-specific search paths.
+
+       Generally speaking, this utility is just a simple script that
+       wraps invocations to <a href="https://man7.org/linux/man-pages/man8/wg.8.html">wg(8)</a> and <a href="https://man7.org/linux/man-pages/man8/ip.8.html">ip(8)</a> in order to set up a
+       WireGuard interface. It is designed for users with simple needs,
+       and users with more advanced needs are highly encouraged to use a
+       more specific tool, a more complete network manager, or otherwise
+       just use <a href="https://man7.org/linux/man-pages/man8/wg.8.html">wg(8)</a> and <a href="https://man7.org/linux/man-pages/man8/ip.8.html">ip(8)</a>, as usual.
+</pre>

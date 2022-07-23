@@ -1,0 +1,24 @@
+<pre>
+       systemd-getty-generator is a generator that automatically
+       instantiates serial-getty@.service on the kernel console(s), if
+       they can function as ttys and are not provided by the virtual
+       console subsystem. It will also instantiate serial-getty@.service
+       instances for virtualizer consoles, if execution in a virtualized
+       environment is detected. If execution in a container environment
+       is detected, it will instead enable console-getty.service for
+       /dev/console, and container-getty@.service instances for
+       additional container pseudo TTYs as requested by the container
+       manager (see <b>Container Interface</b><b></b>[1]). This should ensure that the
+       user is shown a login prompt at the right place, regardless of
+       which environment the system is started in. For example, it is
+       sufficient to redirect the kernel console with a kernel command
+       line argument such as <i>console=</i> to get both kernel messages and a
+       getty prompt on a serial TTY. See <b>kernel-parameters.txt</b><b></b>[2] for
+       more information on the <i>console=</i> kernel parameter.
+
+       systemd-getty-generator implements <a href="https://man7.org/linux/man-pages/man7/systemd.generator.7.html">systemd.generator(7)</a>.
+
+       Further information about configuration of gettys can be found in
+       <b>systemd for Administrators, Part XVI: Gettys on Serial Consoles</b>
+       <b>(and Elsewhere)</b><b></b>[3].
+</pre>

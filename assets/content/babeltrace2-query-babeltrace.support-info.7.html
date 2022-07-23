@@ -1,0 +1,23 @@
+<pre>
+       The <b>babeltrace.support-info </b>Babeltrace 2 query object indicates,
+       for a given source component class, whether or not its instance
+       can handle a given input, and if so, what’s the confidence of
+       this support.
+
+       Said input can be a simple string, an existing file path, or an
+       existing directory path. Components which expect some form of URI
+       can handle a string input, while components which expect an
+       existing file or directory can handle a file/directory path
+       input.
+
+       When the source component class’s query method replies that its
+       component can handle a given input, it can also specify the name
+       of a group in which to put that input. All the inputs of a given
+       group, for a given component class, should be passed when
+       instantiating the component class as its <b>inputs </b>initialization
+       parameter (array of strings).
+
+       The <a href="https://man7.org/linux/man-pages/man1/babeltrace2-convert.1.html">babeltrace2-convert(1)</a> command queries this object from
+       specific source component classes to find the most appropriate
+       for a given non-option argument.
+</pre>

@@ -1,0 +1,90 @@
+<pre>
+   <b>devlink port function rate show - display rate objects.</b>
+       Displays specified rate object or, if not specified, all rate
+       objects. Rate object can be presented by one of the two types:
+
+       <b>leaf    </b>Represents a single devlink port; created/destroyed by
+               the driver and bound to the devlink port. As example,
+               some driver may create leaf rate object for every devlink
+               port associated with VF. Since leaf have 1to1 mapping to
+               it's devlink port, in user space it is referred as
+               corresponding devlink port <i>DEV/PORT_INDEX</i>;
+
+       <b>node    </b>Represents a group of rate objects; created/deleted by
+               the user (see command below) and bound to the devlink
+               device rather then to the devlink port. In userspace it
+               is referred as <i>DEV/NODE_NAME</i>, where node name can be any,
+               except decimal number, to avoid collisions with leafs.
+
+       Command output show rate object identifier, it's type and rate
+       values along with parent node name. Rate values printed in SI
+       units which are more suitable to represent specific value. To
+       print values in IEC units <b>-i </b>switch is used. JSON (<b>-j</b>) output
+       always print rate values in bytes per second. Zero rate values
+       means "unlimited" rates and ommited in output, as well as parent
+       node name.
+
+   <b>devlink port function rate set - set rate object parameters.</b>
+       Allows set rate object's parameters. If any parameter specified
+       multiple times the last occurrence is used.
+
+       <i>DEV/PORT_INDEX</i> - specifies devlink leaf rate object.
+       <i>DEV/NODE_NAME</i> - specifies devlink node rate object.
+
+       <b>tx_share </b><i>VALUE</i> - specifies minimal tx rate value shared among all
+       rate objects. If rate object is a part of some rate group, then
+       this value shared with rate objects of this rate group.
+
+       <b>tx_max </b><i>VALUE</i> - specifies maximum tx rate value.
+
+       <i>VALUE</i>   These parameter accept a floating point number, possibly
+               followed by either a unit (both SI and IEC units
+               supported).
+
+               bit or a bare number
+                      Bits per second
+
+               kbit   Kilobits per second
+
+               mbit   Megabits per second
+
+               gbit   Gigabits per second
+
+               tbit   Terabits per second
+
+               bps    Bytes per second
+
+               kbps   Kilobytes per second
+
+               mbps   Megabytes per second
+
+               gbps   Gigabytes per second
+
+               tbps   Terabytes per second
+
+               To specify in IEC units, replace the SI prefix (k-, m-,
+               g-, t-) with IEC prefix (ki-, mi-, gi- and ti-)
+               respectively. Input is case-insensitive.
+
+       <b>parent </b><i>NODE_NAME</i> | <b>noparent </b>- set rate object parent to existing
+       node with name <i>NODE_NAME</i> or unset parent. Rate limits of the
+       parent node applied to all it's children. Actual behaviour is
+       details of driver's implementation. Setting parent to empty ("")
+       name due to the kernel logic threated as parent unset.
+
+   <b>devlink port function rate add - create node rate object with</b>
+       <b>specified parameters.</b>
+       Creates rate object of type node and sets parameters. Parameters
+       same as for the "set" command.
+
+       <i>DEV/NODE_NAME</i> - specifies the devlink node rate object to create.
+
+   <b>devlink port function rate del - delete node rate object</b>
+       Delete specified devlink node rate object. Node can't be deleted
+       if there is any child, user must explicitly unset the parent.
+
+       <i>DEV/NODE_NAME</i> - specifies devlink node rate object to delete.
+
+   <b>devlink port function rate help - display usage information</b>
+       Display devlink rate usage information
+</pre>

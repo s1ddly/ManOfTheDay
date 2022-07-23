@@ -1,0 +1,34 @@
+<pre>
+       The ETF (Earliest TxTime First) qdisc allows applications to
+       control the instant when a packet should be dequeued from the
+       traffic control layer into the netdevice. If <b>offload </b>is
+       configured and supported by the network interface card, the it
+       will also control when packets leave the network controller.
+
+       ETF achieves that by buffering packets until a configurable time
+       before their transmission time (i.e. txtime, or deadline), which
+       can be configured through the <b>delta </b>option.
+
+       The qdisc uses a rb-tree internally so packets are always
+       'ordered' by their txtime and will be dequeued following the
+       (next) earliest txtime first.
+
+       It relies on the SO_TXTIME socket option and the SCM_TXTIME CMSG
+       in each packet field to configure the behavior of time dependent
+       sockets: the clockid to be used as a reference, if the expected
+       mode of txtime for that socket is deadline or strict mode, and if
+       packet drops should be reported on the socket's error queue. See
+       <a href="https://man7.org/linux/man-pages/man7/socket.7.html">socket(7)</a> for more information.
+
+       The etf qdisc will drop any packets with a txtime in the past, or
+       if a packet expires while waiting for being dequeued.
+
+       This queueing discipline is intended to be used by TSN (Time
+       Sensitive Networking) applications, and it exposes a traffic
+       shaping functionality that is commonly documented as "Launch
+       Time" or "Time-Based Scheduling" by vendors and the documentation
+       of network interface controllers.
+
+       ETF is meant to be installed under another qdisc that maps packet
+       flows to traffic classes, one example is <b>mqprio</b>(8).
+</pre>

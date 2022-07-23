@@ -1,0 +1,15 @@
+<pre>
+       Run a Git command on a list of repositories. The arguments after
+       the known options or <b>-- </b>indicator are used as the arguments for
+       the Git subprocess.
+
+       THIS COMMAND IS EXPERIMENTAL. THE BEHAVIOR MAY CHANGE.
+
+       For example, we could run maintenance on each of a list of
+       repositories stored in a <b>maintenance.repo </b>config variable using
+
+           git for-each-repo --config=maintenance.repo maintenance run
+
+       This will run <b>git -C &lt;repo&gt; maintenance run </b>for each value <b>&lt;repo&gt;</b>
+       in the multi-valued config variable <b>maintenance.repo</b>.
+</pre>

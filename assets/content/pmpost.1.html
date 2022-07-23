@@ -1,0 +1,23 @@
+<pre>
+       <b>pmpost </b>will append the text <i>message</i> to the end of the Performance
+       Co-Pilot (PCP) notice board file (<b>$PCP_LOG_DIR/NOTICES</b>) in an
+       atomic manner that guards against corruption of the notice board
+       file by concurrent invocations of <b>pmpost</b>.
+
+       The PCP notice board is intended to be a persistent store and
+       clearing house for important messages relating to the operation
+       of the PCP and the notification of performance alerts from
+       <a href="https://man7.org/linux/man-pages/man1/pmie.1.html">pmie(1)</a> when other notification options are either unavailable or
+       unsuitable.
+
+       Before being written, messages are prefixed by the current time,
+       and when the current day is different to the last time the notice
+       board file was written, <b>pmpost </b>will prepend the message with the
+       full date.
+
+       If the notice board file does not exist, <b>pmpost </b>will create it.
+       <b>pmpost </b>would usually run from long-running PCP daemons executing
+       under the (typically unprivileged) <b>$PCP_USER </b>and <b>$PCP_GROUP</b>
+       accounts.  The file should be owned and writable by the <b>$PCP_USER</b>
+       user, and readable by others.
+</pre>

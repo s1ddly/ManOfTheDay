@@ -1,0 +1,90 @@
+<pre>
+       <b>fsck.fat </b>verifies the consistency of MS-DOS filesystems and
+       optionally tries to repair them.
+
+       The following filesystem problems can be corrected (in this
+       order):
+
+       •   FAT contains invalid cluster numbers.  Cluster is changed to
+           EOF.
+
+       •   File's cluster chain contains a loop.  The loop is broken.
+
+       •   Bad clusters (read errors).  The clusters are marked bad and
+           they are removed from files owning them.  This check is
+           optional.
+
+       •   Directories with a large number of bad entries (probably
+           corrupt).  The directory can be deleted.
+
+       •   Files . and .. are non-directories.  They can be deleted or
+           renamed.
+
+       •   Directories . and .. in root directory.  They are deleted.
+
+       •   Bad filenames.  They can be renamed.
+
+       •   Duplicate directory entries.  They can be deleted or renamed.
+
+       •   Directories with non-zero size field.  Size is set to zero.
+
+       •   Directory . does not point to parent directory.  The start
+           pointer is adjusted.
+
+       •   Directory .. does not point to parent of parent directory.
+           The start pointer is adjusted.
+
+       •   . and .. are not the two first entries in a non-root
+           directory.  The entries are created, moving occupied slots if
+           necessary.
+
+       •   Start cluster number of a file is invalid.  The file is
+           truncated.
+
+       •   File contains bad or free clusters.  The file is truncated.
+
+       •   File's cluster chain is longer than indicated by the size
+           fields.  The file is truncated.
+
+       •   Two or more files share the same cluster(s).  All but one of
+           the files are truncated.  If the file being truncated is a
+           directory file that has already been read, the filesystem
+           check is restarted after truncation.
+
+       •   File's cluster chain is shorter than indicated by the size
+           fields.  The file is truncated.
+
+       •   Volume label in root directory or label in boot sector is
+           invalid.  Invalid labels are removed.
+
+       •   Volume label in root directory and label in boot sector are
+           different.  Volume label from root directory is copied to
+           boot sector.
+
+       •   Clusters are marked as used but are not owned by a file.
+           They are marked as free.
+
+       Additionally, the following problems are detected, but not
+       repaired:
+
+       •   Invalid parameters in boot sector
+
+       When <b>fsck.fat </b>checks a filesystem, it accumulates all changes in
+       memory and performs them only after all checks are complete.
+       This can be disabled with the <b>-w </b>option.
+
+       Two different variants of the FAT filesystem are supported.
+       Standard is the FAT12, FAT16 and FAT32 filesystems as defined by
+       Microsoft and widely used on hard disks and removable media like
+       USB sticks and SD cards.  The other is the legacy Atari variant
+       used on Atari ST.
+
+       There are some minor differences in Atari format: Some boot
+       sector fields are interpreted slightly different, and the special
+       FAT entries for end-of-file and bad cluster can be different.
+       Under MS-DOS 0xfff8 is used for EOF and Atari employs 0xffff by
+       default, but both systems recognize all values from 0xfff8–0xffff
+       as end-of-file.  MS-DOS uses only 0xfff7 for bad clusters, where
+       on Atari values 0xfff0–0xfff7 are for this purpose (but the
+       standard value is still 0xfff7).
+</pre>

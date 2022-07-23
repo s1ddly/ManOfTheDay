@@ -1,0 +1,27 @@
+<pre>
+       Updates remote refs using local refs, while sending objects
+       necessary to complete the given refs.
+
+       You can make interesting things happen to a repository every time
+       you push into it, by setting up <i>hooks</i> there. See documentation
+       for <a href="https://man7.org/linux/man-pages/man1/git-receive-pack.1.html">git-receive-pack(1)</a>.
+
+       When the command line does not specify where to push with the
+       <b>&lt;repository&gt; </b>argument, <b>branch.*.remote </b>configuration for the
+       current branch is consulted to determine where to push. If the
+       configuration is missing, it defaults to <i>origin</i>.
+
+       When the command line does not specify what to push with
+       <b>&lt;refspec&gt;... </b>arguments or <b>--all</b>, <b>--mirror</b>, <b>--tags </b>options, the
+       command finds the default <b>&lt;refspec&gt; </b>by consulting <b>remote.*.push</b>
+       configuration, and if it is not found, honors <b>push.default</b>
+       configuration to decide what to push (See <a href="https://man7.org/linux/man-pages/man1/git-config.1.html">git-config(1)</a> for the
+       meaning of <b>push.default</b>).
+
+       When neither the command-line nor the configuration specify what
+       to push, the default behavior is used, which corresponds to the
+       <b>simple </b>value for <b>push.default</b>: the current branch is pushed to
+       the corresponding upstream branch, but as a safety measure, the
+       push is aborted if the upstream branch does not have the same
+       name as the local one.
+</pre>

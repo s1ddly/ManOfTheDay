@@ -1,0 +1,17 @@
+<pre>
+       Overrides the application specified runtime requirements. This
+       can be used to grant a sandboxed application more or less
+       resources than it requested.
+
+       By default the application gets access to the resources it
+       requested when it is started. But the user can override it on a
+       particular instance by specifying extra arguments to flatpak run,
+       or every time by using flatpak override.
+
+       If the application id is not specified then the overrides affect
+       all applications, but the per-application overrides can override
+       the global overrides.
+
+       Unless overridden with the <b>--user </b>or <b>--installation </b>options, this
+       command changes the default system-wide installation.
+</pre>

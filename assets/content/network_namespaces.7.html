@@ -1,0 +1,24 @@
+<pre>
+       Network namespaces provide isolation of the system resources
+       associated with networking: network devices, IPv4 and IPv6
+       protocol stacks, IP routing tables, firewall rules, the <i>/proc/net</i>
+       directory (which is a symbolic link to <i>/proc/PID/net</i>), the
+       <i>/sys/class/net</i> directory, various files under <i>/proc/sys/net</i>, port
+       numbers (sockets), and so on.  In addition, network namespaces
+       isolate the UNIX domain abstract socket namespace (see <a href="https://man7.org/linux/man-pages/man7/unix.7.html">unix(7)</a>).
+
+       A physical network device can live in exactly one network
+       namespace.  When a network namespace is freed (i.e., when the
+       last process in the namespace terminates), its physical network
+       devices are moved back to the initial network namespace (not to
+       the parent of the process).
+
+       A virtual network (<a href="https://man7.org/linux/man-pages/man4/veth.4.html">veth(4)</a>) device pair provides a pipe-like
+       abstraction that can be used to create tunnels between network
+       namespaces, and can be used to create a bridge to a physical
+       network device in another namespace.  When a namespace is freed,
+       the <a href="https://man7.org/linux/man-pages/man4/veth.4.html">veth(4)</a> devices that it contains are destroyed.
+
+       Use of network namespaces requires a kernel that is configured
+       with the <b>CONFIG_NET_NS </b>option.
+</pre>

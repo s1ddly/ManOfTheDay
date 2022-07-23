@@ -1,0 +1,29 @@
+<pre>
+       <b>mkfs.fat </b>is used to create a FAT filesystem on a device or in an
+       image file.  <i>DEVICE</i> is the special file corresponding to the
+       device (e.g. /dev/sdXX) or the image file (which does not need to
+       exist when the option <b>-C </b>is given).  <i>BLOCK-COUNT</i> is the number of
+       blocks on the device and size of one block is always 1024 bytes,
+       independently of the sector size or the cluster size.  Therefore
+       <i>BLOCK-COUNT</i> specifies size of filesystem in KiB unit and not in
+       the number of sectors (like for all other <b>mkfs.fat </b>options).  If
+       omitted, <b>mkfs.fat </b>automatically chooses a filesystem size to fill
+       the available space.
+
+       Two different variants of the FAT filesystem are supported.
+       Standard is the FAT12, FAT16 and FAT32 filesystems as defined by
+       Microsoft and widely used on hard disks and removable media like
+       USB sticks and SD cards.  The other is the legacy Atari variant
+       used on Atari ST.
+
+       In Atari mode, if not directed otherwise by the user, <b>mkfs.fat</b>
+       will always use 2 sectors per cluster, since GEMDOS doesn't like
+       other values very much.  It will also obey the maximum number of
+       sectors GEMDOS can handle.  Larger filesystems are managed by
+       raising the logical sector size.  An Atari-compatible serial
+       number for the filesystem is generated, and a 12 bit FAT is used
+       only for filesystems that have one of the usual floppy sizes
+       (720k, 1.2M, 1.44M, 2.88M), a 16 bit FAT otherwise.  This can be
+       overridden with the <b>-F </b>option.  Some PC-specific boot sector
+       fields aren't written, and a boot message (option <b>-m</b>) is ignored.
+</pre>

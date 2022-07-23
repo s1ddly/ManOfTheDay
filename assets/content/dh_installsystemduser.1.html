@@ -1,0 +1,18 @@
+<pre>
+       <b>dh_installsystemduser </b>finds the systemd user instance service
+       files installed by a package and generates <i>postinst</i>, and <i>prerm</i>
+       code blocks for enabling and disabling the corresponding systemd
+       user instance services, when the package is installed, updated,
+       or removed. These snippets are added to the maintainer scripts by
+       <a href="https://man7.org/linux/man-pages/man1/dh_installdeb.1.html">dh_installdeb(1)</a>.
+
+       <b>deb-systemd-helper</b>(1) is used to enable and disable the systemd
+       units, thus it is not necessary that the machine actually runs
+       systemd during package installation time, enabling happens on all
+       machines.
+
+       <b>dh_installsystemduser </b>operates on all user instance unit files
+       installed by a package. For only generating blocks for specific
+       unit files, pass them as arguments. Specific unit files can be
+       excluded from processing using the <b>-X </b>common <b>debhelper</b>(1) option.
+</pre>

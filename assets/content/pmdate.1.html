@@ -1,0 +1,22 @@
+<pre>
+       <b>pmdate </b>displays the current date and/or time, with an optional
+       offset.
+
+       An <i>offset</i> is specified with a leading sign (``+'' or ``-''),
+       followed by an integer value, followed by one of the following
+       ``scale'' specifiers;
+
+       S      seconds
+       M      minutes
+       H      hours
+       d      days
+       m      months
+       y      years
+
+       The output <i>format</i> follows the same rules as for <a href="https://man7.org/linux/man-pages/man1/date.1.html">date(1)</a> and
+       <a href="https://man7.org/linux/man-pages/man3/strftime.3.html">strftime(3)</a>.
+
+       For example, the following will display the date a week ago as
+       DDMMYYYY;
+               pmdate -7d %d%m%Y
+</pre>

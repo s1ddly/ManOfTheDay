@@ -1,0 +1,13 @@
+<pre>
+       <i>unix_chkpwd</i> is a helper program for the <i>pam_unix</i> module that
+       verifies the password of the current user. It also checks
+       password and account expiration dates in <i>shadow</i>. It is not
+       intended to be run directly from the command line and logs a
+       security violation if done so.
+
+       It is typically installed setuid root or setgid shadow.
+
+       The interface of the helper - command line options, and
+       input/output data format are internal to the <i>pam_unix</i> module and
+       it should not be called directly from applications.
+</pre>

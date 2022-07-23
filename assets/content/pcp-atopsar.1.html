@@ -1,0 +1,165 @@
+<pre>
+       The <b>pcp-atopsar </b>program can be used to report statistics at the
+       system level.
+
+       In the first synopsis line (no sampling interval specified), <b>pcp-</b>
+       <b>atopsar </b>extracts data from a raw logfile that has been recorded
+       previously by <a href="https://man7.org/linux/man-pages/man1/pmlogger.1.html">pmlogger(1)</a> (or via the <b>-w </b>option of the <b>pcp-atop</b>
+       program).
+       You can specify the name of the logfile with the <b>-r </b>option of the
+       <b>pcp-atopsar </b>program.  When a <b>pmlogger </b>daily logfile is used,
+       named <b>$PCP_LOG_DIR/pmlogger/[host]/YYYYMMDD </b>(where YYYYMMDD
+       reflects the date), the required date of the form YYYYMMDD can be
+       specified with the <b>-r </b>option instead of the filename, or the
+       symbolic name 'y' can be used for yesterday's daily logfile (this
+       can be repeated so 'yyyy' indicates the logfile of four days
+       ago).  If the <b>-r </b>option is not specified at all, today's daily
+       logfile is used by default.
+       By default, the hostname of the localhost will be used when
+       resolving <b>pmlogger </b>archives, however an alternative <i>host</i> can be
+       specified using the <b>-h </b>option.
+       The starting and ending times of the report can be defined using
+       the options <b>-b </b>and <b>-e </b>followed by a time argument of the form
+       [yy-mm-dd] hh:mm.
+
+       In the second synopsis line, <b>pcp-atopsar </b>reads actual activity
+       counters from the kernel with the specified <i>interval</i> (in seconds)
+       and the specified number of <i>samples</i> (optionally).  When <b>pcp-</b>
+       <b>atopsar </b>is activated in this way it immediately sends the output
+       for every requested report to standard output.  If only one type
+       of report is requested, the header is printed once and after
+       every <i>interval</i> seconds the statistical counters are shown for
+       that period.  If several reports are requested, a header is
+       printed per sample followed by the statistical counters for that
+       period.
+
+       When invoked via the <a href="https://man7.org/linux/man-pages/man1/pcp.1.html">pcp(1)</a> command, the <a href="https://man7.org/linux/man-pages/man1/PCPIntro.1.html">PCPIntro(1)</a> options
+       <b>-h</b>/<b>--host</b>, <b>-a</b>/<b>--archive</b>, <b>-O</b>/<b>--origin</b>, <b>-s</b>/<b>--samples</b>,
+       <b>-t</b>/<b>--interval</b>, <b>-Z</b>/<b>--timezone </b>and several other <i>pcp options</i> become
+       indirectly available, see <a href="https://man7.org/linux/man-pages/man1/PCPIntro.1.html">PCPIntro(1)</a> for their descriptions.
+
+       Some generic flags can be specified to influence the behaviour of
+       the <b>pcp-atopsar </b>program:
+
+       <b>-S   </b>By default the timestamp at the beginning of a line is
+            suppressed if more lines are shown for one interval. With
+            this flag a timestamp is given for every output-line (easier
+            for post-processing).
+
+       <b>-a   </b>By default certain resources as disks and network interfaces
+            are only shown when they were active during the interval.
+            With this flag all resources of a given type are shown, even
+            if they were inactive during the interval.
+
+       <b>-x   </b>By default <b>pcp-atopsar </b>only uses colors if output is
+            directed to a terminal (window).  These colors might
+            indicate that a critical occupation percentage has been
+            reached (red) or has been almost reached (cyan) for a
+            particular resource.  See the man-page of <b>atop </b>for a
+            detailed description of this feature (section COLORS).
+            With the flag <b>-x </b>the use of colors is suppressed
+            unconditionally.
+
+       <b>-C   </b>By default <b>pcp-atopsar </b>only uses colors if output is
+            directed to a terminal (window).  These colors might
+            indicate that a critical occupation percentage has been
+            reached (red) or has been almost reached (cyan) for a
+            particular resource.  See the man-page of <b>atop </b>for a
+            detailed description of this feature (section COLORS).
+            With the flag <b>-C </b>colors will always be used, even if output
+            is not directed to a terminal.
+
+       <b>-M   </b>Use markers at the end of a line to indicate that a critical
+            occupation percentage has been reached ('*') or has been
+            almost reached ('+') for particular resources. The marker
+            '*' is similar to the color red and the marker '+' to the
+            color cyan. See the man-page of <b>atop </b>for a detailed
+            description of these colors (section COLORS).
+
+       <b>-H   </b>Repeat the header line within a report for every <i>N</i> detail
+            lines. The value of <i>N</i> is determined dynamically in case of
+            output to a tty/window (depending on the number of lines);
+            for output to a file or pipe this value is 23.
+
+       <b>-R   </b>Summarize <i>cnt</i> samples into one sample. When the logfile
+            contains e.g. samples of 10 minutes, the use of the flag '-R
+            6' shows a report with one sample for every hour.
+
+       Other flags are used to define which reports are required:
+
+       <b>-A   </b>Show all possible reports.
+
+       <b>-c   </b>Report about CPU utilization (in total and per cpu).
+
+       <b>-g   </b>Report about GPU utilization (per GPU).
+
+       <b>-p   </b>Report about processor-related matters, like load-averages
+            and hardware interrupts.
+
+       <b>-P   </b>Report about processes.
+
+       <b>-m   </b>Current memory- and swap-occupation.
+
+       <b>-s   </b>Report about paging- and swapping-activity, and
+            overcommitment.
+
+       <b>-B   </b>Report about Pressure Stall Information (PSI).
+
+       <b>-l   </b>Report about utilization of logical volumes.
+
+       <b>-f   </b>Report about utilization of multiple devices.
+
+       <b>-d   </b>Report about utilization of disks.
+
+       <b>-n   </b>Report about NFS mounted filesystems on NFS client.
+
+       <b>-j   </b>Report about NFS client activity.
+
+       <b>-J   </b>Report about NFS server activity.
+
+       <b>-i   </b>Report about the network interfaces.
+
+       <b>-I   </b>Report about errors for network-interfaces.
+
+       <b>-w   </b>Report about IP version 4 network traffic.
+
+       <b>-W   </b>Report about errors for IP version 4 traffic.
+
+       <b>-y   </b>General report about ICMP version 4 layer activity.
+
+       <b>-Y   </b>Per-type report about ICMP version 4 layer activity.
+
+       <b>-u   </b>Report about UDP version 4 network traffic.
+
+       <b>-z   </b>Report about IP version 6 network traffic.
+
+       <b>-Z   </b>Report about errors for IP version 6 traffic.
+
+       <b>-k   </b>General report about ICMP version 6 layer activity.
+
+       <b>-K   </b>Per-type report about ICMP version 6 layer activity.
+
+       <b>-U   </b>Report about UDP version 6 network traffic.
+
+       <b>-t   </b>Report about TCP network traffic.
+
+       <b>-T   </b>Report about errors for TCP-traffic.
+
+       <b>-h   </b>Report about Infiniband utilization.
+
+       <b>-O   </b>Report about top-3 processes consuming most processor
+            capacity.  This report is only available when using a log
+            file (not when specifying an interval).
+
+       <b>-G   </b>Report about top-3 processes consuming most resident memory.
+            This report is only available when using a log file (not
+            when specifying an interval).
+
+       <b>-D   </b>Report about top-3 processes issueing most disk transfers.
+            This report is only available when using a log file (not
+            when specifying an interval).
+
+       <b>-N   </b>Report about top-3 processes issueing most IPv4/IPv6 socket
+            transfers.  This report is only available when using a log
+            file (not when specifying an interval).
+</pre>

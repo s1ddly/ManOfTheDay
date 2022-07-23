@@ -1,0 +1,33 @@
+<pre>
+       The general forms of rpm digital signature commands are
+
+       <b>rpmkeys --import </b><i>PUBKEY ...</i>
+
+       <b>rpmkeys </b>{<b>-K|--checksig</b>} <i>PACKAGE_FILE ...</i>
+
+       The <b>--checksig </b>option checks all the digests and signatures
+       contained in <i>PACKAGE_FILE</i> to ensure the integrity and origin of
+       the package.  Note that signatures are now verified whenever a
+       package is read, and <b>--checksig </b>is useful to verify all of the
+       digests and signatures associated with a package.
+
+       Digital signatures cannot be verified without a public key.  An
+       ASCII armored public key can be added to the <b>rpm </b>database using
+       <b>--import</b>.  An imported public key is carried in a header, and key
+       ring management is performed exactly like package management.
+       For example, all currently imported public keys can be displayed
+       by:
+
+       <b>rpm -qa gpg-pubkey*</b>
+
+       Details about a specific public key, when imported, can be
+       displayed by querying.  Here's information about the Red Hat
+       GPG/DSA key:
+
+       <b>rpm -qi gpg-pubkey-db42a60e</b>
+
+       Finally, public keys can be erased after importing just like
+       packages.  Here's how to remove the Red Hat GPG/DSA key
+
+       <b>rpm -e gpg-pubkey-db42a60e</b>
+</pre>

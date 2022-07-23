@@ -1,0 +1,11 @@
+<pre>
+       <b>dh_prep </b>is a debhelper program that performs some file cleanups
+       in preparation for building a binary package. (This is what
+       <b>dh_clean -k </b>used to do.) It removes the package build
+       directories, <i>debian/tmp</i>, and some temp files that are generated
+       when building a binary package.
+
+       It is typically run at the top of the <b>binary-arch </b>and <b>binary-</b>
+       <b>indep </b>targets, or at the top of a target such as install that
+       they depend on.
+</pre>

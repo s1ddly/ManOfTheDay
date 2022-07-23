@@ -1,0 +1,90 @@
+<pre>
+       Time namespaces virtualize the values of two system clocks:
+
+       • <b>CLOCK_MONOTONIC </b>(and likewise <b>CLOCK_MONOTONIC_COARSE </b>and
+         <b>CLOCK_MONOTONIC_RAW</b>), a nonsettable clock that represents
+         monotonic time  since—as described  by  POSIX—"some
+         unspecified  point in the past".
+
+       • <b>CLOCK_BOOTTIME </b>(and likewise <b>CLOCK_BOOTTIME_ALARM</b>), a
+         nonsettable clock that is identical to <b>CLOCK_MONOTONIC</b>, except
+         that it also includes any time that the system is suspended.
+
+       Thus, the processes in a time namespace share per-namespace
+       values for these clocks.  This affects various APIs that measure
+       against these clocks, including: <a href="https://man7.org/linux/man-pages/man2/clock_gettime.2.html">clock_gettime(2)</a>,
+       <a href="https://man7.org/linux/man-pages/man2/clock_nanosleep.2.html">clock_nanosleep(2)</a>, <a href="https://man7.org/linux/man-pages/man2/nanosleep.2.html">nanosleep(2)</a>, <a href="https://man7.org/linux/man-pages/man2/timer_settime.2.html">timer_settime(2)</a>,
+       <a href="https://man7.org/linux/man-pages/man2/timerfd_settime.2.html">timerfd_settime(2)</a>, and <i>/proc/uptime</i>.
+
+       Currently, the only way to create a time namespace is by calling
+       <a href="https://man7.org/linux/man-pages/man2/unshare.2.html">unshare(2)</a> with the <b>CLONE_NEWTIME </b>flag.  This call creates a new
+       time namespace but does <i>not</i> place the calling process in the new
+       namespace.  Instead, the calling process's subsequently created
+       children are placed in the new namespace.  This allows clock
+       offsets (see below) for the new namespace to be set before the
+       first process is placed in the namespace.  The
+       <i>/proc/[pid]/ns/time_for_children</i> symbolic link shows the time
+       namespace in which the children of a process will be created.  (A
+       process can use a file descriptor opened on this symbolic link in
+       a call to <a href="https://man7.org/linux/man-pages/man2/setns.2.html">setns(2)</a> in order to move into the namespace.)
+
+   <b>/proc/PID/timens_offsets</b>
+       Associated with each time namespace are offsets, expressed with
+       respect to the initial time namespace, that define the values of
+       the monotonic and boot-time clocks in that namespace.  These
+       offsets are exposed via the file <i>/proc/PID/timens_offsets</i>.
+       Within this file, the offsets are expressed as lines consisting
+       of three space-delimited fields:
+
+           &lt;clock-id&gt; &lt;offset-secs&gt; &lt;offset-nanosecs&gt;
+
+       The <i>clock-id</i> is a string that identifies the clock whose offsets
+       are being shown.  This field is either <i>monotonic</i>, for
+       <b>CLOCK_MONOTONIC</b>, or <i>boottime</i>, for <b>CLOCK_BOOTTIME</b>.  The remaining
+       fields express the offset (seconds plus nanoseconds) for the
+       clock in this time namespace.  These offsets are expressed
+       relative to the clock values in the initial time namespace.  The
+       <i>offset-secs</i> value can be negative, subject to restrictions noted
+       below; <i>offset-nanosecs</i> is an unsigned value.
+
+       In the initial time namespace, the contents of the <i>timens_offsets</i>
+       file are as follows:
+
+           $ <b>cat /proc/self/timens_offsets</b>
+           monotonic           0         0
+           boottime            0         0
+
+       In a new time namespace that has had no member processes, the
+       clock offsets can be modified by writing newline-terminated
+       records of the same form to the <i>timens_offsets</i> file.  The file
+       can be written to multiple times, but after the first process has
+       been created in or has entered the namespace, <a href="https://man7.org/linux/man-pages/man2/write.2.html">write(2)</a>s on this
+       file fail with the error <b>EACCES</b>.  In order to write to the
+       <i>timens_offsets</i> file, a process must have the <b>CAP_SYS_TIME</b>
+       capability in the user namespace that owns the time namespace.
+
+       Writes to the <i>timens_offsets</i> file can fail with the following
+       errors:
+
+       <b>EINVAL </b>An <i>offset-nanosecs</i> value is greater than 999,999,999.
+
+       <b>EINVAL </b>A <i>clock-id</i> value is not valid.
+
+       <b>EPERM  </b>The caller does not have the <b>CAP_SYS_TIME </b>capability.
+
+       <b>ERANGE </b>An <i>offset-secs</i> value is out of range.  In particular;
+
+              • <i>offset-secs</i> can't be set to a value which would make the
+                current time on the corresponding clock inside the
+                namespace a negative value; and
+
+              • <i>offset-secs</i> can't be set to a value such that the time
+                on the corresponding clock inside the namespace would
+                exceed half of the value of the kernel constant
+                <b>KTIME_SEC_MAX </b>(this limits the clock value to a maximum
+                of approximately 146 years).
+
+       In a new time namespace created by <a href="https://man7.org/linux/man-pages/man2/unshare.2.html">unshare(2)</a>, the contents of
+       the <i>timens_offsets</i> file are inherited from the time namespace of
+       the creating process.
+</pre>

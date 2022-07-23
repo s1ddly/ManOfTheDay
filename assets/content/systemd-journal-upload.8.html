@@ -1,0 +1,14 @@
+<pre>
+       <b>systemd-journal-upload </b>will upload journal entries to the URL
+       specified with <b>--url=</b>. This program reads journal entries from
+       one or more journal files, similarly to <a href="https://man7.org/linux/man-pages/man1/journalctl.1.html">journalctl(1)</a>. Unless
+       limited by one of the options specified below, all journal
+       entries accessible to the user the program is running as will be
+       uploaded, and then the program will wait and send new entries as
+       they become available.
+
+       systemd-journal-upload.service is a system service that uses
+       <b>systemd-journal-upload </b>to upload journal entries to a server. It
+       uses the configuration in <a href="https://man7.org/linux/man-pages/man5/journal-upload.conf.5.html">journal-upload.conf(5)</a>. At least the
+       <i>URL=</i> option must be specified.
+</pre>

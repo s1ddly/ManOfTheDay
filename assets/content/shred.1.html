@@ -1,0 +1,58 @@
+<pre>
+       Overwrite the specified FILE(s) repeatedly, in order to make it
+       harder for even very expensive hardware probing to recover the
+       data.
+
+       If FILE is -, shred standard output.
+
+       Mandatory arguments to long options are mandatory for short
+       options too.
+
+       <b>-f</b>, <b>--force</b>
+              change permissions to allow writing if necessary
+
+       <b>-n</b>, <b>--iterations</b>=<i>N</i>
+              overwrite N times instead of the default (3)
+
+       <b>--random-source</b>=<i>FILE</i>
+              get random bytes from FILE
+
+       <b>-s</b>, <b>--size</b>=<i>N</i>
+              shred this many bytes (suffixes like K, M, G accepted)
+
+       <b>-u     </b>deallocate and remove file after overwriting
+
+       <b>--remove</b>[=<i>HOW</i>]
+              like <b>-u </b>but give control on HOW to delete;  See below
+
+       <b>-v</b>, <b>--verbose</b>
+              show progress
+
+       <b>-x</b>, <b>--exact</b>
+              do not round file sizes up to the next full block;
+
+              this is the default for non-regular files
+
+       <b>-z</b>, <b>--zero</b>
+              add a final overwrite with zeros to hide shredding
+
+       <b>--help </b>display this help and exit
+
+       <b>--version</b>
+              output version information and exit
+
+       Delete FILE(s) if <b>--remove </b>(<b>-u</b>) is specified.  The default is not
+       to remove the files because it is common to operate on device
+       files like <i>/dev/hda</i>, and those files usually should not be
+       removed.  The optional HOW parameter indicates how to remove a
+       directory entry: 'unlink' =&gt; use a standard unlink call.  'wipe'
+       =&gt; also first obfuscate bytes in the name.  'wipesync' =&gt; also
+       sync each obfuscated byte to disk.  The default mode is
+       'wipesync', but note it can be expensive.
+
+       CAUTION: shred assumes the file system and hardware overwrite
+       data in place.  Although this is common, many platforms operate
+       otherwise.  Also, backups and mirrors may contain unremovable
+       copies that will let a shredded file be recovered later.  See the
+       GNU coreutils manual for details.
+</pre>

@@ -1,0 +1,31 @@
+<pre>
+       <b>pmie </b>accepts a collection of arithmetic, logical, and rule
+       expressions to be evaluated at specified frequencies.  The base
+       data for the expressions consists of performance metrics values
+       delivered in real-time from any host running the Performance
+       Metrics Collection Daemon (PMCD), or using historical data from
+       Performance Co-Pilot (PCP) archive logs.
+
+       As well as computing arithmetic and logical values, <b>pmie </b>can
+       execute actions (popup alarms, write system log messages, and
+       launch programs) in response to specified conditions.  Such
+       actions are extremely useful in detecting, monitoring and
+       correcting performance related problems.
+
+       The expressions to be evaluated are read from configuration files
+       specified by one or more <i>filename</i> arguments.  In the absence of
+       any <i>filename</i>, expressions are read from standard input.
+
+       Output from <b>pmie </b>is directed to standard output and standard
+       error as follows:
+
+       <b>stdout</b>
+            Expression values printed in the verbose <b>-v </b>mode and the
+            output of <b>print </b>actions.
+
+       <b>stderr</b>
+            Error and warning messages for any syntactic or semantic
+            problems during expression parsing, and any semantic or
+            performance metrics availability problems during expression
+            evaluation.
+</pre>

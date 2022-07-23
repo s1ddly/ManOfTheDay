@@ -1,0 +1,17 @@
+<pre>
+       The <i>test</i> utility shall evaluate the <i>expression</i> and indicate the
+       result of the evaluation by its exit status. An exit status of
+       zero indicates that the expression evaluated as true and an exit
+       status of 1 indicates that the expression evaluated as false.
+
+       In the second form of the utility, where the utility name used is
+       <i>[</i> rather than <i>test</i>, the application shall ensure that the closing
+       square bracket is a separate argument. The <i>test</i> and <i>[</i> utilities
+       may be implemented as a single linked utility which examines the
+       basename of the zeroth command line argument to determine whether
+       to behave as the <i>test</i> or <i>[</i> variant. Applications using the <i>exec</i>()
+       family of functions to execute these utilities shall ensure that
+       the argument passed in <i>arg0</i> or <i>argv</i>[0] is <b>'[' </b>when executing the
+       <i>[</i> utility and has a basename of <b>"test" </b>when executing the <i>test</i>
+       utility.
+</pre>

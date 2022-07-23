@@ -1,0 +1,45 @@
+<pre>
+       <b>pmnscomp </b>compiles a Performance Metrics Name Space (PMNS) in
+       ASCII format into a more efficient binary representation.
+       <a href="https://man7.org/linux/man-pages/man3/pmLoadNameSpace.3.html">pmLoadNameSpace(3)</a> is able to load this binary representation
+       significantly faster than the equivalent ASCII representation.
+
+       If <i>outfile</i> already exists <b>pmnscomp </b>will exit without overwriting
+       it.
+
+       By convention, the name of the compiled namespace is that of the
+       root file of the ASCII namespace, with <b>.bin </b>appended.  For
+       example, the root of the default PMNS is a file named <b>root </b>and
+       the compiled version of the entire namespace is <b>root.bin</b>.
+
+       The options are;
+
+       <b>-d   </b>By default the PMNS to be compiled is expected to contain at
+            most one name for each unique Performance Metric Identifier
+            (PMID).  The <b>-d </b>option relaxes this restriction and allows
+            the compilation of a PMNS in which multiple names may be
+            associated with a single PMID.  Duplicate names are useful
+            when a particular metric may be logically associated with
+            more than one group of related metrics, or when it is
+            desired to create abbreviated aliases to name a set of
+            frequently used metrics.
+
+       <b>-f   </b>Force overwriting of an existing <i>outfile</i> if it already
+            exists.
+
+       <b>-n   </b>Normally <b>pmnscomp </b>operates on the default PMNS, however if
+            the <b>-n </b>option is specified an alternative namespace is
+            loaded from the file <i>namespace.</i>
+
+       <b>-v   </b>By default, <b>pmnscomp </b>writes a version <b>2 </b>compiled namespace.
+            If <i>version</i> is <b>1 </b>then <b>pmnscomp </b>will write a version <b>1</b>
+            namespace which is similar to version <b>2</b>, without the extra
+            integrity afforded by checksums.  Note that PCP version 2.0
+            or later can handle both versions <b>1 </b>and <b>2 </b>of the binary PMNS
+            format.
+
+       The default input PMNS is found in the file
+       <i>$PCP_VAR_DIR/pmns/root</i> unless the environment variable
+       <b>PMNS_DEFAULT </b>is set, in which case the value is assumed to be the
+       pathname to the file containing the default input PMNS.
+</pre>

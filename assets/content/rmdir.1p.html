@@ -1,0 +1,15 @@
+<pre>
+       The <i>rmdir</i> utility shall remove the directory entry specified by
+       each <i>dir</i> operand.
+
+       For each <i>dir</i> operand, the <i>rmdir</i> utility shall perform actions
+       equivalent to the <i>rmdir</i>() function called with the <i>dir</i> operand as
+       its only argument.
+
+       Directories shall be processed in the order specified. If a
+       directory and a subdirectory of that directory are specified in a
+       single invocation of the <i>rmdir</i> utility, the application shall
+       specify the subdirectory before the parent directory so that the
+       parent directory will be empty when the <i>rmdir</i> utility tries to
+       remove it.
+</pre>

@@ -1,0 +1,110 @@
+<pre>
+       <i>DNF</i> is the next upcoming major version of <i>YUM</i>, a package manager
+       for RPM-based Linux distributions. It roughly maintains CLI
+       compatibility with YUM and defines a strict API for extensions
+       and plugins.
+
+       Plugins can modify or extend features of DNF or provide
+       additional CLI commands on top of those mentioned below. If you
+       know the name of such a command (including commands mentioned
+       below), you may find/install the package which provides it using
+       the appropriate virtual provide in the form of
+       <b>dnf-command(&lt;alias&gt;)</b>, where <b>&lt;alias&gt; </b>is the name of the command;
+       e.g.``dnf install ‘dnf-command(versionlock)’`` installs a
+       <b>versionlock </b>plugin. This approach also applies to specifying
+       dependencies of packages that require a particular DNF command.
+
+       Return values:
+
+       • <b>0  </b>: Operation was successful.
+
+       • <b>1  </b>: An error occurred, which was handled by dnf.
+
+       • <b>3  </b>: An unknown unhandled error occurred during operation.
+
+       • <b>100</b>: See <i>check-update</i>
+
+       • <b>200</b>: There was a problem with acquiring or releasing of locks.
+
+       Available commands:
+
+       • <i>alias</i>
+
+       • <i>autoremove</i>
+
+       • <i>check</i>
+
+       • <i>check-update</i>
+
+       • <i>clean</i>
+
+       • <i>deplist</i>
+
+       • <i>distro-sync</i>
+
+       • <i>downgrade</i>
+
+       • <i>group</i>
+
+       • <i>help</i>
+
+       • <i>history</i>
+
+       • <i>info</i>
+
+       • <i>install</i>
+
+       • <i>list</i>
+
+       • <i>makecache</i>
+
+       • <i>mark</i>
+
+       • <i>module</i>
+
+       • <i>provides</i>
+
+       • <i>reinstall</i>
+
+       • <i>remove</i>
+
+       • <i>repoinfo</i>
+
+       • <i>repolist</i>
+
+       • <i>repoquery</i>
+
+       • <i>repository-packages</i>
+
+       • <i>search</i>
+
+       • <i>shell</i>
+
+       • <i>swap</i>
+
+       • <i>updateinfo</i>
+
+       • <i>upgrade</i>
+
+       • <i>upgrade-minimal</i>
+
+       Additional information:
+
+       • <i>Options</i>
+
+       • <i>Specifying Packages</i>
+
+       • <i>Specifying Provides</i>
+
+       • <i>Specifying Groups</i>
+
+       • <i>Specifying Transactions</i>
+
+       • <i>Metadata Synchronization</i>
+
+       • <i>Configuration Files Replacement Policy</i>
+
+       • <i>Files</i>
+
+       • <i>See Also</i>
+</pre>

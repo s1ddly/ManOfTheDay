@@ -1,0 +1,36 @@
+<pre>
+       Alternative CLI to <b>dnf upgrade </b>with specific facilities to make
+       it suitable to be executed automatically and regularly from
+       systemd timers, cron jobs and similar.
+
+       The operation of the tool is usually controlled by the
+       configuration file or the function-specific timer units (see
+       below). The command only accepts a single optional argument
+       pointing to the config file, and some control arguments intended
+       for use by the services that back the timer units. If no
+       configuration file is passed from the command line,
+       <b>/etc/dnf/automatic.conf </b>is used.
+
+       The tool synchronizes package metadata as needed and then checks
+       for updates available for the given system and then either exits,
+       downloads the packages or downloads and applies the packages. The
+       outcome of the operation is then reported by a selected
+       mechanism, for instance via the standard output, email or MOTD
+       messages.
+
+       The systemd timer unit <b>dnf-automatic.timer </b>will behave as the
+       configuration file specifies (see below) with regard to whether
+       to download and apply updates. Some other timer units are
+       provided which override the configuration file with some standard
+       behaviours:
+
+       • dnf-automatic-notifyonly
+
+       • dnf-automatic-download
+
+       • dnf-automatic-install
+
+       Regardless of the configuration file settings, the first will
+       only notify of available updates. The second will download, but
+       not install them. The third will download and install them.
+</pre>

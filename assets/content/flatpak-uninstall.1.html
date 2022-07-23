@@ -1,0 +1,35 @@
+<pre>
+       Uninstalls an application or runtime.  REF is a reference to the
+       application or runtime to uninstall.
+
+       Each REF argument is a full or partial identifier in the flatpak
+       ref format, which looks like "(app|runtime)/ID/ARCH/BRANCH". All
+       elements except ID are optional and can be left out, including
+       the slashes, so most of the time you need only specify ID. Any
+       part left out will be matched against what is installed, and if
+       there are multiple matches you will be prompted to choose between
+       them. You will also be prompted if REF doesn't match any
+       installed ref exactly but is similar (e.g. "gedit" is similar to
+       "org.gnome.gedit").
+
+       By default this looks for both installed apps and runtimes with
+       the given REF, but you can limit this by using the <b>--app </b>or
+       <b>--runtime </b>option, or by supplying the initial element in the REF.
+
+       Normally, this command removes the ref for this
+       application/runtime from the local OSTree repository and purges
+       any objects that are no longer needed to free up disk space. If
+       the same application is later reinstalled, the objects will be
+       pulled from the remote repository again. The <b>--keep-ref </b>option
+       can be used to prevent this.
+
+       When <b>--delete-data </b>is specified while removing an app, its data
+       directory in ~/.var/app and any permissions it might have are
+       removed. When <b>--delete-data </b>is used without a REF, all 'unowned'
+       app data is removed.
+
+       Unless overridden with the <b>--system</b>, <b>--user</b>, or <b>--installation</b>
+       options, this command searches both the system-wide installation
+       and the per-user one for REF and errors out if it exists in more
+       than one.
+</pre>

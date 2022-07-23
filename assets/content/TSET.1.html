@@ -1,0 +1,97 @@
+<pre>
+   <b>tset - initialization</b>
+       This program initializes terminals.
+
+       First, <b>@TSET@ </b>retrieves the current terminal mode settings for
+       your terminal.  It does this by successively testing
+
+       •   the standard error,
+
+       •   standard output,
+
+       •   standard input and
+
+       •   ultimately “/dev/tty”
+
+       to obtain terminal settings.  Having retrieved these settings,
+       <b>@TSET@ </b>remembers which file descriptor to use when updating
+       settings.
+
+       Next, <b>@TSET@ </b>determines the type of terminal that you are using.
+       This determination is done as follows, using the first terminal
+       type found.
+
+       1. The <b>terminal </b>argument specified on the command line.
+
+       2. The value of the <b>TERM </b>environmental variable.
+
+       3. (BSD systems only.) The terminal type associated with the
+       standard error output device in the <i>/etc/ttys</i> file.  (On
+       System-V-like UNIXes and systems using that convention, <i>getty</i>
+       does this job by setting <b>TERM </b>according to the type passed to it
+       by <i>/etc/inittab</i>.)
+
+       4. The default terminal type, “unknown”.
+
+       If the terminal type was not specified on the command-line, the
+       <b>-m </b>option mappings are then applied (see the section <b>TERMINAL</b>
+       <b>TYPE MAPPING </b>for more information).  Then, if the terminal type
+       begins with a question mark (“?”), the user is prompted for
+       confirmation of the terminal type.  An empty response confirms
+       the type, or, another type can be entered to specify a new type.
+       Once the terminal type has been determined, the terminal
+       description for the terminal is retrieved.  If no terminal
+       description is found for the type, the user is prompted for
+       another terminal type.
+
+       Once the terminal description is retrieved,
+
+       •   if the “<b>-w</b>” option is enabled, <b>@TSET@ </b>may update the
+           terminal's window size.
+
+           If the window size cannot be obtained from the operating
+           system, but the terminal description (or environment, e.g.,
+           <b>LINES </b>and <b>COLUMNS </b>variables specify this), use this to set
+           the operating system's notion of the window size.
+
+       •   if the “<b>-c</b>” option is enabled, the backspace, interrupt and
+           line kill characters (among many other things) are set
+
+       •   unless the “<b>-I</b>” option is enabled, the terminal and tab
+           <i>initialization</i> strings are sent to the standard error output,
+           and <b>@TSET@ </b>waits one second (in case a hardware reset was
+           issued).
+
+       •   Finally, if the erase, interrupt and line kill characters
+           have changed, or are not set to their default values, their
+           values are displayed to the standard error output.
+
+   <b>reset - reinitialization</b>
+       When invoked as <b>@RESET@</b>, <b>@TSET@ </b>sets the terminal modes to “sane”
+       values:
+
+       •   sets cooked and echo modes,
+
+       •   turns off cbreak and raw modes,
+
+       •   turns on newline translation and
+
+       •   resets any unset special characters to their default values
+
+       before doing the terminal initialization described above.  Also,
+       rather than using the terminal <i>initialization</i> strings, it uses
+       the terminal <i>reset</i> strings.
+
+       The <b>@RESET@ </b>command is useful after a program dies leaving a
+       terminal in an abnormal state:
+
+       •   you may have to type
+
+               <i>&lt;LF&gt;</i><b>@RESET@</b><i>&lt;LF&gt;</i>
+
+           (the line-feed character is normally control-J) to get the
+           terminal to work, as carriage-return may no longer work in
+           the abnormal state.
+
+       •   Also, the terminal will often not echo the command.
+</pre>

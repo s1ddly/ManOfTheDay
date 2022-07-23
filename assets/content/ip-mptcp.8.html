@@ -1,0 +1,58 @@
+<pre>
+       MPTCP is a transport protocol built on top of TCP that allows TCP
+       connections to use multiple paths to maximize resource usage and
+       increase redundancy. The ip-mptcp sub-commands allow configuring
+       several aspects of the MPTCP path manager, which is in charge of
+       subflows creation:
+
+       The <b>endpoint </b>object specifies the IP addresses that will be used
+       and/or announced for additional subflows:
+
+       ip mptcp endpoint add      add new MPTCP endpoint
+       ip mptcp endpoint delete   delete existing MPTCP endpoint
+       ip mptcp endpoint show     get existing MPTCP endpoint
+       ip mptcp endpoint flush    flush all existing MPTCP endpoints
+
+       <i>PORT</i>   When a port number is specified, incoming MPTCP subflows
+              for already established MPTCP sockets will be accepted on
+              the specified port, regardless the original listener port
+              accepting the first MPTCP subflow and/or this peer being
+              actually on the client side.
+
+              <i>ID</i> is a unique numeric identifier for the given endpoint
+
+       <b>signal </b>the endpoint will be announced/signalled to each peer via
+              an ADD_ADDR MPTCP sub-option
+
+       <b>subflow</b>
+              if additional subflow creation is allowed by MPTCP limits,
+              the endpoint will be used as the source address to create
+              an additional subflow after that the MPTCP connection is
+              established.
+
+       <b>backup </b>the endpoint will be announced as a backup address, if
+              this is a <b>signal </b>endpoint, or the subflow will be created
+              as a backup one if this is a <b>subflow </b>endpoint
+
+       The <b>limits </b>object specifies the constraints for subflow
+       creations:
+
+       ip mptcp limits show   get current MPTCP subflow creation limits
+       ip mptcp limits set    change the MPTCP subflow creation limits
+
+       <i>SUBFLOW_NR</i>
+              specifies the maximum number of additional subflows
+              allowed for each MPTCP connection. Additional subflows can
+              be created due to: incoming accepted ADD_ADDR option,
+              local <b>subflow </b>endpoints, additional subflows started by
+              the peer.
+
+       <i>ADD_ADDR_ACCEPTED_NR</i>
+              specifies the maximum number of ADD_ADDR suboptions
+              accepted for each MPTCP connection. The MPTCP path manager
+              will try to create a new subflow for each accepted
+              ADD_ADDR option, respecting the <i>SUBFLOW_NR</i> limit.
+
+       <b>monitor </b>displays creation and deletion of MPTCP connections as
+       well as addition or removal of remote addresses and subflows.
+</pre>

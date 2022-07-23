@@ -1,0 +1,25 @@
+<pre>
+       The <i>admin</i> utility shall create new SCCS files or change
+       parameters of existing ones. If a named file does not exist, it
+       shall be created, and its parameters shall be initialized
+       according to the specified options.  Parameters not initialized
+       by an option shall be assigned a default value. If a named file
+       does exist, parameters corresponding to specified options shall
+       be changed, and other parameters shall be left as is.
+
+       All SCCS filenames supplied by the application shall be of the
+       form s.<i>filename</i>. New SCCS files shall be given read-only
+       permission mode. Write permission in the parent directory is
+       required to create a file. All writing done by <i>admin</i> shall be to
+       a temporary <i>x-file</i>, named x.<i>filename</i> (see <a href="https://man7.org/linux/man-pages/man1/get.1p.html">get(1p)</a>) created with
+       read-only mode if <i>admin</i> is creating a new SCCS file, or created
+       with the same mode as that of the SCCS file if the file already
+       exists. After successful execution of <i>admin</i>, the SCCS file shall
+       be removed (if it exists), and the <i>x-file</i> shall be renamed with
+       the name of the SCCS file. This ensures that changes are made to
+       the SCCS file only if no errors occur.
+
+       The <i>admin</i> utility shall also use a transient lock file (named
+       z.<i>filename</i>), which is used to prevent simultaneous updates to the
+       SCCS file; see <a href="https://man7.org/linux/man-pages/man1/get.1p.html">get(1p)</a>.
+</pre>

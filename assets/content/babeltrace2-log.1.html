@@ -1,0 +1,25 @@
+<pre>
+       The <b>babeltrace2-log </b>tool reads the lines of a Linux kernel ring
+       buffer, as printed by the <a href="https://man7.org/linux/man-pages/man1/dmesg.1.html">dmesg(1)</a> tool, from the standard input
+       stream and converts them to a CTF (see &lt;<a href="https://man7.org/linux/man-pagestp://diamon.org/ctf/">http://diamon.org/ctf/</a>&gt;)
+       trace written to the <i>OUTPUT-PATH</i> directory.
+
+       Usage example:
+
+           $ dmesg | babeltrace2-log --with-timestamps my-trace
+
+       The events of the generated CTF trace are named <b>string </b>and
+       contain a single payload string field named <b>str </b>which contains
+       the corresponding ring buffer line.
+
+       By default, <b>babeltrace2-log </b>does not try to extract the
+       timestamps of the kernel ring buffer lines to use them as the
+       created events’s timestamps. A typical <a href="https://man7.org/linux/man-pages/man1/dmesg.1.html">dmesg(1)</a> line looks like
+       this:
+
+           [87166.510937] PM: Finishing wakeup.
+
+       In the last example, the <b>[87166.510937] </b>part is a timestamp which
+       could be extracted. You can make <b>babeltrace2-log </b>extract
+       timestamps from lines with the <b>--with-timestamps </b>option.
+</pre>

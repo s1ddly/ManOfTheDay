@@ -1,0 +1,40 @@
+<pre>
+       <b>dpkg-buildflags </b>is a tool to retrieve compilation flags to use
+       during build of Debian packages.  The default flags are defined
+       by the vendor but they can be extended/overridden in several
+       ways:
+
+       1.     system-wide with <b>/usr/local/etc/dpkg/buildflags.conf</b>;
+
+       2.     for the current user with
+              <b>$XDG_CONFIG_HOME/dpkg/buildflags.conf </b>where
+              <b>$XDG_CONFIG_HOME </b>defaults to <b>$HOME/.config</b>;
+
+       3.     temporarily by the user with environment variables (see
+              section <b>ENVIRONMENT</b>);
+
+       4.     dynamically by the package maintainer with environment
+              variables set via <b>debian/rules </b>(see section <b>ENVIRONMENT</b>).
+
+       The configuration files can contain four types of directives:
+
+       <b>SET </b><i>flag value</i>
+              Override the flag named <i>flag</i> to have the value <i>value</i>.
+
+       <b>STRIP </b><i>flag value</i>
+              Strip from the flag named <i>flag</i> all the build flags listed
+              in <i>value</i>.
+
+       <b>APPEND </b><i>flag value</i>
+              Extend the flag named <i>flag</i> by appending the options given
+              in <i>value</i>.  A space is prepended to the appended value if
+              the flag's current value is non-empty.
+
+       <b>PREPEND </b><i>flag value</i>
+              Extend the flag named <i>flag</i> by prepending the options given
+              in <i>value</i>.  A space is appended to the prepended value if
+              the flag's current value is non-empty.
+
+       The configuration files can contain comments on lines starting
+       with a hash (#). Empty lines are also ignored.
+</pre>

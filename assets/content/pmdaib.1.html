@@ -1,0 +1,30 @@
+<pre>
+       <b>pmdaib </b>is a Performance Metrics Domain Agent (PMDA) which exports
+       information and performance metrics about local Infiniband HCAs
+       and local or remote Infiniband GUIDs.
+
+       A brief description of the <b>pmdaib </b>command line options follows:
+
+       <b>-c   </b>Location of the config file.  By default, the config file is
+            named <b>$PCP_PMDAS_DIR/infiniband/config.  </b>See <b>CONFIG FILE </b>for
+            more information.
+
+       <b>-D   </b>A debug values, as specified by <a href="https://man7.org/linux/man-pages/man1/pmdbg.1.html">pmdbg(1)</a>
+
+       <b>-d   </b>Specify an alternate performance metrics <i>domain</i> number.
+            Almost never necessary.
+
+       <b>-l   </b>Location of the log file.  By default, a log file named
+            <i>ib.log</i> is written to <b>$PCP_LOG_DIR/pmcd</b>.  If the log file
+            cannot be created or is not writable, output is written to
+            the standard error instead.
+
+       <b>-w   </b>Write out the default config file to
+            <b>$PCP_PMDAS_DIRS/infiniband </b>and exit immediately.  The
+            written config file will contain the local HCA ports.  It
+            will not overwrite an existing file.  This argument should
+            only be used to create the template config file and should
+            never appear in <i>pmcd.conf.</i>  See <b>CONFIG FILE </b>for more
+            information on the file format and on monitoring remote
+            GUIDs.
+</pre>

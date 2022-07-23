@@ -1,0 +1,19 @@
+<pre>
+       systemd-sysctl.service is an early boot service that configures
+       <a href="https://man7.org/linux/man-pages/man8/sysctl.8.html">sysctl(8)</a> kernel parameters by invoking
+       <b>/usr/lib/systemd/systemd-sysctl</b>.
+
+       When invoked with no arguments, <b>/usr/lib/systemd/systemd-sysctl</b>
+       applies all directives from configuration files listed in
+       <a href="https://man7.org/linux/man-pages/man5/sysctl.d.5.html">sysctl.d(5)</a>. If one or more filenames are passed on the command
+       line, only the directives in these files are applied.
+
+       In addition, <b>--prefix= </b>option may be used to limit which sysctl
+       settings are applied.
+
+       See <a href="https://man7.org/linux/man-pages/man5/sysctl.d.5.html">sysctl.d(5)</a> for information about the configuration of sysctl
+       settings. After sysctl configuration is changed on disk, it must
+       be written to the files in /proc/sys/ before it takes effect. It
+       is possible to update specific settings, or simply to reload all
+       configuration, see Examples below.
+</pre>

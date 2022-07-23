@@ -1,0 +1,39 @@
+<pre>
+       Manage multiple working trees attached to the same repository.
+
+       A git repository can support multiple working trees, allowing you
+       to check out more than one branch at a time. With <b>git worktree</b>
+       <b>add </b>a new working tree is associated with the repository. This
+       new working tree is called a "linked working tree" as opposed to
+       the "main working tree" prepared by <a href="https://man7.org/linux/man-pages/man1/git-init.1.html">git-init(1)</a> or <a href="https://man7.org/linux/man-pages/man1/git-clone.1.html">git-clone(1)</a>.
+       A repository has one main working tree (if it’s not a bare
+       repository) and zero or more linked working trees. When you are
+       done with a linked working tree, remove it with <b>git worktree</b>
+       <b>remove</b>.
+
+       In its simplest form, <b>git worktree add &lt;path&gt; </b>automatically
+       creates a new branch whose name is the final component of <b>&lt;path&gt;</b>,
+       which is convenient if you plan to work on a new topic. For
+       instance, <b>git worktree add ../hotfix </b>creates new branch <b>hotfix</b>
+       and checks it out at path <b>../hotfix</b>. To instead work on an
+       existing branch in a new working tree, use <b>git worktree add</b>
+       <b>&lt;path&gt; &lt;branch&gt;</b>. On the other hand, if you just plan to make some
+       experimental changes or do testing without disturbing existing
+       development, it is often convenient to create a <i>throwaway</i> working
+       tree not associated with any branch. For instance, <b>git worktree</b>
+       <b>add -d &lt;path&gt; </b>creates a new working tree with a detached <b>HEAD </b>at
+       the same commit as the current branch.
+
+       If a working tree is deleted without using <b>git worktree remove</b>,
+       then its associated administrative files, which reside in the
+       repository (see "DETAILS" below), will eventually be removed
+       automatically (see <b>gc.worktreePruneExpire </b>in <a href="https://man7.org/linux/man-pages/man1/git-config.1.html">git-config(1)</a>), or
+       you can run <b>git worktree prune </b>in the main or any linked working
+       tree to clean up any stale administrative files.
+
+       If a linked working tree is stored on a portable device or
+       network share which is not always mounted, you can prevent its
+       administrative files from being pruned by issuing the <b>git</b>
+       <b>worktree lock </b>command, optionally specifying <b>--reason </b>to explain
+       why the working tree is locked.
+</pre>

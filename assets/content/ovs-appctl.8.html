@@ -1,0 +1,59 @@
+<pre>
+       Open vSwitch daemons accept certain commands at runtime to
+       control their behavior and query their settings.  Every daemon
+       accepts a common set of commands documented under <b>COMMON COMMANDS</b>
+       below.  Some daemons support additional commands documented in
+       their own manpages.  <b>ovs-vswitchd </b>in particular accepts a number
+       of additional commands documented in <a href="https://man7.org/linux/man-pages/man8/ovs-vswitchd.8.html">ovs-vswitchd(8)</a>.
+
+       The <b>ovs-appctl </b>program provides a simple way to invoke these
+       commands.  The command to be sent is specified on <b>ovs-appctl</b>'s
+       command line as non-option arguments.  <b>ovs-appctl </b>sends the
+       command and prints the daemon's response on standard output.
+
+       In normal use only a single option is accepted:
+
+       <b>-t </b><i>target</i>
+       <b>--target=</b><i>target</i>
+              Tells <b>ovs-appctl </b>which daemon to contact.
+
+              If <i>target</i> begins with <b>/ </b>it must name a Unix domain socket
+              on which an Open vSwitch daemon is listening for control
+              channel connections.  By default, each daemon listens on a
+              Unix domain socket named
+              <b>/usr/local/var/run/openvswitch/</b><i>program</i><b>.</b><i>pid</i><b>.ctl</b>, where
+              <i>program</i> is the program's name and <i>pid</i> is its process ID.
+              For example, if <b>ovs-vswitchd </b>has PID 123, it would listen
+              on <b>/usr/local/var/run/openvswitch/ovs-vswitchd.123.ctl</b>.
+
+              Otherwise, <b>ovs-appctl </b>looks for a pidfile, that is, a file
+              whose contents are the process ID of a running process as
+              a decimal number, named
+              <b>/usr/local/var/run/openvswitch/</b><i>target</i><b>.pid</b>.  (The <b>--pidfile</b>
+              option makes an Open vSwitch daemon create a pidfile.)
+              <b>ovs-appctl </b>reads the pidfile, then looks for a Unix socket
+              named <b>/usr/local/var/run/openvswitch/</b><i>target</i><b>.</b><i>pid</i><b>.ctl</b>, where
+              <i>pid</i> is replaced by the process ID read from the pidfile,
+              and uses that file as if it had been specified directly as
+              the target.
+
+              On Windows, <i>target</i> can be an absolute path to a file that
+              contains a localhost TCP port on which an Open vSwitch
+              daemon is listening for control channel connections. By
+              default, each daemon writes the TCP port on which it is
+              listening for control connection into the file <i>program</i><b>.ctl</b>
+              located inside the configured <i>OVS_RUNDIR</i> directory. If
+              <i>target</i> is not an absolute path, <b>ovs-appctl </b>looks for a
+              file named <i>target</i><b>.ctl </b>in the configured <i>OVS_RUNDIR</i>
+              directory.
+
+              The default target is <b>ovs-vswitchd</b>.
+
+       <b>-T </b><i>secs</i>
+       <b>--timeout=</b><i>secs</i>
+              By default, or with a <i>secs</i> of <b>0</b>, <b>ovs-appctl </b>waits forever
+              to connect to the daemon and receive a response.  This
+              option limits runtime to approximately <i>secs</i> seconds.  If
+              the timeout expires, <b>ovs-appctl </b>exits with a <b>SIGALRM</b>
+              signal.
+</pre>

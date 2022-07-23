@@ -1,0 +1,77 @@
+<pre>
+       <b>nfs4_setfacl </b>manipulates the NFSv4 Access Control List (ACL) of
+       one or more <i>files</i> (or directories), provided they are on a
+       mounted NFSv4 filesystem which supports ACLs.
+
+       <b>nfs4_editfacl </b>is equivalent to <b>nfs4_setfacl -e</b>.
+
+       Refer to the <a href="https://man7.org/linux/man-pages/man5/nfs4_acl.5.html">nfs4_acl(5)</a> manpage for information about NFSv4 ACL
+       terminology and syntax.
+
+   <b>COMMANDS</b>
+       <b>-a </b><i>acl_spec</i> [<i>index</i>]
+              add the ACEs from <i>acl_spec</i> to <i>file</i>'s ACL.  ACEs are
+              inserted starting at the <i>index</i>th position (DEFAULT: 1) of
+              <i>file</i>'s ACL.
+
+       <b>-A </b><i>acl_file</i> [<i>index</i>]
+              add the ACEs from the acl_spec in <i>acl_file</i> to <i>file</i>'s ACL.
+              ACEs are inserted starting at the <i>index</i>th position
+              (DEFAULT: 1) of <i>file</i>'s ACL.
+
+       <b>-x </b><i>acl_spec</i> | <i>index</i>
+              delete ACEs matched from <i>acl_spec</i> - or delete the <i>index</i>th
+              ACE - from <i>file</i>'s ACL.  Note that the ordering of the ACEs
+              in <i>acl_spec</i> does not matter.
+
+       <b>-X </b><i>acl_file</i>
+              delete ACEs matched from the acl_spec in <i>acl_file</i> from
+              <i>file</i>'s ACL.  Note that the ordering of the ACEs in the
+              acl_spec does not matter.
+
+       <b>-s </b><i>acl_spec</i>
+              set <i>file</i>'s ACL to <i>acl_spec</i>.
+
+       <b>-S </b><i>acl_file</i>
+              set <i>file</i>'s ACL to the acl_spec in <i>acl_file</i>.
+
+       <b>-e</b>, <b>--edit</b>
+              edit <i>file</i>'s ACL in the editor defined in the EDITOR
+              environment variable (DEFAULT: <b>vi</b>(1)) and set the
+              resulting ACL upon a clean exit, assuming changes made in
+              the editor were saved.  Note that if multiple <i>files</i> are
+              specified, the editor will be serially invoked once per
+              <i>file</i>.
+
+       <b>-m </b><i>from_ace to_ace</i>
+              modify <i>file</i>'s ACL in-place by replacing <i>from_ace</i> with
+              <i>to_ace</i>.
+
+       <b>-?</b>, <b>-h</b>, <b>--help</b>
+              display help text and exit.
+
+       <b>--version</b>
+              display this program's version and exit.
+
+       NOTE: if '-' is given as the <i>acl_file</i> with the <b>-A</b>/<b>-X</b>/<b>-S </b>flags,
+       the acl_spec will be read from stdin.
+
+   <b>OPTIONS</b>
+       <b>-R</b>, <b>--recursive</b>
+              recursively apply to a directory's files and
+              subdirectories.  Similar to <a href="https://man7.org/linux/man-pages/man1/setfacl.1.html">setfacl(1)</a>, the default
+              behavior is to follow symlinks given on the command line
+              and to skip symlinks encountered while recursing through
+              directories.
+
+       <b>-L</b>, <b>--logical</b>
+              in conjunction with <b>-R</b>/<b>--recursive</b>, a logical walk follows
+              all symbolic links.
+
+       <b>-P</b>, <b>--physical</b>
+              in conjunction with <b>-R</b>/<b>--recursive</b>, a physical walk skips
+              all symbolic links.
+
+       <b>--test</b>
+              display results of <b>COMMAND</b>, but do not save changes.
+</pre>

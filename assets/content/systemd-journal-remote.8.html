@@ -1,0 +1,15 @@
+<pre>
+       <b>systemd-journal-remote </b>is a command to receive serialized journal
+       events and store them to journal files. Input streams are in the
+       <b>Journal Export Format</b><b></b>[1], i.e. like the output from <b>journalctl</b>
+       <b>--output=export</b>. For transport over the network, this serialized
+       stream is usually carried over an HTTPS connection.
+
+       systemd-journal-remote.service is a system service that uses
+       <b>systemd-journal-remote </b>to listen for connections.
+       systemd-journal-remote.socket configures the network address that
+       systemd-journal-remote.service listens on. By default this is
+       port 19532. What connections are accepted and how the received
+       data is stored can be configured through the
+       <a href="https://man7.org/linux/man-pages/man5/journal-remote.conf.5.html">journal-remote.conf(5)</a> configuration file.
+</pre>

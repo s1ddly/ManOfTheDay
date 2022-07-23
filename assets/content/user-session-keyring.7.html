@@ -1,0 +1,47 @@
+<pre>
+       The user session keyring is a keyring used to anchor keys on
+       behalf of a user.  Each UID the kernel deals with has its own
+       user session keyring that is shared by all processes with that
+       UID.  The user session keyring has a name (description) of the
+       form <i>_uid_ses.&lt;UID&gt;</i> where <i>&lt;UID&gt;</i> is the user ID of the
+       corresponding user.
+
+       The user session keyring is associated with the record that the
+       kernel maintains for the UID.  It comes into existence upon the
+       first attempt to access either the user session keyring, the
+       <a href="https://man7.org/linux/man-pages/man7/user-keyring.7.html">user-keyring(7)</a>, or the <a href="https://man7.org/linux/man-pages/man7/session-keyring.7.html">session-keyring(7)</a>.  The keyring remains
+       pinned in existence so long as there are processes running with
+       that real UID or files opened by those processes remain open.
+       (The keyring can also be pinned indefinitely by linking it into
+       another keyring.)
+
+       The user session keyring is created on demand when a thread
+       requests it or when a thread asks for its <a href="https://man7.org/linux/man-pages/man7/session-keyring.7.html">session-keyring(7)</a> and
+       that keyring doesn't exist.  In the latter case, a user session
+       keyring will be created and, if the session keyring wasn't to be
+       created, the user session keyring will be set as the process's
+       actual session keyring.
+
+       The user session keyring is searched by <a href="https://man7.org/linux/man-pages/man2/request_key.2.html">request_key(2)</a> if the
+       actual session keyring does not exist and is ignored otherwise.
+
+       A special serial number value, <b>KEY_SPEC_USER_SESSION_KEYRING</b>, is
+       defined that can be used in lieu of the actual serial number of
+       the calling process's user session keyring.
+
+       From the <a href="https://man7.org/linux/man-pages/man1/keyctl.1.html">keyctl(1)</a> utility, '<b>@us</b>' can be used instead of a
+       numeric key ID in much the same way.
+
+       User session keyrings are independent of <a href="https://man7.org/linux/man-pages/man2/clone.2.html">clone(2)</a>, <a href="https://man7.org/linux/man-pages/man2/fork.2.html">fork(2)</a>,
+       <a href="https://man7.org/linux/man-pages/man2/vfork.2.html">vfork(2)</a>, <a href="https://man7.org/linux/man-pages/man2/execve.2.html">execve(2)</a>, and <a href="https://man7.org/linux/man-pages/man2/_exit.2.html">_exit(2)</a> excepting that the keyring is
+       destroyed when the UID record is destroyed when the last process
+       pinning it exits.
+
+       If a user session keyring does not exist when it is accessed, it
+       will be created.
+
+       Rather than relying on the user session keyring, it is strongly
+       recommended—especially if the process is running as root—that a
+       <a href="https://man7.org/linux/man-pages/man7/session-keyring.7.html">session-keyring(7)</a> be set explicitly, for example by
+       <a href="https://man7.org/linux/man-pages/man8/pam_keyinit.8.html">pam_keyinit(8)</a>.
+</pre>

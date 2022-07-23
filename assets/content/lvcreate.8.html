@@ -1,0 +1,51 @@
+<pre>
+       lvcreate creates a new LV in a VG. For standard LVs, this
+       requires allocating logical extents from the VG's free physical
+       extents. If there is not enough free space, the VG can be
+       extended with other PVs (<a href="https://man7.org/linux/man-pages/man8/vgextend.8.html">vgextend(8)</a>), or existing LVs can be
+       reduced or removed (<a href="https://man7.org/linux/man-pages/man8/lvremove.8.html">lvremove(8)</a>, <a href="https://man7.org/linux/man-pages/man8/lvreduce.8.html">lvreduce(8)</a>).
+
+       To control which PVs a new LV will use, specify one or more PVs
+       as position args at the end of the command line. lvcreate will
+       allocate physical extents only from the specified PVs.
+
+       lvcreate can also create snapshots of existing LVs, e.g. for
+       backup purposes. The data in a new snapshot LV represents the
+       content of the original LV from the time the snapshot was
+       created.
+
+       RAID LVs can be created by specifying an LV type when creating
+       the LV (see <a href="https://man7.org/linux/man-pages/man7/lvmraid.7.html">lvmraid(7)</a>). Different RAID levels require different
+       numbers of unique PVs be available in the VG for allocation.
+
+       Thin pools (for thin provisioning) and cache pools (for caching)
+       are represented by special LVs with types thin-pool and
+       cache-pool (see <a href="https://man7.org/linux/man-pages/man7/lvmthin.7.html">lvmthin(7)</a> and <a href="https://man7.org/linux/man-pages/man7/lvmcache.7.html">lvmcache(7)</a>). The pool LVs are not
+       usable as standard block devices, but the LV names act as
+       references to the pools.
+
+       Thin LVs are thinly provisioned from a thin pool, and are created
+       with a virtual size rather than a physical size. A cache LV is
+       the combination of a standard LV with a cache pool, used to cache
+       active portions of the LV to improve performance.
+
+       VDO LVs are also provisioned volumes from a VDO pool, and are
+       created with a virtual size rather than a physical size (see
+       <a href="https://man7.org/linux/man-pages/man7/lvmvdo.7.html">lvmvdo(7)</a>).
+
+   <b>Usage notes</b>
+       In the usage section below, <b>--size </b><i>Size</i> can be replaced with
+       <b>--extents </b><i>Number</i>. See descriptions in the options section.
+
+       In the usage section below, <b>--name </b>is omitted from the required
+       options, even though it is typically used. When the name is not
+       specified, a new LV name is generated with the "lvol" prefix and
+       a unique numeric suffix.
+
+       In the usage section below, when creating a pool and the name is
+       omitted the new LV pool name is generated with the "vpool" for
+       vdo-pools  for prefix and a unique numeric suffix.
+
+       Pool name can be specified together with <i>VG</i> name i.e.:
+       vg00/mythinpool.
+</pre>

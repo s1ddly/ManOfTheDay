@@ -1,0 +1,31 @@
+<pre>
+       <b>su </b>allows commands to be run with a substitute user and group ID.
+
+       When called with no <i>user</i> specified, <b>su </b>defaults to running an
+       interactive shell as <i>root</i>. When <i>user</i> is specified, additional
+       <i>argument</i>s can be supplied, in which case they are passed to the
+       shell.
+
+       For backward compatibility, <b>su </b>defaults to not change the current
+       directory and to only set the environment variables <b>HOME </b>and
+       <b>SHELL </b>(plus <b>USER </b>and <b>LOGNAME </b>if the target <i>user</i> is not root). It
+       is recommended to always use the <b>--login </b>option (instead of its
+       shortcut <b>-</b>) to avoid side effects caused by mixing environments.
+
+       This version of <b>su </b>uses PAM for authentication, account and
+       session management. Some configuration options found in other <b>su</b>
+       implementations, such as support for a wheel group, have to be
+       configured via PAM.
+
+       <b>su </b>is mostly designed for unprivileged users, the recommended
+       solution for privileged users (e.g., scripts executed by root) is
+       to use non-set-user-ID command <a href="https://man7.org/linux/man-pages/man1/runuser.1.html">runuser(1)</a> that does not require
+       authentication and provides separate PAM configuration. If the
+       PAM session is not required at all then the recommended solution
+       is to use command <a href="https://man7.org/linux/man-pages/man1/setpriv.1.html">setpriv(1)</a>.
+
+       Note that <b>su </b>in all cases uses PAM (<a href="https://man7.org/linux/man-pages/man3/pam_getenvlist.3.html">pam_getenvlist(3)</a>) to do the
+       final environment modification. Command-line options such as
+       <b>--login </b>and <b>--preserve-environment </b>affect the environment before
+       it is modified by PAM.
+</pre>

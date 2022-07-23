@@ -1,0 +1,24 @@
+<pre>
+       The <b>lttng list </b>command lists tracing sessions, tracing domains,
+       channels, and events.
+
+       Without arguments, <b>lttng list </b>lists the existing tracing sessions
+       and shows if they are active or not.
+
+       With one or more of the <b>--kernel</b>, <b>--userspace</b>, <b>--jul</b>, <b>--log4j</b>,
+       and <b>--python </b>domain options, the command lists the available
+       event sources of the selected domain on the system. The JUL,
+       log4j, and Python domains list the names of their available
+       <i>loggers</i>. The <b>--syscall </b>option can be used alongside the <b>--kernel</b>
+       option to get a list of traceable Linux system calls. The
+       <b>--fields </b>option can be used to show the fields of the listed
+       event sources.
+
+       Providing a tracing session name <i>SESSION</i> targets a specific
+       tracing session. If the <b>--domain </b>option is used, domains
+       containing at least one channel in the selected tracing session
+       are listed. Otherwise, all the domains, channels, and event rules
+       of the selected tracing session are listed along with its details
+       (trace path, for example), except when the <b>--channel </b>option is
+       used to isolate a specific channel by name.
+</pre>

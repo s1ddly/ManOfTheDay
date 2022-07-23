@@ -1,0 +1,31 @@
+<pre>
+       The <i>fort77</i> utility is the interface to the FORTRAN compilation
+       system; it shall accept the full FORTRAN-77 language defined by
+       the ANSI X3.9‐1978 standard. The system conceptually consists of
+       a compiler and link editor. The files referenced by <i>operand</i>s are
+       compiled and linked to produce an executable file. It is
+       unspecified whether the linking occurs entirely within the
+       operation of <i>fort77</i>; some implementations may produce objects
+       that are not fully resolved until the file is executed.
+
+       If the <b>-c </b>option is present, for all pathname operands of the
+       form <i>file</i><b>.f</b>, the files:
+
+           $(basename <i>pathname</i>.f).o
+
+       shall be created or overwritten as the result of successful
+       compilation. If the <b>-c </b>option is not specified, it is unspecified
+       whether such <b>.o </b>files are created or deleted for the <i>file</i><b>.f</b>
+       operands.
+
+       If there are no options that prevent link editing (such as <b>-c</b>)
+       and all operands compile and link without error, the resulting
+       executable file shall be written into the file named by the <b>-o</b>
+       option (if present) or to the file <b>a.out</b>.  The executable file
+       shall be created as specified in the System Interfaces volume of
+       POSIX.1‐2017, except that the file permissions shall be set to:
+       S_IRWXO | S_IRWXG | S_IRWXU
+
+       and that the bits specified by the <i>umask</i> of the process shall be
+       cleared.
+</pre>

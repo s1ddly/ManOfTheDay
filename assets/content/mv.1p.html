@@ -1,0 +1,133 @@
+<pre>
+       In the first synopsis form, the <i>mv</i> utility shall move the file
+       named by the <i>source_file</i> operand to the destination specified by
+       the <i>target_file</i>.  This first synopsis form is assumed when the
+       final operand does not name an existing directory and is not a
+       symbolic link referring to an existing directory. In this case,
+       if <i>source_file</i> names a non-directory file and <i>target_file</i> ends
+       with a trailing &lt;slash&gt; character, <i>mv</i> shall treat this as an
+       error and no <i>source_file</i> operands will be processed.
+
+       In the second synopsis form, <i>mv</i> shall move each file named by a
+       <i>source_file</i> operand to a destination file in the existing
+       directory named by the <i>target_dir</i> operand, or referenced if
+       <i>target_dir</i> is a symbolic link referring to an existing directory.
+       The destination path for each <i>source_file</i> shall be the
+       concatenation of the target directory, a single &lt;slash&gt; character
+       if the target did not end in a &lt;slash&gt;, and the last pathname
+       component of the <i>source_file</i>.  This second form is assumed when
+       the final operand names an existing directory.
+
+       If any operand specifies an existing file of a type not specified
+       by the System Interfaces volume of POSIX.1‐2017, the behavior is
+       implementation-defined.
+
+       For each <i>source_file</i> the following steps shall be taken:
+
+        1. If the destination path exists, the <b>-f </b>option is not
+           specified, and either of the following conditions is true:
+
+            a. The permissions of the destination path do not permit
+               writing and the standard input is a terminal.
+
+            b. The <b>-i </b>option is specified.
+
+           the <i>mv</i> utility shall write a prompt to standard error and
+           read a line from standard input. If the response is not
+           affirmative, <i>mv</i> shall do nothing more with the current
+           <i>source_file</i> and go on to any remaining <i>source_file</i>s.
+
+        2. If the <i>source_file</i> operand and destination path resolve to
+           either the same existing directory entry or different
+           directory entries for the same existing file, then the
+           destination path shall not be removed, and one of the
+           following shall occur:
+
+            a. No change is made to <i>source_file</i>, no error occurs, and no
+               diagnostic is issued.
+
+            b. No change is made to <i>source_file</i>, a diagnostic is issued
+               to standard error identifying the two names, and the exit
+               status is affected.
+
+            c. If the <i>source_file</i> operand and destination path name
+               distinct directory entries, then the <i>source_file</i> operand
+               is removed, no error occurs, and no diagnostic is issued.
+
+           The <i>mv</i> utility shall do nothing more with the current
+           <i>source_file</i>, and go on to any remaining <i>source_file</i>s.
+
+        3. The <i>mv</i> utility shall perform actions equivalent to the
+           <i>rename</i>() function defined in the System Interfaces volume of
+           POSIX.1‐2017, called with the following arguments:
+
+            a. The <i>source_file</i> operand is used as the <i>old</i> argument.
+
+            b. The destination path is used as the <i>new</i> argument.
+
+           If this succeeds, <i>mv</i> shall do nothing more with the current
+           <i>source_file</i> and go on to any remaining <i>source_file</i>s.  If this
+           fails for any reasons other than those described for the
+           <i><a href="https://man7.org/linux/man-pages/man3/errno.3.html">errno</a></i> <b>[EXDEV] </b>in the System Interfaces volume of
+           POSIX.1‐2017, <i>mv</i> shall write a diagnostic message to standard
+           error, do nothing more with the current <i>source_file</i>, and go
+           on to any remaining <i>source_file</i>s.
+
+        4. If the destination path exists, and it is a file of type
+           directory and <i>source_file</i> is not a file of type directory, or
+           it is a file not of type directory and <i>source_file</i> is a file
+           of type directory, <i>mv</i> shall write a diagnostic message to
+           standard error, do nothing more with the current <i>source_file</i>,
+           and go on to any remaining <i>source_file</i>s.  If the destination
+           path exists and was created by a previous step, it is
+           unspecified whether this will treated as an error or the
+           destination path will be overwritten.
+
+        5. If the destination path exists, <i>mv</i> shall attempt to remove
+           it. If this fails for any reason, <i>mv</i> shall write a diagnostic
+           message to standard error, do nothing more with the current
+           <i>source_file</i>, and go on to any remaining <i>source_file</i>s.
+
+        6. The file hierarchy rooted in <i>source_file</i> shall be duplicated
+           as a file hierarchy rooted in the destination path. If
+           <i>source_file</i> or any of the files below it in the hierarchy are
+           symbolic links, the links themselves shall be duplicated,
+           including their contents, rather than any files to which they
+           refer. The following characteristics of each file in the file
+           hierarchy shall be duplicated:
+
+            *  The time of last data modification and time of last
+               access
+
+            *  The user ID and group ID
+
+            *  The file mode
+
+           If the user ID, group ID, or file mode of a regular file
+           cannot be duplicated, the file mode bits S_ISUID and S_ISGID
+           shall not be duplicated.
+
+           When files are duplicated to another file system, the
+           implementation may require that the process invoking <i>mv</i> has
+           read access to each file being duplicated.
+
+           If files being duplicated to another file system have hard
+           links to other files, it is unspecified whether the files
+           copied to the new file system have the hard links preserved
+           or separate copies are created for the linked files.
+
+           If the duplication of the file hierarchy fails for any
+           reason, <i>mv</i> shall write a diagnostic message to standard
+           error, do nothing more with the current <i>source_file</i>, and go
+           on to any remaining <i>source_file</i>s.
+
+           If the duplication of the file characteristics fails for any
+           reason, <i>mv</i> shall write a diagnostic message to standard
+           error, but this failure shall not cause <i>mv</i> to modify its exit
+           status.
+
+        7. The file hierarchy rooted in <i>source_file</i> shall be removed. If
+           this fails for any reason, <i>mv</i> shall write a diagnostic
+           message to the standard error, do nothing more with the
+           current <i>source_file</i>, and go on to any remaining <i>source_file</i>s.
+</pre>

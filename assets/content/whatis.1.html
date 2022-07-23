@@ -1,0 +1,21 @@
+<pre>
+       Each manual page has a short description available within it.
+       <b>whatis </b>searches the manual page names and displays the manual
+       page descriptions of any <i>name</i> matched.
+
+       <i>name</i> may contain wildcards (<b>-w</b>) or be a regular expression (<b>-r</b>).
+       Using these options, it may be necessary to quote the <i>name</i> or
+       escape (\) the special characters to stop the shell from
+       interpreting them.
+
+       <b>index </b>databases are used during the search, and are updated by
+       the <b>mandb </b>program.  Depending on your installation, this may be
+       run by a periodic cron job, or may need to be run manually after
+       new manual pages have been installed.  To produce an old style
+       text <b>whatis </b>database from the relative <b>index </b>database, issue the
+       command:
+
+       <b>whatis -M </b><i>manpath</i> <b>-w '*' | sort &gt; </b><i>manpath/whatis</i>
+
+       where <i>manpath</i> is a manual page hierarchy such as <i>/usr/man</i>.
+</pre>

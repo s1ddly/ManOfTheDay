@@ -1,0 +1,34 @@
+<pre>
+       <b>fuser </b>displays the PIDs of processes using the specified files or
+       file systems.  In the default display mode, each file name is
+       followed by a letter denoting the type of access:
+
+              <b>c      </b>current directory.
+              <b>e      </b>executable being run.
+              <b>f      </b>open file.  <b>f </b>is omitted in default display mode.
+              <b>F      </b>open file for writing.  <b>F </b>is omitted in default
+                     display mode.
+              <b>r      </b>root directory.
+              <b>m      </b>mmap'ed file or shared library.
+              <b>.      </b>Placeholder, omitted in default display mode.
+
+       <b>fuser </b>returns a non-zero return code if none of the specified
+       files is accessed or in case of a fatal error.  If at least one
+       access has been found, <b>fuser </b>returns zero.
+
+       In order to look up processes using TCP and UDP sockets, the
+       corresponding name space has to be selected with the <b>-n </b>option.
+       By default <b>fuser </b>will look in both IPv6 and IPv4 sockets.  To
+       change the default behavior, use the <b>-4 </b>and <b>-6 </b>options.  The
+       socket(s) can be specified by the local and remote port, and the
+       remote address.  All fields are optional, but commas in front of
+       missing fields must be present:
+
+       [<i>lcl_port</i>][,[<i>rmt_host</i>][,[<i>rmt_port</i>]]]
+
+       Either symbolic or numeric values can be used for IP addresses
+       and port numbers.
+
+       <b>fuser </b>outputs only the PIDs to stdout, everything else is sent to
+       stderr.
+</pre>

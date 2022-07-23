@@ -1,0 +1,31 @@
+<pre>
+       <b>resolve_stack_dump </b>resolves a numeric stack dump to symbols.
+
+       Invoke <b>resolve_stack_dump </b>like this:
+
+           shell&gt; <b>resolve_stack_dump [</b><i>options</i><b>] </b><i>symbols_file</i> <b>[</b><i>numeric_dump_file</i><b>]</b>
+
+       The symbols file should include the output from the <b>nm</b>
+       <b>--numeric-sort mysqld </b>command. The numeric dump file should
+       contain a numeric stack track from <b>mysqld</b>. If no numeric dump
+       file is named on the command line, the stack trace is read from
+       the standard input.
+
+       <b>resolve_stack_dump </b>supports the following options.
+
+       •   <b>--help</b>, <b>-h</b>
+
+           Display a help message and exit.
+
+       •   <b>--numeric-dump-file=</b><i>file_name</i>, <b>-n </b><i>file_name</i>
+
+           Read the stack trace from the given file.
+
+       •   <b>--symbols-file=</b><i>file_name</i>, <b>-s </b><i>file_name</i>
+
+           Use the given symbols file.
+
+       •   <b>--version</b>, <b>-V</b>
+
+           Display version information and exit.
+</pre>

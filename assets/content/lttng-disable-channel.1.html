@@ -1,0 +1,13 @@
+<pre>
+       The <b>lttng disable-channel </b>command disables one or more channels
+       previously enabled by the <a href="https://man7.org/linux/man-pages/man1/lttng-enable-channel.1.html">lttng-enable-channel(1)</a> command.
+
+       A channel is always contained in a tracing session (see
+       <a href="https://man7.org/linux/man-pages/man1/lttng-create.1.html">lttng-create(1)</a> for creating a tracing session). The session in
+       which a channel is disabled using <b>lttng disable-channel </b>can be
+       specified using the <b>--session </b>option. If the <b>--session </b>option is
+       omitted, the current tracing session is targeted.
+
+       Note that re-enabling a disabled channel once its tracing session
+       has been active at least once is currently not supported.
+</pre>

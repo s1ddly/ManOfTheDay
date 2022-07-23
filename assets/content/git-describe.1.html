@@ -1,0 +1,18 @@
+<pre>
+       The command finds the most recent tag that is reachable from a
+       commit. If the tag points to the commit, then only the tag is
+       shown. Otherwise, it suffixes the tag name with the number of
+       additional commits on top of the tagged object and the
+       abbreviated object name of the most recent commit. The result is
+       a "human-readable" object name which can also be used to identify
+       the commit to other git commands.
+
+       By default (without --all or --tags) <b>git describe </b>only shows
+       annotated tags. For more information about creating annotated
+       tags see the -a and -s options to <a href="https://man7.org/linux/man-pages/man1/git-tag.1.html">git-tag(1)</a>.
+
+       If the given object refers to a blob, it will be described as
+       <b>&lt;commit-ish&gt;:&lt;path&gt;</b>, such that the blob can be found at <b>&lt;path&gt; </b>in
+       the <b>&lt;commit-ish&gt;</b>, which itself describes the first commit in
+       which this blob occurs in a reverse revision walk from HEAD.
+</pre>

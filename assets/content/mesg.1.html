@@ -1,0 +1,18 @@
+<pre>
+       The <b>mesg </b>utility is invoked by a user to control write access
+       others have to the terminal device associated with standard error
+       output. If write access is allowed, then programs such as <b>talk</b>(1)
+       and <b>write</b>(1) may display messages on the terminal.
+
+       Traditionally, write access is allowed by default. However, as
+       users become more conscious of various security risks, there is a
+       trend to remove write access by default, at least for the primary
+       login shell. To make sure your ttys are set the way you want them
+       to be set, <b>mesg </b>should be executed in your login scripts.
+
+       The <b>mesg </b>utility silently exits with error status 2 if not
+       executed on terminal. In this case execute <b>mesg </b>is pointless. The
+       command line option <b>--verbose </b>forces mesg to print a warning in
+       this situation. This behaviour has been introduced in version
+       2.33.
+</pre>

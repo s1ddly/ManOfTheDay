@@ -1,0 +1,14 @@
+<pre>
+       <b>fsck.xfs </b>is called by the generic Linux <a href="https://man7.org/linux/man-pages/man8/fsck.8.html">fsck(8)</a> program at
+       startup to check and repair an XFS filesystem.  XFS is a
+       journaling filesystem and performs recovery at <a href="https://man7.org/linux/man-pages/man8/mount.8.html">mount(8)</a> time if
+       necessary, so <b>fsck.xfs </b>simply exits with a zero exit status.
+
+       If you wish to check the consistency of an XFS filesystem, or
+       repair a damaged or corrupt XFS filesystem, see <a href="https://man7.org/linux/man-pages/man8/xfs_repair.8.html">xfs_repair(8)</a>.
+
+       However, the system administrator can force <b>fsck.xfs </b>to run
+       <a href="https://man7.org/linux/man-pages/man8/xfs_repair.8.html">xfs_repair(8)</a> at boot time by creating a /forcefsck file or
+       booting the system with "fsck.mode=force" on the kernel command
+       line.
+</pre>

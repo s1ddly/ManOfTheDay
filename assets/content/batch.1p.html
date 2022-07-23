@@ -1,0 +1,24 @@
+<pre>
+       The <i>batch</i> utility shall read commands from standard input and
+       schedule them for execution in a batch queue. It shall be the
+       equivalent of the command:
+
+           at -q b -m now
+
+       where queue <i>b</i> is a special <i>at</i> queue, specifically for batch jobs.
+       Batch jobs shall be submitted to the batch queue with no time
+       constraints and shall be run by the system using algorithms,
+       based on unspecified factors, that may vary with each invocation
+       of <i>batch</i>.
+
+       Users shall be permitted to use <i>batch</i> if their name appears in
+       the file <b>at.allow </b>which is located in an implementation-defined
+       directory.  If that file does not exist, the file <b>at.deny</b>, which
+       is located in an implementation-defined directory, shall be
+       checked to determine whether the user shall be denied access to
+       <i>batch</i>.  If neither file exists, only a process with appropriate
+       privileges shall be allowed to submit a job. If only <b>at.deny</b>
+       exists and is empty, global usage shall be permitted. The
+       <b>at.allow </b>and <b>at.deny </b>files shall consist of one user name per
+       line.
+</pre>

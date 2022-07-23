@@ -1,0 +1,16 @@
+<pre>
+       <b>usb-devices </b>is a shell script that can be used to display details
+       of USB buses in the system and the devices connected to them.
+
+       The output of the script is similar to the <i>usb/devices</i> file
+       available either under <i>/proc/bus</i> (if usbfs is mounted), or under
+       <i>/sys/kernel/debug</i> (if debugfs is mounted there). The script is
+       primarily intended to be used if the file is not available.
+
+       In contrast to the <i>usb/devices</i> file, this script only lists
+       <i>active</i> interfaces (those marked with a "*" in the <i>usb/devices</i>
+       file) and their endpoints.
+
+       Be advised that there can be differences in the way information
+       is sorted, as well as in the format of the output.
+</pre>

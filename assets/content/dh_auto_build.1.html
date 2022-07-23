@@ -1,0 +1,12 @@
+<pre>
+       <b>dh_auto_build </b>is a debhelper program that tries to automatically
+       build a package. It does so by running the appropriate command
+       for the build system it detects the package uses. For example, if
+       a <i>Makefile</i> is found, this is done by running <b>make </b>(or <b>MAKE</b>, if
+       the environment variable is set). If there's a <i>setup.py</i>, or
+       <i>Build.PL</i>, it is run to build the package.
+
+       This is intended to work for about 90% of packages. If it doesn't
+       work, you're encouraged to skip using <b>dh_auto_build </b>at all, and
+       just run the build process manually.
+</pre>

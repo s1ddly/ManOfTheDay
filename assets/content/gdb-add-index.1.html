@@ -1,0 +1,21 @@
+<pre>
+       When GDB finds a symbol file, it scans the symbols in the file in
+       order to construct an internal symbol table.  This lets most GDB
+       operations work quickly--at the cost of a delay early on.  For
+       large programs, this delay can be quite lengthy, so GDB provides
+       a way to build an index, which speeds up startup.
+
+       To determine whether a file contains such an index, use the
+       command "readelf -S filename": the index is stored in a section
+       named ".gdb_index".  The index file can only be produced on
+       systems which use ELF binaries and DWARF debug information (i.e.,
+       sections named ".debug_*").
+
+       <b>gdb-add-index </b>uses GDB and <b>objdump </b>found in the <b>PATH </b>environment
+       variable.  If you want to use different versions of these
+       programs, you can specify them through the <b>GDB </b>and <b>OBJDUMP</b>
+       environment variables.
+
+       See more in the GDB manual in node "Index Files" -- shell command
+       "info -f gdb -n "Index Files"".
+</pre>

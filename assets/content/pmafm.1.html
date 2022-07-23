@@ -1,0 +1,101 @@
+<pre>
+       A collection of one or more Performance Co-Pilot (PCP) archive
+       logs may be combined with a control file to produce a PCP archive
+       folio.  Archive folios are created using either <a href="https://man7.org/linux/man-pages/man1/mkaf.1.html">mkaf(1)</a> or the
+       interactive ``record mode'' services of PCP clients like
+       <a href="https://man7.org/linux/man-pages/man1/pmchart.1.html">pmchart(1)</a>.
+
+       <b>pmafm </b>provides a number of services that may be used to process
+       folios.  In particular, it provides support for execution of PCP
+       tools using one or more of the component archive logs within an
+       archive folio.
+
+       The target folio is identified by the folio control file
+       <i>folioname</i>.  The syntax for a folio control file is described in
+       <a href="https://man7.org/linux/man-pages/man1/mkaf.1.html">mkaf(1)</a>.
+
+       If present, the command and arguments following <i>folioname</i> are
+       interpreted and executed as a single command, otherwise commands
+       are read from standard input.
+
+       The following commands are supported.
+
+       <b>archives</b>
+              Subsequent commands apply to all archives in the folio.
+
+       <b>archives </b><i>N</i>[,...]
+              Archives within a folio are numbered 1, 2, etc.
+              Subsequent commands are restricted to apply only to the
+              designated archives.
+
+       <b>archives </b><i>name</i>[,...]
+              Archives within a folio have unique names.  Subsequent
+              commands are restricted to apply only to the designated
+              archives.
+
+       <b>check  </b>Validate the presence and format of each file in the folio
+              and the component archives.
+
+       <b>help</b>
+              A brief reminder of the command syntax.  <b>?  </b>is a synonym
+              for <b>help</b>.
+
+       <b>hosts</b>
+              Subsequent commands apply to all archives in the folio.
+
+       <b>hosts </b><i>hostname</i>[,...]
+              Subsequent commands are restricted to apply only to those
+              archives that match the designated hostnames.
+
+       <b>list </b>[<b>verbose</b>]
+              Display the contents of the folio.  By default the control
+              header and the ordinal number, hostname and archive base
+              name for each archive in the folio.  The <b>verbose </b>option
+              causes <b>pmafm </b>to dump the label record from each archive
+              using <b>pmdumplog -l</b>.
+
+              The first named archive in the folio is assumed to be
+              associated with the default host for any tool that tries
+              to replay multiple archives from the folio.
+
+       <b>quit</b>
+              Exit <b>pmafm</b>.
+
+       <b>remove</b>
+              Echo on standard output the <b>sh</b>(1) commands required to
+              remove all of the physical files associated with this
+              archive folio.
+
+       <b>repeat </b><i>tool</i> [<i>arg</i> ...]
+              Execute the known PCP <i>tool</i> once per selected archive.  For
+              example, the command
+                   repeat pmval -t60 kernel.all.load
+              would run <a href="https://man7.org/linux/man-pages/man1/pmval.1.html">pmval(1)</a> once per archive, with an appropriate
+              <b>-a </b>argument.
+
+       <b>replay</b>
+              Some archive folios are created by tools (e.g. <a href="https://man7.org/linux/man-pages/man1/pmchart.1.html">pmchart(1)</a>)
+              that provide sufficient information to allow all of the
+              information in all of the archives of a folio to be
+              replayed.
+
+       [<b>run</b>] <i>tool</i> [<i>arg</i> ...]
+              Execute the known PCP <i>tool</i> on the selected archives.  Some
+              PCP tools are able to process multiple concurrent
+              archives, and in this case the tool is run once with the
+              list of all selected archives passed via a <b>-a </b>argument.
+              Otherwise, this command is synonymous with <b>repeat</b>.
+
+       <b>selections</b>
+              Display those archives that would be selected for
+              processing with a <b>repeat</b>, <b>replay </b>or <b>run </b>command.
+
+       The restrictions via any <b>hosts </b>and <b>archives </b>commands are
+       conjuncted.  These restrictions serve to limit the specific
+       archives processed in the subsequent <b>repeat</b>, <b>replay</b>, <b>run </b>and
+       <b>selections </b>commands.  By default, all archives are selected.
+
+       Keywords in commands may be abbreviated provided no ambiguity is
+       introduced, e.g.  <b>help</b>, <b>hel </b>and <b>he </b>are synonymous, but <b>h </b>is
+       ambiguous.
+</pre>

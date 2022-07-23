@@ -1,0 +1,11 @@
+<pre>
+       Creates a tree object using the current index. The name of the
+       new tree object is printed to standard output.
+
+       The index must be in a fully merged state.
+
+       Conceptually, <i>git write-tree</i> sync()s the current index contents
+       into a set of tree files. In order to have that match what is
+       actually in your directory right now, you need to have done a <i>git</i>
+       <i>update-index</i> phase before you did the <i>git write-tree</i>.
+</pre>

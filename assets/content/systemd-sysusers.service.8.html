@@ -1,0 +1,16 @@
+<pre>
+       <b>systemd-sysusers </b>creates system users and groups, based on the
+       file format and location specified in <a href="https://man7.org/linux/man-pages/man5/sysusers.d.5.html">sysusers.d(5)</a>.
+
+       If invoked with no arguments, it applies all directives from all
+       files found in the directories specified by <a href="https://man7.org/linux/man-pages/man5/sysusers.d.5.html">sysusers.d(5)</a>. When
+       invoked with positional arguments, if option <b>--replace=</b><i>PATH</i> is
+       specified, arguments specified on the command line are used
+       instead of the configuration file <i>PATH</i>. Otherwise, just the
+       configuration specified by the command line arguments is
+       executed. The string "-" may be specified instead of a filename
+       to instruct <b>systemd-sysusers </b>to read the configuration from
+       standard input. If only the basename of a file is specified, all
+       configuration directories are searched for a matching file and
+       the file found that has the highest priority is executed.
+</pre>

@@ -1,0 +1,34 @@
+<pre>
+       The <i>time</i> utility shall invoke the utility named by the <i>utility</i>
+       operand with arguments supplied as the <i>argument</i> operands and
+       write a message to standard error that lists timing statistics
+       for the utility. The message shall include the following
+       information:
+
+        *  The elapsed (real) time between invocation of <i>utility</i> and its
+           termination.
+
+        *  The User CPU time, equivalent to the sum of the <i>tms_utime</i> and
+           <i>tms_cutime</i> fields returned by the <i>times</i>() function defined in
+           the System Interfaces volume of POSIX.1‐2017 for the process
+           in which <i>utility</i> is executed.
+
+        *  The System CPU time, equivalent to the sum of the <i>tms_stime</i>
+           and <i>tms_cstime</i> fields returned by the <i>times</i>() function for
+           the process in which <i>utility</i> is executed.
+
+       The precision of the timing shall be no less than the granularity
+       defined for the size of the clock tick unit on the system, but
+       the results shall be reported in terms of standard time units
+       (for example, 0.02 seconds, 00:00:00.02, 1m33.75s, 365.21
+       seconds), not numbers of clock ticks.
+
+       When <i>time</i> is used as part of a pipeline, the times reported are
+       unspecified, except when it is the sole command within a grouping
+       command (see <i>Section 2.9.4.1</i>, <i>Grouping Commands</i>) in that
+       pipeline. For example, the commands on the left are unspecified;
+       those on the right report on utilities <b>a </b>and <b>c</b>, respectively:
+
+           time a | b | c    { time a; } | b | c
+           a | b | time c    a | b | (time c)
+</pre>

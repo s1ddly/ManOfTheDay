@@ -1,0 +1,30 @@
+<pre>
+       Base64 encode or decode FILE, or standard input, to standard
+       output.
+
+       With no FILE, or when FILE is -, read standard input.
+
+       Mandatory arguments to long options are mandatory for short
+       options too.
+
+       <b>-d</b>, <b>--decode</b>
+              decode data
+
+       <b>-i</b>, <b>--ignore-garbage</b>
+              when decoding, ignore non-alphabet characters
+
+       <b>-w</b>, <b>--wrap</b>=<i>COLS</i>
+              wrap encoded lines after COLS character (default 76).  Use
+              0 to disable line wrapping
+
+       <b>--help </b>display this help and exit
+
+       <b>--version</b>
+              output version information and exit
+
+       The data are encoded as described for the base64 alphabet in RFC
+       4648.  When decoding, the input may contain newlines in addition
+       to the bytes of the formal base64 alphabet.  Use <b>--ignore-garbage</b>
+       to attempt to recover from any other non-alphabet bytes in the
+       encoded stream.
+</pre>

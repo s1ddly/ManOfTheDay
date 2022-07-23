@@ -1,0 +1,10 @@
+<pre>
+       <b>dh_installmodules </b>is a debhelper program that is responsible for
+       registering kernel modules.
+
+       Kernel modules are searched for in the package build directory
+       and if found, <i>preinst</i>, <i>postinst</i> and <i>postrm</i> commands are
+       automatically generated to run <b>depmod </b>and register the modules
+       when the package is installed.  These commands are inserted into
+       the maintainer scripts by <a href="https://man7.org/linux/man-pages/man1/dh_installdeb.1.html">dh_installdeb(1)</a>.
+</pre>

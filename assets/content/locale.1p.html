@@ -1,0 +1,22 @@
+<pre>
+       The <i>locale</i> utility shall write information about the current
+       locale environment, or all public locales, to the standard
+       output. For the purposes of this section, a <i>public locale</i> is one
+       provided by the implementation that is accessible to the
+       application.
+
+       When <i>locale</i> is invoked without any arguments, it shall summarize
+       the current locale environment for each locale category as
+       determined by the settings of the environment variables defined
+       in the Base Definitions volume of POSIX.1‐2017, <i>Chapter 7</i>,
+       <i>Locale</i>.
+
+       When invoked with operands, it shall write values that have been
+       assigned to the keywords in the locale categories, as follows:
+
+        *  Specifying a keyword name shall select the named keyword and
+           the category containing that keyword.
+
+        *  Specifying a category name shall select the named category
+           and all keywords in that category.
+</pre>

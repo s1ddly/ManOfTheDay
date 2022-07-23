@@ -1,0 +1,15 @@
+<pre>
+       In its first form, the command provides the content or the type
+       of an object in the repository. The type is required unless <b>-t </b>or
+       <b>-p </b>is used to find the object type, or <b>-s </b>is used to find the
+       object size, or <b>--textconv </b>or <b>--filters </b>is used (which imply type
+       "blob").
+
+       In the second form, a list of objects (separated by linefeeds) is
+       provided on stdin, and the SHA-1, type, and size of each object
+       is printed on stdout. The output format can be overridden using
+       the optional <b>&lt;format&gt; </b>argument. If either <b>--textconv </b>or <b>--filters</b>
+       was specified, the input is expected to list the object names
+       followed by the path name, separated by a single whitespace, so
+       that the appropriate drivers can be determined.
+</pre>

@@ -1,0 +1,29 @@
+<pre>
+       The <i>renice</i> utility shall request that the nice values (see the
+       Base Definitions volume of POSIX.1‐2017, <i>Section 3.244</i>, <i>Nice</i>
+       <i>Value</i>) of one or more running processes be changed. By default,
+       the applicable processes are specified by their process IDs. When
+       a process group is specified (see <b>-g</b>), the request shall apply to
+       all processes in the process group.
+
+       The nice value shall be bounded in an implementation-defined
+       manner.  If the requested <i>increment</i> would raise or lower the nice
+       value of the executed utility beyond implementation-defined
+       limits, then the limit whose value was exceeded shall be used.
+
+       When a user is <i>renice</i>d, the request applies to all processes
+       whose saved set-user-ID matches the user ID corresponding to the
+       user.
+
+       Regardless of which options are supplied or any other factor,
+       <i>renice</i> shall not alter the nice values of any process unless the
+       user requesting such a change has appropriate privileges to do so
+       for the specified process. If the user lacks appropriate
+       privileges to perform the requested action, the utility shall
+       return an error status.
+
+       The saved set-user-ID of the user's process shall be checked
+       instead of its effective user ID when <i>renice</i> attempts to
+       determine the user ID of the process in order to determine
+       whether the user has appropriate privileges.
+</pre>

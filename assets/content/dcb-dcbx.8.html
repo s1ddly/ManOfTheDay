@@ -1,0 +1,16 @@
+<pre>
+       Data Center Bridging eXchange (DCBX) is a protocol used by DCB
+       devices to exchange configuration information with directly
+       connected peers. The Linux DCBX object is a 1-byte bitfield of
+       flags that configure whether DCBX is implemented in the device or
+       in the host, and which version of the protocol should be used.
+       <b>dcb dcbx </b>is used to access the per-port Linux DCBX object.
+
+       There are two principal modes of operation: in <b>host </b>mode, DCBX
+       protocol is implemented by the host LLDP agent, and the DCB
+       interfaces are used to propagate the negotiate parameters to
+       capable devices. In <b>lld-managed </b>mode, the configuration is
+       handled by the device, and DCB interfaces are used for inspection
+       of negotiated parameters, and can also be used to set initial
+       parameters.
+</pre>

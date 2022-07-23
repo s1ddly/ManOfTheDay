@@ -1,0 +1,36 @@
+<pre>
+       The attributes of a batch job are altered by a request to the
+       batch server that manages the batch job. The <i>qalter</i> utility is a
+       user-accessible batch client that requests the alteration of the
+       attributes of one or more batch jobs.
+
+       The <i>qalter</i> utility shall alter the attributes of those batch
+       jobs, and only those batch jobs, for which a batch <i>job_identifier</i>
+       is presented to the utility.
+
+       The <i>qalter</i> utility shall alter the attributes of batch jobs in
+       the order in which the batch <i>job_identifier</i>s are presented to the
+       utility.
+
+       If the <i>qalter</i> utility fails to process a batch <i>job_identifier</i>
+       successfully, the utility shall proceed to process the remaining
+       batch <i>job_identifier</i>s, if any.
+
+       For each batch <i>job_identifier</i> for which the <i>qalter</i> utility
+       succeeds, each attribute of the identified batch job shall be
+       altered as indicated by all the options presented to the utility.
+
+       For each identified batch job for which the <i>qalter</i> utility fails,
+       the utility shall not alter any attribute of the batch job.
+
+       For each batch job that the <i>qalter</i> utility processes, the utility
+       shall not modify any attribute other than those required by the
+       options and option-arguments presented to the utility.
+
+       The <i>qalter</i> utility shall alter batch jobs by sending a <i>Modify Job</i>
+       <i>Request</i> to the batch server that manages each batch job. At the
+       time the <i>qalter</i> utility exits, it shall have modified the batch
+       job corresponding to each successfully processed batch
+       <i>job_identifier</i>.  An attempt to alter the attributes of a batch
+       job in the RUNNING state is implementation-defined.
+</pre>

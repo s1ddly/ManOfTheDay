@@ -1,0 +1,28 @@
+<pre>
+       <b>fdisk </b>is a dialog-driven program for creation and manipulation of
+       partition tables. It understands GPT, MBR, Sun, SGI and BSD
+       partition tables.
+
+       Block devices can be divided into one or more logical disks
+       called <i>partitions</i>. This division is recorded in the <i>partition</i>
+       <i>table</i>, usually found in sector 0 of the disk. (In the BSD world
+       one talks about `disk slices' and a `disklabel'.)
+
+       All partitioning is driven by device I/O limits (the topology) by
+       default. <b>fdisk </b>is able to optimize the disk layout for a
+       4K-sector size and use an alignment offset on modern devices for
+       MBR and GPT. It is always a good idea to follow <b>fdisk</b>’s defaults
+       as the default values (e.g., first and last partition sectors)
+       and partition sizes specified by the +/-&lt;size&gt;{M,G,...} notation
+       are always aligned according to the device properties.
+
+       CHS (Cylinder-Head-Sector) addressing is deprecated and not used
+       by default. Please, do not follow old articles and
+       recommendations with <b>fdisk -S &lt;n&gt; -H &lt;n&gt; </b>advices for SSD or
+       4K-sector devices.
+
+       Note that <a href="https://man7.org/linux/man-pages/man8/partx.8.html">partx(8)</a> provides a rich interface for scripts to print
+       disk layouts, <b>fdisk </b>is mostly designed for humans. Backward
+       compatibility in the output of <b>fdisk </b>is not guaranteed. The input
+       (the commands) should always be backward compatible.
+</pre>

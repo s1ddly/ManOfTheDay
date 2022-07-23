@@ -1,0 +1,29 @@
+<pre>
+       Destructively overwrite all copies of the superblock with a
+       specified copy. This helps in certain cases, for example when
+       write barriers were disabled during a power failure and not all
+       superblocks were written, or if the primary superblock is
+       damaged, eg. accidentally overwritten.
+
+       The filesystem specified by <i>device</i> must not be mounted.
+
+           <b>Note</b>
+           <b>Prior to overwriting the primary superblock, please make sure</b>
+           <b>that the backup copies are valid!</b>
+
+       To dump a superblock use the <b>btrfs inspect-internal dump-super</b>
+       command.
+
+       Then run the check (in the non-repair mode) using the command
+       <b>btrfs check -s </b>where <i>-s</i> specifies the superblock copy to use.
+
+       Superblock copies exist in the following offsets on the device:
+
+       •   primary: <i>64KiB</i> (65536)
+
+       •   1st copy: <i>64MiB</i> (67108864)
+
+       •   2nd copy: <i>256GiB</i> (274877906944)
+
+       A superblock size is <i>4KiB</i> (4096).
+</pre>

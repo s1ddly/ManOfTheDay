@@ -1,0 +1,40 @@
+<pre>
+       <b>machinectl </b>may be used to introspect and control the state of the
+       <a href="https://man7.org/linux/man-pages/man1/systemd.1.html">systemd(1)</a> virtual machine and container registration manager
+       <a href="https://man7.org/linux/man-pages/man8/systemd-machined.service.8.html">systemd-machined.service(8)</a>.
+
+       <b>machinectl </b>may be used to execute operations on machines and
+       images. Machines in this sense are considered running instances
+       of:
+
+       •   Virtual Machines (VMs) that virtualize hardware to run full
+           operating system (OS) instances (including their kernels) in
+           a virtualized environment on top of the host OS.
+
+       •   Containers that share the hardware and OS kernel with the
+           host OS, in order to run OS userspace instances on top the
+           host OS.
+
+       •   The host system itself.
+
+       Machines are identified by names that follow the same rules as
+       UNIX and DNS hostnames. For details, see below.
+
+       Machines are instantiated from disk or file system images that
+       frequently — but not necessarily — carry the same name as
+       machines running from them. Images in this sense may be:
+
+       •   Directory trees containing an OS, including the top-level
+           directories /usr/, /etc/, and so on.
+
+       •   btrfs subvolumes containing OS trees, similar to regular
+           directory trees.
+
+       •   Binary "raw" disk image files containing MBR or GPT partition
+           tables and Linux file systems.
+
+       •   Similarly, block devices containing MBR or GPT partition
+           tables and file systems.
+
+       •   The file system tree of the host OS itself.
+</pre>

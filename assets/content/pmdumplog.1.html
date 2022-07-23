@@ -1,0 +1,19 @@
+<pre>
+       <b>pmdumplog </b>dumps assorted control, metadata, index and state
+       information from the files of a Performance Co-Pilot (PCP)
+       archive log.  The archive log has the base name <i>archive</i> and must
+       have been previously created using <a href="https://man7.org/linux/man-pages/man1/pmlogger.1.html">pmlogger(1)</a>.
+
+       Normally <b>pmdumplog </b>operates on the distributed Performance
+       Metrics Name Space (PMNS), however if the <b>-n </b>option is specified
+       an alternative local PMNS is loaded from the file <i>pmnsfile</i>.
+
+       If any <i>metricname</i> arguments appear, the report will be restricted
+       to information relevant to the named performance metrics.  If
+       <i>metricname</i> is a non-leaf node in the namespace (see <a href="https://man7.org/linux/man-pages/man5/PMNS.5.html">PMNS(5)</a>),
+       then <b>pmdumplog </b>will recursively descend the archive's namespace
+       and report on all leaf nodes.
+
+       Command line options control the specific information to be
+       reported.
+</pre>

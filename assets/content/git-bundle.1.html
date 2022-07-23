@@ -1,0 +1,20 @@
+<pre>
+       Create, unpack, and manipulate "bundle" files. Bundles are used
+       for the "offline" transfer of Git objects without an active
+       "server" sitting on the other side of the network connection.
+
+       They can be used to create both incremental and full backups of a
+       repository, and to relay the state of the references in one
+       repository to another.
+
+       Git commands that fetch or otherwise "read" via protocols such as
+       <b>ssh:// </b>and <b>https:// </b>can also operate on bundle files. It is
+       possible <a href="https://man7.org/linux/man-pages/man1/git-clone.1.html">git-clone(1)</a> a new repository from a bundle, to use
+       <a href="https://man7.org/linux/man-pages/man1/git-fetch.1.html">git-fetch(1)</a> to fetch from one, and to list the references
+       contained within it with <a href="https://man7.org/linux/man-pages/man1/git-ls-remote.1.html">git-ls-remote(1)</a>. There’s no
+       corresponding "write" support, i.e.a <i>git push</i> into a bundle is
+       not supported.
+
+       See the "EXAMPLES" section below for examples of how to use
+       bundles.
+</pre>

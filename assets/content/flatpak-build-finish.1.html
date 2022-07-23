@@ -1,0 +1,23 @@
+<pre>
+       Finalizes a build directory, to prepare it for exporting.
+       DIRECTORY is the name of the directory.
+
+       The result of this command is that desktop files, icons and D-Bus
+       service files from the files subdirectory are copied to a new
+       export subdirectory. In the metadata file, the command key is set
+       in the [Application] group, and the supported keys in the
+       [Environment] group are set according to the options.
+
+       As part of finalization you can also specify permissions that the
+       app needs, using the various options specified below.
+       Additionally during finalization the permissions from the runtime
+       are inherited into the app unless you specify
+       <b>--no-inherit-permissions</b>
+
+       You should review the exported files and the application metadata
+       before creating and distributing an application bundle.
+
+       It is an error to run build-finish on a directory that has not
+       been initialized as a build directory, or has already been
+       finalized.
+</pre>

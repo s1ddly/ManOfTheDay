@@ -1,0 +1,13 @@
+<pre>
+       <b>auditd </b>is the userspace component to the Linux Auditing System.
+       It's responsible for writing audit records to the disk. Viewing
+       the logs is done with the <b>ausearch </b>or <b>aureport </b>utilities.
+       Configuring the audit system or loading rules is done with the
+       <b>auditctl </b>utility. During startup, the rules in
+       <i>/etc/audit/audit.rules</i> are read by <b>auditctl </b>and loaded into the
+       kernel. Alternately, there is also an <b>augenrules </b>program that
+       reads rules located in <i>/etc/audit/rules.d/</i> and compiles them into
+       an audit.rules file. The audit daemon itself has some
+       configuration options that the admin may wish to customize. They
+       are found in the <b>auditd.conf </b>file.
+</pre>

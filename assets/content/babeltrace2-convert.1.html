@@ -1,0 +1,332 @@
+<pre>
+       The <b>convert </b>command converts one or more traces to a given
+       format, possibly with filters in the conversion path.
+
+       See <a href="https://man7.org/linux/man-pages/man7/babeltrace2-intro.7.html">babeltrace2-intro(7)</a> to learn more about the Babeltrace 2
+       project and its core concepts.
+
+           <b>Note</b>
+           <b>convert </b>is the default <a href="https://man7.org/linux/man-pages/man1/babeltrace2.1.html">babeltrace2(1)</a> command: you generally
+           don’t need to specify its name. The following commands are
+           equivalent if the <b>... </b>part does not start with another
+           <a href="https://man7.org/linux/man-pages/man1/babeltrace2.1.html">babeltrace2(1)</a> command’s name, like <b>run </b>or <b>list-plugins</b>:
+
+               $ babeltrace2 convert ...
+               $ babeltrace2 ...
+
+           If you need to make sure that you are executing the <b>convert</b>
+           command, use <b>babeltrace2 convert </b>explicitly.
+
+       More specifically, the <b>convert </b>command creates a conversion
+       graph.
+
+       A conversion graph is a specialized trace processing graph
+       focused on the conversion of one or more traces to another
+       format, possibly filtering or modifying their events and other
+       messages in the process. A conversion graph is a linear chain of
+       components once the source streams are merged:
+
+           +----------+
+           | source 1 @-.
+           +----------+ |
+                        |  +-------+
+           +----------+ '-&gt;@       |    +---------+    +------------+
+           | source 2 @---&gt;@ muxer @---&gt;@ trimmer @---&gt;@ debug-info @-.
+           +----------+ .-&gt;@       |    +---------+    +------------+ |
+                        |  +-------+                                  |
+           +----------+ |    .----------------------------------------'
+           |   ...    @-'    |  +---------------+    +------+
+           +----------+      '-&gt;@ other filters |---&gt;@ sink |
+                                +---------------+    +------+
+
+       Note that the trimmer, debugging information, and other filters
+       are optional. See “Create implicit components from options” to
+       learn how to enable them.
+
+       If you need another trace processing graph layout, use the more
+       flexible <a href="https://man7.org/linux/man-pages/man1/babeltrace2-run.1.html">babeltrace2-run(1)</a> command.
+
+       Like with the <a href="https://man7.org/linux/man-pages/man1/babeltrace2-run.1.html">babeltrace2-run(1)</a> command, you can create
+       components explicitly with the <b>--component </b>option (see “Create
+       explicit components”). You can also use one of the many specific
+       <b>convert </b>command options (see “Create implicit components from
+       options”) and non-option arguments (see “Create implicit
+       components from non-option arguments”) to create implicit
+       components.
+
+       An <i>implicit component</i> is a component which is created and added
+       to the conversion graph without an explicit instantiation through
+       the <b>--component </b>option. An implicit component is easier to create
+       than an explicit component: this is why the <b>convert </b>command
+       exists, as you can also create and run a conversion graph with
+       the generic <a href="https://man7.org/linux/man-pages/man1/babeltrace2-run.1.html">babeltrace2-run(1)</a> command.
+
+       For example, you can specify one or more CTF trace path as
+       non-option arguments to pretty-print the merged events to the
+       standard output:
+
+           $ babeltrace2 /path/to/trace /path/to/other/trace
+
+       This is the equivalent of creating and connecting together:
+
+       •   One <b>source.ctf.fs </b>components with its <b>inputs </b>initialization
+           parameter set to <b>/path/to/trace</b>.
+
+       •   One <b>source.ctf.fs </b>components with its <b>inputs </b>initialization
+           parameter set to <b>/path/to/other/trace</b>.
+
+       •   A <b>filter.utils.muxer </b>component.
+
+       •   A <b>sink.text.pretty </b>component.
+
+       This creates the following conversion graph:
+
+           +------------+    +-----------------+    +------------------+
+           | src.ctf.fs |    | flt.utils.muxer |    | sink.text.pretty |
+           |  [ctf-fs]  |    |     [muxer]     |    |     [pretty]     |
+           |            |    |                 |    |                  |
+           |    stream0 @---&gt;@ in0         out @---&gt;@ in               |
+           |    stream1 @---&gt;@ in1             |    +------------------+
+           |    stream2 @---&gt;@ in2             |
+           |    stream3 @---&gt;@ in3             |
+           +------------+    |                 |
+                             |                 |
+           +------------+    |                 |
+           | src.ctf.fs |    |                 |
+           | [ctf-fs-2] |    |                 |
+           |            |    |                 |
+           |    stream0 @---&gt;@ in4             |
+           |    stream1 @---&gt;@ in5             |
+           +------------+    @ in6             |
+                             +-----------------+
+
+       It is equivalent to the following <a href="https://man7.org/linux/man-pages/man1/babeltrace2-run.1.html">babeltrace2-run(1)</a> command
+       line:
+
+           $ babeltrace2 run --component=ctf-fs:src.ctf.fs \
+                             --params='inputs=["/path/to/trace"] \
+                             --component=ctf-fs-2:src.ctf.fs \
+                             --params='inputs=["/path/to/other/trace"] \
+                             --component=muxer:filter.utils.muxer \
+                             --component=pretty:sink.text.pretty \
+                             --connect=ctf*:muxer --connect=muxer:pretty
+
+       You can use the <b>--run-args </b>option to make the <b>convert </b>command
+       print its equivalent <b>run </b>command arguments instead of creating
+       and running the conversion graph. The printed arguments are
+       escaped for shells, which means you can use them as is on the
+       command line and possibly add more options to the <b>run </b>command:
+
+           $ babeltrace2 run $(babeltrace2 --run-args /path/to/trace) ...
+
+       The <b>--run-args-0 </b>option is like the <b>--run-args </b>option, but the
+       printed arguments are NOT escaped and they are separated by a
+       null character instead of a space. This is useful if the
+       resulting arguments are not the direct input of a shell, for
+       example if passed to <b>xargs -0</b>.
+
+       See “EXAMPLES” for usage examples.
+
+   <b>Create explicit components</b>
+       To explicitly create a component, use the <b>--component </b>option.
+       This option specifies:
+
+       •   <b>Optional</b>: The name of the component.
+
+       •   The type of the component class to instantiate: source,
+           filter, or sink.
+
+       •   The name of the plugin in which to find the component class
+           to instantiate.
+
+       •   The name of the component class to instantiate.
+
+       You can use the <b>--component </b>option multiple times to create
+       multiple components. You can instantiate the same component class
+       multiple times as different component instances.
+
+       Immediately following a <b>--component </b>option on the command line,
+       the created component is known as the <i>current component</i> (until
+       the next <b>--component </b>option or non-option argument).
+
+       The following command-line options apply to the current
+       component:
+
+       <b>--log-level</b>=<i>LVL</i>
+           Set the log level of the current component to <i>LVL</i>.
+
+       <b>--params</b>=<i>PARAMS</i>
+           Add <i>PARAMS</i> to the initialization parameters of the current
+           component.
+
+           If <i>PARAMS</i> contains a key which exists in the current
+           component’s initialization parameters, replace the parameter.
+
+       See “EXAMPLES” for usage examples.
+
+   <b>Create implicit components from non-option arguments</b>
+       When you specify a non-option argument to the <b>convert </b>command, it
+       tries to find one or more components which can handle this
+       argument.
+
+       For example, with this command line:
+
+           $ babeltrace2 /path/to/trace
+
+       If <b>/path/to/trace </b>is a CTF trace directory, then the <b>convert</b>
+       command creates a <b>source.ctf.fs </b>component to handle this specific
+       trace.
+
+       This automatic source component discovery mechanism is possible
+       thanks to component classes which support the <b>babeltrace.support-</b>
+       <b>info </b>query object (see
+       <a href="https://man7.org/linux/man-pages/man7/babeltrace2-query-babeltrace.support-info.7.html">babeltrace2-query-babeltrace.support-info(7)</a>).
+
+       The non-option argument can be a directory. If no component can
+       handle that specific directory, then the <b>convert </b>command
+       traverses that directory and recursively tries to find compatible
+       components for each file and subdirectory. This means that a
+       single non-option argument can lead to the creation of many
+       implicit components.
+
+       The following command-line options apply to ALL the implicit
+       components created from the last non-option argument:
+
+       <b>--log-level</b>=<i>LVL</i>
+           Set the log level of those implicit components to <i>LVL</i>.
+
+       <b>--params</b>=<i>PARAMS</i>
+           Add <i>PARAMS</i> to the initialization parameters of those implicit
+           components.
+
+           For a given implicit component, if <i>PARAMS</i> contains a key
+           which exists in this component’s initialization parameters,
+           replace the parameter.
+
+       Note that it’s also possible for two non-option arguments to
+       cause the creation of a single implicit component. For example,
+       if you specify:
+
+           $ babeltrace2 /path/to/chunk1 /path/to/chunk2
+
+       where <b>/path/to/chunk1 </b>and <b>/path/to/chunk2 </b>are paths to chunks of
+       the same logical CTF trace, then the <b>convert </b>command creates a
+       single <b>source.ctf.fs </b>component which receives both paths at
+       initialization time. When this happens, any <b>--log-level </b>or
+       <b>--params </b>option that you specify to one of them applies to the
+       single implicit component. For example:
+
+           $ babeltrace2 /path/to/chunk1 --params=clock-class-offset-s=450 \
+                         /path/to/chunk2 --params=clock-class-offset-ns=98 \
+                         --log-level=INFO
+
+       Here, the single implicit component gets both <b>clock-class-offset-</b>
+       <b>s </b>and <b>clock-class-offset-ns </b>initialization parameters, as well as
+       the INFO log level.
+
+       For backward compatibility with the <b>babeltrace</b>(1) program, the
+       <b>convert </b>command ignores any non-option argument which does not
+       cause the creation of any component. In that case, it emits a
+       warning log statement and continues.
+
+   <b>Create implicit components from options</b>
+       There are many ways to create implicit components from options
+       with the <b>convert </b>command:
+
+       •   To create an implicit <b>filter.utils.trimmer </b>component (stream
+           trimmer), specify the <b>--begin</b>, <b>--end</b>, or <b>--timerange </b>option.
+
+           Examples:
+
+               $ babeltrace2 /path/to/trace --begin=22:14:38 --end=22:15:07
+
+               $ babeltrace2 /path/to/trace --timerange=22:14:38,22:15:07
+
+               $ babeltrace2 /path/to/trace --end=12:31:04.882928015
+
+       •   To create an implicit <b>filter.lttng-utils.debug-info </b>(add
+           debugging information to compatible LTTng events), specify
+           any of the <b>--debug-info</b>, <b>--debug-info-dir</b>, <b>--debug-info-full-</b>
+           <b>path</b>, or <b>--debug-info-target-prefix </b>options.
+
+           Examples:
+
+               $ babeltrace2 /path/to/trace --debug-info
+
+               $ babeltrace2 /path/to/trace \
+                             --debug-info-target-prefix=/tmp/tgt-root
+
+               $ babeltrace2 /path/to/trace --debug-info-full-path
+
+       •   To create an implicit <b>sink.text.pretty </b>component
+           (pretty-printing text output to the standard output or to a
+           file), specify no other sink components, explicit or
+           implicit.
+
+           The implicit <b>sink.text.pretty </b>component exists by default. If
+           any other explicit or implicit sink component exists, the
+           <b>convert </b>command does not automatically create the implicit
+           <b>sink.text.pretty </b>component.
+
+           The <b>--clock-cycles</b>, <b>--clock-date</b>, <b>--clock-gmt</b>, <b>--clock-</b>
+           <b>seconds</b>, <b>--color</b>, <b>--fields</b>, <b>--names</b>, and <b>--no-delta </b>options
+           all apply to the implicit <b>sink.text.pretty </b>component.
+
+           The <b>--output </b>option without <b>--output-format</b>=<b>ctf </b>makes the
+           implicit <b>sink.text.pretty </b>component write its content to a
+           file, except the warnings for backward compatibility with the
+           <b>babeltrace</b>(1) program.
+
+           Examples:
+
+               $ babeltrace2 /path/to/trace
+
+               $ babeltrace2 /path/to/trace --no-delta
+
+               $ babeltrace2 /path/to/trace --output=/tmp/pretty-out
+
+       •   To create an implicit <b>sink.utils.dummy </b>component (no output),
+           specify the <b>--output-format</b>=<b>dummy </b>option.
+
+           Example:
+
+               $ babeltrace2 /path/to/trace --output-format=dummy
+
+       •   To create an implicit <b>sink.ctf.fs </b>component (CTF traces
+           written to the file system), specify the <b>--output-format</b>=<b>ctf</b>
+           and the <b>--output</b>=<i>DIR</i> (base output directory) options.
+
+           Example:
+
+               $ babeltrace2 /path/to/input/trace --output-format=ctf \
+                             --output=my-traces
+
+       You can combine multiple methods to create multiple implicit
+       components. For example, you can trim an LTTng (CTF) trace, add
+       debugging information to it, and write it as another CTF trace:
+
+           $ babeltrace2 /path/to/input/trace --timerange=22:14:38,22:15:07 \
+                         --debug-info --output-format=ctf --output=out-dir
+
+       The equivalent <a href="https://man7.org/linux/man-pages/man1/babeltrace2-run.1.html">babeltrace2-run(1)</a> command of this <b>convert </b>command
+       is:
+
+           $ babeltrace2 run --component=auto-disc-source-ctf-fs:source.ctf.fs \
+                             --params='inputs=["/path/to/input/trace"]' \
+                             --component=sink-ctf-fs:sink.ctf.fs \
+                             --params='path="out-dir"' \
+                             --component=muxer:filter.utils.muxer \
+                             --component=trimmer:filter.utils.trimmer \
+                             --params='begin="22:14:38"' \
+                             --params='end="22:15:07"' \
+                             --component=debug-info:filter.lttng-utils.debug-info \
+                             --connect=auto-disc-source-ctf-fs:muxer \
+                             --connect=muxer:trimmer \
+                             --connect=trimmer:debug-info \
+                             --connect=debug-info:sink-ctf-fs
+
+       The order of the implicit component options documented in this
+       subsection is not significant.
+
+       See “EXAMPLES” for more examples.
+</pre>

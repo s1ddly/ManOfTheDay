@@ -1,0 +1,37 @@
+<pre>
+       <b>dh_testroot </b>is used to determine if the target is being run with
+       suffient access to root(-like) features.
+
+       The definition of sufficient access depends on whether the
+       builder (the tool invoking the <i>debian/rules</i> target) supports the
+       <i>Rules-Requires-Root</i> (R³) field.  If the builder supports R³, then
+       it will set the environment variable <i>DEB_RULES_REQUIRES_ROOT</i> and
+       <b>dh_testroot </b>will validate that the builder followed the minimum
+       requirements for the given value of <i>DEB_RULES_REQUIRES_ROOT</i>.
+
+       If the builder does not support <i>Rules-Requires-Root</i>, then it will
+       not set the <i>DEB_RULES_REQUIRES_ROOT</i> environment variable.  This
+       will in turn make <b>dh_testroot </b>(and the rest of debhelper) fall
+       back to assuming that (fake)root is implied.
+
+       The following is a summary of how <b>dh_testroot </b>behaves based on
+       the <i>DEB_RULES_REQUIRES_ROOT</i> environment variable (leading and
+       trailing whitespace in the variable is ignored).
+
+       -   If unset, or set to "binary-targets", then <b>dh_testroot</b>
+           asserts that it is run as root or under <b>fakeroot</b>(1).
+
+       -   If set to "no", then <b>dh_testroot </b>returns successfully
+           (without performing any additional checks).
+
+       -   If set to any other value than the above, then <b>dh_testroot</b>
+           asserts that it is either run as root (or under <b>fakeroot</b>(1))
+           or the builder has provided the <b>DEB_GAIN_ROOT_CMD </b>environment
+           variable (e.g. via dpkg-buildpackage -r).
+
+       Please note that <b>dh_testroot </b>does <i>not</i> read the <i>Rules-Requires-</i>
+       <i>Root</i> field.  Which implies that <b>dh_testroot </b>may produce incorrect
+       result if the builder lies in <i>DEB_RULES_REQUIRES_ROOT</i>.  On the
+       flip side, it also enables things like testing for what will
+       happen when <i>DEB_RULES_REQUIRES_ROOT</i> is set to a given value.
+</pre>

@@ -1,0 +1,74 @@
+<pre>
+       The <i>rm</i> utility shall remove the directory entry specified by each
+       <i>file</i> argument.
+
+       If either of the files dot or dot-dot are specified as the
+       basename portion of an operand (that is, the final pathname
+       component) or if an operand resolves to the root directory, <i>rm</i>
+       shall write a diagnostic message to standard error and do nothing
+       more with such operands.
+
+       For each <i>file</i> the following steps shall be taken:
+
+        1. If the <i>file</i> does not exist:
+
+            a. If the <b>-f </b>option is not specified, <i>rm</i> shall write a
+               diagnostic message to standard error.
+
+            b. Go on to any remaining <i>files</i>.
+
+        2. If <i>file</i> is of type directory, the following steps shall be
+           taken:
+
+            a. If neither the <b>-R </b>option nor the <b>-r </b>option is specified,
+               <i>rm</i> shall write a diagnostic message to standard error, do
+               nothing more with <i>file</i>, and go on to any remaining files.
+
+            b. If <i>file</i> is an empty directory, <i>rm</i> may skip to step 2d.
+               If the <b>-f </b>option is not specified, and either the
+               permissions of <i>file</i> do not permit writing and the
+               standard input is a terminal or the <b>-i </b>option is
+               specified, <i>rm</i> shall write a prompt to standard error and
+               read a line from the standard input. If the response is
+               not affirmative, <i>rm</i> shall do nothing more with the
+               current file and go on to any remaining files.
+
+            c. For each entry contained in <i>file</i>, other than dot or dot-
+               dot, the four steps listed here (1 to 4) shall be taken
+               with the entry as if it were a <i>file</i> operand. The <i>rm</i>
+               utility shall not traverse directories by following
+               symbolic links into other parts of the hierarchy, but
+               shall remove the links themselves.
+
+            d. If the <b>-i </b>option is specified, <i>rm</i> shall write a prompt to
+               standard error and read a line from the standard input.
+               If the response is not affirmative, <i>rm</i> shall do nothing
+               more with the current file, and go on to any remaining
+               files.
+
+        3. If <i>file</i> is not of type directory, the <b>-f </b>option is not
+           specified, and either the permissions of <i>file</i> do not permit
+           writing and the standard input is a terminal or the <b>-i </b>option
+           is specified, <i>rm</i> shall write a prompt to the standard error
+           and read a line from the standard input. If the response is
+           not affirmative, <i>rm</i> shall do nothing more with the current
+           file and go on to any remaining files.
+
+        4. If the current file is a directory, <i>rm</i> shall perform actions
+           equivalent to the <i>rmdir</i>() function defined in the System
+           Interfaces volume of POSIX.1‐2017 called with a pathname of
+           the current file used as the <i>path</i> argument. If the current
+           file is not a directory, <i>rm</i> shall perform actions equivalent
+           to the <i>unlink</i>() function defined in the System Interfaces
+           volume of POSIX.1‐2017 called with a pathname of the current
+           file used as the <i>path</i> argument.
+
+           If this fails for any reason, <i>rm</i> shall write a diagnostic
+           message to standard error, do nothing more with the current
+           file, and go on to any remaining files.
+
+       The <i>rm</i> utility shall be able to descend to arbitrary depths in a
+       file hierarchy, and shall not fail due to path length limitations
+       (unless an operand specified by the user exceeds system
+       limitations).
+</pre>

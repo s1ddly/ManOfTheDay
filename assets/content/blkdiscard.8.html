@@ -1,0 +1,14 @@
+<pre>
+       <b>blkdiscard </b>is used to discard device sectors. This is useful for
+       solid-state drivers (SSDs) and thinly-provisioned storage. Unlike
+       <a href="https://man7.org/linux/man-pages/man8/fstrim.8.html">fstrim(8)</a>, this command is used directly on the block device.
+
+       By default, <b>blkdiscard </b>will discard all blocks on the device.
+       Options may be used to modify this behavior based on range or
+       size, as explained below.
+
+       The <i>device</i> argument is the pathname of the block device.
+
+       <b>WARNING: All data in the discarded region on the device will be</b>
+       <b>lost!</b>
+</pre>

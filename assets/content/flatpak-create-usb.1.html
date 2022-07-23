@@ -1,0 +1,49 @@
+<pre>
+       Copies the specified apps and/or runtimes REFs onto the removable
+       media mounted at MOUNT-PATH, along with all the dependencies and
+       metadata needed for installing them. This is one way of
+       transferring flatpaks between computers that doesn't require an
+       Internet connection. After using this command, the USB drive can
+       be connected to another computer which already has the relevant
+       remote(s) configured, and Flatpak will install or update from the
+       drive offline (see below). If online, the drive will be used as a
+       cache, meaning some objects will be pulled from it and others
+       from the Internet. For this process to work a collection ID must
+       be configured on the relevant remotes on both the source and
+       destination computers, and on the remote server.
+
+       On the destination computer one can install from the USB (or any
+       mounted filesystem) using the <b>--sideload-repo </b>option with <b>flatpak</b>
+       <b>install</b>. It's also possible to configure sideload paths using
+       symlinks; see <a href="https://man7.org/linux/man-pages/man1/flatpak.1.html">flatpak(1)</a>. Flatpak also includes systemd units to
+       automatically sideload from hot-plugged USB drives, but these may
+       or may not be enabled depending on your Linux distribution.
+
+       Each REF argument is a full or partial identifier in the flatpak
+       ref format, which looks like "(app|runtime)/ID/ARCH/BRANCH". All
+       elements except ID are optional and can be left out, including
+       the slashes, so most of the time you need only specify ID. Any
+       part left out will be matched against what is installed, and if
+       there are multiple matches an error message will list the
+       alternatives.
+
+       By default this looks for both installed apps and runtimes with
+       the given REF, but you can limit this by using the <b>--app </b>or
+       <b>--runtime </b>option.
+
+       All REFs must be in the same installation (user, system, or
+       other). Otherwise it's ambiguous which repository metadata refs
+       to put on the USB drive.
+
+       By default <b>flatpak create-usb </b>uses .ostree/repo as the
+       destination directory under MOUNT-PATH but if you specify another
+       location using <b>--destination-repo </b>a symbolic link will be created
+       for you in .ostree/repos.d. This ensures that either way the
+       repository will be found by flatpak (and other consumers of
+       libostree) for install/update operations.
+
+       Unless overridden with the <b>--system</b>, <b>--user</b>, or <b>--installation</b>
+       options, this command searches both the system-wide installation
+       and the per-user one for REF and errors out if it exists in more
+       than one.
+</pre>

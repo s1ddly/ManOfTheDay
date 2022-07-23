@@ -1,0 +1,28 @@
+<pre>
+       IPv6 address labels are used for address selection; they are
+       described in RFC 3484. Precedence is managed by userspace, and
+       only the label itself is stored in the kernel.
+
+   <b>ip addrlabel add - add an address label</b>
+       add an address label entry to the kernel.
+
+       <b>prefix </b><i>PREFIX</i>
+
+       <b>dev </b><i>DEV</i>
+              the outgoing interface.
+
+       <b>label </b><i>NUMBER</i>
+              the label for the prefix.  0xffffffff is reserved.
+
+   <b>ip addrlabel del - delete an address label</b>
+       delete an address label entry from the kernel.  <b>Arguments:</b>
+       coincide with the arguments of <b>ip addrlabel add </b>but the label is
+       not required.
+
+   <b>ip addrlabel list - list address labels</b>
+       list the current address label entries in the kernel.
+
+   <b>ip addrlabel flush - flush address labels</b>
+       flush all address labels in the kernel. This does not restore any
+       default settings.
+</pre>

@@ -1,0 +1,18 @@
+<pre>
+       <b>pmdadm </b>is a Performance Metrics Domain Agent (PMDA) which exports
+       metric values for Device Mapper on the local system.
+
+       This PMDA collects its data through the <a href="https://man7.org/linux/man-pages/man8/dmsetup.8.html">dmsetup(8)</a> utility and
+       the dmstats API and requires that the program is installed in
+       order to function.  In addition, at least one statistics region
+       must be created using the <a href="https://man7.org/linux/man-pages/man8/dmstats.8.html">dmstats(8)</a> utility in order to get
+       basic counter values.  See below for examples.
+
+       Note that device-mapper statistics collection is not enabled by
+       default and is not persistent across reboots (unless a system
+       administrator has configured something to run in <b>rc.local </b>or
+       equivalent).  This is because there are overheads associated with
+       statistics collection.  In addition, the <b>pmdadm </b>PMDA does not
+       automatically enable any statistics collection because it may not
+       be the only consumer of the data.
+</pre>

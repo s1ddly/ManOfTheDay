@@ -1,0 +1,52 @@
+<pre>
+       The C++ and Java languages provide function overloading, which
+       means that you can write many functions with the same name,
+       providing that each function takes parameters of different types.
+       In order to be able to distinguish these similarly named
+       functions C++ and Java encode them into a low-level assembler
+       name which uniquely identifies each different version.  This
+       process is known as <i>mangling</i>. The <b>c++filt </b>[1] program does the
+       inverse mapping: it decodes (<i>demangles</i>) low-level names into
+       user-level names so that they can be read.
+
+       Every alphanumeric word (consisting of letters, digits,
+       underscores, dollars, or periods) seen in the input is a
+       potential mangled name.  If the name decodes into a C++ name, the
+       C++ name replaces the low-level name in the output, otherwise the
+       original word is output.  In this way you can pass an entire
+       assembler source file, containing mangled names, through <b>c++filt</b>
+       and see the same source file containing demangled names.
+
+       You can also use <b>c++filt </b>to decipher individual symbols by
+       passing them on the command line:
+
+               c++filt &lt;symbol&gt;
+
+       If no <i>symbol</i> arguments are given, <b>c++filt </b>reads symbol names from
+       the standard input instead.  All the results are printed on the
+       standard output.  The difference between reading names from the
+       command line versus reading names from the standard input is that
+       command-line arguments are expected to be just mangled names and
+       no checking is performed to separate them from surrounding text.
+       Thus for example:
+
+               c++filt -n _Z1fv
+
+       will work and demangle the name to "f()" whereas:
+
+               c++filt -n _Z1fv,
+
+       will not work.  (Note the extra comma at the end of the mangled
+       name which makes it invalid).  This command however will work:
+
+               echo _Z1fv, | c++filt -n
+
+       and will display "f(),", i.e., the demangled name followed by a
+       trailing comma.  This behaviour is because when the names are
+       read from the standard input it is expected that they might be
+       part of an assembler source file where there might be extra,
+       extraneous characters trailing after a mangled name.  For
+       example:
+
+                   .type   _Z1fv, @function
+</pre>

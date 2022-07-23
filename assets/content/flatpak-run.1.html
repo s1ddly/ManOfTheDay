@@ -1,0 +1,69 @@
+<pre>
+       If REF names an installed application, flatpak runs the
+       application in a sandboxed environment. Extra arguments are
+       passed on to the application.
+
+       If REF names a runtime, a shell is opened in the runtime. This is
+       useful for development and testing.
+
+       By default, flatpak will look for the application or runtime in
+       all per-user and system installations. This can be overridden
+       with the <b>--user</b>, <b>--system </b>and <b>--installation </b>options.
+
+       flatpak creates a sandboxed environment for the application to
+       run in by mounting the right runtime at /usr and a writable
+       directory at /var, whose content is preserved between application
+       runs. The application itself is mounted at /app.
+
+       The details of the sandboxed environment are controlled by the
+       application metadata and various options like <b>--share </b>and
+       <b>--socket </b>that are passed to the run command: Access is allowed if
+       it was requested either in the application metadata file or with
+       an option and the user hasn't overridden it.
+
+       The remaining arguments are passed to the command that gets run
+       in the sandboxed environment. See the <b>--file-forwarding </b>option
+       for handling of file arguments.
+
+       Environment variables are generally passed on to the sandboxed
+       application, with certain exceptions. The application metadata
+       can override environment variables, as well as the <b>--env </b>option.
+       Apart from that, Flatpak always unsets or overrides the following
+       variables, since their session values are likely to interfere
+       with the functioning of the sandbox:
+           PATH
+           LD_LIBRARY_PATH
+           XDG_CONFIG_DIRS
+           XDG_DATA_DIRS
+           SHELL
+           TMPDIR
+           PYTHONPATH
+           PERLLIB
+           PERL5LIB
+           XCURSOR_PATH
+
+       Flatpak also overrides the XDG environment variables to point
+       sandboxed applications at their writable filesystem locations
+       below ~/.var/app/$APPID/:
+           XDG_DATA_HOME
+           XDG_CONFIG_HOME
+           XDG_CACHE_HOME
+
+       The host values of these variables are made available inside the
+       sandbox via these HOST_-prefixed variables:
+           HOST_XDG_DATA_HOME
+           HOST_XDG_CONFIG_HOME
+           HOST_XDG_CACHE_HOME
+
+       Flatpak sets the environment variable <b>FLATPAK_ID </b>to the
+       application ID of the running app.
+
+       Flatpak also bind-mounts as read-only the host's /etc/os-release
+       (if available, or /usr/lib/os-release as a fallback) to
+       /run/host/os-release in accordance with the <b>os-release</b>
+       <b>specification</b><b></b>[1].
+
+       If parental controls support is enabled, flatpak will check the
+       current user’s parental controls settings, and will refuse to run
+       an app if it is blocklisted for the current user.
+</pre>

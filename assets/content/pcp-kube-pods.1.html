@@ -1,0 +1,19 @@
+<pre>
+       <b>pcp-kube-pods </b>uses <b>kubectl</b>(1) to provide a list of IP addresses
+       for PODs running in a local Kubenetes cluster, that may be
+       running PCP services like <a href="https://man7.org/linux/man-pages/man1/pmcd.1.html">pmcd(1)</a> and <a href="https://man7.org/linux/man-pages/man1/pmproxy.1.html">pmproxy(1)</a>.
+
+       It is used by the <a href="https://man7.org/linux/man-pages/man1/pmfind.1.html">pmfind(1)</a> command and the <a href="https://man7.org/linux/man-pages/man3/pmDiscoverServices.3.html">pmDiscoverServices(3)</a>
+       API as a ``shell'' command.
+
+       The script invokes the <b>kubectl get pod </b>command line (see
+       <b>kubectl-get</b>(1)) to discover IP addresses for pods.  The
+       <b>.status.podIP </b>output field is extracted from the Kubernetes pod
+       object(s).  Additional options can be specified via configuration
+       file, such as <i>-l service=database</i> to restrict the results using
+       Kubernetes pod labels.  The default configuration file is
+       <b>$PCP_SYSCONF_DIR/discover/pcp-kube-pods.conf</b>.
+
+       If no local <b>kubectl </b>command is found, nothing is reported and an
+       exit code indicating success is returned.
+</pre>

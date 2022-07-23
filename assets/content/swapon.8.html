@@ -1,0 +1,16 @@
+<pre>
+       <b>swapon </b>is used to specify devices on which paging and swapping
+       are to take place.
+
+       The device or file used is given by the <i>specialfile</i> parameter. It
+       may be of the form <b>-L </b><i>label</i> or <b>-U </b><i>uuid</i> to indicate a device by
+       label or uuid.
+
+       Calls to <b>swapon </b>normally occur in the system boot scripts making
+       all swap devices available, so that the paging and swapping
+       activity is interleaved across several devices and files.
+
+       <b>swapoff </b>disables swapping on the specified devices and files.
+       When the <b>-a </b>flag is given, swapping is disabled on all known swap
+       devices and files (as found in <i>/proc/swaps</i> or <i>/etc/fstab</i>).
+</pre>

@@ -1,0 +1,24 @@
+<pre>
+       The process keyring is a keyring used to anchor keys on behalf of
+       a process.  It is created only when a process requests it.  The
+       process keyring has the name (description) <i>_pid</i>.
+
+       A special serial number value, <b>KEY_SPEC_PROCESS_KEYRING</b>, is
+       defined that can be used in lieu of the actual serial number of
+       the calling process's process keyring.
+
+       From the <a href="https://man7.org/linux/man-pages/man1/keyctl.1.html">keyctl(1)</a> utility, '<b>@p</b>' can be used instead of a numeric
+       key ID in much the same way, but since <a href="https://man7.org/linux/man-pages/man1/keyctl.1.html">keyctl(1)</a> is a program run
+       after forking, this is of no utility.
+
+       A thread created using the <a href="https://man7.org/linux/man-pages/man2/clone.2.html">clone(2)</a> <b>CLONE_THREAD </b>flag has the
+       same process keyring as the caller of <a href="https://man7.org/linux/man-pages/man2/clone.2.html">clone(2)</a>.  When a new
+       process is created using <b>fork</b>() it initially has no process
+       keyring.  A process's process keyring is cleared on <a href="https://man7.org/linux/man-pages/man2/execve.2.html">execve(2)</a>.
+       The process keyring is destroyed when the last thread that refers
+       to it terminates.
+
+       If a process doesn't have a process keyring when it is accessed,
+       then the process keyring will be created if the keyring is to be
+       modified; otherwise, the error <b>ENOKEY </b>results.
+</pre>

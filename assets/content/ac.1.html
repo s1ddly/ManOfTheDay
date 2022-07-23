@@ -1,0 +1,18 @@
+<pre>
+       <b>ac </b>prints out a report of connect time (in hours) based on the
+       logins/logouts in the current <i>wtmp</i> file.  A total is also printed
+       out.
+
+       The accounting file <i>wtmp</i> is maintained by <b>init</b>(8) and <a href="https://man7.org/linux/man-pages/man1/login.1.html">login(1)</a>.
+       Neither <b>ac </b>nor <b>login </b>creates the <i>wtmp</i> if it doesn't exist, no
+       accounting is done.  To begin accounting, create the file with a
+       length of zero.
+
+       NOTE:  The <i>wtmp</i> file can get really big, really fast.  You might
+       want to trim it every once and a while.
+
+       GNU <b>ac </b>works nearly the same UNIX <b>ac</b>, though it's a little
+       smarter in several ways.  You should therefore expect differences
+       in the output of GNU <b>ac </b>and the output of <b>ac</b>'s on other systems.
+       Use the command <b>info </b><i>accounting</i> to get additional information.
+</pre>

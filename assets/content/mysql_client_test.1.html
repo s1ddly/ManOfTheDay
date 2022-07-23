@@ -1,0 +1,96 @@
+<pre>
+       The <b>mysql_client_test </b>program is used for testing aspects of the
+       MariaDB client API that cannot be tested using <b>mysqltest </b>and its
+       test language.  <b>mysql_client_test_embedded </b>is similar but used
+       for testing the embedded server. Both programs are run as part of
+       the test suite.
+
+       The source code for the programs can be found in in
+       tests/mysql_client_test.c in a source distribution. The program
+       serves as a good source of examples illustrating how to use
+       various features of the client API.
+
+       <b>mysql_client_test </b>is used in a test by the same name in the main
+       tests suite of <b>mysql-test-run.pl </b>but may also be run directly.
+       Unlike the other programs listed here, it does not read an
+       external description of what tests to run. Instead, all tests are
+       coded into the program, which is written to cover all aspects of
+       the C language API.
+
+       <b>mysql_client_test </b>supports the following options:
+
+       •   <b>--help</b>, <b>-?</b>
+
+           Display a help message and exit.
+
+       •   <b>--basedir=</b><i>dir_name</i>, <b>-b </b><i>dir_name</i>
+
+           The base directory for the tests.
+
+       •   <b>--count=</b><i>count</i>, <b>-t </b><i>count</i>
+
+           The number of times to execute the tests.
+
+       •   <b>--database=</b><i>db_name</i>, <b>-D </b><i>db_name</i>
+
+           The database to use.
+
+       •   <b>--debug[=</b><i>debug_options</i><b>]</b>, <b>-#[</b><i>debug_options</i><b>]</b>
+
+           Write a debugging log if MariaDB is built with debugging
+           support. The default <i>debug_options</i> value is
+           ´d:t:o,/tmp/mysql_client_test.trace´.
+
+       •   <b>--getopt-ll-test=</b><i>option</i>, <b>-g </b><i>option</i>
+
+           Option to use for testing bugs in the getopt library.
+
+       •   <b>--host=</b><i>host_name</i>, <b>-h </b><i>host_name</i>
+
+           Connect to the MariaDB server on the given host.
+
+       •   <b>--password[=</b><i>password</i><b>]</b>, <b>-p[</b><i>password</i><b>]</b>
+
+           The password to use when connecting to the server. If you use
+           the short option form (<b>-p</b>), you <i>cannot</i> have a space between
+           the option and the password. If you omit the <i>password</i> value
+           following the <b>--password </b>or <b>-p </b>option on the command line,
+           you are prompted for one.
+
+       •   <b>--port=</b><i>port_num</i>, <b>-P </b><i>port_num</i>
+
+           The TCP/IP port number to use for the connection.
+
+       •   <b>--server-arg=</b><i>arg</i>, <b>-A </b><i>arg</i>
+
+           Argument to send to the embedded server.
+
+       •   <b>--show-tests</b>, <b>-T</b>
+
+           Show all test names.
+
+       •   <b>--silent</b>, <b>-s</b>
+
+           Be more silent.
+
+       •   <b>--socket=</b><i>path</i>, <b>-S </b><i>path</i>
+
+           The socket file to use when connecting to localhost (which is
+           the default host).
+
+       •   <b>--testcase</b>, <b>-c</b>
+
+           The option is used when called from <b>mysql-test-run.pl</b>, so
+           that <b>mysql_client_test </b>may optionally behave in a different
+           way than if called manually, for example by skipping some
+           tests. Currently, there is no difference in behavior but the
+           option is included in order to make this possible.
+
+       •   <b>--user=</b><i>user_name</i>, <b>-u </b><i>user_name</i>
+
+           The MariaDB user name to use when connecting to the server.
+
+       •   <b>-v </b><i>dir_name</i>, <b>--vardir=</b><i>dir_name</i>
+
+           The data directory for tests. The default is mysql-test/var.
+</pre>

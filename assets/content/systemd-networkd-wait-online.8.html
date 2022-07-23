@@ -1,0 +1,10 @@
+<pre>
+       <b>systemd-networkd-wait-online </b>is a oneshot system service (see
+       <a href="https://man7.org/linux/man-pages/man5/systemd.service.5.html">systemd.service(5)</a>), that waits for the network to be configured.
+       By default, it will wait for all links it is aware of and which
+       are managed by <a href="https://man7.org/linux/man-pages/man8/systemd-networkd.service.8.html">systemd-networkd.service(8)</a> to be fully configured
+       or failed, and for at least one link to be online. Here, online
+       means that the link's operational state is equal or higher than
+       "degraded". The threshold can be configured by
+       <b>--operational-state= </b>option.
+</pre>

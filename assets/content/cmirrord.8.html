@@ -1,0 +1,19 @@
+<pre>
+       <b>cmirrord </b>is the daemon that tracks mirror log information in a
+       cluster.  It is specific to device-mapper based mirrors (and by
+       extension, LVM cluster mirrors).  Cluster mirrors are not
+       possible without this daemon running.
+
+       This daemon relies on the cluster infrastructure provided by the
+       corosync, which must be set up and running in order for cmirrord
+       to function.
+
+       Output is logged via <a href="https://man7.org/linux/man-pages/man3/syslog.3.html">syslog(3)</a>. The <b>SIGUSR1 signal</b>(7) can be
+       issued to <b>cmirrord </b>to gather current status information for
+       debugging purposes.
+
+       Once started, <b>cmirrord </b>will run until it is shutdown via <b>SIGINT</b>
+       signal. If there are still active cluster mirrors, however, the
+       signal will be ignored. Active cluster mirrors should be shutdown
+       before stopping the cluster mirror log daemon.
+</pre>

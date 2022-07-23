@@ -1,0 +1,55 @@
+<pre>
+       Incorporates changes from a remote repository into the current
+       branch. In its default mode, <b>git pull </b>is shorthand for <b>git fetch</b>
+       followed by <b>git merge FETCH_HEAD</b>.
+
+       More precisely, <i>git pull</i> runs <i>git fetch</i> with the given parameters
+       and calls <i>git merge</i> to merge the retrieved branch heads into the
+       current branch. With <b>--rebase</b>, it runs <i>git rebase</i> instead of <i>git</i>
+       <i>merge</i>.
+
+       &lt;repository&gt; should be the name of a remote repository as passed
+       to <a href="https://man7.org/linux/man-pages/man1/git-fetch.1.html">git-fetch(1)</a>. &lt;refspec&gt; can name an arbitrary remote ref (for
+       example, the name of a tag) or even a collection of refs with
+       corresponding remote-tracking branches (e.g.,
+       refs/heads/*:refs/remotes/origin/*), but usually it is the name
+       of a branch in the remote repository.
+
+       Default values for &lt;repository&gt; and &lt;branch&gt; are read from the
+       "remote" and "merge" configuration for the current branch as set
+       by <a href="https://man7.org/linux/man-pages/man1/git-branch.1.html">git-branch(1)</a> <b>--track</b>.
+
+       Assume the following history exists and the current branch is
+       "<b>master</b>":
+
+                     A---B---C master on origin
+                    /
+               D---E---F---G master
+                   ^
+                   origin/master in your repository
+
+       Then "<b>git pull</b>" will fetch and replay the changes from the remote
+       <b>master </b>branch since it diverged from the local <b>master </b>(i.e., <b>E</b>)
+       until its current commit (<b>C</b>) on top of <b>master </b>and record the
+       result in a new commit along with the names of the two parent
+       commits and a log message from the user describing the changes.
+
+                     A---B---C origin/master
+                    /         \
+               D---E---F---G---H master
+
+       See <a href="https://man7.org/linux/man-pages/man1/git-merge.1.html">git-merge(1)</a> for details, including how conflicts are
+       presented and handled.
+
+       In Git 1.7.0 or later, to cancel a conflicting merge, use <b>git</b>
+       <b>reset --merge</b>. <b>Warning</b>: In older versions of Git, running <i>git</i>
+       <i>pull</i> with uncommitted changes is discouraged: while possible, it
+       leaves you in a state that may be hard to back out of in the case
+       of a conflict.
+
+       If any of the remote changes overlap with local uncommitted
+       changes, the merge will be automatically canceled and the work
+       tree untouched. It is generally best to get any local changes in
+       working order before pulling or stash them away with
+       <a href="https://man7.org/linux/man-pages/man1/git-stash.1.html">git-stash(1)</a>.
+</pre>

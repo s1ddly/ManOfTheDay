@@ -1,0 +1,19 @@
+<pre>
+       This program re-runs a typescript, using stdin typescript and
+       timing information to ensure that input happens in the same
+       rhythm as it originally appeared when the script was recorded.
+
+       The <b>session is executed </b>in a newly created pseudoterminal with
+       the user’s $SHELL (or defaults to <i>/bin/bash</i>).
+
+       <b>Be careful! </b>Do not forget that the typescript may contains
+       arbitrary commands. It is recommended to use <b>"scriptreplay</b>
+       <b>--stream in --log-in typescript" </b>(or with <b>--log-io </b>instead of
+       <b>--log-in</b>) to verify the typescript before it is executed by
+       <b>scriptlive</b>.
+
+       The timing information is what script1 outputs to file specified
+       by <b>--log-timing</b>. The typescript has to contain stdin information
+       and it is what script1 outputs to file specified by <b>--log-in </b>or
+       <b>--log-io</b>.
+</pre>

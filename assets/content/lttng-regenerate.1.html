@@ -1,0 +1,31 @@
+<pre>
+       The <b>lttng regenerate </b>command regenerates specific data of a
+       tracing session.
+
+       As of this version, the <b>metadata </b>and <b>statedump </b>actions are
+       available.
+
+   <b>Regenerating a tracing session’s metadata</b>
+       The <b>lttng regenerate metadata </b>action can be used to resample the
+       offset between the system’s monotonic clock and the wall-clock
+       time.
+
+       This action is meant to be used to resample the wall-clock time
+       following a major NTP
+       &lt;<a href="https://man7.org/linux/man-pagestps://en.wikipedia.org/wiki/Network_Time_Protocol">https://en.wikipedia.org/wiki/Network_Time_Protocol</a>&gt; correction.
+       As such, a system booting with an incorrect wall time can be
+       traced before its wall time is NTP-corrected. Regenerating the
+       tracing session’s metadata ensures that trace viewers can
+       accurately determine the events time relative to Unix Epoch.
+
+       If you use <a href="https://man7.org/linux/man-pages/man1/lttng-rotate.1.html">lttng-rotate(1)</a> or <a href="https://man7.org/linux/man-pages/man1/lttng-enable-rotation.1.html">lttng-enable-rotation(1)</a> to make
+       tracing session rotations, this action regenerates the current
+       and next trace chunks’s metadata files.
+
+   <b>Regenerating a tracing session’s state dump</b>
+       The <b>lttng regenerate statedump </b>action can be used to collect
+       up-to-date state dump information during the tracing session.
+       This is particularly useful in snapshot (see <a href="https://man7.org/linux/man-pages/man1/lttng-snapshot.1.html">lttng-snapshot(1)</a>)
+       or trace file rotation (see <a href="https://man7.org/linux/man-pages/man1/lttng-enable-channel.1.html">lttng-enable-channel(1)</a>) modes where
+       the state dump information may be lost.
+</pre>

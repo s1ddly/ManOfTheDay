@@ -1,0 +1,145 @@
+<pre>
+       <b>systemd-repart </b>grows and adds partitions to a partition table,
+       based on the configuration files described in <a href="https://man7.org/linux/man-pages/man5/repart.d.5.html">repart.d(5)</a>.
+
+       If invoked with no arguments, it operates on the block device
+       backing the root file system partition of the running OS, thus
+       growing and adding partitions of the booted OS image itself. If
+       <i>--image=</i> is used it will operate on the specified image file.
+       When called in the "initrd" it operates on the block device
+       backing /sysroot/ instead, i.e. on the block device the system
+       will soon transition into. The systemd-repart.service service is
+       generally run at boot in the initial RAM disk, in order to
+       augment the partition table of the OS before its partitions are
+       mounted.  <b>systemd-repart </b>(mostly) operates in a purely
+       incremental mode: it only grows existing and adds new partitions;
+       it does not shrink, delete or move existing partitions. The
+       service is intended to be run on every boot, but when it detects
+       that the partition table already matches the installed
+       repart.d/*.conf configuration files, it executes no operation.
+
+       <b>systemd-repart </b>is intended to be used when deploying OS images,
+       to automatically adjust them to the system they are running on,
+       during first boot. This way the deployed image can be minimal in
+       size and may be augmented automatically at boot when needed,
+       taking possession of disk space available but not yet used.
+       Specifically the following use cases are among those covered:
+
+       •   The root partition may be grown to cover the whole available
+           disk space.
+
+       •   A /home/, swap or /srv/ partition can be added.
+
+       •   A second (or third, ...) root partition may be added, to
+           cover A/B style setups where a second version of the root
+           file system is alternatingly used for implementing update
+           schemes. The deployed image would carry only a single
+           partition ("A") but on first boot a second partition ("B")
+           for this purpose is automatically created.
+
+       The algorithm executed by <b>systemd-repart </b>is roughly as follows:
+
+        1. The repart.d/*.conf configuration files are loaded and
+           parsed, and ordered by filename (without the directory
+           prefix).
+
+        2. The partition table already existing on the block device is
+           loaded and parsed.
+
+        3. The existing partitions in the partition table are matched up
+           with the repart.d/*.conf files by GPT partition type UUID.
+           The first existing partition of a specific type is assigned
+           the first configuration file declaring the same type. The
+           second existing partition of a specific type is then assigned
+           the second configuration file declaring the same type, and so
+           on. After this iterative assigning is complete any left-over
+           existing partitions that have no matching configuration file
+           are considered "foreign" and left as they are. And any
+           configuration files for which no partition currently exists
+           are understood as a request to create such a partition.
+
+        4. Taking the size constraints and weights declared in the
+           configuration files into account, all partitions that shall
+           be created are now allocated to the disk, taking up all free
+           space, always respecting the size and padding requests.
+           Similar, existing partitions that are determined to grow are
+           grown. New partitions are always appended to the end of the
+           existing partition table, taking the first partition table
+           slot whose index is greater than the indexes of all existing
+           partitions. Partition table slots are never reordered and
+           thus partition numbers are ensured to remain stable. Note
+           that this allocation happens in RAM only, the partition table
+           on disk is not updated yet.
+
+        5. All existing partitions for which configuration files exist
+           and which currently have no GPT partition label set will be
+           assigned a label, either explicitly configured in the
+           configuration or (if that's missing) derived automatically
+           from the partition type. The same is done for all partitions
+           that are newly created. These assignments are done in RAM
+           only, too, the disk is not updated yet.
+
+        6. Similarly, all existing partitions for which configuration
+           files exist and which currently have an all-zero identifying
+           UUID will be assigned a new UUID. This UUID is
+           cryptographically hashed from a common seed value together
+           with the partition type UUID (and a counter in case multiple
+           partitions of the same type are defined), see below. The same
+           is done for all partitions that are created anew. These
+           assignments are done in RAM only, too, the disk is not
+           updated yet.
+
+        7. Similarly, if the disk's volume UUID is all zeroes it is also
+           initialized, also cryptographically hashed from the same
+           common seed value. Also, in RAM only, too.
+
+        8. The disk space assigned to new partitions (i.e. what was
+           previously considered free space but is no longer) is now
+           erased. Specifically, all file system signatures are removed,
+           and if the device supports it the <b>BLKDISCARD </b>I/O control
+           command is issued to inform the hardware that the space is
+           empty now. In addition any "padding" between partitions and
+           at the end of the device is similarly erased.
+
+        9. The new partition table is finally written to disk. The
+           kernel is asked to reread the partition table.
+
+       As exception to the normally strictly incremental operation, when
+       called in a special "factory reset" mode, <b>systemd-repart </b>may also
+       be used to erase existing partitions to reset an installation
+       back to vendor defaults. This mode of operation is used when
+       either the <b>--factory-reset=yes </b>switch is passed on the tool's
+       command line, or the <b>systemd.factory_reset=yes </b>option specified
+       on the kernel command line, or the <i>FactoryReset</i> EFI variable
+       (vendor UUID <b>8cf2644b-4b0b-428f-9387-6d876050dc67</b>) is set to
+       "yes". It alters the algorithm above slightly: between the 3rd
+       and the 4th step above any partition marked explicitly via the
+       <i>FactoryReset=</i> boolean is deleted, and the algorithm restarted,
+       thus immediately re-creating these partitions anew empty.
+
+       Note that <b>systemd-repart </b>only changes partition tables, it does
+       not create or resize any file systems within these partitions. A
+       separate mechanism should be used for that, for example
+       <a href="https://man7.org/linux/man-pages/man8/systemd-growfs.8.html">systemd-growfs(8)</a> and <b>systemd-makefs</b>.
+
+       The UUIDs identifying the new partitions created (or assigned to
+       existing partitions that have no UUID yet), as well as the disk
+       as a whole are hashed cryptographically from a common seed value.
+       This seed value is usually the <a href="https://man7.org/linux/man-pages/man5/machine-id.5.html">machine-id(5)</a> of the system, so
+       that the machine ID reproducibly determines the UUIDs assigned to
+       all partitions. If the machine ID cannot be read (or the user
+       passes <b>--seed=random</b>, see below) the seed is generated randomly
+       instead, so that the partition UUIDs are also effectively random.
+       The seed value may also be set explicitly, formatted as UUID via
+       the <b>--seed= </b>option. By hashing these UUIDs from a common seed
+       images prepared with this tool become reproducible and the result
+       of the algorithm above deterministic.
+
+       The positional argument should specify the block device to
+       operate on. Instead of a block device node path a regular file
+       may be specified too, in which case the command operates on it
+       like it would if a loopback block device node was specified with
+       the file attached. If <b>--empty=create </b>is specified the specified
+       path is created as regular file, which is useful for generating
+       disk images from scratch.
+</pre>

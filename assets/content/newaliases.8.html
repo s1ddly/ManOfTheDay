@@ -1,0 +1,22 @@
+<pre>
+     The <b>newaliases </b>utility makes changes to the mail aliases file
+     visible to smtpd(8).  It should be run every time the aliases(5)
+     file is changed.  The location of the alias file is defined in
+     smtpd.conf(5), and defaults to <i>/etc/mail/aliases</i>.
+
+     The options are as follows:
+
+     <b>-f </b><i>file</i>
+             Use <i>file</i> as the configuration file, instead of the default
+             <i>/etc/mail/smtpd.conf</i>.
+
+     If using database (db) files, <b>newaliases </b>is equivalent to running
+     makemap(8) as follows:
+
+           # makemap -t aliases /etc/mail/aliases
+
+     If using plain text files, <b>newaliases </b>is equivalent to running
+     smtpctl(8) as follows:
+
+           # smtpctl update table aliases
+</pre>

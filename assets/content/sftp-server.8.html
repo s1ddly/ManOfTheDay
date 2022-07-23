@@ -1,0 +1,78 @@
+<pre>
+     <b>sftp-server </b>is a program that speaks the server side of SFTP
+     protocol to stdout and expects client requests from stdin.
+     <b>sftp-server </b>is not intended to be called directly, but from sshd(8)
+     using the <b>Subsystem </b>option.
+
+     Command-line flags to <b>sftp-server </b>should be specified in the
+     <b>Subsystem </b>declaration.  See sshd_config(5) for more information.
+
+     Valid options are:
+
+     <b>-d </b><i>start_directory</i>
+             Specifies an alternate starting directory for users.  The
+             pathname may contain the following tokens that are expanded
+             at runtime: %% is replaced by a literal '%', %d is replaced
+             by the home directory of the user being authenticated, and
+             %u is replaced by the username of that user.  The default
+             is to use the user's home directory.  This option is useful
+             in conjunction with the sshd_config(5) <b>ChrootDirectory</b>
+             option.
+
+     <b>-e      </b>Causes <b>sftp-server </b>to print logging information to stderr
+             instead of syslog for debugging.
+
+     <b>-f </b><i>log_facility</i>
+             Specifies the facility code that is used when logging
+             messages from <b>sftp-server</b>.  The possible values are:
+             DAEMON, USER, AUTH, LOCAL0, LOCAL1, LOCAL2, LOCAL3, LOCAL4,
+             LOCAL5, LOCAL6, LOCAL7.  The default is AUTH.
+
+     <b>-h      </b>Displays <b>sftp-server </b>usage information.
+
+     <b>-l </b><i>log_level</i>
+             Specifies which messages will be logged by <b>sftp-server</b>.
+             The possible values are: QUIET, FATAL, ERROR, INFO,
+             VERBOSE, DEBUG, DEBUG1, DEBUG2, and DEBUG3.  INFO and
+             VERBOSE log transactions that <b>sftp-server </b>performs on
+             behalf of the client.  DEBUG and DEBUG1 are equivalent.
+             DEBUG2 and DEBUG3 each specify higher levels of debugging
+             output.  The default is ERROR.
+
+     <b>-P </b><i>denied_requests</i>
+             Specifies a comma-separated list of SFTP protocol requests
+             that are banned by the server.  <b>sftp-server </b>will reply to
+             any denied request with a failure.  The <b>-Q </b>flag can be used
+             to determine the supported request types.  If both denied
+             and allowed lists are specified, then the denied list is
+             applied before the allowed list.
+
+     <b>-p </b><i>allowed_requests</i>
+             Specifies a comma-separated list of SFTP protocol requests
+             that are permitted by the server.  All request types that
+             are not on the allowed list will be logged and replied to
+             with a failure message.
+
+             Care must be taken when using this feature to ensure that
+             requests made implicitly by SFTP clients are permitted.
+
+     <b>-Q </b><i>protocol_feature</i>
+             Queries protocol features supported by <b>sftp-server</b>.  At
+             present the only feature that may be queried is “requests”,
+             which may be used to deny or allow specific requests (flags
+             <b>-P </b>and <b>-p </b>respectively).
+
+     <b>-R      </b>Places this instance of <b>sftp-server </b>into a read-only mode.
+             Attempts to open files for writing, as well as other
+             operations that change the state of the filesystem, will be
+             denied.
+
+     <b>-u </b><i>umask</i>
+             Sets an explicit umask(2) to be applied to newly-created
+             files and directories, instead of the user's default mask.
+
+     On some systems, <b>sftp-server </b>must be able to access <i>/dev/log</i> for
+     logging to work, and use of <b>sftp-server </b>in a chroot configuration
+     therefore requires that syslogd(8) establish a logging socket
+     inside the chroot directory.
+</pre>

@@ -1,0 +1,96 @@
+<pre>
+       This install program copies files (often just compiled) into
+       destination locations you choose.  If you want to download and
+       install a ready-to-use package on a GNU/Linux system, you should
+       instead be using a package manager like yum(1) or apt-get(1).
+
+       In the first three forms, copy SOURCE to DEST or multiple
+       SOURCE(s) to the existing DIRECTORY, while setting permission
+       modes and owner/group.  In the 4th form, create all components of
+       the given DIRECTORY(ies).
+
+       Mandatory arguments to long options are mandatory for short
+       options too.
+
+       <b>--backup</b>[=<i>CONTROL</i>]
+              make a backup of each existing destination file
+
+       <b>-b     </b>like <b>--backup </b>but does not accept an argument
+
+       <b>-c     </b>(ignored)
+
+       <b>-C</b>, <b>--compare</b>
+              compare each pair of source and destination files, and in
+              some cases, do not modify the destination at all
+
+       <b>-d</b>, <b>--directory</b>
+              treat all arguments as directory names; create all
+              components of the specified directories
+
+       <b>-D     </b>create all leading components of DEST except the last, or
+              all components of <b>--target-directory</b>, then copy SOURCE to
+              DEST
+
+       <b>-g</b>, <b>--group</b>=<i>GROUP</i>
+              set group ownership, instead of process' current group
+
+       <b>-m</b>, <b>--mode</b>=<i>MODE</i>
+              set permission mode (as in chmod), instead of rwxr-xr-x
+
+       <b>-o</b>, <b>--owner</b>=<i>OWNER</i>
+              set ownership (super-user only)
+
+       <b>-p</b>, <b>--preserve-timestamps</b>
+              apply access/modification times of SOURCE files to
+              corresponding destination files
+
+       <b>-s</b>, <b>--strip</b>
+              strip symbol tables
+
+       <b>--strip-program</b>=<i>PROGRAM</i>
+              program used to strip binaries
+
+       <b>-S</b>, <b>--suffix</b>=<i>SUFFIX</i>
+              override the usual backup suffix
+
+       <b>-t</b>, <b>--target-directory</b>=<i>DIRECTORY</i>
+              copy all SOURCE arguments into DIRECTORY
+
+       <b>-T</b>, <b>--no-target-directory</b>
+              treat DEST as a normal file
+
+       <b>-v</b>, <b>--verbose</b>
+              print the name of each directory as it is created
+
+       <b>--preserve-context</b>
+              preserve SELinux security context
+
+       <b>-Z     </b>set SELinux security context of destination file and each
+              created directory to default type
+
+       <b>--context</b>[=<i>CTX</i>]
+              like <b>-Z</b>, or if CTX is specified then set the SELinux or
+              SMACK security context to CTX
+
+       <b>--help </b>display this help and exit
+
+       <b>--version</b>
+              output version information and exit
+
+       The backup suffix is '~', unless set with <b>--suffix </b>or
+       SIMPLE_BACKUP_SUFFIX.  The version control method may be selected
+       via the <b>--backup </b>option or through the VERSION_CONTROL
+       environment variable.  Here are the values:
+
+       none, off
+              never make backups (even if <b>--backup </b>is given)
+
+       numbered, t
+              make numbered backups
+
+       existing, nil
+              numbered if numbered backups exist, simple otherwise
+
+       simple, never
+              always make simple backups
+</pre>

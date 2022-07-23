@@ -1,0 +1,38 @@
+<pre>
+       <b>pcp-free </b>gives a summary display of the total amount of free and
+       used physical memory and swap in the system, as well as the
+       caches used by the kernel.
+
+       When invoked via the <a href="https://man7.org/linux/man-pages/man1/pcp.1.html">pcp(1)</a> command, the <b>-h</b>/<b>--host</b>, <b>-a</b>/<b>--archive</b>,
+       <b>-O</b>/<b>--origin</b>, <b>-s</b>/<b>--samples</b>, <b>-t</b>/<b>--interval</b>, <b>-Z</b>/<b>--timezone </b>and
+       several other <b>pcp </b><i>options</i> become indirectly available, see
+       <a href="https://man7.org/linux/man-pages/man1/PCPIntro.1.html">PCPIntro(1)</a> for their descriptions.
+
+       The displayed columns are:
+
+       <b>total  </b>Total installed memory (MemTotal and SwapTotal in
+              /proc/meminfo)
+
+       <b>used   </b>Used memory (calculated as <b>total </b>- <b>free </b>- <b>buffers </b>- <b>cache</b>)
+
+       <b>free   </b>Unused memory (MemFree and SwapFree in /proc/meminfo)
+
+       <b>shared </b>Memory used (mostly) by tmpfs (Shmem in /proc/meminfo)
+
+       <b>buffers</b>
+              Memory used by kernel buffers (Buffers in /proc/meminfo)
+
+       <b>cache  </b>Memory used by the page cache and slabs (Cached and
+              SReclaimable in /proc/meminfo)
+
+       <b>buff/cache</b>
+              Sum of <b>buffers </b>and <b>cache</b>
+
+       <b>available</b>
+              Estimation of how much memory is available for starting
+              new applications, without swapping.  Unlike the data
+              provided by the <b>cache </b>or <b>free </b>fields, this field takes
+              into account page cache and also that not all reclaimable
+              memory slabs will be reclaimed due to items being in use
+              (MemAvailable in /proc/meminfo).
+</pre>

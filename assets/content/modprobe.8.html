@@ -1,0 +1,29 @@
+<pre>
+       <b>modprobe </b>intelligently adds or removes a module from the Linux
+       kernel: note that for convenience, there is no difference between
+       _ and - in module names (automatic underscore conversion is
+       performed).  <b>modprobe </b>looks in the module directory
+       /lib/modules/`uname -r` for all the modules and other files,
+       except for the optional configuration files in the
+       /etc/modprobe.d directory (see <a href="https://man7.org/linux/man-pages/man5/modprobe.d.5.html">modprobe.d(5)</a>).  <b>modprobe </b>will
+       also use module options specified on the kernel command line in
+       the form of &lt;module&gt;.&lt;option&gt; and blacklists in the form of
+       modprobe.blacklist=&lt;module&gt;.
+
+       Note that unlike in 2.4 series Linux kernels (which are not
+       supported by this tool) this version of <b>modprobe </b>does not do
+       anything to the module itself: the work of resolving symbols and
+       understanding parameters is done inside the kernel. So module
+       failure is sometimes accompanied by a kernel message: see
+       <b>dmesg</b>(8).
+
+       <b>modprobe </b>expects an up-to-date modules.dep.bin file as generated
+       by the corresponding <b>depmod </b>utility shipped along with <b>modprobe</b>
+       (see <a href="https://man7.org/linux/man-pages/man8/depmod.8.html">depmod(8)</a>). This file lists what other modules each module
+       needs (if any), and <b>modprobe </b>uses this to add or remove these
+       dependencies automatically.
+
+       If any arguments are given after the <i>modulename</i>, they are passed
+       to the kernel (in addition to any options listed in the
+       configuration file).
+</pre>

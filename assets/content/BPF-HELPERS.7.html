@@ -1,0 +1,30 @@
+<pre>
+       The extended Berkeley Packet Filter (eBPF) subsystem consists in
+       programs written in a pseudo-assembly language, then attached to
+       one of the several kernel hooks and run in reaction of specific
+       events. This framework differs from the older, "classic" BPF (or
+       "cBPF") in several aspects, one of them being the ability to call
+       special functions (or "helpers") from within a program.  These
+       functions are restricted to a white-list of helpers defined in
+       the kernel.
+
+       These helpers are used by eBPF programs to interact with the
+       system, or with the context in which they work. For instance,
+       they can be used to print debugging messages, to get the time
+       since the system was booted, to interact with eBPF maps, or to
+       manipulate network packets. Since there are several eBPF program
+       types, and that they do not run in the same context, each program
+       type can only call a subset of those helpers.
+
+       Due to eBPF conventions, a helper can not have more than five
+       arguments.
+
+       Internally, eBPF programs call directly into the compiled helper
+       functions without requiring any foreign-function interface. As a
+       result, calling helpers introduces no overhead, thus offering
+       excellent performance.
+
+       This document is an attempt to list and document the helpers
+       available to eBPF developers. They are sorted by chronological
+       order (the oldest helpers in the kernel at the top).
+</pre>

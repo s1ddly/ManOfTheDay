@@ -1,0 +1,29 @@
+<pre>
+       The <b>newgidmap </b>sets /proc/[pid]/gid_map based on its command line
+       arguments and the gids allowed. Subgid delegation can either be
+       managed via /etc/subgid or through the configured NSS subid
+       module. These options are mutually exclusive.
+
+       Note that the root group is not exempted from the requirement for
+       a valid /etc/subgid entry.
+
+       After the pid argument, <b>newgidmap </b>expects sets of 3 integers:
+
+       gid
+           Beginning of the range of GIDs inside the user namespace.
+
+       lowergid
+           Beginning of the range of GIDs outside the user namespace.
+
+       count
+           Length of the ranges (both inside and outside the user
+           namespace).
+
+       <b>newgidmap </b>verifies that the caller is the owner of the process
+       indicated by <b>pid </b>and that for each of the above sets, each of the
+       GIDs in the range [lowergid, lowergid+count) is allowed to the
+       caller according to /etc/subgid before setting
+       /proc/[pid]/gid_map.
+
+       Note that newgidmap may be used only once for a given process.
+</pre>

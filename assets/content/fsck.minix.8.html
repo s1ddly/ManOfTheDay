@@ -1,0 +1,30 @@
+<pre>
+       <b>fsck.minix </b>performs a consistency check for the Linux MINIX
+       filesystem.
+
+       The program assumes the filesystem is quiescent. <b>fsck.minix</b>
+       should not be used on a mounted device unless you can be sure
+       nobody is writing to it. Remember that the kernel can write to
+       device when it searches for files.
+
+       The <i>device</i> name will usually have the following form:
+
+          ┌───────────────┬─────────────┐
+          │               │             │
+          │/dev/hda[1-63] │ IDE disk 1  │
+          ├───────────────┼─────────────┤
+          │               │             │
+          │/dev/hdb[1-63] │ IDE disk 2  │
+          ├───────────────┼─────────────┤
+          │               │             │
+          │/dev/sda[1-15] │ SCSI disk 1 │
+          ├───────────────┼─────────────┤
+          │               │             │
+          │/dev/sdb[1-15] │ SCSI disk 2 │
+          └───────────────┴─────────────┘
+
+       If the filesystem was changed, i.e., repaired, then
+       <b>fsck.minix </b>will print "FILE SYSTEM HAS CHANGED" and will
+       <a href="https://man7.org/linux/man-pages/man2/sync.2.html">sync(2)</a> three times before exiting. There is <i>no</i> need to
+       reboot after check.
+</pre>

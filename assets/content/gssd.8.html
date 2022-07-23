@@ -1,0 +1,84 @@
+<pre>
+       To establish GSS security contexts using these credential files,
+       the Linux kernel RPC client depends on a userspace daemon called
+       <b>rpc.gssd</b>.  The <b>rpc.gssd </b>daemon uses the rpc_pipefs filesystem to
+       communicate with the kernel.
+
+   <b>User Credentials</b>
+       When a user authenticates using a command such as <b>kinit</b>(1), the
+       resulting credential is stored in a file with a well-known name
+       constructed using the user's UID.
+
+       To interact with an NFS server on behalf of a particular
+       Kerberos-authenticated user, the Linux kernel RPC client requests
+       that <b>rpc.gssd </b>initialize a security context with the credential
+       in that user's credential file.
+
+       Typically, credential files are placed in <i>/tmp</i>.  However,
+       <b>rpc.gssd </b>can search for credential files in more than one
+       directory.  See the description of the <b>-d </b>option for details.
+
+   <b>Machine Credentials</b>
+       <b>rpc.gssd </b>searches the default keytab, <i>/etc/krb5.keytab</i>, in the
+       following order for a principal and password to use when
+       establishing the machine credential.  For the search, rpc.gssd
+       replaces &lt;hostname&gt; and &lt;REALM&gt; with the local system's hostname
+       and Kerberos realm.
+
+          &lt;HOSTNAME&gt;$@&lt;REALM&gt;
+          root/&lt;hostname&gt;@&lt;REALM&gt;
+          nfs/&lt;hostname&gt;@&lt;REALM&gt;
+          host/&lt;hostname&gt;@&lt;REALM&gt;
+          root/&lt;anyname&gt;@&lt;REALM&gt;
+          nfs/&lt;anyname&gt;@&lt;REALM&gt;
+          host/&lt;anyname&gt;@&lt;REALM&gt;
+
+       rpc.gssd selects one of the &lt;anyname&gt; entries if it does not find
+       a service principal matching the local hostname, e.g. if DHCP
+       assigns the local hostname dynamically.  The &lt;anyname&gt; facility
+       enables the use of the same keytab on multiple systems.  However,
+       using the same service principal to establish a machine
+       credential on multiple hosts can create unwanted security
+       exposures and is therefore not recommended.
+
+       Note that &lt;HOSTNAME&gt;$@&lt;REALM&gt; is a user principal that enables
+       Kerberized NFS when the local system is joined to an Active
+       Directory domain using Samba.  The keytab provides the password
+       for this principal.
+
+       You can specify a different keytab by using the <b>-k </b>option if
+       <i>/etc/krb5.keytab</i> does not exist or does not provide one of these
+       principals.
+
+   <b>Credentials for UID 0</b>
+       UID 0 is a special case.  By default <b>rpc.gssd </b>uses the system's
+       machine credentials for UID 0 accesses that require GSS
+       authentication.  This limits the privileges of the root user when
+       accessing network resources that require authentication.
+
+       Specify the <b>-n </b>option when starting <b>rpc.gssd </b>if you'd like to
+       force the root user to obtain a user credential rather than use
+       the local system's machine credential.
+
+       When <b>-n </b>is specified, the kernel continues to request a GSS
+       context established with a machine credential for NFSv4
+       operations, such as SETCLIENTID or RENEW, that manage state.  If
+       <b>rpc.gssd </b>cannot obtain a machine credential (say, the local
+       system has no keytab), NFSv4 operations that require machine
+       credentials will fail.
+
+   <b>Encryption types</b>
+       A realm administrator can choose to add keys encoded in a number
+       of different encryption types to the local system's keytab.  For
+       instance, a host/ principal might have keys for the <b>aes256-cts-</b>
+       <b>hmac-sha1-96</b>, <b>aes128-cts-hmac-sha1-96</b>, <b>des3-cbc-sha1</b>, and
+       <b>arcfour-hmac </b>encryption types.  This permits <b>rpc.gssd </b>to choose
+       an appropriate encryption type that the target NFS server
+       supports.
+
+       These encryption types are stronger than legacy single-DES
+       encryption types.  To interoperate in environments where servers
+       support only weak encryption types, you can restrict your client
+       to use only single-DES encryption types by specifying the <b>-l</b>
+       option when starting <b>rpc.gssd</b>.
+</pre>

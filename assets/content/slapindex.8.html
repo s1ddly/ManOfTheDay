@@ -1,0 +1,16 @@
+<pre>
+       <b>Slapindex </b>is used to regenerate <a href="https://man7.org/linux/man-pages/man8/slapd.8.html">slapd(8)</a> indices based upon the
+       current contents of a database.  It opens the given database
+       determined by the database number or suffix and updates the
+       indices for all values of all attributes of all entries. If a
+       list of specific attributes is provided on the command line, only
+       the indices for those attributes will be regenerated.  Databases
+       configured as <b>subordinate </b>of this one are also re-indexed, unless
+       <b>-g </b>is specified.
+
+       All files eventually created by <b>slapindex </b>will belong to the
+       identity <b>slapindex </b>is run as, so make sure you either run
+       <b>slapindex </b>with the same identity <a href="https://man7.org/linux/man-pages/man8/slapd.8.html">slapd(8)</a> will be run as (see
+       option <b>-u </b>in <a href="https://man7.org/linux/man-pages/man8/slapd.8.html">slapd(8)</a>), or change file ownership before running
+       <a href="https://man7.org/linux/man-pages/man8/slapd.8.html">slapd(8)</a>.
+</pre>

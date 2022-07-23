@@ -1,0 +1,17 @@
+<pre>
+       The <i>command</i> utility shall cause the shell to treat the arguments
+       as a simple command, suppressing the shell function lookup that
+       is described in <i>Section 2.9.1.1</i>, <i>Command Search and Execution</i>,
+       item 1b.
+
+       If the <i>command_name</i> is the same as the name of one of the special
+       built-in utilities, the special properties in the enumerated list
+       at the beginning of <i>Section 2.14</i>, <i>Special Built-In Utilities</i>
+       shall not occur. In every other respect, if <i>command_name</i> is not
+       the name of a function, the effect of <i>command</i> (with no options)
+       shall be the same as omitting <i>command</i>.
+
+       When the <b>-v </b>or <b>-V </b>option is used, the <i>command</i> utility shall
+       provide information concerning how a command name is interpreted
+       by the shell.
+</pre>

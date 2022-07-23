@@ -1,0 +1,16 @@
+<pre>
+       The <b>umount </b>command detaches the mentioned filesystem(s) from the
+       file hierarchy. A filesystem is specified by giving the directory
+       where it has been mounted. Giving the special device on which the
+       filesystem lives may also work, but is obsolete, mainly because
+       it will fail in case this device was mounted on more than one
+       directory.
+
+       Note that a filesystem cannot be unmounted when it is 'busy' -
+       for example, when there are open files on it, or when some
+       process has its working directory there, or when a swap file on
+       it is in use. The offending process could even be <b>umount </b>itself -
+       it opens libc, and libc in its turn may open for example locale
+       files. A lazy unmount avoids this problem, but it may introduce
+       other issues. See <b>--lazy </b>description below.
+</pre>

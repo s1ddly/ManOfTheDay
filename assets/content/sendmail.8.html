@@ -1,0 +1,26 @@
+<pre>
+     The <b>sendmail </b>utility is a local enqueuer for the smtpd(8) daemon,
+     compatible with mailwrapper(8).  The message is read on standard
+     input (stdin) until <b>sendmail </b>encounters an end-of-file.  The
+     <b>sendmail </b>enqueuer is not intended to be used directly to send mail,
+     but rather via a frontend known as a mail user agent.
+
+     Unless the optional <b>-t </b>flag is specified, one or more recipients
+     must be specified on the command line.
+
+     The options are as follows:
+
+     <b>-F </b><i>name</i>
+             Set the sender's full name.
+
+     <b>-f </b><i>from</i>
+             Set the sender's address.
+
+     <b>-t      </b>Read the message's To:, Cc:, and Bcc: fields for
+             recipients.  The Bcc: field will be deleted before sending.
+
+     <b>-v      </b>Enable verbose output.
+
+     To maintain compatibility with Sendmail, Inc.'s implementation of
+     <b>sendmail</b>, various other flags are accepted, but have no effect.
+</pre>

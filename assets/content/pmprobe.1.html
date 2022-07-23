@@ -1,0 +1,37 @@
+<pre>
+       <b>pmprobe </b>determines the availability of performance metrics
+       exported through the facilities of the Performance Co-Pilot
+       (PCP).
+
+       The metrics of interest are named in the <i>metricname</i> arguments.
+       If <i>metricname</i> is a non-leaf node in the Performance Metrics Name
+       Space (<a href="https://man7.org/linux/man-pages/man5/PMNS.5.html">PMNS(5)</a>), then <b>pmprobe </b>will recursively descend the PMNS
+       and report on all leaf nodes.  If no <i>metricname</i> argument is
+       given, the root of the namespace is used.
+
+       This recursive expansion of the PMNS can be inhibited by the <b>-F</b>
+       (go faster) option, which reduces the number of roundtrips to
+       <a href="https://man7.org/linux/man-pages/man1/pmcd.1.html">pmcd(1)</a> when the <i>metricname</i> arguments are known to be leaf nodes
+       ahead of time.
+
+       The output format is spartan and intended for use in wrapper
+       scripts creating configuration files for other PCP tools.  By
+       default, there is one line of output per metric, with the metric
+       name followed by a count of the number of available values.
+       Error conditions are encoded as a negative value count (as per
+       the <a href="https://man7.org/linux/man-pages/man3/PMAPI.3.html">PMAPI(3)</a> protocols, but may be decoded using <a href="https://man7.org/linux/man-pages/man1/pmerr.1.html">pmerr(1)</a>) and
+       followed by a textual description of the error.
+
+       Unless directed to another host by the <b>-h </b>option, <b>pmprobe </b>will
+       contact the Performance Metrics Collector Daemon (PMCD) on the
+       local host.
+
+       The <b>-a </b>option causes <b>pmprobe </b>to use the specified set of archives
+       rather than connecting to a PMCD.
+
+       The <b>-L </b>option causes <b>pmprobe </b>to use a local context to collect
+       metrics from PMDAs on the local host without PMCD.  Only some
+       metrics are available in this mode.
+
+       The <b>-a</b>, <b>-h </b>and <b>-L </b>options are mutually exclusive.
+</pre>

@@ -1,0 +1,13 @@
+<pre>
+       <b>dpkg-divert </b>is the utility used to set up and update the list of
+       diversions.
+
+       File <i>diversions</i> are a way of forcing <a href="https://man7.org/linux/man-pages/man1/dpkg.1.html">dpkg(1)</a> not to install a
+       file into its location, but to a <i>diverted</i> location. Diversions
+       can be used through the Debian package scripts to move a file
+       away when it causes a conflict. System administrators can also
+       use it to override some package's configuration file, or whenever
+       some files (which aren't marked as “conffiles”) need to be
+       preserved by <b>dpkg</b>, when installing a newer version of a package
+       which contains those files.
+</pre>

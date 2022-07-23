@@ -1,0 +1,13 @@
+<pre>
+       <b>mklost+found </b>is used to create a <i>lost+found</i> directory in the
+       current working directory on a Linux second extended file system.
+       There is normally a <i>lost+found</i> directory in the root directory of
+       each file system.
+
+       <b>mklost+found </b>pre-allocates disk blocks to the <i>lost+found</i>
+       directory so that when <a href="https://man7.org/linux/man-pages/man8/e2fsck.8.html">e2fsck(8)</a> is being run to recover a file
+       system, it does not need to allocate blocks in the file system to
+       store a large number of unlinked files.  This ensures that <b>e2fsck</b>
+       will not have to allocate data blocks in the file system during
+       recovery.
+</pre>

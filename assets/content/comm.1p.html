@@ -1,0 +1,22 @@
+<pre>
+       The <i>comm</i> utility shall read <i>file1</i> and <i>file2</i>, which should be
+       ordered in the current collating sequence, and produce three text
+       columns as output: lines only in <i>file1</i>, lines only in <i>file2</i>, and
+       lines in both files.
+
+       If the lines in both files are not ordered according to the
+       collating sequence of the current locale, the results are
+       unspecified.
+
+       If the collating sequence of the current locale does not have a
+       total ordering of all characters (see the Base Definitions volume
+       of POSIX.1‐2017, <i>Section 7.3.2</i>, <i>LC_COLLATE</i>) and any lines from
+       the input files collate equally but are not identical, <i>comm</i>
+       should treat them as different lines but may treat them as being
+       the same. If it treats them as different, <i>comm</i> should expect them
+       to be ordered according to a further byte-by-byte comparison
+       using the collating sequence for the POSIX locale and if they are
+       not ordered in this way, the output of <i>comm</i> can identify such
+       lines as being both unique to <i>file1</i> and unique to <i>file2</i> instead
+       of being in both files.
+</pre>

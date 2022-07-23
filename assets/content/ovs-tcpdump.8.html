@@ -1,0 +1,18 @@
+<pre>
+       <b>ovs-tcpdump </b>creates switch mirror ports in the <b>ovs-vswitchd</b>
+       daemon and executes <b>tcpdump </b>to listen against those ports. When
+       the <b>tcpdump </b>instance exits, it then cleans up the mirror port it
+       created.
+
+       <b>ovs-tcpdump </b>will not allow multiple mirrors for the same port. It
+       has some logic to parse the current configuration and prevent
+       duplicate mirrors.
+
+       The <b>-i </b>option may not appear multiple times.
+
+       It is important to note that under <b>Linux </b>based kernels, tap
+       devices do not receive packets unless the specific tuntap device
+       has been opened by an application. This requires <b>CAP_NET_ADMIN</b>
+       privileges, so the <b>ovs-tcpdump </b>command must be run as a user with
+       such permissions (this is usually a super-user).
+</pre>

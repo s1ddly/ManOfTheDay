@@ -1,0 +1,118 @@
+<pre>
+   <b>devlink port set - change devlink port attributes</b>
+       <b>DEV/PORT_INDEX </b>- specifies the devlink port to operate on.
+
+           Format is:
+             BUS_NAME/BUS_ADDRESS/PORT_INDEX
+
+       <b>type </b>{ <b>eth </b>| <b>ib </b>| <b>auto </b>}
+              set port type
+
+              <i>eth</i> - Ethernet
+
+              <i>ib</i> - Infiniband
+
+              <i>auto</i> - autoselect
+
+   <b>devlink port split - split devlink port into more</b>
+       <b>DEV/PORT_INDEX </b>- specifies the devlink port to operate on.
+
+       <b>count </b><i>COUNT</i>
+              number of ports to split to.
+
+   <b>devlink port unsplit - unsplit previously split devlink port</b>
+       Could be performed on any split port of the same split group.
+
+       <b>DEV/PORT_INDEX </b>- specifies the devlink port to operate on.
+
+   <b>devlink port show - display devlink port attributes</b>
+       <i>DEV/PORT_INDEX</i> - specifies the devlink port to show.  If this
+       argument is omitted all ports are listed.
+
+   <b>devlink port health - devlink health reporting and recovery</b>
+       Is an alias for <a href="https://man7.org/linux/man-pages/man8/devlink-health.8.html">devlink-health(8)</a>.
+
+   <b>devlink port add - add a devlink port</b>
+       <b>DEV </b>- specifies the devlink device to operate on. or
+
+       <b>DEV/PORT_INDEX </b>- specifies the devlink port index to use for the
+       requested new port.  This is optional. When ommited, driver
+       allocates unique port index.
+
+       <b>flavour </b>{ <b>pcipf </b>| <b>pcisf </b>}
+              set port flavour
+
+              <i>pcipf</i> - PCI PF port
+
+              <i>pcisf</i> - PCI SF port
+
+       <b>pfnum </b>{ <b>pfnumber </b>}
+              Specifies PCI pfnumber to use on which a SF device to
+              create
+
+       <b>sfnum </b>{ <b>sfnumber </b>}
+              Specifies sfnumber to assign to the device of the SF.
+              This field is optional for those devices which supports
+              auto assignment of the SF number.
+
+       <b>controller </b>{ <b>controller </b>}
+              Specifies controller number for which the SF port is
+              created.  This field is optional. It is used only when SF
+              port is created for the external controller.
+
+   <b>devlink port function set - Set the port function attribute(s).</b>
+       <b>DEV/PORT_INDEX </b>- specifies the devlink port to operate on.
+
+       <b>hw_addr </b>ADDR
+              - hardware address of the function to set. This is a
+              Ethernet MAC address when port type is Ethernet.
+
+       <b>state </b>{ <b>active </b>| <b>inactive </b>}
+              - new state of the function to change to.
+
+              <i>active</i> - Once configuration of the function is done,
+              activate the function.
+
+              <i>inactive</i> - To inactivate the function and its device(s),
+              set to inactive.
+
+   <b>devlink port del - delete a devlink port</b>
+       <b>DEV/PORT_INDEX </b>- specifies the devlink port to delete.
+
+   <b>devlink port param set - set new value to devlink port configuration</b>
+       <b>parameter</b>
+       <b>DEV/PORT_INDEX </b>- specifies the devlink port to operate on.
+
+       <b>name </b><i>PARAMETER</i>
+              Specify parameter name to set.
+
+       <b>value </b><i>VALUE</i>
+              New value to set.
+
+       <b>cmode </b>{ <b>runtime </b>| <b>driverinit </b>| <b>permanent </b>}
+              Configuration mode in which the new value is set.
+
+              <i>runtime</i> - Set new value while driver is running. This
+              configuration mode doesn't require any reset to apply the
+              new value.
+
+              <i>driverinit</i> - Set new value which will be applied during
+              driver initialization. This configuration mode requires
+              restart driver by devlink reload command to apply the new
+              value.
+
+              <i>permanent</i> - New value is written to device's non-volatile
+              memory. This configuration mode requires hard reset to
+              apply the new value.
+
+   <b>devlink port param show - display devlink port supported</b>
+       <b>configuration parameters attributes</b>
+       <b>DEV/PORT_INDEX </b>- specifies the devlink port to operate on.
+
+       <b>name </b><i>PARAMETER</i> Specify parameter name to show.  If this argument,
+       as well as port index, are omitted - all parameters supported by
+       devlink device ports are listed.
+
+   <b>devlink port function rate - manage devlink rate objects</b>
+       Is an alias for <a href="https://man7.org/linux/man-pages/man8/devlink-rate.8.html">devlink-rate(8)</a>.
+</pre>

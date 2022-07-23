@@ -1,0 +1,71 @@
+<pre>
+       <b>dpkg-buildpackage </b>is a program that automates the process of
+       building a Debian package. It consists of the following steps:
+
+       <b>1. </b>It prepares the build environment by setting various
+          environment variables (see <b>ENVIRONMENT</b>), runs the <b>init </b>hook,
+          and calls <b>dpkg-source --before-build </b>(unless <b>-T </b>or <b>--target</b>
+          has been used).
+
+       <b>2. </b>It checks that the build-dependencies and build-conflicts are
+          satisfied (unless <b>-d </b>or <b>--no-check-builddeps </b>is specified).
+
+       <b>3. </b>If one or more specific targets have been selected with the <b>-T</b>
+          or <b>--target </b>option, it calls those targets and stops here.
+          Otherwise it runs the <b>preclean </b>hook and calls <b>fakeroot</b>
+          <b>debian/rules clean </b>to clean the build-tree (unless <b>-nc </b>or
+          <b>--no-pre-clean </b>is specified).
+
+       <b>4. </b>It runs the <b>source </b>hook and calls <b>dpkg-source -b </b>to generate
+          the source package (if a <b>source </b>build has been requested with
+          <b>--build </b>or equivalent options).
+
+       <b>5. </b>It runs the <b>build </b>hook and calls <b>debian/rules </b><i>build-target</i>,
+          then runs the <b>binary </b>hook followed by <b>fakeroot debian/rules</b>
+          <i>binary-target</i> (unless a source-only build has been requested
+          with <b>--build=source </b>or equivalent options).  Note that <i>build-</i>
+          <i>target</i> and <i>binary-target</i> are either <b>build </b>and <b>binary </b>(default
+          case, or if an <b>any </b>and <b>all </b>build has been requested with
+          <b>--build </b>or equivalent options), or <b>build-arch </b>and <b>binary-arch</b>
+          (if an <b>any </b>and not <b>all </b>build has been requested with <b>--build</b>
+          or equivalent options), or <b>build-indep </b>and <b>binary-indep </b>(if an
+          <b>all </b>and not <b>any </b>build has been requested with <b>--build </b>or
+          equivalent options).
+
+       <b>6. </b>It runs the <b>buildinfo </b>hook and calls <b>dpkg-genbuildinfo </b>to
+          generate a <b>.buildinfo </b>file.  Several <b>dpkg-buildpackage </b>options
+          are forwarded to <b>dpkg-genbuildinfo</b>.
+
+       <b>7. </b>It runs the <b>changes </b>hook and calls <b>dpkg-genchanges </b>to generate
+          a <b>.changes </b>file.  The name of the <b>.changes </b>file will depend on
+          the type of build and will be as specific as necessary but not
+          more; for a build that includes <b>any </b>the name will be <i>source-</i>
+          <i>name</i><b>_</b><i>binary-version</i><b>_</b><i>arch</i><b>.changes</b>, or otherwise for a build
+          that includes <b>all </b>the name will be <i>source-name</i><b>_</b><i>binary-</i>
+          <i>version</i><b>_all.changes</b>, or otherwise for a build that includes
+          <b>source </b>the name will be <i>source-name</i><b>_</b><i>source-</i>
+          <i>version</i><b>_source.changes</b>.  Many <b>dpkg-buildpackage </b>options are
+          forwarded to <b>dpkg-genchanges</b>.
+
+       <b>8. </b>It runs the <b>postclean </b>hook and if <b>-tc </b>or <b>--post-clean </b>is
+          specified, it will call <b>fakeroot debian/rules clean </b>again.
+
+       <b>9. </b>It calls <b>dpkg-source --after-build</b>.
+
+       <b>10.</b>
+          It runs the <b>check </b>hook and calls a package checker for the
+          <b>.changes </b>file (if a command is specified in <b>DEB_CHECK_COMMAND</b>
+          or with <b>--check-command</b>).
+
+       <b>11.</b>
+          It runs the <b>sign </b>hook and calls <b>gpg2 </b>or <b>gpg </b>(as long as it is
+          not an UNRELEASED build, or <b>--no-sign </b>is specified) to sign
+          the <b>.dsc </b>file (if any, unless <b>-us </b>or <b>--unsigned-source </b>is
+          specified), the <b>.buildinfo </b>file (unless <b>-ui</b>,
+          <b>--unsigned-buildinfo</b>, <b>-uc </b>or <b>--unsigned-changes </b>is specified)
+          and the <b>.changes </b>file (unless <b>-uc </b>or <b>--unsigned-changes </b>is
+          specified).
+
+       <b>12.</b>
+          It runs the <b>done </b>hook.
+</pre>

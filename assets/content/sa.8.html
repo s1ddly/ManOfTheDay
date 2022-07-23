@@ -1,0 +1,63 @@
+<pre>
+       <b>sa </b>summarizes information about previously executed commands as
+       recorded in the <i>acct</i> file.  In addition, it condenses this data
+       into a summary file named <i>savacct</i> which contains the number of
+       times the command was called and the system resources used.  The
+       information can also be summarized on a per-user basis; <b>sa </b>will
+       save this information into a file named <i>usracct.</i>
+
+       If no arguments are specified, <b>sa </b>will print information about
+       all of the commands in the <i>acct</i> file.
+
+       If called with a file name as the last argument, <b>sa </b>will use that
+       file instead of the system's default <i>acct</i> file.
+
+       By default, <b>sa </b>will sort the output by sum of user and system
+       time.  If command names have unprintable characters, or are only
+       called once, <b>sa </b>will sort them into a group called `***other'.
+       If more than one sorting option is specified, the list will be
+       sorted by the one specified last on the command line.
+
+       The output fields are labeled as follows:
+
+       <i>cpu</i>
+               sum of system and user time in cpu minutes
+
+       <i>re</i>
+               "elapsed time" in minutes
+
+       <i>k</i>
+               cpu-time averaged core usage, in 1k units
+
+       <i>avio</i>
+               average number of I/O operations per execution
+
+       <i>tio</i>
+               total number of I/O operations
+
+       <i>k*sec</i>
+               cpu storage integral (kilo-core seconds)
+
+       <i>u</i>
+               user cpu time in cpu seconds
+
+       <i>s</i>
+               system time in cpu seconds
+
+       Note that these column titles do not appear in the first row of
+       the table, but after each numeric entry (as units of measurement)
+       in every row.  For example, you might see `79.29re', meaning
+       79.29 cpu seconds of "real time".
+
+       An asterisk will appear after the name of commands that forked
+       but didn't call <b>exec.</b>
+
+       GNU <b>sa </b>takes care to implement a number of features not found in
+       other versions.  For example, most versions of <b>sa </b>don't pay
+       attention to flags like `--print-seconds' and `--sort-num-calls'
+       when printing out commands when combined with the `--user-
+       summary' or `--print-users' flags.  GNU <b>sa </b>pays attention to
+       these flags if they are applicable.  Also, MIPS' <b>sa </b>stores the
+       average memory use as a short rather than a double, resulting in
+       some round-off errors.  GNU <b>sa </b>uses double the whole way through.
+</pre>

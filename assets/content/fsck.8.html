@@ -1,0 +1,55 @@
+<pre>
+       <b>fsck </b>is used to check and optionally repair one or more Linux
+       filesystems. <i>filesystem</i> can be a device name (e.g., <i>/dev/hdc1</i>,
+       <i>/dev/sdb2</i>), a mount point (e.g., <i>/</i>, <i>/usr</i>, <i>/home</i>), or an
+       filesystem label or UUID specifier (e.g.,
+       UUID=8868abf6-88c5-4a83-98b8-bfc24057f7bd or LABEL=root).
+       Normally, the <b>fsck </b>program will try to handle filesystems on
+       different physical disk drives in parallel to reduce the total
+       amount of time needed to check all of them.
+
+       If no filesystems are specified on the command line, and the <b>-A</b>
+       option is not specified, <b>fsck </b>will default to checking
+       filesystems in <i>/etc/fstab</i> serially. This is equivalent to the <b>-As</b>
+       options.
+
+       The exit status returned by <b>fsck </b>is the sum of the following
+       conditions:
+
+       <b>0</b>
+           No errors
+
+       <b>1</b>
+           Filesystem errors corrected
+
+       <b>2</b>
+           System should be rebooted
+
+       <b>4</b>
+           Filesystem errors left uncorrected
+
+       <b>8</b>
+           Operational error
+
+       <b>16</b>
+           Usage or syntax error
+
+       <b>32</b>
+           Checking canceled by user request
+
+       <b>128</b>
+           Shared-library error
+
+       The exit status returned when multiple filesystems are checked is
+       the bit-wise OR of the exit statuses for each filesystem that is
+       checked.
+
+       In actuality, <b>fsck </b>is simply a front-end for the various
+       filesystem checkers (<b>fsck</b>.<i>fstype</i>) available under Linux. The
+       filesystem-specific checker is searched for in the <b>PATH</b>
+       environment variable. If the <b>PATH </b>is undefined then fallback to
+       <i>/sbin</i>.
+
+       Please see the filesystem-specific checker manual pages for
+       further details.
+</pre>

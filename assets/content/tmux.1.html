@@ -1,0 +1,126 @@
+<pre>
+     <b>tmux </b>is a terminal multiplexer: it enables a number of terminals to
+     be created, accessed, and controlled from a single screen.  <b>tmux</b>
+     may be detached from a screen and continue running in the
+     background, then later reattached.
+
+     When <b>tmux </b>is started it creates a new <i>session</i> with a single <i>window</i>
+     and displays it on screen.  A status line at the bottom of the
+     screen shows information on the current session and is used to
+     enter interactive commands.
+
+     A session is a single collection of <i>pseudo terminals</i> under the
+     management of <b>tmux</b>.  Each session has one or more windows linked to
+     it.  A window occupies the entire screen and may be split into
+     rectangular panes, each of which is a separate pseudo terminal (the
+     pty(4) manual page documents the technical details of pseudo
+     terminals).  Any number of <b>tmux </b>instances may connect to the same
+     session, and any number of windows may be present in the same
+     session.  Once all sessions are killed, <b>tmux </b>exits.
+
+     Each session is persistent and will survive accidental
+     disconnection (such as ssh(1) connection timeout) or intentional
+     detaching (with the ‘C-b d’ key strokes).  <b>tmux </b>may be reattached
+     using:
+
+           $ tmux attach
+
+     In <b>tmux</b>, a session is displayed on screen by a <i>client</i> and all
+     sessions are managed by a single <i>server</i>.  The server and each
+     client are separate processes which communicate through a socket in
+     <i>/tmp</i>.
+
+     The options are as follows:
+
+     <b>-2            </b>Force <b>tmux </b>to assume the terminal supports 256
+                   colours.  This is equivalent to <b>-T </b><i>256</i>.
+
+     <b>-C            </b>Start in control mode (see the <i>CONTROL MODE</i> section).
+                   Given twice (<b>-CC</b>) disables echo.
+
+     <b>-c </b><i>shell-command</i>
+                   Execute <i>shell-command</i> using the default shell.  If
+                   necessary, the <b>tmux </b>server will be started to
+                   retrieve the <b>default-shell </b>option.  This option is
+                   for compatibility with sh(1) when <b>tmux </b>is used as a
+                   login shell.
+
+     <b>-D            </b>Do not start the <b>tmux </b>server as a daemon.  This also
+                   turns the <b>exit-empty </b>option off.  With <b>-D</b>, <i>command</i>
+                   may not be specified.
+
+     <b>-f </b><i>file</i>       Specify an alternative configuration file.  By
+                   default, <b>tmux </b>loads the system configuration file
+                   from <i>@SYSCONFDIR@/tmux.conf</i>, if present, then looks
+                   for a user configuration file at <i>~/.tmux.conf</i>.
+
+                   The configuration file is a set of <b>tmux </b>commands
+                   which are executed in sequence when the server is
+                   first started.  <b>tmux </b>loads configuration files once
+                   when the server process has started.  The <b>source-file</b>
+                   command may be used to load a file later.
+
+                   <b>tmux </b>shows any error messages from commands in
+                   configuration files in the first session created, and
+                   continues to process the rest of the configuration
+                   file.
+
+     <b>-L </b><i>socket-name</i>
+                   <b>tmux </b>stores the server socket in a directory under
+                   TMUX_TMPDIR or <i>/tmp</i> if it is unset.  The default
+                   socket is named <i>default</i>.  This option allows a
+                   different socket name to be specified, allowing
+                   several independent <b>tmux </b>servers to be run.  Unlike
+                   <b>-S </b>a full path is not necessary: the sockets are all
+                   created in a directory <i>tmux-UID</i> under the directory
+                   given by TMUX_TMPDIR or in <i>/tmp</i>.  The <i>tmux-UID</i>
+                   directory is created by <b>tmux </b>and must not be world
+                   readable, writable or executable.
+
+                   If the socket is accidentally removed, the SIGUSR1
+                   signal may be sent to the <b>tmux </b>server process to
+                   recreate it (note that this will fail if any parent
+                   directories are missing).
+
+     <b>-l            </b>Behave as a login shell.  This flag currently has no
+                   effect and is for compatibility with other shells
+                   when using tmux as a login shell.
+
+     <b>-N            </b>Do not start the server even if the command would
+                   normally do so (for example <b>new-session </b>or
+                   <b>start-server</b>).
+
+     <b>-S </b><i>socket-path</i>
+                   Specify a full alternative path to the server socket.
+                   If <b>-S </b>is specified, the default socket directory is
+                   not used and any <b>-L </b>flag is ignored.
+
+     <b>-u            </b>Write UTF-8 output to the terminal even if the first
+                   environment variable of LC_ALL, LC_CTYPE, or LANG
+                   that is set does not contain "UTF-8" or "UTF8".  This
+                   is equivalent to <b>-T </b><i>UTF-8</i>.
+
+     <b>-T </b><i>features</i>   Set terminal features for the client.  This is a
+                   comma-separated list of features.  See the
+                   <b>terminal-features </b>option.
+
+     <b>-v            </b>Request verbose logging.  Log messages will be saved
+                   into <i>tmux-client-PID.log</i> and <i>tmux-server-PID.log</i>
+                   files in the current directory, where <i>PID</i> is the PID
+                   of the server or client process.  If <b>-v </b>is specified
+                   twice, an additional <i>tmux-out-PID.log</i> file is
+                   generated with a copy of everything <b>tmux </b>writes to
+                   the terminal.
+
+                   The SIGUSR2 signal may be sent to the <b>tmux </b>server
+                   process to toggle logging between on (as if <b>-v </b>was
+                   given) and off.
+
+     <b>-V            </b>Report the <b>tmux </b>version.
+
+     <i>command</i> [<i>flags</i>]
+                   This specifies one of a set of commands used to
+                   control <b>tmux</b>, as described in the following sections.
+                   If no commands are specified, the <b>new-session </b>command
+                   is assumed.
+</pre>

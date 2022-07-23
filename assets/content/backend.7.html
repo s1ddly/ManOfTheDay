@@ -1,0 +1,84 @@
+<pre>
+       Backends are a special type of <a href="https://man7.org/linux/man-pages/man7/filter.7.html">filter(7)</a> which is used to send
+       print data to and discover different devices on the system.
+
+       Like filters, backends must be capable of reading from a filename
+       on the command-line or from the standard input, copying the
+       standard input to a temporary file as required by the physical
+       interface.
+
+       The command name (<i>argv[0]</i>) is set to the device URI of the
+       destination printer.  Authentication information in <i>argv[0]</i> is
+       removed, so backend developers are urged to use the <b>DEVICE_URI</b>
+       environment variable whenever authentication information is
+       required. The <b>cupsBackendDeviceURI</b>() function may be used to
+       retrieve the correct device URI.
+
+       Back-channel data from the device should be relayed to the job
+       filters using the <i>cupsBackChannelWrite</i> function.
+
+       Backends are responsible for reading side-channel requests using
+       the <b>cupsSideChannelRead</b>() function and responding with the
+       <b>cupsSideChannelWrite</b>() function. The <b>CUPS_SC_FD </b>constant defines
+       the file descriptor that should be monitored for incoming
+       requests.
+
+   <b>DEVICE DISCOVERY</b>
+       When run with no arguments, the backend should list the devices
+       and schemes it supports or is advertising to the standard output.
+       The output consists of zero or more lines consisting of any of
+       the following forms:
+
+           device-class scheme "Unknown" "device-info"
+           device-class device-uri "device-make-and-model" "device-info"
+           device-class device-uri "device-make-and-model" "device-info" "device-id"
+           device-class device-uri "device-make-and-model" "device-info" "device-id" "device-location"
+
+       The <b>cupsBackendReport</b>() function can be used to generate these
+       lines and handle any necessary escaping of characters in the
+       various strings.
+
+       The <i>device-class</i> field is one of the following values:
+
+       <b>direct</b>
+            The device-uri refers to a specific direct-access device
+            with no options, such as a parallel, USB, or SCSI device.
+
+       <b>file </b>The device-uri refers to a file on disk.
+
+       <b>network</b>
+            The device-uri refers to a networked device and conforms to
+            the general form for network URIs.
+
+       <b>serial</b>
+            The device-uri refers to a serial device with configurable
+            baud rate and other options.  If the device-uri contains a
+            baud value, it represents the maximum baud rate supported by
+            the device.
+
+       The <i>scheme</i> field provides the URI scheme that is supported by the
+       backend.  Backends should use this form only when the backend
+       supports any URI using that scheme.  The <i>device-uri</i> field
+       specifies the full URI to use when communicating with the device.
+
+       The <i>device-make-and-model</i> field specifies the make and model of
+       the device, e.g. "Example Foojet 2000".  If the make and model is
+       not known, you must report "Unknown".
+
+       The <i>device-info</i> field specifies additional information about the
+       device.  Typically this includes the make and model along with
+       the port number or network address, e.g. "Example Foojet 2000 USB
+       #1".
+
+       The optional <i>device-id</i> field specifies the IEEE-1284 device ID
+       string for the device, which is used to select a matching driver.
+
+       The optional <i>device-location</i> field specifies the physical
+       location of the device, which is often used to pre-populate the
+       printer-location attribute when adding a printer.
+
+   <b>PERMISSIONS</b>
+       Backends without world read and execute permissions are run as
+       the root user.  Otherwise, the backend is run using an
+       unprivileged user account, typically "lp".
+</pre>

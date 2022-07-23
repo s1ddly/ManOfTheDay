@@ -1,0 +1,70 @@
+<pre>
+       This utility simulates packet forwarding within an OVN logical
+       network. It can be used to run through ``what-if’’ scenarios: if
+       a packet originates at a logical port, what will happen to it and
+       where will it ultimately end up? Users already familiar with the
+       Open vSwitch <b>ofproto/trace </b>command described in <b>ovs-vswitch</b>(8)
+       will find <b>ovn-trace </b>to be a similar tool for logical networks.
+
+       <b>ovn-trace </b>works by reading the <b>Logical_Flow </b>and other tables from
+       the OVN southbound database (see <a href="https://man7.org/linux/man-pages/man5/ovn-sb.5.html">ovn-sb(5)</a>). It simulates a
+       packet’s path through logical networks by repeatedly looking it
+       up in the logical flow table, following the entire tree of
+       possibilities.
+
+       <b>ovn-trace </b>simulates only the OVN logical network. It does not
+       simulate the physical elements on which the logical network is
+       layered. This means that, for example, it is unimportant how VMs
+       are distributed among hypervisors, or whether their hypervisors
+       are functioning and reachable, so <b>ovn-trace </b>will yield the same
+       results regardless. There is one important exception: <b>ovn-northd</b>,
+       the daemon that generates the logical flows that <b>ovn-trace</b>
+       simulates, treats logical ports differently based on whether they
+       are up or down. Thus, if you see surprising results, ensure that
+       the ports involved in a simulation are up.
+
+       The simplest way to use <b>ovn-trace </b>is to provide <i>datapath</i> and
+       <i>microflow</i> arguments on the command line. In this case, it
+       simulates the behavior of a single packet and exits. For an
+       alternate usage model, see <b>Daemon Mode </b>below.
+
+       The <i>datapath</i> argument specifies the name of a logical datapath.
+       Acceptable names are the <b>name </b>from the northbound <b>Logical_Switch</b>
+       or <b>Logical_Router </b>table, the UUID of a record from one of those
+       tables, or the UUID of a record from the southbound
+       <b>Datapath_Binding </b>table.
+
+       The <i>microflow</i> argument describes the packet whose forwarding is
+       to be simulated, in the syntax of an OVN logical expression, as
+       described in <a href="https://man7.org/linux/man-pages/man5/ovn-sb.5.html">ovn-sb(5)</a>, to express constraints. The parser
+       understands prerequisites; for example, if the expression refers
+       to <b>ip4.src</b>, there is no need to explicitly state <b>ip4 </b>or <b>eth.type</b>
+       <b>== 0x800</b>.
+
+       For reasonable L2 behavior, the microflow should include at least
+       <b>inport </b>and <b>eth.dst</b>, plus <b>eth.src </b>if port security is enabled. For
+       example:
+
+           <b>inport == "lp11" &amp;&amp; eth.src == 00:01:02:03:04:05 &amp;&amp; eth.dst == ff:ff:ff:ff:ff:ff</b>
+
+       For reasonable L3 behavior, <i>microflow</i> should also include <b>ip4.src</b>
+       and <b>ip4.dst </b>(or <b>ip6.src </b>and <b>ip6.dst</b>) and <b>ip.ttl</b>. For example:
+
+           <b>inport == "lp111" &amp;&amp; eth.src == f0:00:00:00:01:11 &amp;&amp; eth.dst == 00:00:00:00:ff:11</b>
+           <b>&amp;&amp; ip4.src == 192.168.11.1 &amp;&amp; ip4.dst == 192.168.22.2 &amp;&amp; ip.ttl == 64</b>
+
+       Here’s an ARP microflow example:
+
+           <b>inport == "lp123"</b>
+           <b>&amp;&amp; eth.dst == ff:ff:ff:ff:ff:ff &amp;&amp; eth.src == f0:00:00:00:01:11</b>
+           <b>&amp;&amp; arp.op == 1 &amp;&amp; arp.sha == f0:00:00:00:01:11 &amp;&amp; arp.spa == 192.168.1.11</b>
+           <b>&amp;&amp; arp.tha == ff:ff:ff:ff:ff:ff &amp;&amp; arp.tpa == 192.168.2.22</b>
+
+       <b>ovn-trace </b>will reject erroneous microflow expressions, which
+       beyond syntax errors fall into two categories. First, they can be
+       ambiguous. For example, <b>tcp.src == 80 </b>is ambiguous because it
+       does not state IPv4 or IPv6 as the Ethernet type. <b>ip4 &amp;&amp; tcp.src</b>
+       <b>&gt; 1024 </b>is also ambiguous because it does not constrain bits of
+       <b>tcp.src </b>to particular values. Second, they can be contradictory,
+       e.g. <b>ip4 &amp;&amp; ip6</b>.
+</pre>

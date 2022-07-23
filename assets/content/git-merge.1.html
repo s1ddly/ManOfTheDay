@@ -1,0 +1,40 @@
+<pre>
+       Incorporates changes from the named commits (since the time their
+       histories diverged from the current branch) into the current
+       branch. This command is used by <i>git pull</i> to incorporate changes
+       from another repository and can be used by hand to merge changes
+       from one branch into another.
+
+       Assume the following history exists and the current branch is
+       "<b>master</b>":
+
+                     A---B---C topic
+                    /
+               D---E---F---G master
+
+       Then "<b>git merge topic</b>" will replay the changes made on the <b>topic</b>
+       branch since it diverged from <b>master </b>(i.e., <b>E</b>) until its current
+       commit (<b>C</b>) on top of <b>master</b>, and record the result in a new
+       commit along with the names of the two parent commits and a log
+       message from the user describing the changes.
+
+                     A---B---C topic
+                    /         \
+               D---E---F---G---H master
+
+       The second syntax ("<b>git merge --abort</b>") can only be run after the
+       merge has resulted in conflicts. <i>git merge --abort</i> will abort the
+       merge process and try to reconstruct the pre-merge state.
+       However, if there were uncommitted changes when the merge started
+       (and especially if those changes were further modified after the
+       merge was started), <i>git merge --abort</i> will in some cases be
+       unable to reconstruct the original (pre-merge) changes.
+       Therefore:
+
+       <b>Warning</b>: Running <i>git merge</i> with non-trivial uncommitted changes
+       is discouraged: while possible, it may leave you in a state that
+       is hard to back out of in the case of a conflict.
+
+       The third syntax ("<b>git merge --continue</b>") can only be run after
+       the merge has resulted in conflicts.
+</pre>

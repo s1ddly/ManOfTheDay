@@ -1,0 +1,12 @@
+<pre>
+       <b>systemd-journal-gatewayd </b>serves journal events over the network.
+       Clients must connect using HTTP. The server listens on port 19531
+       by default. If <b>--cert= </b>is specified, the server expects HTTPS
+       connections.
+
+       The program is started by <a href="https://man7.org/linux/man-pages/man1/systemd.1.html">systemd(1)</a> and expects to receive a
+       single socket. Use <b>systemctl start</b>
+       <b>systemd-journal-gatewayd.socket </b>to start the service, and
+       <b>systemctl enable systemd-journal-gatewayd.socket </b>to have it
+       started on boot.
+</pre>

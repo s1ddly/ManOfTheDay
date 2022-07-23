@@ -1,0 +1,36 @@
+<pre>
+       The <i>join</i> utility shall perform an equality join on the files
+       <i>file1</i> and <i>file2</i>.  The joined files shall be written to the
+       standard output.
+
+       The join field is a field in each file on which the files are
+       compared. The <i>join</i> utility shall write one line in the output for
+       each pair of lines in <i>file1</i> and <i>file2</i> that have join fields that
+       collate equally. The output line by default shall consist of the
+       join field, then the remaining fields from <i>file1</i>, then the
+       remaining fields from <i>file2</i>.  This format can be changed by using
+       the <b>-o </b>option (see below). The <b>-a </b>option can be used to add
+       unmatched lines to the output. The <b>-v </b>option can be used to
+       output only unmatched lines.
+
+       The files <i>file1</i> and <i>file2</i> shall be ordered in the collating
+       sequence of <i>sort</i> <b>-b </b>on the fields on which they shall be joined,
+       by default the first in each line. All selected output shall be
+       written in the same collating sequence.
+
+       The default input field separators shall be &lt;blank&gt; characters.
+       In this case, multiple separators shall count as one field
+       separator, and leading separators shall be ignored. The default
+       output field separator shall be a &lt;space&gt;.
+
+       The field separator and collating sequence can be changed by
+       using the <b>-t </b>option (see below).
+
+       If the same key appears more than once in either file, all
+       combinations of the set of remaining fields in <i>file1</i> and the set
+       of remaining fields in <i>file2</i> are output in the order of the lines
+       encountered.
+
+       If the input files are not in the appropriate collating sequence,
+       the results are unspecified.
+</pre>

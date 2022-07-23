@@ -1,0 +1,19 @@
+<pre>
+       The <b>vlan </b>action allows to perform 802.1Q en- or decapsulation on
+       a packet, reflected by the operation modes <i>POP</i>, <i>PUSH</i> and <i>MODIFY</i>.
+       The <i>POP</i> mode is simple, as no further information is required to
+       just drop the outer-most VLAN encapsulation. The <i>PUSH</i> and <i>MODIFY</i>
+       modes require at least a <i>VLANID</i> and allow to optionally choose
+       the <i>VLANPROTO</i> to use.
+
+       The <b>vlan </b>action can also be used to add or remove the base
+       Ethernet header. The <b>pop_eth </b>mode, which takes no argument, is
+       used to remove the base Ethernet header. All existing VLANs must
+       have been previously dropped. The opposite operation, adding a
+       base Ethernet header, is done with the <b>push_eth </b>mode. In that
+       case, the packet must have no MAC header (stacking MAC headers is
+       not permitted). This mode is mostly useful when a previous action
+       has encapsulated the whole original frame behind a network header
+       and one needs to prepend an Ethernet header before forwarding the
+       resulting packet.
+</pre>

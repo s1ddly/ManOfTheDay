@@ -1,0 +1,13 @@
+<pre>
+       <b>pcp-numastat </b>displays NUMA allocation statistics from the kernel
+       memory allocator.  Each process has NUMA policies that specify on
+       which node pages are allocated.  The performance counters in the
+       kernel track on which nodes memory is allocated and these values
+       are sampled and reported by <b>pcp-numastat</b>.
+
+       Counters are maintained individually for each NUMA node.  Details
+       of the semantics of each reported metric can be retrieved using
+       the following command:
+
+            # pminfo ‐dt mem.numa.alloc
+</pre>

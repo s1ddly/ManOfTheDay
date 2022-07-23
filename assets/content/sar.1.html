@@ -1,0 +1,76 @@
+<pre>
+       The <b>sar </b>command writes to standard output the contents of
+       selected cumulative activity counters in the operating system.
+       The accounting system, based on the values in the <i>count</i> and
+       <i>interval</i> parameters, writes information the specified number of
+       times spaced at the specified intervals in seconds.  If the
+       <i>interval</i> parameter is set to zero, the <b>sar </b>command displays the
+       average statistics for the time since the system was started. If
+       the <i>interval</i> parameter is specified without the <i>count</i> parameter,
+       then reports are generated continuously.  The collected data can
+       also be saved in the file specified by the <b>-o </b><i>filename</i> flag, in
+       addition to being displayed onto the screen. If <i>filename</i> is
+       omitted, <b>sar </b>uses the standard system activity daily data file
+       (see below).  By default all the data available from the kernel
+       are saved in the data file.
+
+       The <b>sar </b>command extracts and writes to standard output records
+       previously saved in a file. This file can be either the one
+       specified by the <b>-f </b>flag or, by default, the standard system
+       activity daily data file.  It is also possible to enter <b>-1</b>, <b>-2</b>
+       etc. as an argument to <b>sar </b>to display data of that days ago. For
+       example, <b>-1 </b>will point at the standard system activity file of
+       yesterday.
+
+       Standard system activity daily data files are named <i>saDD</i> or
+       <i>saYYYYMMDD</i>, where <i>YYYY</i> stands for the current year, <i>MM</i> for the
+       current month and <i>DD</i> for the current day. They are the default
+       files used by <b>sar </b>only when no filename has been explicitly
+       specified.  When used to write data to files (with its option
+       <b>-o</b>), <b>sar </b>will use <i>saYYYYMMDD</i> if option <b>-D </b>has also been
+       specified, else it will use <i>saDD</i>.  When used to display the
+       records previously saved in a file, <b>sar </b>will look for the most
+       recent of <i>saDD</i> and <i>saYYYYMMDD</i>, and use it.
+
+       Standard system activity daily data files are located in the
+       <i>/var/log/sa</i> directory by default. Yet it is possible to specify
+       an alternate location for them: If a directory (instead of a
+       plain file) is used with options <b>-f </b>or <b>-o </b>then it will be
+       considered as the directory containing the data files.
+
+       Without the <b>-P </b>flag, the <b>sar </b>command reports system-wide (global
+       among all processors) statistics, which are calculated as
+       averages for values expressed as percentages, and as sums
+       otherwise. If the <b>-P </b>flag is given, the <b>sar </b>command reports
+       activity which relates to the specified processor or processors.
+       If <b>-P ALL </b>is given, the <b>sar </b>command reports statistics for each
+       individual processor and global statistics among all processors.
+       Offline processors are not displayed.
+
+       You can select information about specific system activities using
+       flags. Not specifying any flags selects only CPU activity.
+       Specifying the <b>-A </b>flag selects all possible activities.
+
+       The default version of the <b>sar </b>command (CPU utilization report)
+       might be one of the first facilities the user runs to begin
+       system activity investigation, because it monitors major system
+       resources. If CPU utilization is near 100 percent (user + nice +
+       system), the workload sampled is CPU-bound.
+
+       If multiple samples and multiple reports are desired, it is
+       convenient to specify an output file for the <b>sar </b>command. Run the
+       <b>sar </b>command as a background process. The syntax for this is:
+
+       <b>sar -o </b><i>datafile interval count</i> <b>&gt;/dev/null 2&gt;&amp;1 &amp;</b>
+
+       All data are captured in binary form and saved to a file
+       (<i>datafile</i>).  The data can then be selectively displayed with the
+       <b>sar </b>command using the <b>-f </b>option. Set the <i>interval</i> and <i>count</i>
+       parameters to select <i>count</i> records at <i>interval</i> second intervals.
+       If the <i>count</i> parameter is not set, all the records saved in the
+       file will be selected.  Collection of data in this manner is
+       useful to characterize system usage over a period of time and
+       determine peak usage hours.
+
+       Note: The <b>sar </b>command only reports on local activities.
+</pre>

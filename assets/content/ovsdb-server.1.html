@@ -1,0 +1,36 @@
+<pre>
+       The <b>ovsdb-server </b>program provides RPC interfaces to one or more
+       Open vSwitch databases (OVSDBs).  It supports JSON-RPC client
+       connections over active or passive TCP/IP or Unix domain sockets.
+       For an introduction to OVSDB and its implementation in Open
+       vSwitch, see <b>ovsdb</b>(7).
+
+       Each OVSDB file may be specified on the command line as <i>database</i>.
+       Relay databases may be specified on the command line as
+       <i>relay:schema_name:remote</i>.  For a detailed description of relay
+       database argument, see <b>ovsdb</b>(7).  If none of database files or
+       relay databases is specified, the default is
+       <b>/usr/local/etc/openvswitch/conf.db</b>.  The database files must
+       already have been created and initialized using, for example,
+       <b>ovsdb-tool</b>'s <b>create</b>, <b>create-cluster</b>, or <b>join-cluster </b>command.
+
+       This OVSDB implementation supports standalone, active-backup,
+       relay and clustered database service models, as well as database
+       replication.  See the Service Models section of <b>ovsdb</b>(7) for more
+       information.
+
+       For clustered databases, when the <b>--detach </b>option is used,
+       <b>ovsdb-server </b>detaches without waiting for the server to
+       successfully join a cluster (if the database file is freshly
+       created with <b>ovsdb-tool join-cluster</b>) or connect to a cluster
+       that it has already joined.  Use <b>ovsdb-client wait </b>(see
+       <a href="https://man7.org/linux/man-pages/man1/ovsdb-client.1.html">ovsdb-client(1)</a>) to wait until the server has successfully joined
+       and connected to a cluster.  The same is true for relay
+       databases.  Same commands could be used to wait for a relay
+       database to connect to the relay source (remote).
+
+       In addition to user-specified databases, <b>ovsdb-server </b>version 2.9
+       and later also always hosts a built-in database named <b>_Server</b>.
+       Please see <a href="https://man7.org/linux/man-pages/man5/ovsdb-server.5.html">ovsdb-server(5)</a> for documentation on this database's
+       schema.
+</pre>

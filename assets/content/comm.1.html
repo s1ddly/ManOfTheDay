@@ -1,0 +1,38 @@
+<pre>
+       Compare sorted files FILE1 and FILE2 line by line.
+
+       When FILE1 or FILE2 (not both) is -, read standard input.
+
+       With no options, produce three-column output.  Column one
+       contains lines unique to FILE1, column two contains lines unique
+       to FILE2, and column three contains lines common to both files.
+
+       <b>-1     </b>suppress column 1 (lines unique to FILE1)
+
+       <b>-2     </b>suppress column 2 (lines unique to FILE2)
+
+       <b>-3     </b>suppress column 3 (lines that appear in both files)
+
+       <b>--check-order</b>
+              check that the input is correctly sorted, even if all
+              input lines are pairable
+
+       <b>--nocheck-order</b>
+              do not check that the input is correctly sorted
+
+       <b>--output-delimiter</b>=<i>STR</i>
+              separate columns with STR
+
+       <b>--total</b>
+              output a summary
+
+       <b>-z</b>, <b>--zero-terminated</b>
+              line delimiter is NUL, not newline
+
+       <b>--help </b>display this help and exit
+
+       <b>--version</b>
+              output version information and exit
+
+       Note, comparisons honor the rules specified by 'LC_COLLATE'.
+</pre>

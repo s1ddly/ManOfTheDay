@@ -1,0 +1,56 @@
+<pre>
+       <b>pmstat </b>provides a one line summary of system performance every
+       <i>interval</i> unit of time (the default is 5 seconds).  <b>pmstat </b>is
+       intended to monitor system performance at the highest level,
+       after which other tools may be used to examine subsystems in
+       which potential performance problems may be observed in greater
+       detail.
+
+       <b>pcp-vmstat </b>is a simple wrapper for use with the <a href="https://man7.org/linux/man-pages/man1/pcp.1.html">pcp(1)</a> command,
+       providing a more familiar command line format for some users.  It
+       also enables the extended reporting option by default, see the <i>-x</i>
+       option below.
+
+       Multiple hosts may be monitored by supplying more than one host
+       with multiple <b>-h </b>flags (for live monitoring) or by providing a
+       name of the hostlist file, where each line contain one host name,
+       with <b>-H, </b>or multiple <b>-a </b>flags (for retrospective monitoring from
+       sets of archives).
+
+       By default, <b>pmstat </b>fetches metrics by connecting to the
+       Performance Metrics Collector Daemon (PMCD) on the local host.
+       If the <b>-L </b>option is specified, then <a href="https://man7.org/linux/man-pages/man1/pmcd.1.html">pmcd(1)</a> is bypassed, and
+       metrics are fetched from PMDAs on the local host using the
+       standalone <b>PM_CONTEXT_LOCAL </b>variant of <a href="https://man7.org/linux/man-pages/man3/pmNewContext.3.html">pmNewContext(3)</a>.  When the
+       <b>-h </b>option is specified, <b>pmstat </b>connects to the <a href="https://man7.org/linux/man-pages/man1/pmcd.1.html">pmcd(1)</a> on <i>host</i>
+       and fetches metrics from there.  As mentioned above, multiple
+       hosts may be monitored by supplying multiple <b>-h </b>flags.
+
+       Alternatively, if the <b>-a </b>option is used, the metrics are
+       retrieved from the Performance Co-Pilot archive log files
+       identified by <i>archive</i>, which is a comma-separated list of names,
+       each of which may be the base name of an archive or the name of a
+       directory containing one or more archives.  Multiple sets of
+       archives may be replayed by supplying multiple <b>-a </b>flags.  When
+       the <b>-a </b>flag is used, the <b>-P </b>flag may also be used to pause the
+       output after each interval.
+
+       Standalone mode can only connect to the local host, using a set
+       of archives implies a host name, and nominating a host precludes
+       using an archive, so the options <b>-L</b>, <b>-a </b>and <b>-h </b>are mutually
+       exclusive.
+
+       <b>pmstat </b>may relinquish its own timing control, and operate under
+       the control of a <a href="https://man7.org/linux/man-pages/man1/pmtime.1.html">pmtime(1)</a> process that uses a GUI dialog to
+       provide timing control.  In this case, either the <b>-g </b>option
+       should be used to start <b>pmstat </b>as the sole client of a new
+       <a href="https://man7.org/linux/man-pages/man1/pmtime.1.html">pmtime(1)</a> instance, or <b>-p </b>should be used to attach <b>pmstat </b>to an
+       existing <a href="https://man7.org/linux/man-pages/man1/pmtime.1.html">pmtime(1)</a> instance via the IPC channel identified by the
+       <i>port</i> argument.
+
+       The <b>-S</b>, <b>-T</b>, <b>-O </b>and <b>-A </b>options may be used to define a time window
+       to restrict the samples retrieved, set an initial origin within
+       the time window, or specify a ``natural'' alignment of the sample
+       times; refer to <a href="https://man7.org/linux/man-pages/man1/PCPIntro.1.html">PCPIntro(1)</a> for a complete description of these
+       options.
+</pre>

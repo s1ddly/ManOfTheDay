@@ -1,0 +1,52 @@
+<pre>
+       Installs an application or runtime. The primary way to install is
+       to specify a REMOTE name as the source and one ore more REFs to
+       specify the application or runtime to install. If REMOTE is
+       omitted, the configured remotes are searched for the first REF
+       and the user is asked to confirm the resulting choice.
+
+       Each REF argument is a full or partial identifier in the flatpak
+       ref format, which looks like "(app|runtime)/ID/ARCH/BRANCH". All
+       elements except ID are optional and can be left out, including
+       the slashes, so most of the time you need only specify ID. Any
+       part left out will be matched against what is in the remote, and
+       if there are multiple matches you will be prompted to choose one
+       of them. You will also be prompted with choices if REF doesn't
+       match anything in the remote exactly but is similar to one or
+       more refs in the remote (e.g. "devhelp" is similar to
+       "org.gnome.Devhelp").
+
+       By default this looks for both apps and runtimes with the given
+       REF in the specified REMOTE, but you can limit this by using the
+       <b>--app </b>or <b>--runtime </b>option, or by supplying the initial element in
+       the REF.
+
+       If REMOTE is a uri or a path (absolute or relative starting with
+       ./) to a local repository, then that repository will be used as
+       the source, and a temporary remote will be created for the
+       lifetime of the REF.
+
+       If the specified REMOTE has a collection ID configured on it,
+       flatpak will search mounted filesystems such as USB drives as
+       well as Avahi services advertised on the local network for the
+       needed refs, in order to support offline updates. See
+       <b>ostree-find-remotes</b>(1) for more information.
+
+       The alternative form of the command (with <b>--from </b>or <b>--bundle</b>)
+       allows to install directly from a source such as a .flatpak
+       single-file bundle or a .flatpakref application description. The
+       options are optional if the first argument has the expected
+       filename extension.
+
+       Note that flatpak allows to have multiple branches of an
+       application and runtimes installed and used at the same time.
+       However, only one version of an application can be current,
+       meaning its exported files (for instance desktop files and icons)
+       are visible to the host. The last installed version is made
+       current by default, but this can manually changed with flatpak
+       make-current.
+
+       Unless overridden with the <b>--user </b>or the <b>--installation </b>option,
+       this command installs the application or runtime in the default
+       system-wide installation.
+</pre>

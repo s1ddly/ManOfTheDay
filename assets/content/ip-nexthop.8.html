@@ -1,0 +1,145 @@
+<pre>
+       <b>ip nexthop </b>is used to manipulate entries in the kernel's nexthop
+       tables.
+
+       ip nexthop add id ID
+              add new nexthop entry
+
+       ip nexthop replace id ID
+              change the configuration of a nexthop or add new one
+
+              <b>via </b><i>[ FAMILY ] ADDRESS</i>
+                     the address of the nexthop router, in the address
+                     family FAMILY.  Address family must match address
+                     family of nexthop instance.
+
+              <b>dev </b><i>NAME</i>
+                     is the output device.
+
+              <b>onlink </b>pretend that the nexthop is directly attached to
+                     this link, even if it does not match any interface
+                     prefix.
+
+              <b>encap </b><i>ENCAPTYPE ENCAPHDR</i>
+                     attach tunnel encapsulation attributes to this
+                     route.
+
+                     <i>ENCAPTYPE</i> is a string specifying the supported
+                     encapsulation type. Namely:
+
+                             <b>mpls </b>- encapsulation type MPLS
+
+                     <i>ENCAPHDR</i> is a set of encapsulation attributes
+                     specific to the <i>ENCAPTYPE.</i>
+
+                             <b>mpls</b>
+                               <i>MPLSLABEL</i> - mpls label stack with labels
+                               separated by <i>/</i>
+
+                               <b>ttl </b><i>TTL</i> - TTL to use for MPLS header or 0
+                               to inherit from IP header
+
+              <b>group </b><i>GROUP [</i> <b>type </b><i>TYPE [ TYPE_ARGS ] ]</i>
+                     create a nexthop group. Group specification is id
+                     with an optional weight (id,weight) and a '/' as a
+                     separator between entries.
+
+                     <i>TYPE</i> is a string specifying the nexthop group type.
+                     Namely:
+
+                             <b>mpath </b>- Multipath nexthop group backed by
+                             the hash-threshold algorithm. The default
+                             when the type is unspecified.
+
+                             <b>resilient </b>- Resilient nexthop group. Group
+                             is resilient to addition and deletion of
+                             nexthops.
+
+                     <i>TYPE_ARGS</i> is a set of attributes specific to the
+                     <i>TYPE.</i>
+
+                             <b>resilient</b>
+                               <b>buckets </b><i>BUCKETS</i> - Number of nexthop
+                               buckets. Cannot be changed for an
+                               existing group
+
+                               <b>idle_timer </b><i>IDLE</i> - Time in seconds in
+                               which a nexthop bucket does not see
+                               traffic and is therefore considered idle.
+                               Default is 120 seconds
+
+                               <b>unbalanced_timer </b><i>UNBALANCED</i> - Time in
+                               seconds in which a nexthop group is
+                               unbalanced and is therefore considered
+                               unbalanced. The kernel will try to
+                               rebalance unbalanced groups, which might
+                               result in some flows being reset. A value
+                               of 0 means that no rebalancing will take
+                               place. Default is 0 seconds
+
+              <b>blackhole</b>
+                     create a blackhole nexthop
+
+              <b>fdb    </b>nexthop and nexthop groups for use with layer-2 fdb
+                     entries.  A fdb nexthop group can only have fdb
+                     nexthops.  Example: Used to represent a vxlan
+                     remote vtep ip. layer-2 vxlan fdb entry pointing to
+                     an ecmp nexthop group containing multiple remote
+                     vtep ips.
+
+       ip nexthop delete id ID
+              delete nexthop with given id.
+
+       ip nexthop show
+              show the contents of the nexthop table or the nexthops
+              selected by some criteria.
+
+              <b>dev </b><i>DEV</i>
+                     show the nexthops using the given device.
+
+              <b>vrf </b><i>NAME</i>
+                     show the nexthops using devices associated with the
+                     vrf name
+
+              <b>master </b><i>DEV</i>
+                     show the nexthops using devices enslaved to given
+                     master device
+
+              <b>groups </b>show only nexthop groups
+
+              <b>fdb    </b>show only fdb nexthops and nexthop groups
+
+       ip nexthop flush
+              flushes nexthops selected by some criteria. Criteria
+              options are the same as show.
+
+       ip nexthop get id ID
+              get a single nexthop by id
+
+       ip nexthop bucket show
+              show the contents of the nexthop bucket table or the
+              nexthop buckets selected by some criteria.
+
+              <b>id </b><i>ID</i>
+                     show the nexthop buckets that belong to a nexthop
+                     group with a given id
+
+              <b>nhid </b><i>ID</i>
+                     show the nexthop buckets that hold a nexthop with a
+                     given id
+
+              <b>dev </b><i>DEV</i>
+                     show the nexthop buckets using the given device
+
+              <b>vrf </b><i>NAME</i>
+                     show the nexthop buckets using devices associated
+                     with the vrf name
+
+              <b>master </b><i>DEV</i>
+                     show the nexthop buckets using devices enslaved to
+                     given master device
+
+       ip nexthop bucket get id ID index INDEX
+              get a single nexthop bucket by nexthop group id and bucket
+              index
+</pre>

@@ -1,0 +1,25 @@
+<pre>
+       Repair a flatpak installation by pruning and reinstalling invalid
+       objects. The repair command does all of the following:
+
+       •   Scan all locally available refs, removing any that don't
+           correspond to a deployed ref.
+
+       •   Verify each commit they point to, removing any invalid
+           objects and noting any missing objects.
+
+       •   Remove any refs that had an invalid object, and any
+           non-partial refs that had missing objects.
+
+       •   Prune all objects not referenced by a ref, which gets rid of
+           any possibly invalid non-scanned objects.
+
+       •   Enumerate all deployed refs and re-install any that are not
+           in the repo (or are partial for a non-subdir deploy).
+
+       Note that <b>flatpak repair </b>has to be run with root privileges to
+       operate on the system installation.
+
+       An alternative command for repairing OSTree repositories is
+       ostree fsck.
+</pre>

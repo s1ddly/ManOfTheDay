@@ -1,0 +1,54 @@
+<pre>
+       <b>systemd-logind </b>is a system service that manages user logins. It
+       is responsible for:
+
+       •   Keeping track of users and sessions, their processes and
+           their idle state. This is implemented by allocating a systemd
+           slice unit for each user below user.slice, and a scope unit
+           below it for each concurrent session of a user. Also, a
+           per-user service manager is started as system service
+           instance of user@.service for each logged in user.
+
+       •   Generating and managing session IDs. If auditing is available
+           and an audit session ID is already set for a session, then
+           this ID is reused as the session ID. Otherwise, an
+           independent session counter is used.
+
+       •   Providing <b>polkit</b><b></b>[1]-based access for users for operations
+           such as system shutdown or sleep
+
+       •   Implementing a shutdown/sleep inhibition logic for
+           applications
+
+       •   Handling of power/sleep hardware keys
+
+       •   Multi-seat management
+
+       •   Session switch management
+
+       •   Device access management for users
+
+       •   Automatic spawning of text logins (gettys) on virtual console
+           activation and user runtime directory management
+
+       User sessions are registered with logind via the <a href="https://man7.org/linux/man-pages/man8/pam_systemd.8.html">pam_systemd(8)</a>
+       PAM module.
+
+       See <a href="https://man7.org/linux/man-pages/man5/logind.conf.5.html">logind.conf(5)</a> for information about the configuration of
+       this service.
+
+       See <a href="https://man7.org/linux/man-pages/man3/sd-login.3.html">sd-login(3)</a> for information about the basic concepts of
+       logind such as users, sessions and seats.
+
+       See <a href="https://man7.org/linux/man-pages/man5/org.freedesktop.login1.5.html">org.freedesktop.login1(5)</a> and <a href="https://man7.org/linux/man-pages/man5/org.freedesktop.LogControl1.5.html">org.freedesktop.LogControl1(5)</a>
+       for information about the D-Bus APIs systemd-logind provides.
+
+       For more information on the inhibition logic see the <b>Inhibitor</b>
+       <b>Lock Developer Documentation</b><b></b>[2].
+
+       If you are interested in writing a display manager that makes use
+       of logind, please have look at <b>Writing Display Managers</b><b></b>[3]. If
+       you are interested in writing a desktop environment that makes
+       use of logind, please have look at <b>Writing Desktop</b>
+       <b>Environments</b><b></b>[4].
+</pre>

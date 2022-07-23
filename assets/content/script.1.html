@@ -1,0 +1,23 @@
+<pre>
+       <b>script </b>makes a typescript of everything on your terminal session.
+       The terminal data are stored in raw form to the log file and
+       information about timing to another (optional) structured log
+       file. The timing log file is necessary to replay the session
+       later by <a href="https://man7.org/linux/man-pages/man1/scriptreplay.1.html">scriptreplay(1)</a> and to store additional information
+       about the session.
+
+       Since version 2.35, <b>script </b>supports multiple streams and allows
+       the logging of input and output to separate files or all the one
+       file. This version also supports new timing file which records
+       additional information. The command <b>scriptreplay --summary </b>then
+       provides all the information.
+
+       If the argument <i>file</i> or option <b>--log-out </b><i>file</i> is given, <b>script</b>
+       saves the dialogue in this <i>file</i>. If no filename is given, the
+       dialogue is saved in the file <i>typescript</i>.
+
+       Note that logging input using <b>--log-in </b>or <b>--log-io </b>may record
+       security-sensitive information as the log file contains all
+       terminal session input (e.g., passwords) independently of the
+       terminal echo flag setting.
+</pre>

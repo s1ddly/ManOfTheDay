@@ -1,0 +1,35 @@
+<pre>
+       <b>pmcd </b>is the collector used by the Performance Co-Pilot (see
+       <a href="https://man7.org/linux/man-pages/man1/PCPIntro.1.html">PCPIntro(1)</a>) to gather performance metrics on a system.  As a
+       rule, there must be an instance of <b>pmcd </b>running on a system for
+       any performance metrics to be available to the PCP.
+
+       <b>pmcd </b>accepts connections from client applications running either
+       on the same machine or remotely and provides them with metrics
+       and other related information from the machine that <b>pmcd </b>is
+       executing on.  <b>pmcd </b>delegates most of this request servicing to a
+       collection of Performance Metrics Domain Agents (or just agents),
+       where each agent is responsible for a particular group of
+       metrics, known as the domain of the agent.  For instance, the
+       <b>postgresql </b>agent is responsible for reporting information
+       relating to the PostgreSQL database, such as the transaction and
+       query counts, indexing and replication statistics, and so on.
+
+       The agents may be processes started by <b>pmcd</b>, independent
+       processes or Dynamic Shared Objects (DSOs, see <a href="https://man7.org/linux/man-pages/man3/dlopen.3.html">dlopen(3)</a>)
+       attached to <b>pmcd</b>'s address space.  The configuration section
+       below describes how connections to agents are specified.
+
+       Note that if a PDU exchange with an agent times out, the agent
+       has violated the requirement that it delivers metrics with little
+       or no delay.  This is deemed a protocol failure and the agent is
+       disconnected from <b>pmcd</b>.  Any subsequent requests for information
+       from the agent will fail with a status indicating that there is
+       no agent to provide it.
+
+       It is possible to specify access control to <b>pmcd </b>based on users,
+       groups and hosts.  This allows one to prevent users, groups of
+       users, and certain hosts from accessing the metrics provided by
+       <b>pmcd </b>and is described in more detail in the access control
+       section below.
+</pre>

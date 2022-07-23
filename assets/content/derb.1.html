@@ -1,0 +1,17 @@
+<pre>
+       <b>derb </b>reads the compiled resource <i>bundle</i> files passed on the
+       command line and write them back in text form.  The resulting
+       text files have a <b>.txt </b>extension while compiled resource bundle
+       source files typically have a <b>.res </b>extension.
+
+       It is customary to name the resource bundles by their locale
+       name, i.e. to use a local identifier for the <i>bundle</i> filename,
+       e.g.  <b>ja_JP.res </b>for Japanese (Japan) data, or <b>root.res </b>for the
+       root bundle.  This is especially important for <b>derb </b>since the
+       locale name is not accessible directly from the compiled resource
+       bundle, and to know which locale to ask for when opening the
+       bundle.  <b>derb </b>will produce a file whose base name is the base
+       name of the compiled resource file itself.  If the <b>--to-stdout</b>,
+       <b>-c </b>option is used, however, the text will be written on the
+       standard output.
+</pre>

@@ -1,0 +1,199 @@
+<pre>
+       xfrm is an IP framework for transforming packets (such as
+       encrypting their payloads). This framework is used to implement
+       the IPsec protocol suite (with the <b>state </b>object operating on the
+       Security Association Database, and the <b>policy </b>object operating on
+       the Security Policy Database). It is also used for the IP Payload
+       Compression Protocol and features of Mobile IPv6.
+
+       ip xfrm state add         add new state into xfrm
+       ip xfrm state update      update existing state in xfrm
+       ip xfrm state allocspi    allocate an SPI value
+       ip xfrm state delete      delete existing state in xfrm
+       ip xfrm state get         get existing state in xfrm
+       ip xfrm state deleteall   delete all existing state in xfrm
+       ip xfrm state list        print out the list of existing state in xfrm
+       ip xfrm state flush       flush all state in xfrm
+       ip xfrm state count       count all existing state in xfrm
+
+       <i>ID</i>     is specified by a source address, destination address,
+              transform protocol <i>XFRM-PROTO</i>, and/or Security Parameter
+              Index <i>SPI</i>.  (For IP Payload Compression, the Compression
+              Parameter Index or CPI is used for <i>SPI</i>.)
+
+       <i>XFRM-PROTO</i>
+              specifies a transform protocol: IPsec Encapsulating
+              Security Payload (<b>esp</b>), IPsec Authentication Header (<b>ah</b>),
+              IP Payload Compression (<b>comp</b>), Mobile IPv6 Type 2 Routing
+              Header (<b>route2</b>), or Mobile IPv6 Home Address Option (<b>hao</b>).
+
+       <i>ALGO-LIST</i>
+              contains one or more algorithms to use. Each algorithm
+              <i>ALGO</i> is specified by:
+
+              •      the algorithm type: encryption (<b>enc</b>),
+                     authentication (<b>auth </b>or <b>auth-trunc</b>), authenticated
+                     encryption with associated data (<b>aead</b>), or
+                     compression (<b>comp</b>)
+
+              •      the algorithm name <i>ALGO-NAME</i> (see below)
+
+              •      (for all except <b>comp</b>) the keying material <i>ALGO-</i>
+                     <i>KEYMAT</i>, which may include both a key and a salt or
+                     nonce value; refer to the corresponding RFC
+
+              •      (for <b>auth-trunc </b>only) the truncation length <i>ALGO-</i>
+                     <i>TRUNC-LEN</i> in bits
+
+              •      (for <b>aead </b>only) the Integrity Check Value length
+                     <i>ALGO-ICV-LEN</i> in bits
+
+              Encryption algorithms include <b>ecb(cipher_null)</b>, <b>cbc(des)</b>,
+              <b>cbc(des3_ede)</b>, <b>cbc(cast5)</b>, <b>cbc(blowfish)</b>, <b>cbc(aes)</b>,
+              <b>cbc(serpent)</b>, <b>cbc(camellia)</b>, <b>cbc(twofish)</b>, and
+              <b>rfc3686(ctr(aes))</b>.
+
+              Authentication algorithms include <b>digest_null</b>, <b>hmac(md5)</b>,
+              <b>hmac(sha1)</b>, <b>hmac(sha256)</b>, <b>hmac(sha384)</b>, <b>hmac(sha512)</b>,
+              <b>hmac(rmd160)</b>, and <b>xcbc(aes)</b>.
+
+              Authenticated encryption with associated data (AEAD)
+              algorithms include <b>rfc4106(gcm(aes))</b>, <b>rfc4309(ccm(aes))</b>,
+              and <b>rfc4543(gcm(aes))</b>.
+
+              Compression algorithms include <b>deflate</b>, <b>lzs</b>, and <b>lzjh</b>.
+
+       <i>MODE</i>   specifies a mode of operation for the transform protocol.
+              IPsec and IP Payload Compression modes are <b>transport</b>,
+              <b>tunnel</b>, and (for IPsec ESP only) Bound End-to-End Tunnel
+              (<b>beet</b>).  Mobile IPv6 modes are route optimization (<b>ro</b>) and
+              inbound trigger (<b>in_trigger</b>).
+
+       <i>FLAG-LIST</i>
+              contains one or more of the following optional flags:
+              <b>noecn</b>, <b>decap-dscp</b>, <b>nopmtudisc</b>, <b>wildrecv</b>, <b>icmp</b>, <b>af-unspec</b>,
+              <b>align4</b>, or <b>esn</b>.
+
+       <i>SELECTOR</i>
+              selects the traffic that will be controlled by the policy,
+              based on the source address, the destination address, the
+              network device, and/or <i>UPSPEC</i>.
+
+       <i>UPSPEC</i> selects traffic by protocol. For the <b>tcp</b>, <b>udp</b>, <b>sctp</b>, or
+              <b>dccp </b>protocols, the source and destination port can
+              optionally be specified.  For the <b>icmp</b>, <b>ipv6-icmp</b>, or
+              <b>mobility-header </b>protocols, the type and code numbers can
+              optionally be specified.  For the <b>gre </b>protocol, the key
+              can optionally be specified as a dotted-quad or number.
+              Other protocols can be selected by name or number <i>PROTO</i>.
+
+       <i>LIMIT-LIST</i>
+              sets limits in seconds, bytes, or numbers of packets.
+
+       <i>ENCAP</i>  encapsulates packets with protocol <b>espinudp</b>, <b>espinudp-</b>
+              <b>nonike</b>, or <b>espintcp</b>, using source port <i>SPORT</i>, destination
+              port <i>DPORT</i> , and original address <i>OADDR</i>.
+
+       <i>MARK</i>   used to match xfrm policies and states
+
+       <i>OUTPUT-MARK</i>
+              used to set the output mark to influence the routing of
+              the packets emitted by the state
+
+       <i>IF-ID</i>  xfrm interface identifier used to in both xfrm policies
+              and states
+
+       ip xfrm policy add         add a new policy
+       ip xfrm policy update      update an existing policy
+       ip xfrm policy delete      delete an existing policy
+       ip xfrm policy get         get an existing policy
+       ip xfrm policy deleteall   delete all existing xfrm policies
+       ip xfrm policy list        print out the list of xfrm policies
+       ip xfrm policy flush       flush policies
+
+       <b>nosock </b>filter (remove) all socket policies from the output.
+
+       <i>SELECTOR</i>
+              selects the traffic that will be controlled by the policy,
+              based on the source address, the destination address, the
+              network device, and/or <i>UPSPEC</i>.
+
+       <i>UPSPEC</i> selects traffic by protocol. For the <b>tcp</b>, <b>udp</b>, <b>sctp</b>, or
+              <b>dccp </b>protocols, the source and destination port can
+              optionally be specified.  For the <b>icmp</b>, <b>ipv6-icmp</b>, or
+              <b>mobility-header </b>protocols, the type and code numbers can
+              optionally be specified.  For the <b>gre </b>protocol, the key
+              can optionally be specified as a dotted-quad or number.
+              Other protocols can be selected by name or number <i>PROTO</i>.
+
+       <i>DIR</i>    selects the policy direction as <b>in</b>, <b>out</b>, or <b>fwd</b>.
+
+       <i>CTX</i>    sets the security context.
+
+       <i>PTYPE</i>  can be <b>main </b>(default) or <b>sub</b>.
+
+       <i>ACTION</i> can be <b>allow </b>(default) or <b>block</b>.
+
+       <i>PRIORITY</i>
+              is a number that defaults to zero.
+
+       <i>FLAG-LIST</i>
+              contains one or both of the following optional flags:
+              <b>local </b>or <b>icmp</b>.
+
+       <i>LIMIT-LIST</i>
+              sets limits in seconds, bytes, or numbers of packets.
+
+       <i>TMPL-LIST</i>
+              is a template list specified using <i>ID</i>, <i>MODE</i>, <i>REQID</i>, and/or
+              <i>LEVEL</i>.
+
+       <i>ID</i>     is specified by a source address, destination address,
+              transform protocol <i>XFRM-PROTO</i>, and/or Security Parameter
+              Index <i>SPI</i>.  (For IP Payload Compression, the Compression
+              Parameter Index or CPI is used for <i>SPI</i>.)
+
+       <i>XFRM-PROTO</i>
+              specifies a transform protocol: IPsec Encapsulating
+              Security Payload (<b>esp</b>), IPsec Authentication Header (<b>ah</b>),
+              IP Payload Compression (<b>comp</b>), Mobile IPv6 Type 2 Routing
+              Header (<b>route2</b>), or Mobile IPv6 Home Address Option (<b>hao</b>).
+
+       <i>MODE</i>   specifies a mode of operation for the transform protocol.
+              IPsec and IP Payload Compression modes are <b>transport</b>,
+              <b>tunnel</b>, and (for IPsec ESP only) Bound End-to-End Tunnel
+              (<b>beet</b>).  Mobile IPv6 modes are route optimization (<b>ro</b>) and
+              inbound trigger (<b>in_trigger</b>).
+
+       <i>LEVEL</i>  can be <b>required </b>(default) or <b>use</b>.
+
+       ip xfrm policy count   count existing policies
+
+       Use one or more -s options to display more details, including
+       policy hash table information.
+
+       ip xfrm policy set   configure the policy hash table
+
+       Security policies whose address prefix lengths are greater than
+       or equal policy hash table thresholds are hashed. Others are
+       stored in the policy_inexact chained list.
+
+       <i>LBITS</i>  specifies the minimum local address prefix length of
+              policies that are stored in the Security Policy Database
+              hash table.
+
+       <i>RBITS</i>  specifies the minimum remote address prefix length of
+              policies that are stored in the Security Policy Database
+              hash table.
+
+       ip xfrm monitor    state monitoring for xfrm objects
+
+       The xfrm objects to monitor can be optionally specified.
+
+       If the <b>all-nsid </b>option is set, the program listens to all network
+       namespaces that have a nsid assigned into the network namespace
+       were the program is running.  A prefix is displayed to show the
+       network namespace where the message originates. Example:
+
+         [nsid 1]Flushed state proto 0
+</pre>

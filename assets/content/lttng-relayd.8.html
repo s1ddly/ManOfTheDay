@@ -1,0 +1,69 @@
+<pre>
+       The <i>Linux Trace Toolkit: next generation</i> &lt;<a href="https://man7.org/linux/man-pagestps://lttng.org/">https://lttng.org/</a>&gt; is
+       an open source software package used for correlated tracing of
+       the Linux kernel, user applications, and user libraries.
+
+       LTTng consists of Linux kernel modules (for Linux kernel tracing)
+       and dynamically loaded libraries (for user application and
+       library tracing).
+
+       The <i>LTTng relay daemon</i> is responsible for receiving trace data
+       from possibly remote LTTng session/consumer daemons and for
+       writing it to the local file system. The relay daemon also
+       accepts <i>LTTng live</i> connections from compatible viewers; this is
+       the official approach to viewing LTTng events as they are
+       emitted.
+
+       The relay daemon listens by default on all network interfaces to
+       gather trace data, but only on localhost for LTTng live
+       connections.
+
+       The relay daemon does not require any particular permissions, as
+       long as it can write to the output directory and listen on the
+       configured ports. If a user is within a secured network and/or
+       has proper firewall settings, <b>lttng-relayd </b>can listen to LTTng
+       live connections from <i>all</i> network interfaces by specifying
+       <b>--live-port=tcp://localhost:5344</b>.
+
+       Once a trace has been streamed completely, the trace can be
+       processed by any tool that can process an LTTng trace located on
+       the local file system.
+
+   <b>Output directory</b>
+       By default, the relay daemon writes the traces to:
+
+           $LTTNG_HOME/lttng-traces/<i>HOSTNAME</i>/<i>SESSION</i>/<i>DOMAIN</i>
+
+       with:
+
+       <i>HOSTNAME</i>
+           Remote hostname.
+
+       <i>SESSION</i>
+           Full session name.
+
+       <i>DOMAIN</i>
+           Tracing domain.
+
+       You can override the default output directory prefix
+       (<b>$LTTNG_HOME/lttng-traces</b>) with the <b>--output </b>option. The other
+       parts depend on the remote configuration.
+
+   <b>URL format</b>
+       The <b>--control-port</b>, <b>--data-port</b>, and <b>--live-port </b>options specify
+       URLs.
+
+       The format of those URLs is:
+
+           tcp://(<i>HOST</i> | <i>IPADDR</i>):<i>PORT</i>
+
+       with:
+
+       (<i>HOST</i> | <i>IPADDR</i>)
+           Binding hostname or IP address (IPv6 address <b>must </b>be enclosed
+           in brackets (<b>[ </b>and <b>]</b>); see RFC 2732
+           &lt;<a href="https://man7.org/linux/man-pagestps://www.ietf.org/rfc/rfc2732.txt">https://www.ietf.org/rfc/rfc2732.txt</a>&gt;).
+
+       <i>PORT</i>
+           TCP port.
+</pre>

@@ -1,0 +1,22 @@
+<pre>
+       Usage:
+
+       Backup: set <b>-o </b>pipefail; myrocks_hotbackup <b>--user</b>=<i>root</i>
+       <b>--password</b>=<i>pw</i> <b>--port</b>=<i>3306</i> <b>--checkpoint_dir=</b>&lt;directory where
+       temporary backup hard links are created&gt; | ssh <b>-o </b>NoneEnabled=yes
+       remote_server 'tar <b>-xi -C </b>&lt;directory on remote server where
+       backups will be sent&gt;' . You need to execute backup command on a
+       server where you take backups.
+
+       Backup using WDT: myrocks_hotbackup <b>--user</b>=<i>root</i> <b>--password</b>=<i>pw</i>
+       <b>--stream</b>=<i>wdt</i> <b>--checkpoint_dir=</b>&lt;directory where temporary backup
+       hard links are created&gt; <b>--destination=</b>&lt;remote host name&gt;
+       <b>--backup_dir=</b>&lt;remote directory name&gt;. This has to be executed at
+       the src host.
+
+       Move-Back: myrocks_hotbackup <b>--move_back --datadir=</b>&lt;dest mysql
+       datadir&gt; <b>--rocksdb_datadir=</b>&lt;dest rocksdb datadir&gt;
+       <b>--rocksdb_waldir=</b>&lt;dest rocksdb wal dir&gt; <b>--backup_dir=</b>&lt;where
+       backup files are stored&gt; . You need to execute move-back command
+       on a server where backup files are sent.
+</pre>

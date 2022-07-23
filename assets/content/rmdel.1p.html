@@ -1,0 +1,18 @@
+<pre>
+       The <i>rmdel</i> utility shall remove the delta specified by the SID
+       from each named SCCS file. The delta to be removed shall be the
+       most recent delta in its branch in the delta chain of each named
+       SCCS file. In addition, the application shall ensure that the SID
+       specified is not that of a version being edited for the purpose
+       of making a delta; that is, if a <i>p-file</i> (see <a href="https://man7.org/linux/man-pages/man1/get.1p.html">get(1p)</a>) exists for
+       the named SCCS file, the SID specified shall not appear in any
+       entry of the <i>p-file</i>.
+
+       Removal of a delta shall be restricted to:
+
+        1. The user who made the delta
+
+        2. The owner of the SCCS file
+
+        3. The owner of the directory containing the SCCS file
+</pre>

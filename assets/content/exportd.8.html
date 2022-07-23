@@ -1,0 +1,12 @@
+<pre>
+       The <b>nfsv4.exportd </b>is used to manage NFSv4 exports.  The NFS
+       server (<i>nfsd</i>) maintains a cache of authentication and
+       authorization information which is used to identify the source of
+       each request, and then what access permissions that source has to
+       any local filesystem.  When required information is not found in
+       the cache, the server sends a request to <b>nfsv4.exportd </b>to fill in
+       the missing information.  <b>nfsv4.exportd </b>uses a table of
+       information stored in <b>/var/lib/nfs/etab </b>and maintained by
+       <a href="https://man7.org/linux/man-pages/man8/exportfs.8.html">exportfs(8)</a>, possibly based on the contents of <a href="https://man7.org/linux/man-pages/man5/exports.5.html">exports(5)</a>, to
+       respond to each request.
+</pre>

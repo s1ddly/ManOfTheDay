@@ -1,0 +1,20 @@
+<pre>
+       <b>dh_installinit </b>is a debhelper program that is responsible for
+       installing init scripts with associated defaults files.  In
+       compatibility levels up to and including 10, <b>dh_installinit </b>will
+       also install some systemd related files provided by the debian
+       packaging (see the "FILES" section below).  In compatibility
+       levels up to and including 11, <b>dh_installinit </b>will also handle
+       upstart jobs provided in the debian packaging (see the "FILES"
+       for more information on this as well).
+
+       It also automatically generates the <i>postinst</i> and <i>postrm</i> and <i>prerm</i>
+       commands needed to set up the symlinks in <i>/etc/rc*.d/</i> to start
+       and stop the init scripts.
+
+       In compat 10 or earlier: If a package only ships a systemd
+       service file and no sysvinit script is provided, you may want to
+       exclude the call to dh_installinit for that package (e.g. via
+       <b>-N</b>).  Otherwise, you may get warnings from lintian about init.d
+       scripts not being included in the package.
+</pre>

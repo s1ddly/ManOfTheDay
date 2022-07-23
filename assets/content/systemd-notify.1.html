@@ -1,0 +1,44 @@
+<pre>
+       <b>systemd-notify </b>may be called by daemon scripts to notify the init
+       system about status changes. It can be used to send arbitrary
+       information, encoded in an environment-block-like list of
+       strings. Most importantly, it can be used for start-up completion
+       notification.
+
+       This is mostly just a wrapper around <b>sd_notify() </b>and makes this
+       functionality available to shell scripts. For details see
+       <a href="https://man7.org/linux/man-pages/man3/sd_notify.3.html">sd_notify(3)</a>.
+
+       The command line may carry a list of environment variables to
+       send as part of the status update.
+
+       Note that systemd will refuse reception of status updates from
+       this command unless <i>NotifyAccess=</i> is set for the service unit
+       this command is called from.
+
+       Note that <b>sd_notify() </b>notifications may be attributed to units
+       correctly only if either the sending process is still around at
+       the time PID 1 processes the message, or if the sending process
+       is explicitly runtime-tracked by the service manager. The latter
+       is the case if the service manager originally forked off the
+       process, i.e. on all processes that match <i>NotifyAccess=</i><b>main </b>or
+       <i>NotifyAccess=</i><b>exec</b>. Conversely, if an auxiliary process of the
+       unit sends an <b>sd_notify() </b>message and immediately exits, the
+       service manager might not be able to properly attribute the
+       message to the unit, and thus will ignore it, even if
+       <i>NotifyAccess=</i><b>all </b>is set for it. When <b>--no-block </b>is used, all
+       synchronization for reception of notifications is disabled, and
+       hence the aforementioned race may occur if the invoking process
+       is not the service manager or spawned by the service manager.
+
+       Hence, <b>systemd-notify </b>will first attempt to invoke <b>sd_notify()</b>
+       pretending to have the PID of the invoking process. This will
+       only succeed when invoked with sufficient privileges. On failure,
+       it will then fall back to invoking it under its own PID. This
+       behaviour is useful in order that when the tool is invoked from a
+       shell script the shell process — and not the <b>systemd-notify</b>
+       process — appears as sender of the message, which in turn is
+       helpful if the shell process is the main process of a service,
+       due to the limitations of <i>NotifyAccess=</i><b>all</b>. Use the <b>--pid= </b>switch
+       to tweak this behaviour.
+</pre>

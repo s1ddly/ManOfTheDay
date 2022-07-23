@@ -1,0 +1,22 @@
+<pre>
+       <b>pmsearch </b>performs full text search queries to find metrics using
+       names and help text from metrics, instance domains and instances.
+
+       It makes use of capabilties of the Performance Co-Pilot (PCP)
+       <a href="https://man7.org/linux/man-pages/man1/pmproxy.1.html">pmproxy(1)</a> service, the Redis distributed data store, and the
+       RediSearch module.
+
+       Note that in order to use these services, it is <b>mandatory </b>that
+       <b>pmproxy </b>is communicating with a <b>redis-server</b>(1) that has the
+       <i>redisearch.so</i> module loaded.  When configured to do so, <b>pmproxy</b>
+       will then automatically index PCP metric names, instance names,
+       metric and instance domain help text into the RediSearch store,
+       from PCP archives that it discovers locally.  Refer to
+       <a href="https://man7.org/linux/man-pages/man1/pmlogger.1.html">pmlogger(1)</a> and <a href="https://man7.org/linux/man-pages/man1/pmlogger_daily.1.html">pmlogger_daily(1)</a> for further details.
+
+       By default <b>pmsearch </b>communicates with a local <b>redis-server</b>(1),
+       however the <b>-h </b>and <b>-p </b>options can be used to specify an alternate
+       Redis instance.  If this instance is a node of a Redis cluster,
+       all other instances in the cluster will be discovered and used
+       automatically.
+</pre>

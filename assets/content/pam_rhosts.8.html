@@ -1,0 +1,24 @@
+<pre>
+       This module performs the standard network authentication for
+       services, as used by traditional implementations of <b>rlogin </b>and
+       <b>rsh </b>etc.
+
+       The authentication mechanism of this module is based on the
+       contents of two files; /etc/hosts.equiv (or and ~/.rhosts.
+       Firstly, hosts listed in the former file are treated as
+       equivalent to the localhost. Secondly, entries in the user's own
+       copy of the latter file is used to map "<i>remote-host remote-user</i>"
+       pairs to that user's account on the current host. Access is
+       granted to the user if their host is present in /etc/hosts.equiv
+       and their remote account is identical to their local one, or if
+       their remote account has an entry in their personal configuration
+       file.
+
+       The module authenticates a remote user (internally specified by
+       the item <i>PAM_RUSER</i> connecting from the remote host (internally
+       specified by the item <b>PAM_RHOST</b>). Accordingly, for applications
+       to be compatible this authentication module they must set these
+       items prior to calling <b>pam_authenticate()</b>. The module is not
+       capable of independently probing the network connection for such
+       information.
+</pre>

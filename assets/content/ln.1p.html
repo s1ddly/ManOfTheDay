@@ -1,0 +1,83 @@
+<pre>
+       In the first synopsis form, the <i>ln</i> utility shall create a new
+       directory entry (link) at the destination path specified by the
+       <i>target_file</i> operand. If the <b>-s </b>option is specified, a symbolic
+       link shall be created for the file specified by the <i>source_file</i>
+       operand. This first synopsis form shall be assumed when the final
+       operand does not name an existing directory; if more than two
+       operands are specified and the final is not an existing
+       directory, an error shall result.
+
+       In the second synopsis form, the <i>ln</i> utility shall create a new
+       directory entry (link), or if the <b>-s </b>option is specified a
+       symbolic link, for each file specified by a <i>source_file</i> operand,
+       at a destination path in the existing directory named by
+       <i>target_dir</i>.
+
+       If the last operand specifies an existing file of a type not
+       specified by the System Interfaces volume of POSIX.1‐2017, the
+       behavior is implementation-defined.
+
+       The corresponding destination path for each <i>source_file</i> shall be
+       the concatenation of the target directory pathname, a &lt;slash&gt;
+       character if the target directory pathname did not end in a
+       &lt;slash&gt;, and the last pathname component of the <i>source_file</i>.  The
+       second synopsis form shall be assumed when the final operand
+       names an existing directory.
+
+       For each <i>source_file</i>:
+
+        1. If the destination path exists and was created by a previous
+           step, it is unspecified whether <i>ln</i> shall write a diagnostic
+           message to standard error, do nothing more with the current
+           <i>source_file</i>, and go on to any remaining <i>source_file</i>s; or will
+           continue processing the current <i>source_file</i>.  If the
+           destination path exists:
+
+            a. If the <b>-f </b>option is not specified, <i>ln</i> shall write a
+               diagnostic message to standard error, do nothing more
+               with the current <i>source_file</i>, and go on to any remaining
+               <i>source_file</i>s.
+
+            b. If the destination path names the same directory entry as
+               the current <i>source_file ln</i> shall write a diagnostic
+               message to standard error, do nothing more with the
+               current <i>source_file</i>, and go on to any remaining
+               <i>source_file</i>s<i>.</i>
+
+            c. Actions shall be performed equivalent to the <i>unlink</i>()
+               function defined in the System Interfaces volume of
+               POSIX.1‐2017, called using the destination path as the
+               <i>path</i> argument. If this fails for any reason, <i>ln</i> shall
+               write a diagnostic message to standard error, do nothing
+               more with the current <i>source_file</i>, and go on to any
+               remaining <i>source_file</i>s.
+
+        2. If the <b>-s </b>option is specified, actions shall be performed
+           equivalent to the <i>symlink</i>() function with <i>source_file</i> as the
+           <i>path1</i> argument and the destination path as the <i>path2</i>
+           argument. The <i>ln</i> utility shall do nothing more with
+           <i>source_file</i> and shall go on to any remaining files.
+
+        3. If <i>source_file</i> is a symbolic link:
+
+            a. If the <b>-P </b>option is in effect, actions shall be performed
+               equivalent to the <i>linkat</i>() function with <i>source_file</i> as
+               the <i>path1</i> argument, the destination path as the <i>path2</i>
+               argument, AT_FDCWD as the <i>fd1</i> and <i>fd2</i> arguments, and zero
+               as the <i>flag</i> argument.
+
+            b. If the <b>-L </b>option is in effect, actions shall be performed
+               equivalent to the <i>linkat</i>() function with <i>source_file</i> as
+               the <i>path1</i> argument, the destination path as the <i>path2</i>
+               argument, AT_FDCWD as the <i>fd1</i> and <i>fd2</i> arguments, and
+               AT_SYMLINK_FOLLOW as the <i>flag</i> argument.
+
+           The <i>ln</i> utility shall do nothing more with <i>source_file</i> and
+           shall go on to any remaining files.
+
+        4. Actions shall be performed equivalent to the <i>link</i>() function
+           defined in the System Interfaces volume of POSIX.1‐2017 using
+           <i>source_file</i> as the <i>path1</i> argument, and the destination path
+           as the <i>path2</i> argument.
+</pre>

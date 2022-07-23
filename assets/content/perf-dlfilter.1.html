@@ -1,0 +1,11 @@
+<pre>
+       This option is used to process data through a custom filter
+       provided by a dynamically loaded shared object file. Arguments
+       can be passed using --dlarg and retrieved using
+       perf_dlfilter_fns.args().
+
+       If <i>file.so</i> does not contain "/", then it will be found either in
+       the current directory, or perf tools exec path which is
+       ~/libexec/perf-core/dlfilters for a local build and install
+       (refer perf --exec-path), or the dynamic linker paths.
+</pre>

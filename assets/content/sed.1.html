@@ -1,0 +1,80 @@
+<pre>
+       <i>Sed</i> is a stream editor.  A stream editor is used to perform basic
+       text transformations on an input stream (a file or input from a
+       pipeline).  While in some ways similar to an editor which permits
+       scripted edits (such as <i>ed</i>), <i>sed</i> works by making only one pass
+       over the input(s), and is consequently more efficient.  But it is
+       <i>sed</i>'s ability to filter text in a pipeline which particularly
+       distinguishes it from other types of editors.
+
+       <b>-n</b>, <b>--quiet</b>, <b>--silent</b>
+
+              suppress automatic printing of pattern space
+
+       <b>--debug</b>
+
+              annotate program execution
+
+       <b>-e </b>script, <b>--expression</b>=<i>script</i>
+
+              add the script to the commands to be executed
+
+       <b>-f </b>script-file, <b>--file</b>=<i>script-file</i>
+
+              add the contents of script-file to the commands to be
+              executed
+
+       <b>--follow-symlinks</b>
+
+              follow symlinks when processing in place
+
+       <b>-i[SUFFIX]</b>, <b>--in-place</b>[=<i>SUFFIX</i>]
+
+              edit files in place (makes backup if SUFFIX supplied)
+
+       <b>-l </b>N, <b>--line-length</b>=<i>N</i>
+
+              specify the desired line-wrap length for the `l' command
+
+       <b>--posix</b>
+
+              disable all GNU extensions.
+
+       <b>-E</b>, <b>-r</b>, <b>--regexp-extended</b>
+
+              use extended regular expressions in the script (for
+              portability use POSIX <b>-E</b>).
+
+       <b>-s</b>, <b>--separate</b>
+
+              consider files as separate rather than as a single,
+              continuous long stream.
+
+       <b>--sandbox</b>
+
+              operate in sandbox mode (disable e/r/w commands).
+
+       <b>-u</b>, <b>--unbuffered</b>
+
+              load minimal amounts of data from the input files and
+              flush the output buffers more often
+
+       <b>-z</b>, <b>--null-data</b>
+
+              separate lines by NUL characters
+
+       <b>--help</b>
+              display this help and exit
+
+       <b>--version</b>
+              output version information and exit
+
+       If no <b>-e</b>, <b>--expression</b>, <b>-f</b>, or <b>--file </b>option is given, then the
+       first non-option argument is taken as the sed script to
+       interpret.  All remaining arguments are names of input files; if
+       no input files are specified, then the standard input is read.
+
+       GNU sed home page: &lt;<a href="https://man7.org/linux/man-pagestps://www.gnu.org/software/sed/">https://www.gnu.org/software/sed/</a>&gt;.  General
+       help using GNU software: &lt;<a href="https://man7.org/linux/man-pagestps://www.gnu.org/gethelp/">https://www.gnu.org/gethelp/</a>&gt;.  E-mail
+       bug reports to: &lt;bug-sed@gnu.org&gt;.
+</pre>

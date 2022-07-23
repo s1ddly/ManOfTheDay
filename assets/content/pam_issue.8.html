@@ -1,0 +1,41 @@
+<pre>
+       pam_issue is a PAM module to prepend an issue file to the
+       username prompt. It also by default parses escape codes in the
+       issue file similar to some common getty's (using \x format).
+
+       Recognized escapes:
+
+       <b>\d</b>
+           current day
+
+       <b>\l</b>
+           name of this tty
+
+       <b>\m</b>
+           machine architecture (uname -m)
+
+       <b>\n</b>
+           machine's network node hostname (uname -n)
+
+       <b>\o</b>
+           domain name of this system
+
+       <b>\r</b>
+           release number of operating system (uname -r)
+
+       <b>\t</b>
+           current time
+
+       <b>\s</b>
+           operating system name (uname -s)
+
+       <b>\u</b>
+           number of users currently logged in
+
+       <b>\U</b>
+           same as \u except it is suffixed with "user" or "users" (eg.
+           "1 user" or "10 users")
+
+       <b>\v</b>
+           operating system version and build date (uname -v)
+</pre>

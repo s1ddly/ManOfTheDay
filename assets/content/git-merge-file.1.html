@@ -1,0 +1,37 @@
+<pre>
+       <i>git merge-file</i> incorporates all changes that lead from the
+       <b>&lt;base-file&gt; </b>to <b>&lt;other-file&gt; </b>into <b>&lt;current-file&gt;</b>. The result
+       ordinarily goes into <b>&lt;current-file&gt;</b>. <i>git merge-file</i> is useful for
+       combining separate changes to an original. Suppose <b>&lt;base-file&gt; </b>is
+       the original, and both <b>&lt;current-file&gt; </b>and <b>&lt;other-file&gt; </b>are
+       modifications of <b>&lt;base-file&gt;</b>, then <i>git merge-file</i> combines both
+       changes.
+
+       A conflict occurs if both <b>&lt;current-file&gt; </b>and <b>&lt;other-file&gt; </b>have
+       changes in a common segment of lines. If a conflict is found, <i>git</i>
+       <i>merge-file</i> normally outputs a warning and brackets the conflict
+       with lines containing &lt;&lt;&lt;&lt;&lt;&lt;&lt; and &gt;&gt;&gt;&gt;&gt;&gt;&gt; markers. A typical
+       conflict will look like this:
+
+           &lt;&lt;&lt;&lt;&lt;&lt;&lt; A
+           lines in file A
+           =======
+           lines in file B
+           &gt;&gt;&gt;&gt;&gt;&gt;&gt; B
+
+       If there are conflicts, the user should edit the result and
+       delete one of the alternatives. When <b>--ours</b>, <b>--theirs</b>, or <b>--union</b>
+       option is in effect, however, these conflicts are resolved
+       favouring lines from <b>&lt;current-file&gt;</b>, lines from <b>&lt;other-file&gt;</b>, or
+       lines from both respectively. The length of the conflict markers
+       can be given with the <b>--marker-size </b>option.
+
+       The exit value of this program is negative on error, and the
+       number of conflicts otherwise (truncated to 127 if there are more
+       than that many conflicts). If the merge was clean, the exit value
+       is 0.
+
+       <i>git merge-file</i> is designed to be a minimal clone of RCS <i>merge</i>;
+       that is, it implements all of RCS <i>merge</i>'s functionality which is
+       needed by <a href="https://man7.org/linux/man-pages/man1/git.1.html">git(1)</a>.
+</pre>

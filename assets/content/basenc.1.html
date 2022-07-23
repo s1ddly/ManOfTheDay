@@ -1,0 +1,53 @@
+<pre>
+       basenc encode or decode FILE, or standard input, to standard
+       output.
+
+       With no FILE, or when FILE is -, read standard input.
+
+       Mandatory arguments to long options are mandatory for short
+       options too.
+
+       <b>--base64</b>
+              same as 'base64' program (RFC4648 section 4)
+
+       <b>--base64url</b>
+              file- and url-safe base64 (RFC4648 section 5)
+
+       <b>--base32</b>
+              same as 'base32' program (RFC4648 section 6)
+
+       <b>--base32hex</b>
+              extended hex alphabet base32 (RFC4648 section 7)
+
+       <b>--base16</b>
+              hex encoding (RFC4648 section 8)
+
+       <b>--base2msbf</b>
+              bit string with most significant bit (msb) first
+
+       <b>--base2lsbf</b>
+              bit string with least significant bit (lsb) first
+
+       <b>-d</b>, <b>--decode</b>
+              decode data
+
+       <b>-i</b>, <b>--ignore-garbage</b>
+              when decoding, ignore non-alphabet characters
+
+       <b>-w</b>, <b>--wrap</b>=<i>COLS</i>
+              wrap encoded lines after COLS character (default 76).  Use
+              0 to disable line wrapping
+
+       <b>--z85  </b>ascii85-like encoding (ZeroMQ spec:32/Z85); when encoding,
+              input length must be a multiple of 4; when decoding, input
+              length must be a multiple of 5
+
+       <b>--help </b>display this help and exit
+
+       <b>--version</b>
+              output version information and exit
+
+       When decoding, the input may contain newlines in addition to the
+       bytes of the formal alphabet.  Use <b>--ignore-garbage </b>to attempt to
+       recover from any other non-alphabet bytes in the encoded stream.
+</pre>

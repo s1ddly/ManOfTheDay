@@ -1,0 +1,24 @@
+<pre>
+       This module maintains a count of attempted accesses, can reset
+       count on success, can deny access if too many attempts fail.
+
+       pam_tally has several limitations, which are solved with
+       pam_tally2. For this reason pam_tally is deprecated and will be
+       removed in a future release.
+
+       pam_tally comes in two parts: <b>pam_tally.so </b>and <b>pam_tally</b>. The
+       former is the PAM module and the latter, a stand-alone program.
+       <b>pam_tally </b>is an (optional) application which can be used to
+       interrogate and manipulate the counter file. It can display user
+       counts, set individual counts, or clear all counts. Setting
+       artificially high counts may be useful for blocking users without
+       changing their passwords. For example, one might find it useful
+       to clear all counts every midnight from a cron job. The
+       <a href="https://man7.org/linux/man-pages/man8/faillog.8.html">faillog(8)</a> command can be used instead of pam_tally to to
+       maintain the counter file.
+
+       Normally, failed attempts to access <i>root</i> will <b>not </b>cause the root
+       account to become blocked, to prevent denial-of-service: if your
+       users aren't given shell accounts and root may only login via <b>su</b>
+       or at the machine console (not telnet/rsh, etc), this is safe.
+</pre>

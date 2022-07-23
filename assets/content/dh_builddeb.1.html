@@ -1,0 +1,11 @@
+<pre>
+       <b>dh_builddeb </b>simply calls <a href="https://man7.org/linux/man-pages/man1/dpkg-deb.1.html">dpkg-deb(1)</a> to build a Debian package or
+       packages.  It will also build dbgsym packages when <a href="https://man7.org/linux/man-pages/man1/dh_strip.1.html">dh_strip(1)</a>
+       and <a href="https://man7.org/linux/man-pages/man1/dh_gencontrol.1.html">dh_gencontrol(1)</a> have prepared them.
+
+       It supports building multiple binary packages in parallel, when
+       enabled by DEB_BUILD_OPTIONS.
+
+       When the <i>Rules-Requires-Root</i> field is not (effectively) <i>binary-</i>
+       <i>targets</i>, <b>dh_builddeb </b>will pass <b>--root-owner-group </b>to <a href="https://man7.org/linux/man-pages/man1/dpkg-deb.1.html">dpkg-deb(1)</a>.
+</pre>

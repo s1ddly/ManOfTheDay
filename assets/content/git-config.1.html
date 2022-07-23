@@ -1,0 +1,53 @@
+<pre>
+       You can query/set/replace/unset options with this command. The
+       name is actually the section and the key separated by a dot, and
+       the value will be escaped.
+
+       Multiple lines can be added to an option by using the <b>--add</b>
+       option. If you want to update or unset an option which can occur
+       on multiple lines, a <b>value-pattern </b>(which is an extended regular
+       expression, unless the <b>--fixed-value </b>option is given) needs to be
+       given. Only the existing values that match the pattern are
+       updated or unset. If you want to handle the lines that do <b>not</b>
+       match the pattern, just prepend a single exclamation mark in
+       front (see also the section called “EXAMPLES”), but note that
+       this only works when the <b>--fixed-value </b>option is not in use.
+
+       The <b>--type=&lt;type&gt; </b>option instructs <i>git config</i> to ensure that
+       incoming and outgoing values are canonicalize-able under the
+       given &lt;type&gt;. If no <b>--type=&lt;type&gt; </b>is given, no canonicalization
+       will be performed. Callers may unset an existing <b>--type </b>specifier
+       with <b>--no-type</b>.
+
+       When reading, the values are read from the system, global and
+       repository local configuration files by default, and options
+       <b>--system</b>, <b>--global</b>, <b>--local</b>, <b>--worktree </b>and <b>--file &lt;filename&gt; </b>can
+       be used to tell the command to read from only that location (see
+       the section called “FILES”).
+
+       When writing, the new value is written to the repository local
+       configuration file by default, and options <b>--system</b>, <b>--global</b>,
+       <b>--worktree</b>, <b>--file &lt;filename&gt; </b>can be used to tell the command to
+       write to that location (you can say <b>--local </b>but that is the
+       default).
+
+       This command will fail with non-zero status upon error. Some exit
+       codes are:
+
+       •   The section or key is invalid (ret=1),
+
+       •   no section or name was provided (ret=2),
+
+       •   the config file is invalid (ret=3),
+
+       •   the config file cannot be written (ret=4),
+
+       •   you try to unset an option which does not exist (ret=5),
+
+       •   you try to unset/set an option for which multiple lines match
+           (ret=5), or
+
+       •   you try to use an invalid regexp (ret=6).
+
+       On success, the command returns the exit code 0.
+</pre>

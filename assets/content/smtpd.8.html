@@ -1,0 +1,61 @@
+<pre>
+     <b>smtpd </b>is a Simple Mail Transfer Protocol (SMTP) daemon which can be
+     used as a machine's primary mail system.  <b>smtpd </b>can listen on a
+     network interface and handle SMTP transactions; it can also be fed
+     messages through the standard sendmail(8) interface.  It can relay
+     messages through remote mail transfer agents or store them locally
+     using either the mbox or maildir format.  This implementation
+     supports SMTP as defined by RFC 5321 as well as several extensions.
+     A running <b>smtpd </b>can be controlled through smtpctl(8).
+
+     The options are as follows:
+
+     <b>-D </b><i>macro</i>=<i>value</i>
+             Define <i>macro</i> to be set to <i>value</i> on the command line.
+             Overrides the definition of <i>macro</i> in the configuration
+             file.
+
+     <b>-d      </b>Do not daemonize.  If this option is specified, <b>smtpd </b>will
+             run in the foreground and log to <i>stderr</i>.
+
+     <b>-F      </b>Do not daemonize.  If this option is specified, <b>smtpd </b>will
+             run in the foreground and log to syslogd(8).
+
+     <b>-f </b><i>file</i>
+             Specify an alternative configuration file.
+
+     <b>-h      </b>Display version and usage.
+
+     <b>-n      </b>Configtest mode.  Only check the configuration file for
+             validity.
+
+     <b>-P </b><i>system</i>
+             Pause a specific subsystem at startup.  Normal operation
+             can be resumed using smtpctl(8).  This option can be used
+             multiple times.  The accepted values are:
+
+             mda      Do not schedule local deliveries.
+             mta      Do not schedule remote transfers.
+             smtp     Do not listen on SMTP sockets.
+
+     <b>-T </b><i>trace</i>
+             Enables real-time tracing at startup.  Normal operation can
+             be resumed using smtpctl(8).  This option can be used
+             multiple times.  The accepted values are:
+
+             <b>•   </b>imsg
+             <b>•   </b>io
+             <b>•   </b>smtp (incoming sessions)
+             <b>•   </b>filters
+             <b>•   </b>transfer (outgoing sessions)
+             <b>•   </b>bounce
+             <b>•   </b>scheduler
+             <b>•   </b>expand (aliases/virtual/forward expansion)
+             <b>•   </b>lookup (user/credentials lookups)
+             <b>•   </b>stat
+             <b>•   </b>rules (matched by incoming sessions)
+             <b>•   </b>mproc
+             <b>•   </b>all
+
+     <b>-v      </b>Produce more verbose output.
+</pre>

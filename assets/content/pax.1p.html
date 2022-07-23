@@ -1,0 +1,109 @@
+<pre>
+       The <i>pax</i> utility shall read, write, and write lists of the members
+       of archive files and copy directory hierarchies. A variety of
+       archive formats shall be supported; see the <b>-x </b><i>format</i> option.
+
+       The action to be taken depends on the presence of the <b>-r </b>and <b>-w</b>
+       options. The four combinations of <b>-r </b>and <b>-w </b>are referred to as
+       the four modes of operation: <b>list</b>, <b>read</b>, <b>write</b>, and <b>copy </b>modes,
+       corresponding respectively to the four forms shown in the
+       SYNOPSIS section.
+
+       <b>list      </b>In <b>list </b>mode (when neither <b>-r </b>nor <b>-w </b>are specified),
+                 <i>pax</i> shall write the names of the members of the archive
+                 file read from the standard input, with pathnames
+                 matching the specified patterns, to standard output. If
+                 a named file is of type directory, the file hierarchy
+                 rooted at that file shall be listed as well.
+
+       <b>read      </b>In <b>read </b>mode (when <b>-r </b>is specified, but <b>-w </b>is not), <i>pax</i>
+                 shall extract the members of the archive file read from
+                 the standard input, with pathnames matching the
+                 specified patterns. If an extracted file is of type
+                 directory, the file hierarchy rooted at that file shall
+                 be extracted as well. The extracted files shall be
+                 created performing pathname resolution with the
+                 directory in which <i>pax</i> was invoked as the current
+                 working directory.
+
+                 If an attempt is made to extract a directory when the
+                 directory already exists, this shall not be considered
+                 an error. If an attempt is made to extract a FIFO when
+                 the FIFO already exists, this shall not be considered
+                 an error.
+
+                 The ownership, access, and modification times, and file
+                 mode of the restored files are discussed under the <b>-p</b>
+                 option.
+
+       <b>write     </b>In <b>write </b>mode (when <b>-w </b>is specified, but <b>-r </b>is not),
+                 <i>pax</i> shall write the contents of the <i>file</i> operands to
+                 the standard output in an archive format. If no <i>file</i>
+                 operands are specified, a list of files to copy, one
+                 per line, shall be read from the standard input and
+                 each entry in this list shall be processed as if it had
+                 been a <i>file</i> operand on the command line. A file of type
+                 directory shall include all of the files in the file
+                 hierarchy rooted at the file.
+
+       <b>copy      </b>In <b>copy </b>mode (when both <b>-r </b>and <b>-w </b>are specified), <i>pax</i>
+                 shall copy the <i>file</i> operands to the destination
+                 directory.
+
+                 If no <i>file</i> operands are specified, a list of files to
+                 copy, one per line, shall be read from the standard
+                 input. A file of type directory shall include all of
+                 the files in the file hierarchy rooted at the file.
+
+                 The effect of the <b>copy </b>shall be as if the copied files
+                 were written to a <i>pax</i> format archive file and then
+                 subsequently extracted, except that copying of sockets
+                 may be supported even if archiving them in write mode
+                 is not supported, and that there may be hard links
+                 between the original and the copied files. If the
+                 destination directory is a subdirectory of one of the
+                 files to be copied, the results are unspecified. If the
+                 destination directory is a file of a type not defined
+                 by the System Interfaces volume of POSIX.1‐2017, the
+                 results are implementation-defined; otherwise, it shall
+                 be an error for the file named by the <i>directory</i> operand
+                 not to exist, not be writable by the user, or not be a
+                 file of type directory.
+
+       In <b>read </b>or <b>copy </b>modes, if intermediate directories are necessary
+       to extract an archive member, <i>pax</i> shall perform actions
+       equivalent to the <i>mkdir</i>() function defined in the System
+       Interfaces volume of POSIX.1‐2017, called with the following
+       arguments:
+
+        *  The intermediate directory used as the <i>path</i> argument
+
+        *  The value of the bitwise-inclusive OR of S_IRWXU, S_IRWXG,
+           and S_IRWXO as the <i>mode</i> argument
+
+       If any specified <i>pattern</i> or <i>file</i> operands are not matched by at
+       least one file or archive member, <i>pax</i> shall write a diagnostic
+       message to standard error for each one that did not match and
+       exit with a non-zero exit status.
+
+       The archive formats described in the EXTENDED DESCRIPTION section
+       shall be automatically detected on input. The default output
+       archive format shall be implementation-defined.
+
+       A single archive can span multiple files. The <i>pax</i> utility shall
+       determine, in an implementation-defined manner, what file to read
+       or write as the next file.
+
+       If the selected archive format supports the specification of
+       linked files, it shall be an error if these files cannot be
+       linked when the archive is extracted. For archive formats that do
+       not store file contents with each name that causes a hard link,
+       if the file that contains the data is not extracted during this
+       <i>pax</i> session, either the data shall be restored from the original
+       file, or a diagnostic message shall be displayed with the name of
+       a file that can be used to extract the data. In traversing
+       directories, <i>pax</i> shall detect infinite loops; that is, entering a
+       previously visited directory that is an ancestor of the last file
+       visited. When it detects an infinite loop, <i>pax</i> shall write a
+       diagnostic message to standard error and shall terminate.
+</pre>

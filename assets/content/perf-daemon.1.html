@@ -1,0 +1,25 @@
+<pre>
+       This command allows to run simple daemon process that starts and
+       monitors configured record sessions.
+
+       You can imagine <i>perf daemon</i> of background process with several
+       <i>perf record</i> child tasks, like:
+
+           # ps axjf
+           ...
+                1  916507 ... perf daemon start
+           916507  916508 ...  \_ perf record --control=fifo:control,ack -m 10M -e cycles --overwrite --switch-output -a
+           916507  916509 ...  \_ perf record --control=fifo:control,ack -m 20M -e sched:* --overwrite --switch-output -a
+
+       Not every <i>perf record</i> session is suitable for running under
+       daemon. User need perf session that either produces data on
+       query, like the flight recorder sessions in above example or
+       session that is configured to produce data periodically, like
+       with --switch-output configuration for time and size.
+
+       Each session is started with control setup (with perf record
+       --control options).
+
+       Sessions are configured through config file, see CONFIG FILE
+       section with EXAMPLES.
+</pre>

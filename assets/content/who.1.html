@@ -1,0 +1,59 @@
+<pre>
+       Print information about users who are currently logged in.
+
+       <b>-a</b>, <b>--all</b>
+              same as <b>-b -d --login -p -r -t -T -u</b>
+
+       <b>-b</b>, <b>--boot</b>
+              time of last system boot
+
+       <b>-d</b>, <b>--dead</b>
+              print dead processes
+
+       <b>-H</b>, <b>--heading</b>
+              print line of column headings
+
+       <b>-l</b>, <b>--login</b>
+              print system login processes
+
+       <b>--lookup</b>
+              attempt to canonicalize hostnames via DNS
+
+       <b>-m     </b>only hostname and user associated with stdin
+
+       <b>-p</b>, <b>--process</b>
+              print active processes spawned by init
+
+       <b>-q</b>, <b>--count</b>
+              all login names and number of users logged on
+
+       <b>-r</b>, <b>--runlevel</b>
+              print current runlevel
+
+       <b>-s</b>, <b>--short</b>
+              print only name, line, and time (default)
+
+       <b>-t</b>, <b>--time</b>
+              print last system clock change
+
+       <b>-T</b>, <b>-w</b>, <b>--mesg</b>
+              add user's message status as +, - or ?
+
+       <b>-u</b>, <b>--users</b>
+              list users logged in
+
+       <b>--message</b>
+              same as <b>-T</b>
+
+       <b>--writable</b>
+              same as <b>-T</b>
+
+       <b>--help </b>display this help and exit
+
+       <b>--version</b>
+              output version information and exit
+
+       If FILE is not specified, use <i>/var/run/utmp</i>.  <i>/var/log/wtmp</i> as
+       FILE is common.  If ARG1 ARG2 given, <b>-m </b>presumed: 'am i' or 'mom
+       likes' are usual.
+</pre>

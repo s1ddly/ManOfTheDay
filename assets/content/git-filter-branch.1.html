@@ -1,0 +1,60 @@
+<pre>
+       Lets you rewrite Git revision history by rewriting the branches
+       mentioned in the &lt;rev-list options&gt;, applying custom filters on
+       each revision. Those filters can modify each tree (e.g. removing
+       a file or running a perl rewrite on all files) or information
+       about each commit. Otherwise, all information (including original
+       commit times or merge information) will be preserved.
+
+       The command will only rewrite the <i>positive</i> refs mentioned in the
+       command line (e.g. if you pass <i>a..b</i>, only <i>b</i> will be rewritten).
+       If you specify no filters, the commits will be recommitted
+       without any changes, which would normally have no effect.
+       Nevertheless, this may be useful in the future for compensating
+       for some Git bugs or such, therefore such a usage is permitted.
+
+       <b>NOTE</b>: This command honors <b>.git/info/grafts </b>file and refs in the
+       <b>refs/replace/ </b>namespace. If you have any grafts or replacement
+       refs defined, running this command will make them permanent.
+
+       <b>WARNING</b>! The rewritten history will have different object names
+       for all the objects and will not converge with the original
+       branch. You will not be able to easily push and distribute the
+       rewritten branch on top of the original branch. Please do not use
+       this command if you do not know the full implications, and avoid
+       using it anyway, if a simple single commit would suffice to fix
+       your problem. (See the "RECOVERING FROM UPSTREAM REBASE" section
+       in <a href="https://man7.org/linux/man-pages/man1/git-rebase.1.html">git-rebase(1)</a> for further information about rewriting
+       published history.)
+
+       Always verify that the rewritten version is correct: The original
+       refs, if different from the rewritten ones, will be stored in the
+       namespace <i>refs/original/</i>.
+
+       Note that since this operation is very I/O expensive, it might be
+       a good idea to redirect the temporary directory off-disk with the
+       <b>-d </b>option, e.g. on tmpfs. Reportedly the speedup is very
+       noticeable.
+
+   <b>Filters</b>
+       The filters are applied in the order as listed below. The
+       &lt;command&gt; argument is always evaluated in the shell context using
+       the <i>eval</i> command (with the notable exception of the commit
+       filter, for technical reasons). Prior to that, the <b>$GIT_COMMIT</b>
+       environment variable will be set to contain the id of the commit
+       being rewritten. Also, GIT_AUTHOR_NAME, GIT_AUTHOR_EMAIL,
+       GIT_AUTHOR_DATE, GIT_COMMITTER_NAME, GIT_COMMITTER_EMAIL, and
+       GIT_COMMITTER_DATE are taken from the current commit and exported
+       to the environment, in order to affect the author and committer
+       identities of the replacement commit created by
+       <a href="https://man7.org/linux/man-pages/man1/git-commit-tree.1.html">git-commit-tree(1)</a> after the filters have run.
+
+       If any evaluation of &lt;command&gt; returns a non-zero exit status,
+       the whole operation will be aborted.
+
+       A <i>map</i> function is available that takes an "original sha1 id"
+       argument and outputs a "rewritten sha1 id" if the commit has been
+       already rewritten, and "original sha1 id" otherwise; the <i>map</i>
+       function can return several ids on separate lines if your commit
+       filter emitted multiple commits.
+</pre>

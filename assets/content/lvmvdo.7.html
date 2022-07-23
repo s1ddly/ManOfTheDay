@@ -1,0 +1,48 @@
+<pre>
+       VDO is software that provides inline block-level deduplication,
+       compression, and thin provisioning capabilities for primary
+       storage.
+
+       Deduplication is a technique for reducing the consumption of
+       storage resources by eliminating multiple copies of duplicate
+       blocks. Compression takes the individual unique blocks and
+       shrinks them.  These reduced blocks are then efficiently packed
+       together into physical blocks. Thin provisioning manages the
+       mapping from logical blocks presented by VDO to where the data
+       has actually been physically stored, and also eliminates any
+       blocks of all zeroes.
+
+       With deduplication, instead of writing the same data more than
+       once, VDO detects and records each duplicate block as a reference
+       to the original block. VDO maintains a mapping from Logical Block
+       Addresses (LBA) (used by the storage layer above VDO) to physical
+       block addresses (used by the storage layer under VDO). After
+       deduplication, multiple logical block addresses may be mapped to
+       the same physical block address; these are called shared blocks
+       and are reference-counted by the software.
+
+       With compression, VDO compresses multiple blocks (or shared
+       blocks) with the fast LZ4 algorithm, and bins them together where
+       possible so that multiple compressed blocks fit within a 4 KB
+       block on the underlying storage. Mapping from LBA is to a
+       physical block address and index within it for the desired
+       compressed data. All compressed blocks are individually reference
+       counted for correctness.
+
+       Block sharing and block compression are invisible to applications
+       using the storage, which read and write blocks as they would if
+       VDO were not present. When a shared block is overwritten, a new
+       physical block is allocated for storing the new block data to
+       ensure that other logical block addresses that are mapped to the
+       shared physical block are not modified.
+
+       To use VDO with <a href="https://man7.org/linux/man-pages/man8/lvm.8.html">lvm(8)</a>, you must install the standard VDO user-
+       space tools <b>vdoformat</b>(8) and the currently non-standard kernel
+       VDO module "<i>kvdo</i>".
+
+       The "<i>kvdo</i>" module implements fine-grained storage virtualization,
+       thin provisioning, block sharing, and compression.  The "<i>uds</i>"
+       module provides memory-efficient duplicate identification. The
+       user-space tools include <b>vdostats</b>(8) for extracting statistics
+       from VDO volumes.
+</pre>

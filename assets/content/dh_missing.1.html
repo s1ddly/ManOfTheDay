@@ -1,0 +1,19 @@
+<pre>
+       <b>dh_missing </b>compares the list of installed files with the files in
+       the source directory. If any of the files (and symlinks) in the
+       source directory were not installed to somewhere, it will warn on
+       stderr about that (<b>--list-missing</b>) or fail (<b>--fail-missing</b>).
+
+       Please note that in compat 11 and earlier without either of these
+       options, <b>dh_missing </b>will silently do nothing.  In compat 12,
+       <b>--list-missing </b>is the default  In compat 13 and later,
+       <b>--fail-missing </b>is the default.
+
+       This may be useful if you have a large package and want to make
+       sure that you don't miss installing newly added files in new
+       upstream releases.
+
+       Remember to test different kinds of builds (dpkg-buildpackage
+       -A/-B/...) as you may experience varying results when only a
+       subset of the packages are built.
+</pre>

@@ -1,0 +1,55 @@
+<pre>
+       Print selected parts of lines from each FILE to standard output.
+
+       With no FILE, or when FILE is -, read standard input.
+
+       Mandatory arguments to long options are mandatory for short
+       options too.
+
+       <b>-b</b>, <b>--bytes</b>=<i>LIST</i>
+              select only these bytes
+
+       <b>-c</b>, <b>--characters</b>=<i>LIST</i>
+              select only these characters
+
+       <b>-d</b>, <b>--delimiter</b>=<i>DELIM</i>
+              use DELIM instead of TAB for field delimiter
+
+       <b>-f</b>, <b>--fields</b>=<i>LIST</i>
+              select only these fields;  also print any line that
+              contains no delimiter character, unless the <b>-s </b>option is
+              specified
+
+       <b>-n     </b>(ignored)
+
+       <b>--complement</b>
+              complement the set of selected bytes, characters or fields
+
+       <b>-s</b>, <b>--only-delimited</b>
+              do not print lines not containing delimiters
+
+       <b>--output-delimiter</b>=<i>STRING</i>
+              use STRING as the output delimiter the default is to use
+              the input delimiter
+
+       <b>-z</b>, <b>--zero-terminated</b>
+              line delimiter is NUL, not newline
+
+       <b>--help </b>display this help and exit
+
+       <b>--version</b>
+              output version information and exit
+
+       Use one, and only one of <b>-b</b>, <b>-c </b>or <b>-f</b>.  Each LIST is made up of
+       one range, or many ranges separated by commas.  Selected input is
+       written in the same order that it is read, and is written exactly
+       once.  Each range is one of:
+
+       N      N'th byte, character or field, counted from 1
+
+       N-     from N'th byte, character or field, to end of line
+
+       N-M    from N'th to M'th (included) byte, character or field
+
+       <b>-M     </b>from first to M'th (included) byte, character or field
+</pre>

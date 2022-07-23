@@ -1,0 +1,26 @@
+<pre>
+       Substitutes the values of environment variables.
+
+   <b>Operation mode:</b>
+       <b>-v</b>, <b>--variables</b>
+              output the variables occurring in SHELL-FORMAT
+
+   <b>Informative output:</b>
+       <b>-h</b>, <b>--help</b>
+              display this help and exit
+
+       <b>-V</b>, <b>--version</b>
+              output version information and exit
+
+       In normal operation mode, standard input is copied to standard
+       output, with references to environment variables of the form
+       $VARIABLE or ${VARIABLE} being replaced with the corresponding
+       values.  If a SHELL-FORMAT is given, only those environment
+       variables that are referenced in SHELL-FORMAT are substituted;
+       otherwise all environment variables references occurring in
+       standard input are substituted.
+
+       When <b>--variables </b>is used, standard input is ignored, and the
+       output consists of the environment variables that are referenced
+       in SHELL-FORMAT, one per line.
+</pre>

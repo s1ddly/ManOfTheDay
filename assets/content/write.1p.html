@@ -1,0 +1,62 @@
+<pre>
+       The <i>write</i> utility shall read lines from the standard input and
+       write them to the terminal of the specified user. When first
+       invoked, it shall write the message:
+
+           <b>Message from </b><i>sender-login-id</i> (<i>sending-terminal</i>) <b>[</b><i>date</i><b>]</b>...
+
+       to <i>user_name</i>.  When it has successfully completed the connection,
+       the sender's terminal shall be alerted twice to indicate that
+       what the sender is typing is being written to the recipient's
+       terminal.
+
+       If the recipient wants to reply, this can be accomplished by
+       typing:
+
+           write <i>sender-login-id</i> <b>[</b><i>sending-terminal</i><b>]</b>
+
+       upon receipt of the initial message. Whenever a line of input as
+       delimited by an NL, EOF, or EOL special character (see the Base
+       Definitions volume of POSIX.1‐2017, <i>Chapter 11</i>, <i>General Terminal</i>
+       <i>Interface</i>) is accumulated while in canonical input mode, the
+       accumulated data shall be written on the other user's terminal.
+       Characters shall be processed as follows:
+
+        *  Typing &lt;alert&gt; shall write the &lt;alert&gt; character to the
+           recipient's terminal.
+
+        *  Typing the erase and kill characters shall affect the
+           sender's terminal in the manner described by the <b>termios</b>
+           interface in the Base Definitions volume of POSIX.1‐2017,
+           <i>Chapter 11</i>, <i>General Terminal Interface</i>.
+
+        *  Typing the interrupt or end-of-file characters shall cause
+           <i>write</i> to write an appropriate message (<b>"EOT\n" </b>in the POSIX
+           locale) to the recipient's terminal and exit.
+
+        *  Typing characters from <i>LC_CTYPE</i> classifications <b>print </b>or
+           <b>space </b>shall cause those characters to be sent to the
+           recipient's terminal.
+
+        *  When and only when the <i>stty</i> <b>iexten </b>local mode is enabled, the
+           existence and processing of additional special control
+           characters and multi-byte or single-byte functions is
+           implementation-defined.
+
+        *  Typing other non-printable characters shall cause
+           implementation-defined sequences of printable characters to
+           be written to the recipient's terminal.
+
+       To write to a user who is logged in more than once, the <i>terminal</i>
+       argument can be used to indicate which terminal to write to;
+       otherwise, the recipient's terminal is selected in an
+       implementation-defined manner and an informational message is
+       written to the sender's standard output, indicating which
+       terminal was chosen.
+
+       Permission to be a recipient of a <i>write</i> message can be denied or
+       granted by use of the <i>mesg</i> utility. However, a user's privilege
+       may further constrain the domain of accessibility of other users'
+       terminals. The <i>write</i> utility shall fail when the user lacks
+       appropriate privileges to perform the requested action.
+</pre>

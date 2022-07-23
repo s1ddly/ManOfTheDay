@@ -1,0 +1,39 @@
+<pre>
+       <b>pmlogrewrite </b>reads a set of Performance Co-Pilot (PCP) archive
+       logs identified by <i>inlog</i> and creates a PCP archive log in <i>outlog</i>.
+       Under normal usage, the <b>-c </b>option will be used to nominate a
+       configuration file or files that contains specifications (see the
+       <b>REWRITING RULES SYNTAX </b>section below) that describe how the data
+       and metadata from <i>inlog</i> should be transformed to produce <i>outlog</i>.
+
+       The typical uses for <b>pmlogrewrite </b>would be to accommodate the
+       evolution of Performance Metric Domain Agents (PMDAs) where the
+       names, metadata and semantics of metrics and their associated
+       instance domains may change over time, e.g. promoting the type of
+       a metric from a 32-bit to a 64-bit integer, or renaming a group
+       of metrics.  Refer to the <b>EXAMPLES </b>section for some additional
+       use cases.
+
+       <b>pmlogrewrite </b>is most useful where PMDA changes, or errors in the
+       production environment, result in archives that cannot be
+       combined with <a href="https://man7.org/linux/man-pages/man1/pmlogextract.1.html">pmlogextract(1)</a>.  By pre-processing the archives
+       with <b>pmlogrewrite </b>the resulting archives may be able to be merged
+       with <a href="https://man7.org/linux/man-pages/man1/pmlogextract.1.html">pmlogextract(1)</a>.
+
+       The input <i>inlog</i> must be a set of PCP archive logs created by
+       <a href="https://man7.org/linux/man-pages/man1/pmlogger.1.html">pmlogger(1)</a>, or possibly one of the tools that read and create
+       PCP archives, e.g.  <a href="https://man7.org/linux/man-pages/man1/pmlogextract.1.html">pmlogextract(1)</a> and <a href="https://man7.org/linux/man-pages/man1/pmlogreduce.1.html">pmlogreduce(1)</a>.  <i>inlog</i> is
+       a comma-separated list of names, each of which may be the base
+       name of an archive or the name of a directory containing one or
+       more archives.
+
+       If no <b>-c </b>option is specified, then the default behavior simply
+       creates <i>outlog</i> as a copy of <i>inlog</i>.  This is a little more
+       complicated than <a href="https://man7.org/linux/man-pages/man1/cat.1.html">cat(1)</a>, as each PCP archive is made up of
+       several physical files.
+
+       While <b>pmlogrewrite </b>may be used to repair some data consistency
+       issues in PCP archives, there is also a class of repair tasks
+       that cannot be handled by <b>pmlogrewrite </b>and <a href="https://man7.org/linux/man-pages/man1/pmloglabel.1.html">pmloglabel(1)</a> may be a
+       useful tool in these cases.
+</pre>

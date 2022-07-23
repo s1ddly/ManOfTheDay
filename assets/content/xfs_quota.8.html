@@ -1,0 +1,64 @@
+<pre>
+       <b>xfs_quota </b>is a utility for reporting and editing various aspects
+       of filesystem quota.
+
+       The options to <b>xfs_quota </b>are:
+
+       <b>-c </b><i>cmd</i> <b>xfs_quota </b>commands may be run interactively (the default)
+              or as arguments on the command line. Multiple <b>-c </b>arguments
+              may be given.  The commands are run in the sequence given,
+              then the program exits.
+
+       <b>-p </b><i>prog</i>
+              Set the program name for prompts and some error messages,
+              the default value is <b>xfs_quota</b>.
+
+       <b>-x     </b>Enable expert mode.  All of the administrative commands
+              (see the ADMINISTRATOR COMMANDS section below) which allow
+              modifications to the quota system are available only in
+              expert mode.
+
+       <b>-f     </b>Enable foreign filesystem mode.  A limited number of user
+              and administrative commands are available for use on some
+              foreign (non-XFS) filesystems.
+
+       <b>-d </b><i>project</i>
+              Project names or numeric identifiers may be specified with
+              this option, which restricts the output of the individual
+              <b>xfs_quota </b>commands to the set of projects specified.
+              Multiple <b>-d </b>arguments may be given.
+
+       <b>-D </b><i>projects_file</i>
+              Specify a file containing the mapping of numeric project
+              identifiers to directory trees.  <i>/etc/projects</i> as default,
+              if this option is none.
+
+       <b>-P </b><i>projid_file</i>
+              Specify a file containing the mapping of numeric project
+              identifiers to project names.  <i>/etc/projid</i> as default, if
+              this option is none.
+
+       <b>-V     </b>Prints the version number and exits.
+
+       The optional <i>path</i> argument(s) can be used to specify mount points
+       or device files which identify XFS filesystems. The output of the
+       individual <b>xfs_quota </b>commands will then be restricted to the set
+       of filesystems specified.
+
+       This manual page is divided into two sections - firstly,
+       information for users of filesystems with quota enabled, and the
+       <b>xfs_quota </b>commands of interest to such users; and then
+       information which is useful only to administrators of XFS
+       filesystems using quota and the quota commands which allow
+       modifications to the quota system.
+
+       Note that common to almost all of the individual commands
+       described below are the options for specifying which quota types
+       are of interest - user quota (<b>-u</b>), group quota (<b>-g</b>), and/or
+       project quota (<b>-p</b>).  Also, several commands provide options to
+       operate on "blocks used" (<b>-b</b>), "inodes used" (<b>-i</b>), and/or
+       "realtime blocks used" (<b>-r</b>).
+
+       Many commands also have extensive online help. Use the <b>help</b>
+       command for more details on any command.
+</pre>

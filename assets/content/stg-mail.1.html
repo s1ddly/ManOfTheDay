@@ -1,0 +1,70 @@
+<pre>
+       Send a patch or a range of patches by e-mail using the SMTP
+       server specified by the <i>stgit.smtpserver</i> configuration option, or
+       the <i>--smtp-server</i> command line option. This option can also be an
+       absolute path to <i>sendmail</i> followed by command line arguments.
+
+       The From address and the e-mail format are generated from the
+       template file passed as argument to <i>--template</i> (defaulting to
+       <i>.git/patchmail.tmpl</i> or <i>~/.stgit/templates/patchmail.tmpl</i> or
+       <i>/usr/share/stgit/templates/patchmail.tmpl</i>). A patch can be sent
+       as attachment using the --attach option in which case the
+       <i>mailattch.tmpl</i> template will be used instead of <i>patchmail.tmpl</i>.
+
+       The To/Cc/Bcc addresses can either be added to the template file
+       or passed via the corresponding command line options. They can be
+       e-mail addresses or aliases which are automatically expanded to
+       the values stored in the [mail "alias"] section of GIT
+       configuration files.
+
+       A preamble e-mail can be sent using the <i>--cover</i> and/or
+       <i>--edit-cover</i> options. The first allows the user to specify a file
+       to be used as a template. The latter option will invoke the
+       editor on the specified file (defaulting to <i>.git/covermail.tmpl</i>
+       or <i>~/.stgit/templates/covermail.tmpl</i> or
+       <i>/usr/share/stgit/templates/covermail.tmpl</i>).
+
+       All the subsequent e-mails appear as replies to the first e-mail
+       sent (either the preamble or the first patch). E-mails can be
+       seen as replies to a different e-mail by using the <i>--in-reply-to</i>
+       option.
+
+       SMTP authentication is also possible with <i>--smtp-user</i> and
+       <i>--smtp-password</i> options, also available as configuration
+       settings: <i>smtpuser</i> and <i>smtppassword</i>. TLS encryption can be
+       enabled by <i>--smtp-tls</i> option and <i>smtptls</i> setting.
+
+       The following variables are accepted by both the preamble and the
+       patch e-mail templates:
+
+           %(diffstat)s     - diff statistics
+           %(number)s       - empty if only one patch is sent or 'patchnr/totalnr'
+           %(snumber)s      - stripped version of '%(number)s'
+           %(nspace)s       - ' ' if %(number)s is non-empty, otherwise empty string
+           %(patchnr)s      - patch number
+           %(sender)s       - 'sender'  or 'authname &lt;authemail&gt;' as per the config file
+           %(totalnr)s      - total number of patches to be sent
+           %(version)s      - 'version' string passed on the command line (or empty)
+           %(vspace)s       - ' ' if %(version)s is non-empty, otherwise empty string
+
+       In addition to the common variables, the preamble e-mail template
+       accepts the following:
+
+           %(shortlog)s     - first line of each patch description, listed by author
+
+       In addition to the common variables, the patch e-mail template
+       accepts the following:
+
+           %(authdate)s     - patch creation date
+           %(authemail)s    - author's email
+           %(authname)s     - author's name
+           %(commemail)s    - committer's e-mail
+           %(commname)s     - committer's name
+           %(diff)s         - unified diff of the patch
+           %(fromauth)s     - 'From: author\n\n' if different from sender
+           %(longdescr)s    - the rest of the patch description, after the first line
+           %(patch)s        - patch name
+           %(prefix)s       - 'prefix' string passed on the command line
+           %(pspace)s       - ' ' if %(prefix)s is non-empty, otherwise empty string
+           %(shortdescr)s   - the first line of the patch description
+</pre>

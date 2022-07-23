@@ -1,0 +1,66 @@
+<pre>
+     <b>ssh-keyscan </b>is a utility for gathering the public SSH host keys of
+     a number of hosts.  It was designed to aid in building and
+     verifying <i>ssh_known_hosts</i> files, the format of which is documented
+     in sshd(8).  <b>ssh-keyscan </b>provides a minimal interface suitable for
+     use by shell and perl scripts.
+
+     <b>ssh-keyscan </b>uses non-blocking socket I/O to contact as many hosts
+     as possible in parallel, so it is very efficient.  The keys from a
+     domain of 1,000 hosts can be collected in tens of seconds, even
+     when some of those hosts are down or do not run sshd(8).  For
+     scanning, one does not need login access to the machines that are
+     being scanned, nor does the scanning process involve any
+     encryption.
+
+     The options are as follows:
+
+     <b>-4      </b>Force <b>ssh-keyscan </b>to use IPv4 addresses only.
+
+     <b>-6      </b>Force <b>ssh-keyscan </b>to use IPv6 addresses only.
+
+     <b>-c      </b>Request certificates from target hosts instead of plain
+             keys.
+
+     <b>-D      </b>Print keys found as SSHFP DNS records.  The default is to
+             print keys in a format usable as a ssh(1) <i>known_hosts</i> file.
+
+     <b>-f </b><i>file</i>
+             Read hosts or “addrlist namelist” pairs from <i>file</i>, one per
+             line.  If ‘-’ is supplied instead of a filename,
+             <b>ssh-keyscan </b>will read from the standard input.  Input is
+             expected in the format:
+
+             1.2.3.4,1.2.4.4 name.my.domain,name,n.my.domain,n,1.2.3.4,1.2.4.4
+
+     <b>-H      </b>Hash all hostnames and addresses in the output.  Hashed
+             names may be used normally by ssh(1) and sshd(8), but they
+             do not reveal identifying information should the file's
+             contents be disclosed.
+
+     <b>-p </b><i>port</i>
+             Connect to <i>port</i> on the remote host.
+
+     <b>-T </b><i>timeout</i>
+             Set the timeout for connection attempts.  If <i>timeout</i>
+             seconds have elapsed since a connection was initiated to a
+             host or since the last time anything was read from that
+             host, the connection is closed and the host in question
+             considered unavailable.  The default is 5 seconds.
+
+     <b>-t </b><i>type</i>
+             Specify the type of the key to fetch from the scanned
+             hosts.  The possible values are “dsa”, “ecdsa”, “ed25519”,
+             or “rsa”.  Multiple values may be specified by separating
+             them with commas.  The default is to fetch “rsa”, “ecdsa”,
+             and “ed25519” keys.
+
+     <b>-v      </b>Verbose mode: print debugging messages about progress.
+
+     If an ssh_known_hosts file is constructed using <b>ssh-keyscan </b>without
+     verifying the keys, users will be vulnerable to <i>man in the middle</i>
+     attacks.  On the other hand, if the security model allows such a
+     risk, <b>ssh-keyscan </b>can help in the detection of tampered keyfiles or
+     man in the middle attacks which have begun after the
+     ssh_known_hosts file was created.
+</pre>

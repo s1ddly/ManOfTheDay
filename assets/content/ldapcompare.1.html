@@ -1,0 +1,13 @@
+<pre>
+       <i>ldapcompare</i> is a shell-accessible interface to the
+       <a href="https://man7.org/linux/man-pages/man3/ldap_compare_ext.3.html">ldap_compare_ext(3)</a> library call.
+
+       <b>ldapcompare </b>opens a connection to an LDAP server, binds, and
+       performs a compare using specified parameters.   The <i>DN</i> should be
+       a distinguished name in the directory.  <i>Attr</i> should be a known
+       attribute.  If followed by one colon, the assertion <i>value</i> should
+       be provided as a string.  If followed by two colons, the base64
+       encoding of the value is provided.  The result code of the
+       compare is provided as the exit code and, unless ran with <b>-z</b>, the
+       program prints TRUE, FALSE, or UNDEFINED on standard output.
+</pre>

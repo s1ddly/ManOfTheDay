@@ -1,0 +1,91 @@
+<pre>
+       Show changes between the working tree and the index or a tree,
+       changes between the index and a tree, changes between two trees,
+       changes resulting from a merge, changes between two blob objects,
+       or changes between two files on disk.
+
+       <i>git diff</i> [&lt;options&gt;] [--] [&lt;path&gt;...]
+           This form is to view the changes you made relative to the
+           index (staging area for the next commit). In other words, the
+           differences are what you <i>could</i> tell Git to further add to the
+           index but you still haven’t. You can stage these changes by
+           using <a href="https://man7.org/linux/man-pages/man1/git-add.1.html">git-add(1)</a>.
+
+       <i>git diff</i> [&lt;options&gt;] --no-index [--] &lt;path&gt; &lt;path&gt;
+           This form is to compare the given two paths on the
+           filesystem. You can omit the <b>--no-index </b>option when running
+           the command in a working tree controlled by Git and at least
+           one of the paths points outside the working tree, or when
+           running the command outside a working tree controlled by Git.
+           This form implies <b>--exit-code</b>.
+
+       <i>git diff</i> [&lt;options&gt;] --cached [--merge-base] [&lt;commit&gt;] [--]
+       [&lt;path&gt;...]
+           This form is to view the changes you staged for the next
+           commit relative to the named &lt;commit&gt;. Typically you would
+           want comparison with the latest commit, so if you do not give
+           &lt;commit&gt;, it defaults to HEAD. If HEAD does not exist (e.g.
+           unborn branches) and &lt;commit&gt; is not given, it shows all
+           staged changes. --staged is a synonym of --cached.
+
+           If --merge-base is given, instead of using &lt;commit&gt;, use the
+           merge base of &lt;commit&gt; and HEAD.  <b>git diff --cached</b>
+           <b>--merge-base A </b>is equivalent to <b>git diff --cached $(git</b>
+           <b>merge-base A HEAD)</b>.
+
+       <i>git diff</i> [&lt;options&gt;] [--merge-base] &lt;commit&gt; [--] [&lt;path&gt;...]
+           This form is to view the changes you have in your working
+           tree relative to the named &lt;commit&gt;. You can use HEAD to
+           compare it with the latest commit, or a branch name to
+           compare with the tip of a different branch.
+
+           If --merge-base is given, instead of using &lt;commit&gt;, use the
+           merge base of &lt;commit&gt; and HEAD.  <b>git diff --merge-base A </b>is
+           equivalent to <b>git diff $(git merge-base A HEAD)</b>.
+
+       <i>git diff</i> [&lt;options&gt;] [--merge-base] &lt;commit&gt; &lt;commit&gt; [--]
+       [&lt;path&gt;...]
+           This is to view the changes between two arbitrary &lt;commit&gt;.
+
+           If --merge-base is given, use the merge base of the two
+           commits for the "before" side.  <b>git diff --merge-base A B </b>is
+           equivalent to <b>git diff $(git merge-base A B) B</b>.
+
+       <i>git diff</i> [&lt;options&gt;] &lt;commit&gt; &lt;commit&gt;... &lt;commit&gt; [--]
+       [&lt;path&gt;...]
+           This form is to view the results of a merge commit. The first
+           listed &lt;commit&gt; must be the merge itself; the remaining two
+           or more commits should be its parents. A convenient way to
+           produce the desired set of revisions is to use the <b>^@ </b>suffix.
+           For instance, if <b>master </b>names a merge commit, <b>git diff master</b>
+           <b>master^@ </b>gives the same combined diff as <b>git show master</b>.
+
+       <i>git diff</i> [&lt;options&gt;] &lt;commit&gt;..&lt;commit&gt; [--] [&lt;path&gt;...]
+           This is synonymous to the earlier form (without the <b>..</b>) for
+           viewing the changes between two arbitrary &lt;commit&gt;. If
+           &lt;commit&gt; on one side is omitted, it will have the same effect
+           as using HEAD instead.
+
+       <i>git diff</i> [&lt;options&gt;] &lt;commit&gt;...&lt;commit&gt; [--] [&lt;path&gt;...]
+           This form is to view the changes on the branch containing and
+           up to the second &lt;commit&gt;, starting at a common ancestor of
+           both &lt;commit&gt;.  <b>git diff A...B </b>is equivalent to <b>git diff</b>
+           <b>$(git merge-base A B) B</b>. You can omit any one of &lt;commit&gt;,
+           which has the same effect as using HEAD instead.
+
+       Just in case you are doing something exotic, it should be noted
+       that all of the &lt;commit&gt; in the above description, except in the
+       <b>--merge-base </b>case and in the last two forms that use <b>..</b>
+       notations, can be any &lt;tree&gt;.
+
+       For a more complete list of ways to spell &lt;commit&gt;, see
+       "SPECIFYING REVISIONS" section in <a href="https://man7.org/linux/man-pages/man7/gitrevisions.7.html">gitrevisions(7)</a>. However,
+       "diff" is about comparing two <i>endpoints</i>, not ranges, and the
+       range notations (<b>&lt;commit&gt;..&lt;commit&gt; </b>and <b>&lt;commit&gt;...&lt;commit&gt;</b>) do
+       not mean a range as defined in the "SPECIFYING RANGES" section in
+       <a href="https://man7.org/linux/man-pages/man7/gitrevisions.7.html">gitrevisions(7)</a>.
+
+       <i>git diff</i> [&lt;options&gt;] &lt;blob&gt; &lt;blob&gt;
+           This form is to view the differences between the raw contents
+           of two blob objects.
+</pre>

@@ -1,0 +1,19 @@
+<pre>
+       <b>resolvectl </b>may be used to resolve domain names, IPv4 and IPv6
+       addresses, DNS resource records and services with the
+       <a href="https://man7.org/linux/man-pages/man8/systemd-resolved.service.8.html">systemd-resolved.service(8)</a> resolver service. By default, the
+       specified list of parameters will be resolved as hostnames,
+       retrieving their IPv4 and IPv6 addresses. If the parameters
+       specified are formatted as IPv4 or IPv6 operation the reverse
+       operation is done, and a hostname is retrieved for the specified
+       addresses.
+
+       The program's output contains information about the protocol used
+       for the look-up and on which network interface the data was
+       discovered. It also contains information on whether the
+       information could be authenticated. All data for which local
+       DNSSEC validation succeeds is considered authenticated. Moreover
+       all data originating from local, trusted sources is also reported
+       authenticated, including resolution of the local host name, the
+       "localhost" hostname or all data from /etc/hosts.
+</pre>

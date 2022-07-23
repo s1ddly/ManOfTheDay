@@ -1,0 +1,35 @@
+<pre>
+       The shell shall give the <i>export</i> attribute to the variables
+       corresponding to the specified <i>name</i>s, which shall cause them to
+       be in the environment of subsequently executed commands. If the
+       name of a variable is followed by =<i>word</i>, then the value of that
+       variable shall be set to <i>word</i>.
+
+       The <i>export</i> special built-in shall support the Base Definitions
+       volume of POSIX.1‐2017, <i>Section 12.2</i>, <i>Utility Syntax Guidelines</i>.
+
+       When <b>-p </b>is specified, <i>export</i> shall write to the standard output
+       the names and values of all exported variables, in the following
+       format:
+
+           "export %s=%s\n", &lt;<i>name</i>&gt;, &lt;<i>value</i>&gt;
+
+       if <i>name</i> is set, and:
+
+           "export %s\n", &lt;<i>name</i>&gt;
+
+       if <i>name</i> is unset.
+
+       The shell shall format the output, including the proper use of
+       quoting, so that it is suitable for reinput to the shell as
+       commands that achieve the same exporting results, except:
+
+        1. Read-only variables with values cannot be reset.
+
+        2. Variables that were unset at the time they were output need
+           not be reset to the unset state if a value is assigned to the
+           variable between the time the state was saved and the time at
+           which the saved output is reinput to the shell.
+
+       When no arguments are given, the results are unspecified.
+</pre>

@@ -1,0 +1,26 @@
+<pre>
+       <b>pmsignal </b>provides a cross-platform event signalling mechanism for
+       use with tools from the Performance Co-Pilot toolkit.  It can be
+       used to send a named <i>signal</i> (only HUP, USR1, TERM, and KILL are
+       accepted) to one or more processes.
+
+       The processes are specified directly using PIDs or as program
+       names (with either the <b>-a </b>or <b>-p </b>options).  In the <b>all </b>case, the
+       set of all running processes is searched for a <a href="https://man7.org/linux/man-pages/man1/basename.1.html">basename(1)</a> match
+       on <i>name</i>.  In the <b>program </b>case, process identifiers are extracted
+       from files in the $PCP_RUN_DIR directrory where file names are
+       matched on <i>name</i>.pid.
+
+       The <b>-n </b>option reports the list of process identifiers that would
+       have been signalled, but no signals are actually sent.
+
+       If a <i>signal</i> is not specified, then the TERM signal will be sent.
+       The list of supported signals is reported when using the <b>-l</b>
+       option.
+
+       On Linux and UNIX platforms, <i>pmsignal</i> is a simple wrapper around
+       the <a href="https://man7.org/linux/man-pages/man1/kill.1.html">kill(1)</a> command.  On Windows, the is no direct equivalent to
+       this mechanism, and so an alternate mechanism has been
+       implemented - this is only honoured by PCP tools, however, not
+       all Windows utilities.
+</pre>

@@ -1,0 +1,26 @@
+<pre>
+       This manual page documents the GNU version of <b>updatedb</b>, which
+       updates file name databases used by GNU <b>locate</b>.  The file name
+       databases contain lists of files that were in particular
+       directory trees when the databases were last updated.  The file
+       name of the default database is determined when <b>locate </b>and
+       <b>updatedb </b>are configured and installed.  The frequency with which
+       the databases are updated and the directories for which they
+       contain entries depend on how often <b>updatedb </b>is run, and with
+       which arguments.
+
+       In networked environments, it often makes sense to build a
+       database at the root of each filesystem, containing the entries
+       for that filesystem.  <b>updatedb </b>is then run for each filesystem on
+       the fileserver where that filesystem is on a local disk, to
+       prevent thrashing the network.  Users can select which databases
+       <b>locate </b>searches using an environment variable or command line
+       option; see <a href="https://man7.org/linux/man-pages/man1/locate.1.html">locate(1)</a>.  Databases cannot be concatenated
+       together.
+
+       The <b>LOCATGE02 </b>database format was introduced in GNU findutils
+       version 4.0 in order to allow machines with different byte
+       orderings to share the databases.  GNU <b>locate </b>can read both the
+       old and <b>LOCATE02 </b>database formats, though support for the old
+       pre-4.0 database format will be removed shortly.
+</pre>

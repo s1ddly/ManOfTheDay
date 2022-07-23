@@ -1,0 +1,33 @@
+<pre>
+       If <i>n</i> is specified, the <i>break</i> utility shall exit from the <i>n</i>th
+       enclosing <b>for</b>, <b>while</b>, or <b>until </b>loop. If <i>n</i> is not specified, <i>break</i>
+       shall behave as if <i>n</i> was specified as 1. Execution shall continue
+       with the command immediately following the exited loop. The value
+       of <i>n</i> is a positive decimal integer. If <i>n</i> is greater than the
+       number of enclosing loops, the outermost enclosing loop shall be
+       exited. If there is no enclosing loop, the behavior is
+       unspecified.
+
+       A loop shall enclose a <i>break</i> or <i>continue</i> command if the loop
+       lexically encloses the command. A loop lexically encloses a <i>break</i>
+       or <i>continue</i> command if the command is:
+
+        *  Executing in the same execution environment (see <i>Section</i>
+           <i>2.12</i>, <i>Shell Execution Environment</i>) as the compound-list of
+           the loop's do-group (see <i>Section 2.10.2</i>, <i>Shell Grammar</i>
+           <i>Rules</i>), and
+
+        *  Contained in a compound-list associated with the loop (either
+           in the compound-list of the loop's do-group or, if the loop
+           is a <b>while </b>or <b>until </b>loop, in the compound-list following the
+           <b>while </b>or <b>until </b>reserved word), and
+
+        *  Not in the body of a function whose function definition
+           command (see <i>Section 2.9.5</i>, <i>Function Definition Command</i>) is
+           contained in a compound-list associated with the loop.
+
+       If <i>n</i> is greater than the number of lexically enclosing loops and
+       there is a non-lexically enclosing loop in progress in the same
+       execution environment as the <i>break</i> or <i>continue</i> command, it is
+       unspecified whether that loop encloses the command.
+</pre>

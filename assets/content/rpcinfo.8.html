@@ -1,0 +1,32 @@
+<pre>
+     <b>rpcinfo </b>makes an RPC call to an RPC server and reports what it
+     finds.
+
+     In the first synopsis, <b>rpcinfo </b>lists all the registered RPC
+     services with <b>rpcbind </b>on <i>host</i>.  If <i>host</i> is not specified, the local
+     host is the default.  If <b>-s </b>is used, the information is displayed
+     in a concise format.
+
+     In the second synopsis, <b>rpcinfo </b>lists all the RPC services
+     registered with <b>rpcbind</b>, version 2.  Also note that the format of
+     the information is different in the first and the second synopsis.
+     This is because the second synopsis is an older protocol used to
+     collect the information displayed (version 2 of the <b>rpcbind</b>
+     protocol).
+
+     The third synopsis makes an RPC call to procedure 0 of <i>prognum</i> and
+     <i>versnum</i> on the specified <i>host</i> and reports whether a response was
+     received.  <i>transport</i> is the transport which has to be used for
+     contacting the given service.  The remote address of the service is
+     obtained by making a call to the remote <b>rpcbind</b>.
+
+     The <i>prognum</i> argument is a number that represents an RPC program
+     number.  If a <i>versnum</i> is specified, <b>rpcinfo </b>attempts to call that
+     version of the specified <i>prognum</i>.  Otherwise, <b>rpcinfo </b>attempts to
+     find all the registered version numbers for the specified <i>prognum</i>
+     by calling version 0, which is presumed not to exist; if it does
+     exist, <b>rpcinfo </b>attempts to obtain this information by calling an
+     extremely high version number instead, and attempts to call each
+     registered version.  Note: the version number is required for <b>-b</b>
+     and <b>-d </b>options.
+</pre>

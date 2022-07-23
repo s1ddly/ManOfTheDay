@@ -1,0 +1,21 @@
+<pre>
+       Runs a number of housekeeping tasks within the current
+       repository, such as compressing file revisions (to reduce disk
+       space and increase performance), removing unreachable objects
+       which may have been created from prior invocations of <i>git add</i>,
+       packing refs, pruning reflog, rerere metadata or stale working
+       trees. May also update ancillary indexes such as the
+       commit-graph.
+
+       When common porcelain operations that create objects are run,
+       they will check whether the repository has grown substantially
+       since the last maintenance, and if so run <b>git gc </b>automatically.
+       See <b>gc.auto </b>below for how to disable this behavior.
+
+       Running <b>git gc </b>manually should only be needed when adding objects
+       to a repository without regularly running such porcelain
+       commands, to do a one-off repository optimization, or e.g. to
+       clean up a suboptimal mass-import. See the "PACKFILE
+       OPTIMIZATION" section in <a href="https://man7.org/linux/man-pages/man1/git-fast-import.1.html">git-fast-import(1)</a> for more details on
+       the import case.
+</pre>

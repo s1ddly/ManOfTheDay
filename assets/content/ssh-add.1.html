@@ -1,0 +1,89 @@
+<pre>
+     <b>ssh-add </b>adds private key identities to the authentication agent,
+     ssh-agent(1).  When run without arguments, it adds the files
+     <i>~/.ssh/id_rsa</i>, <i>~/.ssh/id_dsa</i>, <i>~/.ssh/id_ecdsa</i>, <i>~/.ssh/id_ecdsa_sk</i>,
+     <i>~/.ssh/id_ed25519</i>, and <i>~/.ssh/id_ed25519_sk</i>.  After loading a
+     private key, <b>ssh-add </b>will try to load corresponding certificate
+     information from the filename obtained by appending <i>-cert.pub</i> to
+     the name of the private key file.  Alternative file names can be
+     given on the command line.
+
+     If any file requires a passphrase, <b>ssh-add </b>asks for the passphrase
+     from the user.  The passphrase is read from the user's tty.
+     <b>ssh-add </b>retries the last passphrase if multiple identity files are
+     given.
+
+     The authentication agent must be running and the SSH_AUTH_SOCK
+     environment variable must contain the name of its socket for
+     <b>ssh-add </b>to work.
+
+     The options are as follows:
+
+     <b>-c      </b>Indicates that added identities should be subject to
+             confirmation before being used for authentication.
+             Confirmation is performed by ssh-askpass(1).  Successful
+             confirmation is signaled by a zero exit status from
+             ssh-askpass(1), rather than text entered into the
+             requester.
+
+     <b>-D      </b>Deletes all identities from the agent.
+
+     <b>-d      </b>Instead of adding identities, removes identities from the
+             agent.  If <b>ssh-add </b>has been run without arguments, the keys
+             for the default identities and their corresponding
+             certificates will be removed.  Otherwise, the argument list
+             will be interpreted as a list of paths to public key files
+             to specify keys and certificates to be removed from the
+             agent.  If no public key is found at a given path, <b>ssh-add</b>
+             will append <i>.pub</i> and retry.  If the argument list consists
+             of “-” then <b>ssh-add </b>will read public keys to be removed
+             from standard input.
+
+     <b>-E </b><i>fingerprint_hash</i>
+             Specifies the hash algorithm used when displaying key
+             fingerprints.  Valid options are: “md5” and “sha256”.  The
+             default is “sha256”.
+
+     <b>-e </b><i>pkcs11</i>
+             Remove keys provided by the PKCS#11 shared library <i>pkcs11</i>.
+
+     <b>-K      </b>Load resident keys from a FIDO authenticator.
+
+     <b>-k      </b>When loading keys into or deleting keys from the agent,
+             process plain private keys only and skip certificates.
+
+     <b>-L      </b>Lists public key parameters of all identities currently
+             represented by the agent.
+
+     <b>-l      </b>Lists fingerprints of all identities currently represented
+             by the agent.
+
+     <b>-q      </b>Be quiet after a successful operation.
+
+     <b>-S </b><i>provider</i>
+             Specifies a path to a library that will be used when adding
+             FIDO authenticator-hosted keys, overriding the default of
+             using the internal USB HID support.
+
+     <b>-s </b><i>pkcs11</i>
+             Add keys provided by the PKCS#11 shared library <i>pkcs11</i>.
+
+     <b>-T </b><i>pubkey ...</i>
+             Tests whether the private keys that correspond to the
+             specified <i>pubkey</i> files are usable by performing sign and
+             verify operations on each.
+
+     <b>-t </b><i>life</i>
+             Set a maximum lifetime when adding identities to an agent.
+             The lifetime may be specified in seconds or in a time
+             format specified in sshd_config(5).
+
+     <b>-v      </b>Verbose mode.  Causes <b>ssh-add </b>to print debugging messages
+             about its progress.  This is helpful in debugging problems.
+             Multiple <b>-v </b>options increase the verbosity.  The maximum is
+             3.
+
+     <b>-X      </b>Unlock the agent.
+
+     <b>-x      </b>Lock the agent with a password.
+</pre>

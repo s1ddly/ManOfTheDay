@@ -1,0 +1,44 @@
+<pre>
+       <b>mysql_find_rows </b>reads files containing SQL statements and
+       extracts statements that match a given regular expression or that
+       contain USE <i>db_name</i> or SET statements. The utility was written
+       for use with update log files (as used prior to MySQL 5.0) and as
+       such expects statements to be terminated with semicolon (;)
+       characters. It may be useful with other files that contain SQL
+       statements as long as statements are terminated with semicolons.
+
+       Invoke <b>mysql_find_rows </b>like this:
+
+           shell&gt; <b>mysql_find_rows [</b><i>options</i><b>] [</b><i>file_name</i> <b>...]</b>
+
+       Each <i>file_name</i> argument should be the name of file containing SQL
+       statements. If no file names are given, <b>mysql_find_rows </b>reads the
+       standard input.
+
+       Examples:
+
+           mysql_find_rows --regexp=problem_table --rows=20 &lt; update.log
+           mysql_find_rows --regexp=problem_table  update-log.1 update-log.2
+
+       <b>mysql_find_rows </b>supports the following options:
+
+       •   <b>--help</b>, <b>--Information</b>
+
+           Display a help message and exit.
+
+       •   <b>--regexp=</b><i>pattern</i>
+
+           Display queries that match the pattern.
+
+       •   <b>--rows=</b><i>N</i>
+
+           Quit after displaying <i>N</i> queries.
+
+       •   <b>--skip-use-db</b>
+
+           Do not include USE <i>db_name</i> statements in the output.
+
+       •   <b>--start_row=</b><i>N</i>
+
+           Start output from this row.
+</pre>

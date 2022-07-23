@@ -1,0 +1,37 @@
+<pre>
+       <b>babeltrace2 </b>is an open-source trace converter and processor
+       command-line program. The tool can open one or more traces and
+       convert between multiple formats, possibly with one or more
+       filters in the conversion path, and perform other operations
+       depending on the command <i>CMD</i> (see “COMMANDS”).
+
+           <b>Note</b>
+           You might be looking for the <a href="https://man7.org/linux/man-pages/man1/babeltrace2-convert.1.html">babeltrace2-convert(1)</a> command’s
+           manual page; the <b>convert </b>command is the default command of
+           <b>babeltrace2 </b>and is backward compatible with <b>babeltrace</b>(1).
+
+           See “EXAMPLES” for <b>convert </b>command examples.
+
+       See <a href="https://man7.org/linux/man-pages/man7/babeltrace2-intro.7.html">babeltrace2-intro(7)</a> to learn more about the Babeltrace 2
+       project and its core concepts.
+
+       Most of the <b>babeltrace2 </b>commands load Babeltrace 2 plugins to
+       perform their operation. The search path for Babeltrace 2 plugins
+       is, in this order:
+
+        1. The colon-separated (or semicolon, on Windows) list of
+           directories in the <b>BABELTRACE_PLUGIN_PATH </b>environment
+           variable.
+
+        2. The colon-separated (or semicolon, on Windows) list of
+           directories in the <b>--plugin-path </b>option.
+
+        3. <b>$HOME/.local/lib/babeltrace2/plugins</b>
+
+        4. <b>/usr/local/lib/babeltrace2/plugins</b>
+
+       You can use the <a href="https://man7.org/linux/man-pages/man1/babeltrace2-list-plugins.1.html">babeltrace2-list-plugins(1)</a> command to
+       dynamically list the available plugins and what they offer. See
+       “PROJECT’S PLUGINS” for a list of plugins shipped with
+       Babeltrace 2.
+</pre>

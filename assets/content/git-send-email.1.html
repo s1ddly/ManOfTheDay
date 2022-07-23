@@ -1,0 +1,26 @@
+<pre>
+       Takes the patches given on the command line and emails them out.
+       Patches can be specified as files, directories (which will send
+       all files in the directory), or directly as a revision list. In
+       the last case, any format accepted by <a href="https://man7.org/linux/man-pages/man1/git-format-patch.1.html">git-format-patch(1)</a> can be
+       passed to git send-email.
+
+       The header of the email is configurable via command-line options.
+       If not specified on the command line, the user will be prompted
+       with a ReadLine enabled interface to provide the necessary
+       information.
+
+       There are two formats accepted for patch files:
+
+        1. mbox format files
+
+           This is what <a href="https://man7.org/linux/man-pages/man1/git-format-patch.1.html">git-format-patch(1)</a> generates. Most headers and
+           MIME formatting are ignored.
+
+        2. The original format used by Greg Kroah-Hartman’s
+           <i>send_lots_of_email.pl</i> script
+
+           This format expects the first line of the file to contain the
+           "Cc:" value and the "Subject:" of the message as the second
+           line.
+</pre>

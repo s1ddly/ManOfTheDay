@@ -1,0 +1,17 @@
+<pre>
+       <b>systemd-homed </b>is a system service that may be used to create,
+       remove, change or inspect home areas (directories and network
+       mounts and real or loopback block devices with a filesystem,
+       optionally encrypted).
+
+       Most of <b>systemd-homed</b>'s functionality is accessible through the
+       <a href="https://man7.org/linux/man-pages/man1/homectl.1.html">homectl(1)</a> command.
+
+       See the <b>Home Directories</b><b></b>[1] documentation for details about the
+       format and design of home areas managed by systemd-homed.service.
+
+       Each home directory managed by systemd-homed.service synthesizes
+       a local user and group. These are made available to the system
+       using the <b>User/Group Record Lookup API via Varlink</b><b></b>[2], and thus
+       may be browsed with <a href="https://man7.org/linux/man-pages/man1/userdbctl.1.html">userdbctl(1)</a>.
+</pre>

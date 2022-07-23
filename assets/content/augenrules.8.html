@@ -1,0 +1,23 @@
+<pre>
+       <b>augenrules </b>is a script that merges all component audit rules
+       files, found in the audit rules directory, <i>/etc/audit/rules.d</i>,
+       placing the merged file in <i>/etc/audit/audit.rules</i>. Component
+       audit rule files, must end in <i>.rules</i> in order to be processed.
+       All other files in <i>/etc/audit/rules.d</i> are ignored.
+
+       The files are concatenated in order, based on their natural sort
+       (see -v option of ls(1)) and stripped of empty and comment (#)
+       lines.
+
+       The last processed -<i>D</i> directive without an option, if present, is
+       always emitted as the first line in the resultant file. Those
+       with an option are replicated in place.  The last processed -<i>b</i>
+       directive, if present, is always emitted as the second line in
+       the resultant file.  The last processed -<i>f</i> directive, if present,
+       is always emitted as the third line in the resultant file.  The
+       last processed -<i>e</i> directive, if present, is always emitted as the
+       last line in the resultant file.
+
+       The generated file is only copied to <i>/etc/audit/audit.rules</i>, if
+       it differs.
+</pre>

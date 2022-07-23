@@ -1,0 +1,30 @@
+<pre>
+       This manual page documents the GNU version of <b>xargs</b>.  <b>xargs </b>reads
+       items from the standard input, delimited by blanks (which can be
+       protected with double or single quotes or a backslash) or
+       newlines, and executes the <i>command</i> (default is <i>echo</i>) one or more
+       times with any <i>initial-arguments</i> followed by items read from
+       standard input.  Blank lines on the standard input are ignored.
+
+       The command line for <i>command</i> is built up until it reaches a
+       system-defined limit (unless the <b>-n </b>and <b>-L </b>options are used).
+       The specified <i>command</i> will be invoked as many times as necessary
+       to use up the list of input items.  In general, there will be
+       many fewer invocations of <i>command</i> than there were items in the
+       input.  This will normally have significant performance benefits.
+       Some commands can usefully be executed in parallel too; see the
+       <b>-P </b>option.
+
+       Because Unix filenames can contain blanks and newlines, this
+       default behaviour is often problematic; filenames containing
+       blanks and/or newlines are incorrectly processed by <b>xargs</b>.  In
+       these situations it is better to use the <b>-0 </b>option, which
+       prevents such problems.   When using this option you will need to
+       ensure that the program which produces the input for <b>xargs </b>also
+       uses a null character as a separator.  If that program is GNU
+       <b>find </b>for example, the <b>-print0 </b>option does this for you.
+
+       If any invocation of the command exits with a status of 255,
+       <b>xargs </b>will stop immediately without reading any further input.
+       An error message is issued on stderr when this happens.
+</pre>

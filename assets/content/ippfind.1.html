@@ -1,0 +1,173 @@
+<pre>
+       <b>ippfind </b>finds services registered with a DNS server or available
+       through local devices.  Its primary purpose is to find IPP
+       printers and show their URIs, show their current status, or run
+       commands.
+
+   <b>REGISTRATION TYPES</b>
+       <b>ippfind </b>supports the following registration types:
+
+       _http._tcp
+            HyperText Transport Protocol (HTTP, RFC 2616)
+
+       _https._tcp
+            Secure HyperText Transport Protocol (HTTPS, RFC 2818)
+
+       _ipp._tcp
+            Internet Printing Protocol (IPP, RFC 2911)
+
+       _ipps._tcp
+            Secure Internet Printing Protocol (IPPS, draft)
+
+       _printer._tcp
+            Line Printer Daemon (LPD, RFC 1179)
+
+   <b>EXPRESSIONS</b>
+       <b>ippfind </b>supports expressions much like the <a href="https://man7.org/linux/man-pages/man1/find.1.html">find(1)</a> utility.
+       However, unlike <a href="https://man7.org/linux/man-pages/man1/find.1.html">find(1)</a>, <b>ippfind </b>uses POSIX regular expressions
+       instead of shell filename matching patterns.  If <i>--exec</i>, <i>-l</i>,
+       <i>--ls</i>, <i>-p</i>, <i>--print</i>, <i>--print-name</i>, <i>-q</i>, <i>--quiet</i>, <i>-s</i>, or <i>-x</i> is not
+       specified, <b>ippfind </b>adds <i>--print</i> to print the service URI of
+       anything it finds.  The following expressions are supported:
+
+       <b>-d </b><i>regex</i>
+
+       <b>--domain </b><i>regex</i>
+            True if the domain matches the given regular expression.
+
+       <b>--false</b>
+            Always false.
+
+       <b>-h </b><i>regex</i>
+
+       <b>--host </b><i>regex</i>
+            True is the hostname matches the given regular expression.
+
+       <b>-l</b>
+
+       <b>--ls </b>Lists attributes returned by Get-Printer-Attributes for IPP
+            printers and traditional <i>find</i> "-ls" output for HTTP URLs.
+            The result is true if the URI is accessible, false
+            otherwise.
+
+       <b>--local</b>
+            True if the service is local to this computer.
+
+       <b>-N </b><i>name</i>
+
+       <b>--literal-name </b><i>name</i>
+            True if the service instance name matches the given name.
+
+       <b>-n </b><i>regex</i>
+
+       <b>--name </b><i>regex</i>
+            True if the service instance name matches the given regular
+            expression.
+
+       <b>--path </b><i>regex</i>
+            True if the URI resource path matches the given regular
+            expression.
+
+       <b>-P </b><i>number</i>[<b>-</b><i>number</i>]
+
+       <b>--port </b><i>number</i>[<b>-</b><i>number</i>]
+            True if the port matches the given number or range.
+
+       <b>-p</b>
+
+       <b>--print</b>
+            Prints the URI if the result of previous expressions is
+            true.  The result is always true.
+
+       <b>-q</b>
+
+       <b>--quiet</b>
+            Quiet mode - just returns the exit codes below.
+
+       <b>-r</b>
+
+       <b>--remote</b>
+            True if the service is not local to this computer.
+
+       <b>-s</b>
+
+       <b>--print-name</b>
+            Prints the service instance name if the result of previous
+            expressions is true.  The result is always true.
+
+       <b>--true</b>
+            Always true.
+
+       <b>-t </b><i>key</i>
+
+       <b>--txt </b><i>key</i>
+            True if the TXT record contains the named key.
+
+       <b>--txt-</b><i>key regex</i>
+            True if the TXT record contains the named key and matches
+            the given regular expression.
+
+       <b>-u </b><i>regex</i>
+
+       <b>--uri </b><i>regex</i>
+            True if the URI matches the given regular expression.
+
+       <b>-x </b><i>utility</i> [ <i>argument</i> ... ] <b>;</b>
+
+       <b>--exec </b><i>utility</i> [ <i>argument</i> ... ] <b>;</b>
+            Executes the specified program if the current result is
+            true.  "{foo}" arguments are replaced with the corresponding
+            value - see SUBSTITUTIONS below.
+
+       Expressions may also contain modifiers:
+
+       <b>( </b><i>expression</i> <b>)</b>
+            Group the result of expressions.
+
+       <b>! </b><i>expression</i>
+
+       <b>--not </b><i>expression</i>
+            Unary NOT of the expression.
+
+       <i>expression expression</i>
+
+       <i>expression</i> <b>--and </b><i>expression</i>
+            Logical AND of expressions.
+
+       <i>expression</i> <b>--or </b><i>expression</i>
+            Logical OR of expressions.
+
+   <b>SUBSTITUTIONS</b>
+       The substitutions for "{foo}" in <i>-e</i> and <i>--exec</i> are:
+
+       <b>{service_domain}</b>
+            Domain name, e.g., "example.com.", "local.", etc.
+
+       <b>{service_hostname}</b>
+            Fully-qualified domain name, e.g., "printer.example.com.",
+            "printer.local.", etc.
+
+       <b>{service_name}</b>
+            Service instance name, e.g., "My Fine Printer".
+
+       <b>{service_port}</b>
+            Port number for server, typically 631 for IPP and 80 for
+            HTTP.
+
+       <b>{service_regtype}</b>
+            DNS-SD registration type, e.g., "_ipp._tcp", "_http._tcp",
+            etc.
+
+       <b>{service_scheme}</b>
+            URI scheme for DNS-SD registration type, e.g., "ipp",
+            "http", etc.
+
+       <b>{}</b>
+
+       <b>{service_uri}</b>
+            URI for service, e.g., "ipp://printer.local./ipp/print",
+            "http://printer.local./", etc.
+
+       <b>{txt_</b><i>key</i><b>}</b>
+            Value of TXT record <i>key</i> (lowercase).
+</pre>

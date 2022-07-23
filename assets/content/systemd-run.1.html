@@ -1,0 +1,45 @@
+<pre>
+       <b>systemd-run </b>may be used to create and start a transient .service
+       or .scope unit and run the specified <i>COMMAND</i> in it. It may also
+       be used to create and start a transient .path, .socket, or .timer
+       unit, that activates a .service unit when elapsing.
+
+       If a command is run as transient service unit, it will be started
+       and managed by the service manager like any other service, and
+       thus shows up in the output of <b>systemctl list-units </b>like any
+       other unit. It will run in a clean and detached execution
+       environment, with the service manager as its parent process. In
+       this mode, <b>systemd-run </b>will start the service asynchronously in
+       the background and return after the command has begun execution
+       (unless <b>--no-block </b>or <b>--wait </b>are specified, see below).
+
+       If a command is run as transient scope unit, it will be executed
+       by <b>systemd-run </b>itself as parent process and will thus inherit the
+       execution environment of the caller. However, the processes of
+       the command are managed by the service manager similar to normal
+       services, and will show up in the output of <b>systemctl list-units</b>.
+       Execution in this case is synchronous, and will return only when
+       the command finishes. This mode is enabled via the <b>--scope </b>switch
+       (see below).
+
+       If a command is run with path, socket, or timer options such as
+       <b>--on-calendar= </b>(see below), a transient path, socket, or timer
+       unit is created alongside the service unit for the specified
+       command. Only the transient path, socket, or timer unit is
+       started immediately, the transient service unit will be triggered
+       by the path, socket, or timer unit. If the <b>--unit= </b>option is
+       specified, the <i>COMMAND</i> may be omitted. In this case, <b>systemd-run</b>
+       creates only a .path, .socket, or .timer unit that triggers the
+       specified unit.
+
+       By default, services created with <b>systemd-run </b>default to the
+       <b>simple </b>type, see the description of <i>Type=</i> in <a href="https://man7.org/linux/man-pages/man5/systemd.service.5.html">systemd.service(5)</a>
+       for details. Note that when this type is used the service manager
+       (and thus the <b>systemd-run </b>command) considers service start-up
+       successful as soon as the <b>fork() </b>for the main service process
+       succeeded, i.e. before the <b>execve() </b>is invoked, and thus even if
+       the specified command cannot be started. Consider using the <b>exec</b>
+       service type (i.e.  <b>--property=Type=exec</b>) to ensure that
+       <b>systemd-run </b>returns successfully only if the specified command
+       line has been successfully started.
+</pre>

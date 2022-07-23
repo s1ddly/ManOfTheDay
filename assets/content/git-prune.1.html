@@ -1,0 +1,16 @@
+<pre>
+           <b>Note</b>
+           In most cases, users should run <i>git gc</i>, which calls <i>git</i>
+           <i>prune</i>. See the section "NOTES", below.
+
+       This runs <i>git fsck --unreachable</i> using all the refs available in
+       <b>refs/</b>, optionally with additional set of objects specified on the
+       command line, and prunes all unpacked objects unreachable from
+       any of these head objects from the object database. In addition,
+       it prunes the unpacked objects that are also found in packs by
+       running <i>git prune-packed</i>. It also removes entries from
+       .git/shallow that are not reachable by any ref.
+
+       Note that unreachable, packed objects will remain. If this is not
+       desired, see <a href="https://man7.org/linux/man-pages/man1/git-repack.1.html">git-repack(1)</a>.
+</pre>

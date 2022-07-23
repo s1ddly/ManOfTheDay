@@ -1,0 +1,33 @@
+<pre>
+       A Babeltrace 2 <b>filter.utils.trimmer </b>message iterator discards all
+       the consumed messages with a time less than a given beginning
+       time and greater than a given end time. It effectively “cuts”, or
+       trims trace streams.
+
+                       +-------------------+
+                       | flt.utils.trimmer |
+                       |                   |
+           Messages --&gt;@ in            out @--&gt; Less messages
+                       +-------------------+
+
+       See <a href="https://man7.org/linux/man-pages/man7/babeltrace2-intro.7.html">babeltrace2-intro(7)</a> to learn more about the Babeltrace 2
+       project and its core concepts.
+
+       A <b>filter.utils.trimmer </b>message iterator makes its upstream
+       message iterator seek the configured beginning time (see the
+       <b>begin </b>parameter) before it starts to consume messages. This
+       seeking operation can have an effect on the times of stream
+       beginning, packet beginning, discarded events, and discarded
+       packets messages so that they fall within the configured trimming
+       time range.
+
+       As such, when a <b>filter.utils.trimmer </b>message iterator consumes a
+       message of which the time is greater than the configured end time
+       (see the <b>end </b>parameter), it can alter the time of stream end,
+       packet end, discarded events, and discarded packets messages so
+       that they fall within the configured trimming time range.
+
+       A <b>filter.utils.trimmer </b>message iterator requires that all the
+       upstream messages it consumes have times, except for stream
+       beginning and end messages, returning an error status otherwise.
+</pre>

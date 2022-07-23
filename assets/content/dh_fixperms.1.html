@@ -1,0 +1,20 @@
+<pre>
+       <b>dh_fixperms </b>is a debhelper program that is responsible for
+       setting the permissions of files and directories in package build
+       directories to a sane state -- a state that complies with Debian
+       policy.
+
+       <b>dh_fixperms </b>makes all files in <i>usr/share/doc</i> in the package build
+       directory (excluding files in the <i>examples/</i> directory) be mode
+       644. It also changes the permissions of all man pages to mode
+       644. It removes group and other write permission from all files.
+       It removes execute permissions from any libraries, headers, Perl
+       modules, or desktop files that have it set. It makes all files in
+       the standard <i>bin</i> and <i>sbin</i> directories, <i>usr/games/</i> and <i>etc/init.d</i>
+       executable (since v4). Finally, it removes the setuid and setgid
+       bits from all files in the package.
+
+       When the <i>Rules-Requires-Root</i> field has the (effective) value of
+       <i>binary-targets</i>, <b>dh_fixperms </b>will also reset the ownership of all
+       paths to "root:root".
+</pre>

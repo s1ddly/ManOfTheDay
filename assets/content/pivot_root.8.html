@@ -1,0 +1,28 @@
+<pre>
+       <b>pivot_root </b>moves the root file system of the current process to
+       the directory <i>put_old</i> and makes <i>new_root</i> the new root file
+       system. Since <a href="https://man7.org/linux/man-pages/man8/pivot_root.8.html">pivot_root(8)</a> simply calls <a href="https://man7.org/linux/man-pages/man2/pivot_root.2.html">pivot_root(2)</a>, we refer
+       to the man page of the latter for further details.
+
+       Note that, depending on the implementation of <b>pivot_root</b>, root
+       and current working directory of the caller may or may not
+       change. The following is a sequence for invoking <b>pivot_root </b>that
+       works in either case, assuming that <b>pivot_root </b>and <b>chroot </b>are in
+       the current <b>PATH</b>:
+
+           cd new_root
+           pivot_root . put_old
+           exec chroot . command
+
+       Note that <b>chroot </b>must be available under the old root and under
+       the new root, because <b>pivot_root </b>may or may not have implicitly
+       changed the root directory of the shell.
+
+       Note that <b>exec chroot </b>changes the running executable, which is
+       necessary if the old root directory should be unmounted
+       afterwards. Also note that standard input, output, and error may
+       still point to a device on the old root file system, keeping it
+       busy. They can easily be changed when invoking <b>chroot </b>(see below;
+       note the absence of leading slashes to make it work whether
+       <b>pivot_root </b>has changed the shell’s root or not).
+</pre>

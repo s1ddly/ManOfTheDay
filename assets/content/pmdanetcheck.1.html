@@ -1,0 +1,18 @@
+<pre>
+       <b>pmdanetcheck </b>is a Performance Co-Pilot (PCP) Performance Metrics
+       Domain Agent (PMDA) which does basic network checks on the local
+       host by using simple Python modules and, in some cases, external
+       utilities such as <b>ping</b>(1).
+
+       <b>pmdanetcheck </b>loads and acts as a bridge for any number of
+       configured, separate PCP netcheck PMDA Python modules running
+       Python code or external programs.  Existing Python modules and
+       programs should be possible to be utilized with PCP netcheck PMDA
+       modules with minimal effort.
+
+       Note that on SELinux enabled systems for <b>pmdanetcheck </b>to be able
+       to use the <b>ping</b>(1) command the <b>pcp </b>group must be able to create
+       ICMP Echo sockets; please make sure the group id for <b>pcp </b>is
+       included in the range at <i>/proc/sys/net/ipv4/ping_group_range</i> and
+       refer to <a href="https://man7.org/linux/man-pages/man7/icmp.7.html">icmp(7)</a> for more details on this.
+</pre>

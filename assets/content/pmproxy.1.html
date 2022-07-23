@@ -1,0 +1,31 @@
+<pre>
+       <b>pmproxy </b>acts as a protocol proxy, allowing Performance Co-Pilot
+       (PCP) monitoring clients to connect to one or more <a href="https://man7.org/linux/man-pages/man1/pmcd.1.html">pmcd(1)</a> and/or
+       <b>redis-server</b>(1) instances via <b>pmproxy</b>.
+
+       In its default mode of operation, on platforms supporting this,
+       <b>pmproxy </b>provides the REST API for all PCP services (see
+       <a href="https://man7.org/linux/man-pages/man3/PMWEBAPI.3.html">PMWEBAPI(3)</a> for details) and interfaces to the fast, scalable
+       time series query capabilities offered by PCP in conjunction with
+       a <b>redis-server</b>(1) (see <a href="https://man7.org/linux/man-pages/man1/pmseries.1.html">pmseries(1)</a> for details).
+
+       <b>pmproxy </b>can be deployed in a firewall domain, or on a cluster
+       ``head'' node where the IP (Internet Protocol) address of the
+       hosts where <b>pmcd </b>and/or <b>redis-server </b>are running may be unknown
+       to the PCP monitoring clients, but where the IP address of the
+       host running <b>pmproxy </b>is known to these clients.  Similarly, the
+       clients may have network connectivity only to the host where
+       <b>pmproxy </b>is running, while there is network connectivity from that
+       host to the hosts of interest where <b>pmcd </b>and/or <b>redis-server </b>are
+       running.
+
+       The behaviour of the PCP monitoring clients is controlled by
+       either the <b>PMPROXY_HOST </b>environment variable or through the
+       extended hostname specification (see <a href="https://man7.org/linux/man-pages/man1/PCPIntro.1.html">PCPIntro(1)</a> for details).
+       If neither of these mechanisms is used, clients will make their
+       <a href="https://man7.org/linux/man-pages/man3/PMAPI.3.html">PMAPI(3)</a> connections directly to <b>pmcd</b>.  If the proxy hostname
+       syntax is used or <b>PMPROXY_HOST </b>is set, then this should be the
+       hostname or IP address of the system where <b>pmproxy </b>is running,
+       and the clients will connect to <b>pmcd </b>or <b>redis-server </b>indirectly
+       through the protocol proxy services of <b>pmproxy.</b>
+</pre>

@@ -1,0 +1,22 @@
+<pre>
+       The <b>nfsdclddb </b>command is provided to perform some manipulation of
+       the nfsdcld sqlite database schema and to print the contents of
+       the database.
+
+   <b>Sub-commands</b>
+       Valid <b>nfsdclddb </b>subcommands are:
+
+       <b>fix-table-names</b>
+              A previous version of <a href="https://man7.org/linux/man-pages/man8/nfsdcld.8.html">nfsdcld(8)</a> contained a bug that
+              corrupted the reboot epoch table names.  This sub-command
+              will fix those table names.
+
+       <b>downgrade-schema</b>
+              Downgrade the database schema.  Currently the schema can
+              only to downgraded from version 4 to version 3.
+
+       <b>print  </b>Display the contents of the database.  Prints the schema
+              version and the values of the current and recovery epochs.
+              If the <b>-s</b>|<b>--summary </b>option is not given, also prints the
+              clients in the reboot epoch tables.
+</pre>

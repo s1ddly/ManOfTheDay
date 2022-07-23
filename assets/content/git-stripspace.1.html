@@ -1,0 +1,22 @@
+<pre>
+       Read text, such as commit messages, notes, tags and branch
+       descriptions, from the standard input and clean it in the manner
+       used by Git.
+
+       With no arguments, this will:
+
+       •   remove trailing whitespace from all lines
+
+       •   collapse multiple consecutive empty lines into one empty line
+
+       •   remove empty lines from the beginning and end of the input
+
+       •   add a missing <i>\n</i> to the last line if necessary.
+
+       In the case where the input consists entirely of whitespace
+       characters, no output will be produced.
+
+       <b>NOTE</b>: This is intended for cleaning metadata, prefer the
+       <b>--whitespace=fix </b>mode of <a href="https://man7.org/linux/man-pages/man1/git-apply.1.html">git-apply(1)</a> for correcting whitespace
+       of patches or files in the repository.
+</pre>

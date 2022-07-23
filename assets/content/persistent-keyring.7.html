@@ -1,0 +1,58 @@
+<pre>
+       The persistent keyring is a keyring used to anchor keys on behalf
+       of a user.  Each UID the kernel deals with has its own persistent
+       keyring that is shared between all threads owned by that UID.
+       The persistent keyring has a name (description) of the form
+       <i>_persistent.&lt;UID&gt;</i> where <i>&lt;UID&gt;</i> is the user ID of the corresponding
+       user.
+
+       The persistent keyring may not be accessed directly, even by
+       processes with the appropriate UID.  Instead, it must first be
+       linked to one of a process's keyrings, before that keyring can
+       access the persistent keyring by virtue of its possessor permits.
+       This linking is done with the <a href="https://man7.org/linux/man-pages/man3/keyctl_get_persistent.3.html">keyctl_get_persistent(3)</a> function.
+
+       If a persistent keyring does not exist when it is accessed by the
+       <a href="https://man7.org/linux/man-pages/man3/keyctl_get_persistent.3.html">keyctl_get_persistent(3)</a> operation, it will be automatically
+       created.
+
+       Each time the <a href="https://man7.org/linux/man-pages/man3/keyctl_get_persistent.3.html">keyctl_get_persistent(3)</a> operation is performed,
+       the persistent key's expiration timer is reset to the value in:
+
+           /proc/sys/kernel/keys/persistent_keyring_expiry
+
+       Should the timeout be reached, the persistent keyring will be
+       removed and everything it pins can then be garbage collected.
+       The key will then be re-created on a subsequent call to
+       <a href="https://man7.org/linux/man-pages/man3/keyctl_get_persistent.3.html">keyctl_get_persistent(3)</a>.
+
+       The persistent keyring is not directly searched by
+       <a href="https://man7.org/linux/man-pages/man2/request_key.2.html">request_key(2)</a>; it is searched only if it is linked into one of
+       the keyrings that is searched by <a href="https://man7.org/linux/man-pages/man2/request_key.2.html">request_key(2)</a>.
+
+       The persistent keyring is independent of <a href="https://man7.org/linux/man-pages/man2/clone.2.html">clone(2)</a>, <a href="https://man7.org/linux/man-pages/man2/fork.2.html">fork(2)</a>,
+       <a href="https://man7.org/linux/man-pages/man2/vfork.2.html">vfork(2)</a>, <a href="https://man7.org/linux/man-pages/man2/execve.2.html">execve(2)</a>, and <a href="https://man7.org/linux/man-pages/man2/_exit.2.html">_exit(2)</a>.  It persists until its
+       expiration timer triggers, at which point it is garbage
+       collected.  This allows the persistent keyring to carry keys
+       beyond the life of the kernel's record of the corresponding UID
+       (the destruction of which results in the destruction of the
+       <a href="https://man7.org/linux/man-pages/man7/user-keyring.7.html">user-keyring(7)</a> and the <a href="https://man7.org/linux/man-pages/man7/user-session-keyring.7.html">user-session-keyring(7)</a>).  The persistent
+       keyring can thus be used to hold authentication tokens for
+       processes that run without user interaction, such as programs
+       started by <a href="https://man7.org/linux/man-pages/man8/cron.8.html">cron(8)</a>.
+
+       The persistent keyring is used to store UID-specific objects that
+       themselves have limited lifetimes (e.g., kerberos tokens).  If
+       those tokens cease to be used (i.e., the persistent keyring is
+       not accessed), then the timeout of the persistent keyring ensures
+       that the corresponding objects are automatically discarded.
+
+   <b>Special operations</b>
+       The <i>keyutils</i> library provides the <a href="https://man7.org/linux/man-pages/man3/keyctl_get_persistent.3.html">keyctl_get_persistent(3)</a>
+       function for manipulating persistent keyrings.  (This function is
+       an interface to the <a href="https://man7.org/linux/man-pages/man2/keyctl.2.html">keyctl(2)</a> <b>KEYCTL_GET_PERSISTENT </b>operation.)
+       This operation allows the calling thread to get the persistent
+       keyring corresponding to its own UID or, if the thread has the
+       <b>CAP_SETUID </b>capability, the persistent keyring corresponding to
+       some other UID in the same user namespace.
+</pre>

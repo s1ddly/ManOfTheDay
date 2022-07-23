@@ -1,0 +1,27 @@
+<pre>
+       <b>dh_makeshlibs </b>is a debhelper program that automatically scans for
+       shared libraries, and generates a shlibs file for the libraries
+       it finds.
+
+       It will also ensure that ldconfig is invoked during install and
+       removal when it finds shared libraries.  Since debhelper
+       9.20151004, this is done via a dpkg trigger.  In older versions
+       of debhelper, <b>dh_makeshlibs </b>would generate a maintainer script
+       for this purpose.
+
+       Since debhelper 12.3, <b>dh_makeshlibs </b>will by default add an
+       additional <i>udeb</i> line for udebs in the shlibs file, when the udeb
+       has the same name as the deb followed by a "-udeb" suffix (e.g.
+       if the deb is called "libfoo1", then debhelper will auto-detect
+       the udeb if it is named "libfoo1-udeb"). Please use the
+       <b>--add-udeb </b>and <b>--no-add-udeb </b>options below when this auto-
+       detection is insufficient.
+
+       If you previously used <b>--add-udeb </b>and are considering to migrate
+       to using the new auto-detection feature in 12.3, then please
+       remember to test that the resulting <i>DEBIAN/shlibs</i> files are as
+       expected.  There are some known corner cases, where the auto-
+       detection is insufficient.  These include when the udeb contains
+       library files from multiple regular deb packages or when the
+       packages do not follow the expected naming convention.
+</pre>

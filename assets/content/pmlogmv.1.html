@@ -1,0 +1,26 @@
+<pre>
+       A Performance Co-Pilot (PCP) archive consists of multiple files
+       as created by <a href="https://man7.org/linux/man-pages/man1/pmlogger.1.html">pmlogger(1)</a>.  <b>pmlogmv </b>allows all the files of a
+       single PCP archive to be moved or renamed as a group in a single
+       operation.
+
+       The <i>oldname</i> argument identifies the target archive, and may be
+       either the basename that is common to all files in that archive
+       or one of the archive's files.  The new archive's basename is
+       <i>newname</i>.
+
+       Because PCP archives are important records of system activity,
+       special care is taken to ensure the integrity of an archive's
+       files.  For recoverable problems encountered during the execution
+       of <b>pmlogmv</b>, all the files associated with <i>oldname</i> will be
+       preserved, and no new files with the <i>newname</i> prefix will be
+       created.  ``Recoverable problems'' include signals that can be
+       caught (such as SIGHUP, SIGINT, SIGQUIT and SIGTERM), permissions
+       issues, new files already existing, file system full events, etc.
+
+       The implementation of <b>pmlogmv </b>uses hard links in the file system
+       and so follows the semantic restrictions of <b>ln</b>(2) which for most
+       systems means the directories containing both the <i>oldname</i> and the
+       <i>newname</i> PCP archive files need to be writeable and within the
+       <b>same </b>file system.
+</pre>

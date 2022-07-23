@@ -1,0 +1,17 @@
+<pre>
+       <b>Lloadd </b>is the stand-alone LDAP daemon. It listens for LDAP
+       connections on any number of ports (default <b>389</b>), forwarding the
+       LDAP operations it receives over these connections to be handled
+       by the configured backends.  <b>lloadd </b>is typically invoked at boot
+       time, usually out of <b>/etc/rc.local</b>.  Upon startup, <b>lloadd</b>
+       normally forks and disassociates itself from the invoking tty.
+       If configured in the config file, the <b>lloadd </b>process will print
+       its process ID (see <a href="https://man7.org/linux/man-pages/man2/getpid.2.html">getpid(2)</a>) to a <b>.pid </b>file, as well as the
+       command line options during invocation to an <b>.args </b>file (see
+       <a href="https://man7.org/linux/man-pages/man5/lloadd.conf.5.html">lloadd.conf(5)</a>).  If the <b>-d </b>flag is given, even with a zero
+       argument, <b>lloadd </b>will not fork and disassociate from the invoking
+       tty.
+
+       See the "OpenLDAP Administrator's Guide" for more details on
+       <b>lloadd</b>.
+</pre>

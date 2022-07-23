@@ -1,0 +1,64 @@
+<pre>
+     <b>sudo_logsrvd </b>is a high-performance log server that accepts event
+     and I/O logs from <b>sudo</b>.  It can be used to implement centralized
+     logging of <b>sudo </b>logs.  The server has two modes of operation: local
+     and relay.  By default, <b>sudo_logsrvd </b>stores the logs locally but it
+     can also be configured to relay them to another server that
+     supports the sudo_logsrv.proto(5) protocol.
+
+     When not relaying, event log entries may be logged either via
+     syslog(3) or to a local file.  I/O Logs stored locally by
+     <b>sudo_logsrvd </b>can be replayed via the sudoreplay(8) utility in the
+     same way as logs generated directly by the <b>sudoers </b>plugin.
+
+     The server also supports restarting interrupted log transfers.  To
+     distinguish completed I/O logs from incomplete ones, the I/O log
+     timing file is set to be read-only when the log is complete.
+
+     Configuration parameters for <b>sudo_logsrvd </b>may be specified in the
+     sudo_logsrvd.conf(5) file or the file specified via the <b>-f </b>option.
+
+     <b>sudo_logsrvd </b>rereads its configuration file when it receives SIGHUP
+     and writes server state to the debug file (if one is configured)
+     when it receives SIGUSR1.
+
+     The options are as follows:
+
+     <b>-f </b><i>file</i>, <b>--file</b>=<i>file</i>
+                 Read configuration from <i>file</i> instead of the default,
+                 <i>/etc/sudo_logsrvd.conf</i>.
+
+     <b>-h</b>, <b>--help  </b>Display a short help message to the standard output and
+                 exit.
+
+     <b>-n</b>, <b>--no-fork</b>
+                 Run <b>sudo_logsrvd </b>in the foreground instead of detaching
+                 from the terminal and becoming a daemon.
+
+     <b>-R </b><i>percentage</i>, <b>--random-drop</b>=<i>percentage</i>
+                 For each message, there is a <i>percentage</i> chance that the
+                 server will drop the connection.  This is only intended
+                 for debugging the ability of a client to restart a
+                 connection.
+
+     <b>-V</b>, <b>--version</b>
+                 Print the <b>sudo_logsrvd </b>version and exit.
+
+   <b>Securing server connections</b>
+     The I/O log data sent to <b>sudo_logsrvd </b>may contain sensitive
+     information such as passwords and should be secured using Transport
+     Layer Security (TLS).  Doing so requires having a signed
+     certificate on the server and, if <i>tls_checkpeer</i> is enabled in
+     sudo_logsrvd.conf(5), a signed certificate on the client as well.
+
+     The certificates can either be signed by a well-known Certificate
+     Authority (CA), or a private CA can be used.  Instructions for
+     creating a private CA are included below in the <i>EXAMPLES</i> section.
+
+   <b>Debugging sudo_logsrvd</b>
+     <b>sudo_logsrvd </b>supports a flexible debugging framework that is
+     configured via Debug lines in the sudo.conf(5) file.
+
+     For more information on configuring sudo.conf(5), please refer to
+     its manual.
+</pre>

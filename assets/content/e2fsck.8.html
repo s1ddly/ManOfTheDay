@@ -1,0 +1,30 @@
+<pre>
+       <b>e2fsck </b>is used to check the ext2/ext3/ext4 family of file
+       systems.  For ext3 and ext4 file systems that use a journal, if
+       the system has been shut down uncleanly without any errors,
+       normally, after replaying the committed transactions  in the
+       journal, the file system should be marked as clean.   Hence, for
+       file systems that use journaling, <b>e2fsck </b>will normally replay the
+       journal and exit, unless its superblock indicates that further
+       checking is required.
+
+       <i>device</i> is a block device (e.g., <i>/dev/sdc1</i>) or file containing the
+       file system.
+
+       Note that in general it is not safe to run <b>e2fsck </b>on mounted file
+       systems.  The only exception is if the <b>-n </b>option is specified,
+       and <b>-c</b>, <b>-l</b>, or <b>-L </b>options are <i>not</i> specified.   However, even if
+       it is safe to do so, the results printed by <b>e2fsck </b>are not valid
+       if the file system is mounted.   If <b>e2fsck </b>asks whether or not
+       you should check a file system which is mounted, the only correct
+       answer is ``no''.  Only experts who really know what they are
+       doing should consider answering this question in any other way.
+
+       If <b>e2fsck </b>is run in interactive mode (meaning that none of <b>-y</b>,
+       <b>-n</b>, or <b>-p </b>are specified), the program will ask the user to fix
+       each problem found in the file system.  A response of 'y' will
+       fix the error; 'n' will leave the error unfixed; and 'a' will fix
+       the problem and all subsequent problems; pressing Enter will
+       proceed with the default response, which is printed before the
+       question mark.  Pressing Control-C terminates e2fsck immediately.
+</pre>

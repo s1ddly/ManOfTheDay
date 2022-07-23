@@ -1,0 +1,37 @@
+<pre>
+       The <i>blkparse</i> utility will attempt to combine streams of events
+       for various devices on various CPUs, and produce a formatted
+       output of the event information.  Specifically, it will take the
+       (machine-readable) output of the <i>blktrace</i> utility and convert it
+       to a nicely formatted and human-readable form.
+
+       As with <i>blktrace</i>, some details concerning <i>blkparse</i> will help in
+       understanding the command line options presented below.
+
+       - By default, <i>blkparse</i> expects to run in a post-processing mode;
+         one where the trace events have been saved by a previous run of
+         blktrace, and blkparse is combining event streams and dumping
+         formatted data.
+
+         blkparse may be run in a live manner concurrently with blktrace
+         by specifying <b>-i - </b>to blkparse, and combining it with the live
+         option for blktrace.  An example would be:
+
+            % blktrace -d /dev/sda -o - | blkparse -i -
+
+       - You can set how many blkparse batches event reads via the <b>-b</b>
+         option, the default is to handle events in batches of 512.
+
+       - If you have saved event traces in blktrace with different
+         output names (via the <b>-o </b>option to blktrace), you must specify
+         the same input name via the <b>-i </b>option.
+
+       - The format of the output data can be controlled via the <b>-f </b>or
+         <b>-F </b>options -- see OUTPUT DESCRIPTION AND FORMATTING for
+         details.
+
+       By default, blkparse sends formatted data to standard output.
+       This may be changed via the <b>-o </b>option, or text output can be
+       disabled via the <b>-O </b>option. A merged binary stream can be
+       produced using the <b>-d </b>option.
+</pre>

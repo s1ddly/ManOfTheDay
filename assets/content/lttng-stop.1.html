@@ -1,0 +1,35 @@
+<pre>
+       The <b>lttng stop </b>command stops the various LTTng tracers for a
+       given active tracing session.
+
+       Stopping the LTTng tracers has the effect that all enabled event
+       rules within enabled channels cannot make event sources <i>emit</i>
+       trace events anymore.
+
+       A tracing session with no running tracers is said to be <i>inactive</i>.
+       Inactive tracing sessions can be set active using the
+       <a href="https://man7.org/linux/man-pages/man1/lttng-start.1.html">lttng-start(1)</a> command.
+
+       If <i>SESSION</i> is omitted, the LTTng tracers are stopped for the
+       current tracing session (see <a href="https://man7.org/linux/man-pages/man1/lttng-create.1.html">lttng-create(1)</a> for more information
+       about the current tracing session). Otherwise, they are stopped
+       for the existing tracing session named <i>SESSION</i>. <b>lttng list</b>
+       outputs all the existing tracing sessions (see <a href="https://man7.org/linux/man-pages/man1/lttng-list.1.html">lttng-list(1)</a>).
+
+       By default, the <b>lttng stop </b>command ensures that the tracing
+       session’s trace data is valid before returning to the prompt.
+       With the <b>--no-wait </b>option, the command finishes immediately,
+       hence a local trace might not be valid when the command is done.
+       In this case, there is no way to know when the trace becomes
+       valid.
+
+       If at least one rotation occurred during the chosen tracing
+       session’s lifetime (see <a href="https://man7.org/linux/man-pages/man1/lttng-rotate.1.html">lttng-rotate(1)</a> and
+       <a href="https://man7.org/linux/man-pages/man1/lttng-enable-rotation.1.html">lttng-enable-rotation(1)</a>), the <b>lttng stop </b>command renames the
+       current trace chunk subdirectory and prints the renamed path.
+       Although it is safe to read the content of this renamed
+       subdirectory while the tracing session remains inactive (until
+       the next <a href="https://man7.org/linux/man-pages/man1/lttng-start.1.html">lttng-start(1)</a>), it is NOT a trace chunk archive: you
+       need to destroy the tracing session with <a href="https://man7.org/linux/man-pages/man1/lttng-destroy.1.html">lttng-destroy(1)</a> or make
+       a rotation with <a href="https://man7.org/linux/man-pages/man1/lttng-rotate.1.html">lttng-rotate(1)</a> to archive it.
+</pre>

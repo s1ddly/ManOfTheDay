@@ -1,0 +1,14 @@
+<pre>
+       <b>dh_icons </b>is a debhelper program that updates caches of
+       Freedesktop icons when needed, using the <b>update-icon-caches</b>
+       program provided by GTK+2.12.  Currently this program does not
+       handle installation of the files, though it may do so at a later
+       date, so should be run after icons are installed in the package
+       build directories.
+
+       It takes care of adding maintainer script fragments to call
+       <b>update-icon-caches </b>for icon directories. (This is not done for
+       gnome and hicolor icons, as those are handled by triggers.)
+       These commands are inserted into the maintainer scripts by
+       <a href="https://man7.org/linux/man-pages/man1/dh_installdeb.1.html">dh_installdeb(1)</a>.
+</pre>

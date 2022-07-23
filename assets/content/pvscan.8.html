@@ -1,0 +1,53 @@
+<pre>
+       When called without the --cache option, pvscan lists PVs on the
+       system, like <a href="https://man7.org/linux/man-pages/man8/pvs.8.html">pvs(8)</a> or <a href="https://man7.org/linux/man-pages/man8/pvdisplay.8.html">pvdisplay(8)</a>.
+
+       When the --cache and -aay options are used, pvscan records which
+       PVs are available on the system, and activates LVs in completed
+       VGs.  A VG is complete when pvscan sees that the final PV in the
+       VG has appeared.  This is used by event-based system startup
+       (systemd, udev) to activate LVs.
+
+       The four main variations of this are:
+
+       <b>pvscan --cache </b><i>device</i>
+
+       If device is present, lvm adds a record that the PV on device is
+       online.  If device is not present, lvm removes the online record
+       for the PV.  In most cases, the pvscan will only read the named
+       devices.
+
+       <b>pvscan --cache -aay </b><i>device</i>...
+
+       This begins by performing the same steps as above.  Afterward, if
+       the VG for the specified PV is complete, then pvscan will
+       activate LVs in the VG (the same as vgchange -aay vgname would
+       do.)
+
+       <b>pvscan --cache</b>
+
+       This first clears all existing PV online records, then scans all
+       devices on the system, adding PV online records for any PVs that
+       are found.
+
+       <b>pvscan --cache -aay</b>
+
+       This begins by performing the same steps as pvscan --cache.
+       Afterward, it activates LVs in any complete VGs.
+
+       To prevent devices from being scanned by pvscan --cache, add them
+       to <a href="https://man7.org/linux/man-pages/man5/lvm.conf.5.html">lvm.conf(5)</a> <b>devices/global_filter.  </b>For more information, see:
+       <b>lvmconfig --withcomments devices/global_filter</b>
+
+       Auto-activation of VGs or LVs can be enabled/disabled using:
+       <a href="https://man7.org/linux/man-pages/man5/lvm.conf.5.html">lvm.conf(5)</a> <b>activation/auto_activation_volume_list</b>
+
+       For more information, see:
+       <b>lvmconfig --withcomments activation/auto_activation_volume_list</b>
+
+       To disable auto-activation, explicitly set this list to an empty
+       list, i.e. auto_activation_volume_list = [ ].
+
+       When this setting is undefined (e.g. commented), then all LVs are
+       auto-activated.
+</pre>

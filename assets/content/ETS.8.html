@@ -1,0 +1,20 @@
+<pre>
+       The Enhanced Transmission Selection scheduler is a classful
+       queuing discipline that merges functionality of PRIO and DRR
+       qdiscs in one scheduler. ETS makes it easy to configure a set of
+       strict and bandwidth-sharing bands to implement the transmission
+       selection described in 802.1Qaz.
+
+       On creation with 'tc qdisc add', a fixed number of bands is
+       created. Each band is a class, although it is not possible to
+       directly add and remove bands with 'tc class' commands. The
+       number of bands to be created must instead be specified on the
+       command line as the qdisc is added.
+
+       The minor number of classid to use when referring to a band is
+       the band number increased by one. Thus band 0 will have classid
+       of major:1, band 1 that of major:2, etc.
+
+       ETS bands are of two types: some number may be in strict mode,
+       the remaining ones are in bandwidth-sharing mode.
+</pre>

@@ -1,0 +1,27 @@
+<pre>
+       This manual page describes the <b>sestatus </b>program.
+
+       This tool is used to get the status of a system running SELinux.
+       It displays data about whether SELinux is enabled or disabled,
+       location of key directories, and the loaded policy with its
+       status as shown in the example:
+              &gt; sestatus
+              SELinux status:              enabled
+              SELinuxfs mount:             /selinux
+              SELinux root directory:      /etc/selinux
+              Loaded policy name:          targeted
+              Current mode:                permissive
+              Mode from config file:       enforcing
+              Policy MLS status:           enabled
+              Policy deny_unknown status:  allow
+              Memory protection checking:  actual (secure)
+              Max kernel policy version:   26
+
+       <b>sestatus </b>can also be used to display:
+
+              -   The security context of files and processes listed in
+                  the <i>/etc/sestatus.conf</i> file. The format of this file
+                  is described in <a href="https://man7.org/linux/man-pages/man5/sestatus.conf.5.html">sestatus.conf(5)</a>.
+
+              -   The status of booleans.
+</pre>

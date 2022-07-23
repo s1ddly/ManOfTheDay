@@ -1,0 +1,19 @@
+<pre>
+       The <b>loadunimap </b>command is obsolete - its function is now built-in
+       into <a href="https://man7.org/linux/man-pages/man8/setfont.8.html">setfont(8)</a>.  However, for backwards compatibility it is
+       still available as a separate command.
+
+       The program <b>loadunimap </b>loads the specified map in the kernel
+       unicode-to-font mapping table.  If no map is given <i>def</i> mapping
+       table is assumed.  The default extension (that can be omitted) is
+       <i>.uni</i>.
+
+       If the <b>-o </b><i>oldmap</i> option is given, the old map is saved in the
+       file specified.
+
+       On Linux 2.6.1 and later one can specify the console device using
+       the <b>-C </b>option.
+
+       Usually one does not call <b>loadunimap </b>directly - its function is
+       also built into <a href="https://man7.org/linux/man-pages/man8/setfont.8.html">setfont(8)</a>.
+</pre>

@@ -1,0 +1,45 @@
+<pre>
+       Intel Processor Trace (Intel PT) is an extension of Intel
+       Architecture that collects information about software execution
+       such as control flow, execution modes and timings and formats it
+       into highly compressed binary packets. Technical details are
+       documented in the Intel 64 and IA-32 Architectures Software
+       Developer Manuals, Chapter 36 Intel Processor Trace.
+
+       Intel PT is first supported in Intel Core M and 5th generation
+       Intel Core processors that are based on the Intel
+       micro-architecture code name Broadwell.
+
+       Trace data is collected by <i>perf record</i> and stored within the
+       perf.data file. See below for options to <i>perf record</i>.
+
+       Trace data must be <i>decoded</i> which involves walking the object code
+       and matching the trace data packets. For example a TNT packet
+       only tells whether a conditional branch was taken or not taken,
+       so to make use of that packet the decoder must know precisely
+       which instruction was being executed.
+
+       Decoding is done on-the-fly. The decoder outputs samples in the
+       same format as samples output by perf hardware events, for
+       example as though the "instructions" or "branches" events had
+       been recorded. Presently 3 tools support this: <i>perf script</i>, <i>perf</i>
+       <i>report</i> and <i>perf inject</i>. See below for more information on using
+       those tools.
+
+       The main distinguishing feature of Intel PT is that the decoder
+       can determine the exact flow of software execution. Intel PT can
+       be used to understand why and how did software get to a certain
+       point, or behave a certain way. The software does not have to be
+       recompiled, so Intel PT works with debug or release builds,
+       however the executed images are needed - which makes use in
+       JIT-compiled environments, or with self-modified code, a
+       challenge. Also symbols need to be provided to make sense of
+       addresses.
+
+       A limitation of Intel PT is that it produces huge amounts of
+       trace data (hundreds of megabytes per second per core) which
+       takes a long time to decode, for example two or three orders of
+       magnitude longer than it took to collect. Another limitation is
+       the performance impact of tracing, something that will vary
+       depending on the use-case and architecture.
+</pre>

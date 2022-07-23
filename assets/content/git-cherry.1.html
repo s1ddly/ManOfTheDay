@@ -1,0 +1,13 @@
+<pre>
+       Determine whether there are commits in <b>&lt;head&gt;..&lt;upstream&gt; </b>that
+       are equivalent to those in the range <b>&lt;limit&gt;..&lt;head&gt;</b>.
+
+       The equivalence test is based on the diff, after removing
+       whitespace and line numbers. git-cherry therefore detects when
+       commits have been "copied" by means of <a href="https://man7.org/linux/man-pages/man1/git-cherry-pick.1.html">git-cherry-pick(1)</a>,
+       <a href="https://man7.org/linux/man-pages/man1/git-am.1.html">git-am(1)</a> or <a href="https://man7.org/linux/man-pages/man1/git-rebase.1.html">git-rebase(1)</a>.
+
+       Outputs the SHA1 of every commit in <b>&lt;limit&gt;..&lt;head&gt;</b>, prefixed
+       with <b>- </b>for commits that have an equivalent in &lt;upstream&gt;, and <b>+</b>
+       for commits that do not.
+</pre>

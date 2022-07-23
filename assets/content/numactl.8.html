@@ -1,0 +1,152 @@
+<pre>
+       <b>numactl </b>runs processes with a specific NUMA scheduling or memory
+       placement policy.  The policy is set for command and inherited by
+       all of its children.  In addition it can set persistent policy
+       for shared memory segments or files.
+
+       Use -- before command if using command options that could be
+       confused with numactl options.
+
+       <i>nodes</i> may be specified as N,N,N or  N-N or N,N-N or  N-N,N-N and
+       so forth.  Relative <i>nodes</i> may be specified as +N,N,N or  +N-N or
+       +N,N-N and so forth. The + indicates that the node numbers are
+       relative to the process' set of allowed nodes in its current
+       cpuset.  A !N-N notation indicates the inverse of N-N, in other
+       words all nodes except N-N.  If used with + notation, specify
+       !+N-N. When <i>same</i> is specified the previous nodemask specified on
+       the command line is used.  all means all nodes in the current
+       cpuset.
+
+       Instead of a number a node can also be:
+
+       netdev:DEV                 The node connected to network device DEV.
+       file:PATH                  The node the block device of PATH.
+       ip:HOST                    The node of the network device of HOST
+       block:PATH                 The node of block device PATH
+       pci:[seg:]bus:dev[:func]   The node of a PCI device.
+
+       Note that block resolves the kernel block device names only for
+       udev names in /dev use <i>file:</i>
+
+       Policy settings are:
+
+       <b>--all, -a</b>
+              Unset default cpuset awareness, so user can use all
+              possible CPUs/nodes for following policy settings.
+
+       <b>--interleave=nodes, -i nodes</b>
+              Set a memory interleave policy. Memory will be allocated
+              using round robin on <i>nodes.</i>  When memory cannot be
+              allocated on the current interleave target fall back to
+              other nodes.  Multiple nodes may be specified on
+              --interleave, --membind and --cpunodebind.
+
+       <b>--membind=nodes, -m nodes</b>
+              Only allocate memory from nodes.  Allocation will fail
+              when there is not enough memory available on these nodes.
+              <i>nodes</i> may be specified as noted above.
+
+       <b>--cpunodebind=nodes, -N nodes</b>
+              Only execute <i>command</i> on the CPUs of <i>nodes.</i>  Note that
+              nodes may consist of multiple CPUs.  <i>nodes</i> may be
+              specified as noted above.
+
+       <b>--physcpubind=cpus, -C cpus</b>
+              Only execute <i>process</i> on <i>cpus.</i>  This accepts cpu numbers as
+              shown in the <i>processor</i> fields of <i>/proc/cpuinfo,</i> or
+              relative cpus as in relative to the current cpuset.  You
+              may specify "all", which means all cpus in the current
+              cpuset.  Physical <i>cpus</i> may be specified as N,N,N or  N-N
+              or N,N-N or  N-N,N-N and so forth.  Relative <i>cpus</i> may be
+              specified as +N,N,N or  +N-N or +N,N-N and so forth. The +
+              indicates that the cpu numbers are relative to the
+              process' set of allowed cpus in its current cpuset.  A !N-
+              N notation indicates the inverse of N-N, in other words
+              all cpus except N-N.  If used with + notation, specify
+              !+N-N.
+
+       <b>--localalloc, -l</b>
+              Try to allocate on the current node of the process, but if
+              memory cannot be allocated there fall back to other nodes.
+
+       <b>--preferred=node</b>
+              Preferably allocate memory on <i>node,</i> but if memory cannot
+              be allocated there fall back to other nodes.  This option
+              takes only a single node number.  Relative notation may be
+              used.
+
+       <b>--balancing, -b</b>
+              Enable Linux kernel NUMA balancing for the process if it
+              is supported by kernel.  This should only be used with
+              <i>--membind, -m</i> only, otherwise ignored.
+
+       <b>--show, -s</b>
+              Show NUMA policy settings of the current process.
+
+       <b>--hardware, -H</b>
+              Show inventory of available nodes on the system.
+
+       Numactl can set up policy for a SYSV shared memory segment or a
+       file in shmfs/hugetlbfs.
+
+       This policy is persistent and will be used by all mappings from
+       that shared memory. The order of options matters here.  The
+       specification must at least include either of <i>--shm, --shmid,</i>
+       <i>--file</i> to specify the shared memory segment or file and a memory
+       policy like described above ( <i>--interleave, --localalloc,</i>
+       <i>--preferred, --membind</i> ).
+
+       <b>--huge</b>
+       When creating a SYSV shared memory segment use huge pages.  Only
+       valid before --shmid or --shm
+
+       <b>--offset</b>
+       Specify offset into the shared memory segment. Default 0.  Valid
+       units are <i>m</i> (for MB), <i>g</i> (for GB), <i>k</i> (for KB), otherwise it
+       specifies bytes.
+
+       <b>--strict</b>
+       Give an error when a page in the policied area in the shared
+       memory segment already was faulted in with a conflicting policy.
+       Default is to silently ignore this.
+
+       <b>--shmmode shmmode</b>
+       Only valid before --shmid or --shm When creating a shared memory
+       segment set it to numeric mode <i>shmmode.</i>
+
+       <b>--length length</b>
+       Apply policy to <i>length</i> range in the shared memory segment or make
+       the segment length long Default is to use the remaining length
+       Required when a shared memory segment is created and specifies
+       the length of the new segment then. Valid units are <i>m</i> (for MB), <i>g</i>
+       (for GB), <i>k</i> (for KB), otherwise it specifies bytes.
+
+       <b>--shmid id</b>
+       Create or use a shared memory segment with numeric ID <i>id</i>
+
+       <b>--shm shmkeyfile</b>
+       Create or use a shared memory segment, with the ID generated
+       using <b>ftok(3) </b>from shmkeyfile
+
+       <b>--file tmpfsfile</b>
+       Set policy for a file in tmpfs or hugetlbfs
+
+       <b>--touch</b>
+       Touch pages to enforce policy early. Default is to not touch
+       them, the policy is applied when an applications maps and
+       accesses a page.
+
+       <b>--dump</b>
+       Dump policy in the specified range.
+
+       <b>--dump-nodes</b>
+       Dump all nodes of the specific range (very verbose!)
+
+       Valid node specifiers
+
+       all                 All nodes
+       number              Node number
+       number1{,number2}   Node number1 and Node number2
+       number1-number2     Nodes from number1 to number2
+       ! nodes             Invert selection of the following specification.
+</pre>

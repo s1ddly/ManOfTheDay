@@ -1,0 +1,37 @@
+<pre>
+       These shell scripts and associated control files may be used to
+       create a customized regime of administration and management for
+       Performance Co-Pilot (see <a href="https://man7.org/linux/man-pages/man1/PCPIntro.1.html">PCPIntro(1)</a>) archive log files.
+
+       <b>pmlogger_check </b>may be run at any time of the day and is intended
+       to check that a desired set of <a href="https://man7.org/linux/man-pages/man1/pmlogger.1.html">pmlogger(1)</a> processes are running.
+       If not, it (re-)starts any missing logger processes.
+
+       <b>pmlogger_daily </b>is intended to be run once per day, preferably in
+       the early morning, as soon after midnight as practicable.  Its
+       task is to aggregate, rotate and perform general housekeeping one
+       or more sets of PCP archives.
+
+       To accommodate the evolution of PMDAs and changes in production
+       logging environments, <b>pmlogger_daily </b>is integrated with
+       <a href="https://man7.org/linux/man-pages/man1/pmlogrewrite.1.html">pmlogrewrite(1)</a> to allow optional and automatic rewriting of
+       archives before merging.  If there are global rewriting rules to
+       be applied across all archives mentioned in the control file(s),
+       then create the directory <b>$PCP_SYSCONF_DIR/pmlogrewrite </b>and place
+       any <a href="https://man7.org/linux/man-pages/man1/pmlogrewrite.1.html">pmlogrewrite(1)</a> rewriting rules in this directory.  For
+       rewriting rules that are specific to only one family of archives,
+       use the directory name from the control file(s) - i.e. the <i>fourth</i>
+       field - and create a file, or a directory, or a symbolic link
+       named <b>pmlogrewrite </b>within this directory and place the required
+       rewriting rule(s) in the <b>pmlogrewrite </b>file or in files within the
+       <b>pmlogrewrite </b>subdirectory.  <b>pmlogger_daily </b>will choose rewriting
+       rules from the archive directory if they exist, else rewriting
+       rules from <b>$PCP_SYSCONF_DIR/pmlogrewrite </b>if that directory
+       exists, else no rewriting is attempted.
+
+       As an alternate mechanism, if the file
+       <b>$PCP_LOG_DIR/pmlogger/.NeedRewrite </b>exists when <b>pmlogger_daily</b>
+       starts then this is treated the same as specifying <b>-R </b>on the
+       command line and <b>$PCP_LOG_DIR/pmlogger/.NeedRewrite </b>will be
+       removed once all the rewriting has been done.
+</pre>

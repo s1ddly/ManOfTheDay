@@ -1,0 +1,15 @@
+<pre>
+       The TAPRIO qdisc implements a simplified version of the
+       scheduling state machine defined by IEEE 802.1Q-2018 Section
+       8.6.9, which allows configuration of a sequence of gate states,
+       where each gate state allows outgoing traffic for a subset
+       (potentially empty) of traffic classes.
+
+       How traffic is mapped to different hardware queues is similar to
+       <b>mqprio</b>(8) and so the <b>map </b>and <b>queues </b>parameters have the same
+       meaning.
+
+       The other parameters specify the schedule, and at what point in
+       time it should start (it can behave as the schedule started in
+       the past).
+</pre>

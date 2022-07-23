@@ -1,0 +1,77 @@
+<pre>
+       Given one or more lists of metric names in <i>infile</i> or on standard
+       input, <b>pmgenmap </b>generates C declarations and <a href="https://man7.org/linux/man-pages/man1/cpp.1.html">cpp(1)</a> macros
+       suitable for use across the Performance Metrics Programming
+       Interface (PMAPI) on standard output.
+
+       The declarations produced by <b>pmgenmap </b>simplify the coding for
+       client applications using the PMAPI.
+
+       The input should consist of one or more lists of metric names of
+       the form
+
+            listname {
+                metricname1 symbolname1
+                metricname2 symbolname2
+                ...
+            }
+
+       which will generate C and <a href="https://man7.org/linux/man-pages/man1/cpp.1.html">cpp(1)</a> declarations of the form
+
+            char *listname[] = {
+            #define symbolname1 0
+                "metricname1",
+            #define symbolname2 1
+                "metricname2",
+                ...
+            };
+
+       The array declarations produced are suitable as parameters to
+       <a href="https://man7.org/linux/man-pages/man3/pmLookupName.3.html">pmLookupName(3)</a> and the <b>#define</b>d constants may be used to index
+       the <i>vset</i>s in the <i>pmResult</i> structure returned by a <a href="https://man7.org/linux/man-pages/man3/pmFetch.3.html">pmFetch(3)</a>
+       call.
+
+       Obviously, <i>listname</i> must conform to the C identifier naming
+       rules, each <i>symbolname</i> must conform to the <a href="https://man7.org/linux/man-pages/man1/cpp.1.html">cpp(1)</a> macro naming
+       rules, and each <i>metricname</i> is expected to be a valid performance
+       metrics name (see <a href="https://man7.org/linux/man-pages/man5/PMNS.5.html">PMNS(5)</a> for more details).
+
+       The input may include <b>sh</b>-style comment lines, i.e. with a `<b>#</b>' as
+       the first non-blank character of a line, and these are translated
+       on output to either single line or multi-line C comments in the
+       K&amp;R style.  For example, the input:
+
+            # leading block of multi-line comments
+            # initialization group
+            foo {
+                    a.b.c   ONE
+                    d.e.f.g TWO
+                    # embedded block of multi-lines
+                    # comments and boring pad text
+                    xx.yy.zz        THREE
+            }
+
+            # trailing single line comment
+
+       Produces the output:
+
+            /*
+             * leading block of multi-line comments
+             * initialization group
+             */
+            char *foo[] = {
+            #define ONE 0
+                    "a.b.c",
+            #define TWO 1
+                    "d.e.f.g",
+            /*
+             * embedded block of multi-lines
+             * comments and boring pad text
+             */
+            #define THREE 2
+                    "xx.yy.zz",
+
+            };
+
+            /* trailing single line comment */
+</pre>

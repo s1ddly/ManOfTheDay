@@ -1,0 +1,44 @@
+<pre>
+       <b>pmdalustre </b>is a Performance Metrics Domain Agent (PMDA) which
+       reads and exports metric values from the statistics interfaces of
+       a Lustre filesystem.
+
+       <b>pmdalustre </b>searches for statistics interfaces from several
+       locations, which vary depending on the version of <b>Lustre</b>
+       installed locally.
+
+       Recent <b>Lustre </b>versions (v2.12 and later) export statistics from
+       the kernel <b>debugfs </b>pseudo filesystem, in the directories
+       <b>/sys/kernel/debug/lustre/llite </b>and <b>/sys/kernel/debug/lnet</b>.  If
+       these interfaces are not found during startup, <b>pmdalustre </b>will
+       automatically check if the statistics interfaces are available
+       from the <b>procfs </b>pseudo filesystem below the <b>/proc/fs/lustre/llite</b>
+       and <b>/proc/sys/lnet </b>directories.  These are the default locations
+       of the statistics for <b>Lustre </b>versions less than <b>v2.12</b>.
+
+       If neither of the above filesystem interfaces are detected, or if
+       the user wants to override the default locations, <b>pmdalustre </b>also
+       supports an optional configuration file named
+       <b>$PCP_PMDAS_DIR/lustre/lustre.conf</b>.  Note that <b>$PCP_PMDAS_DIR </b>is
+       set to <b>/var/lib/pcp/pmdas </b>on most Linux based  systems.  The
+       configuration file supports <b>perl</b>(1) variable assignment syntax.
+       An example configuration file suitable for <b>Lustre </b>v2.12 and later
+       is:
+
+                    <b>$LLITE_PATH="/sys/kernel/debug/lustre/llite/";</b>
+                    <b>$LNET_PATH="/sys/kernel/debug/lustre/lnet/";</b>
+
+       See comments in the shipped <b>lustre.conf </b>file for further details.
+       By default, this file is installed with everything commented (and
+       so it has no effect unless edited) because the built-in
+       heuristics used by <b>pmdalustre </b>should suffice.
+
+       Finally, overriding all of the above, the <b>LUSTRE_LLITE_PATH </b>and
+       <b>LUSTRE_LNET_PATH </b>environment variables may be set (and exported)
+       to specify the directory locations of the statistics interfaces
+       to be used.  This mechanism using environment variabes is
+       intended to be used for development and testing purposes only.
+
+       The <b>pmdalustre </b>process runs as the root user because <b>debugfs</b>
+       directories are not normally readable by unprivileged users.
+</pre>

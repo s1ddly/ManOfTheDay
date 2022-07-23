@@ -1,0 +1,26 @@
+<pre>
+       This program replays a typescript, using timing information to
+       ensure that output happens in the same rhythm as it originally
+       appeared when the script was recorded.
+
+       The replay simply displays the information again; the programs
+       that were run when the typescript was being recorded are <b>not run</b>
+       <b>again</b>. Since the same information is simply being displayed,
+       <b>scriptreplay </b>is only guaranteed to work properly if run on the
+       same type of terminal the typescript was recorded on. Otherwise,
+       any escape characters in the typescript may be interpreted
+       differently by the terminal to which <b>scriptreplay </b>is sending its
+       output.
+
+       The timing information is what <a href="https://man7.org/linux/man-pages/man1/script.1.html">script(1)</a> outputs to file
+       specified by <b>--log-timing</b>.
+
+       By default, the typescript to display is assumed to be named
+       <i>typescript</i>, but other filenames may be specified, as the second
+       parameter or with option <b>--log-out</b>.
+
+       If the third parameter or <b>--divisor </b>is specified, it is used as a
+       speed-up multiplier. For example, a speed-up of 2 makes
+       <b>scriptreplay </b>go twice as fast, and a speed-up of 0.1 makes it go
+       ten times slower than the original session.
+</pre>

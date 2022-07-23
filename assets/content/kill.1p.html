@@ -1,0 +1,16 @@
+<pre>
+       The <i>kill</i> utility shall send a signal to the process or processes
+       specified by each <i>pid</i> operand.
+
+       For each <i>pid</i> operand, the <i>kill</i> utility shall perform actions
+       equivalent to the <i>kill</i>() function defined in the System
+       Interfaces volume of POSIX.1‐2017 called with the following
+       arguments:
+
+        *  The value of the <i>pid</i> operand shall be used as the <i>pid</i>
+           argument.
+
+        *  The <i>sig</i> argument is the value specified by the <b>-s </b>option,
+           <b>-</b><i>signal_number</i> option, or the <b>-</b><i>signal_name</i> option, or by
+           SIGTERM, if none of these options is specified.
+</pre>

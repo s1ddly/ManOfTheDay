@@ -1,0 +1,17 @@
+<pre>
+       The <b>lttng view </b>command launches an external trace viewer to view
+       the current trace of a tracing session.
+
+       If <i>SESSION</i> is omitted, the viewer is launched for the current
+       tracing session (see <a href="https://man7.org/linux/man-pages/man1/lttng-create.1.html">lttng-create(1)</a> for more information about
+       the current tracing session). Otherwise, it is launched for the
+       existing tracing session named <i>SESSION</i>. <b>lttng list </b>outputs all
+       the existing tracing sessions (see <a href="https://man7.org/linux/man-pages/man1/lttng-list.1.html">lttng-list(1)</a>).
+
+       By default, the <b>babeltrace</b>(1) trace viewer is launched. Another
+       trace viewer command can be specified using the <b>--viewer </b>option.
+
+       By default, the trace path of the chosen tracing session is given
+       as the first positional argument to the trace viewer. This path
+       can be overridden using the <b>--trace-path </b>option.
+</pre>

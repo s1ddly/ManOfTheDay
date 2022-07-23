@@ -1,0 +1,40 @@
+<pre>
+       The <b>gettext </b>program translates a natural language message into
+       the user's language, by looking up the translation in a message
+       catalog.
+
+       Display native language translation of a textual message.
+
+       <b>-d</b>, <b>--domain</b>=<i>TEXTDOMAIN</i>
+              retrieve translated messages from TEXTDOMAIN
+
+       <b>-c</b>, <b>--context</b>=<i>CONTEXT</i>
+              specify context for MSGID
+
+       <b>-e     </b>enable expansion of some escape sequences
+
+       <b>-n     </b>suppress trailing newline
+
+       <b>-E     </b>(ignored for compatibility)
+
+       [TEXTDOMAIN] MSGID
+              retrieve translated message corresponding to MSGID from
+              TEXTDOMAIN
+
+   <b>Informative output:</b>
+       <b>-h</b>, <b>--help</b>
+              display this help and exit
+
+       <b>-V</b>, <b>--version</b>
+              display version information and exit
+
+       If the TEXTDOMAIN parameter is not given, the domain is
+       determined from the environment variable TEXTDOMAIN.  If the
+       message catalog is not found in the regular directory, another
+       location can be specified with the environment variable
+       TEXTDOMAINDIR.  When used with the <b>-s </b>option the program behaves
+       like the 'echo' command.  But it does not simply copy its
+       arguments to stdout.  Instead those messages found in the
+       selected catalog are translated.  Standard search directory:
+       /usr/local/share/locale
+</pre>

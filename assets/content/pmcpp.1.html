@@ -1,0 +1,94 @@
+<pre>
+       <b>pmcpp </b>provides a very simple pre-processor originally designed
+       for manipulating Performance Metric Name Space (PMNS) files for
+       the Performance Co-Pilot (PCP), but later generalized to provide
+       conditional blocks, include file processing, in-line shell
+       command execution and macro substitution for arbitrary files.  It
+       is most commonly used internally to process the PMNS file(s)
+       after <a href="https://man7.org/linux/man-pages/man3/pmLoadNameSpace.3.html">pmLoadNameSpace(3)</a> or <a href="https://man7.org/linux/man-pages/man3/pmLoadASCIINameSpace.3.html">pmLoadASCIINameSpace(3)</a> is called and
+       to pre-process the configuration files for <a href="https://man7.org/linux/man-pages/man1/pmlogger.1.html">pmlogger(1)</a>.
+
+       Input lines are read from <i>infile</i> (or standard input if <i>infile</i> is
+       not specified), processed and written to standard output.
+
+       All C-style comments of the form /* ... */ are stripped from the
+       input stream.
+
+       There are no predefined macros for <b>pmcpp </b>although macros may be
+       defined on the command line using the <b>-D </b>option, where <i>name</i> and
+       <i>value</i> must follow the same rules as described below for the
+       <b>#define </b>directive.
+
+       <b>pmcpp </b>accepts the following directives in the input stream (like
+       <a href="https://man7.org/linux/man-pages/man1/cpp.1.html">cpp(1)</a>):
+
+       •  <b>#include "</b><i>filename</i><b>"</b>
+          or
+          <b>#include &lt;</b><i>filename</i><b>&gt;</b>
+          In either case the directory search path for <i>filename</i> tries
+          <i>filename</i> first, then the directory for the command line <i>infile</i>
+          (if any), followed by any directories named in <b>-I </b>command line
+          arguments, and finally the <b>$PCP_VAR_DIR/pmns </b>directory (the
+          latter is for backwards compatibility with earlier versions of
+          <b>pmcpp </b>and the implied used from <a href="https://man7.org/linux/man-pages/man3/pmLoadASCIINameSpace.3.html">pmLoadASCIINameSpace(3)</a>).
+          <b>#include </b>directives may be nested, up to a maximum depth of 5.
+
+       •  <b>#shell "</b><i>command</i><b>"</b>
+          or
+          <b>#shell '</b><i>command</i><b>'</b>
+          <b>The shell </b><i>command</i> will be executed and the standard output is
+          inserted into the stream of data to be processed by <b>pmcpp</b>.
+          Functionally this is similar to a <b>#include </b>directive, except
+          input lines are read from a <i>command</i> rather than a file.  The
+          <b>#shell </b>directive is most useful for including or excluding
+          <b>#define </b>or <b>#undef </b>directives based on run-time logic in the
+          <i>command</i>.
+
+       •  <b>#define </b><i>name value</i>
+          or
+          <b>#define </b><i>name</i> <b>"</b><i>value</i><b>"</b>
+          or
+          <b>#define </b><i>name</i> <b>'</b><i>value</i><b>'</b>
+          Defines a value for the macro <i>name</i> which must be a valid C-
+          style name, so leading alphabetic or underscore followed by
+          zero or more alphanumerics or underscores.  <i>value</i> is optional
+          (and defaults to an empty string).  There is no character
+          escape mechanism, but either single quotes or double quotes
+          may be used to define a <i>value</i> with special characters or
+          embedded horizontal white space (no newlines).
+
+       •  <b>#undef </b><i>name</i>
+          Removes the macro definition, if any, for <i>name</i>.
+
+       •  <b>#ifdef </b><i>name</i>
+          ...
+          <b>#endif</b>
+          or
+          <b>#ifndef </b><i>name</i>
+          ...
+          <b>#endif</b>
+          The enclosing lines will be stripped or included, depending if
+          the macro <i>name</i> is defined or not.
+
+       •  <b>#else</b>
+          Within a <b>#ifdef </b>or <b>#ifndef </b>block, <b>#else </b>may be used to delimit
+          lines to be included if the preceding ``if'' condition is
+          false.
+
+       Macro substitution is achieved by breaking the input stream into
+       words separated by white space or characters that are not valid
+       in a macro name, i.e. not alphanumeric and not underscore.  Each
+       word is checked and if it matches a macro name, the word is
+       replaced by the macro value, otherwise the word is unchanged.
+
+       There is generally one output line for each input line, although
+       the line may be empty if the text has been stripped due to the
+       handling of comments or conditional directives.  When there is a
+       change in the input stream, an additional output line is
+       generated of the form:
+
+                 # lineno "filename"
+
+       to indicate the <i>following</i> line of output corresponds to line
+       number <i>lineno</i> of the input file <i>filename</i>.
+</pre>

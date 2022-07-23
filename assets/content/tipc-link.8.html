@@ -1,0 +1,167 @@
+<pre>
+   <b>Link statistics</b>
+       <b>ACTIVE </b>link state
+              An <b>ACTIVE </b>link is serving traffic. Two links to the same
+              node can become <b>ACTIVE </b>if they have the same link
+              <b>priority</b>.  If there is more than two links with the same
+              priority the additional links will be put in <b>STANDBY</b>
+              state.
+
+       <b>STANDBY </b>link state
+              A <b>STANDBY </b>link has lower link priority than an <b>ACTIVE</b>
+              link. A <b>STANDBY </b>link has control traffic flowing and is
+              ready to take over should the <b>ACTIVE </b>link(s) go down.
+
+       <b>MTU</b>
+              The Maximum Transmission Unit. The two endpoints advertise
+              their default or configured <b>MTU </b>at initial link setup and
+              will agree to use the lower of the two values should they
+              differ.
+
+       <b>Packets</b>
+              The total amount of transmitted or received TIPC packets
+              on a link. Including <b>fragmented </b>and <b>bundled </b>packets.
+
+       <b>Fragments</b>
+              Represented in the form <b>fragments</b>/<b>fragmented</b>.  Where
+              <b>fragmented </b>is the amount of data messages which have been
+              broken into <b>fragments</b>.  Subsequently the <b>fragments </b>are the
+              total amount of packets that the <b>fragmented </b>messages has
+              been broken into.
+
+       <b>Bundles</b>
+              Represented in the form <b>bundles</b>/<b>bundled</b>.  If a link
+              becomes congested the link will attempt to bundle data
+              from small <b>bundled </b>packets into <b>bundles </b>of full MTU size
+              packets before they are transmitted.
+
+       <b>Profile</b>
+              Shows the <b>average </b>packet size in octets/bytes for a <b>sample</b>
+              of packets. It also shows the packet size distribution of
+              the <b>sampled </b>packets in the intervals
+
+              0-64 bytes
+              64-256 bytes
+              256-1024 bytes
+              1024-4096 bytes
+              4096-16384 bytes
+              16384-32768 bytes
+              32768-66000 bytes
+
+       <b>Message counters</b>
+
+              <b>states </b>- Number of link state messages
+
+              <b>probes </b>- Link state messages with probe flag set.
+              Typically sent when a link is idle
+
+              <b>nacks </b>- Number of negative acknowledgement (NACK) packets
+              sent and received by the link
+
+              <b>defs </b>- Number of packets received out of order
+
+              <b>dups </b>- Number of duplicate packets received
+
+       <b>Congestion link</b>
+              The number of times an application has tried to send data
+              when the TIPC link was congested
+
+       <b>Send queue</b>
+              <b>Max </b>is the maximum amount of messages that has resided in
+              the out queue during the statistics collection period of a
+              link.
+
+              <b>Avg </b>is the average outqueue size during the lifetime of a
+              link.
+
+   <b>Link properties</b>
+       <b>priority</b>
+              The priority between logical TIPC links to a particular
+              node. Link priority can range from 0 (lowest) to 31
+              (highest).
+
+       <b>tolerance</b>
+              Link tolerance specifies the maximum time in milliseconds
+              that TIPC will allow a communication problem to exist
+              before taking the link down. The default value is 1500
+              milliseconds.
+
+       <b>window</b>
+              The link window controls how many unacknowledged messages
+              a link endpoint can have in its transmit queue before
+              TIPC's congestion control mechanism is activated.
+
+   <b>Monitor properties</b>
+       <b>threshold</b>
+              The threshold specifies the cluster size exceeding which
+              the link monitoring algorithm will switch from "full-mesh"
+              to "overlapping-ring".  If set of 0 the overlapping-ring
+              monitoring is always on and if set to a value larger than
+              anticipated cluster size the overlapping-ring is disabled.
+              The default value is 32.
+
+   <b>Monitor information</b>
+       <b>table_generation</b>
+              Represents the event count in a node's local monitoring
+              list. It steps every time something changes in the local
+              monitor list, including changes in the local domain.
+
+       <b>cluster_size</b>
+              Represents the current count of cluster members.
+
+       <b>algorithm</b>
+              The current supervision algorithm used for neighbour
+              monitoring for the bearer.  Possible values are full-mesh
+              or overlapping-ring.
+
+       <b>status</b>
+              The node status derived by the local node.  Possible
+              status are up or down.
+
+       <b>monitored</b>
+              Represent the type of monitoring chosen by the local node.
+              Possible values are direct or indirect.
+
+       <b>generation</b>
+              Represents the domain generation which is the event count
+              in a node's local domain. Every time something changes
+              (peer add/remove/up/down) the domain generation is stepped
+              and a new version of node record is sent to inform the
+              neighbors about this change. The domain generation helps
+              the receiver of a domain record to know if it should
+              ignore or process the record.
+
+       <b>applied_node_status</b>
+              The node status reported by the peer node for the
+              succeeding peers in the node list. The Node list is a
+              circular list of ascending addresses starting with the
+              local node.  Possible status are: U or D. The status U
+              implies up and D down.
+
+       <b>[non_applied_node:status]</b>
+              Represents the nodes and their status as reported by the
+              peer node.  These nodes were not applied to the monitoring
+              list for this peer node.  They are usually transient and
+              occur during the cluster startup phase or network
+              reconfiguration.  Possible status are: U or D. The status
+              U implies up and D down.
+
+   <b>Broadcast properties</b>
+       <b>BROADCAST</b>
+              Forces all multicast traffic to be transmitted via
+              broadcast only, irrespective of cluster size and number of
+              destinations.
+
+       <b>REPLICAST</b>
+              Forces all multicast traffic to be transmitted via
+              replicast only, irrespective of cluster size and number of
+              destinations.
+
+       <b>AUTOSELECT</b>
+              Auto switching to broadcast or replicast depending on
+              cluster size and destination node number.
+
+       <b>ratio SIZE</b>
+              Set the AUTOSELECT criteria, percentage of destination
+              nodes vs cluster size.
+</pre>

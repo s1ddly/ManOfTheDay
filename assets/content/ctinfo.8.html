@@ -1,0 +1,27 @@
+<pre>
+       CTINFO (Conntrack Information) is a tc action for retrieving data
+       from conntrack marks into various fields.  At present it has two
+       independent processing modes which may be viewed as sub-
+       functions.
+
+       DSCP mode copies a DSCP stored in conntrack's connmark into the
+       IPv4/v6 diffserv field.  The copying may conditionally occur
+       based on a flag also stored in the connmark.  DSCP mode was
+       designed to assist in restoring packet classifications on
+       ingress, classifications which may then be used by qdiscs such as
+       CAKE.  It may be used in any circumstance where ingress
+       classification needs to be maintained across links that otherwise
+       bleach or remap according to their own policies.
+
+       CPMARK (copymark) mode copies the conntrack connmark into the
+       packet's mark field.  Without additional parameters it is
+       functionally completely equivalent to the existing connmark
+       action.  An optional mask may be specified to mask which bits of
+       the connmark are restored.  This may be useful when DSCP and
+       CPMARK modes are combined.
+
+       Simple statistics (tc -s) on DSCP restores and CPMARK copies are
+       maintained where values for set indicate a count of packets
+       altered for that mode.  DSCP includes an error count where the
+       destination packet's diffserv field was unwriteable.
+</pre>

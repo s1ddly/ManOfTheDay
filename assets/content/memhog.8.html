@@ -1,0 +1,33 @@
+<pre>
+       <b>memhog </b>mmaps a memory region for a given size and sets the numa
+       policy (if specified).  It then updates the memory region for the
+       given number of iterations using memset.
+
+       -r&lt;num&gt;    Repeat memset NUM times
+       -f&lt;file&gt;   Open file for mmap backing
+       -H         Disable transparent hugepages
+       -size      Allocation size in bytes, may have case-insensitive order
+                  suffix (G=gigabyte, M=megabyte, K=kilobyte)
+
+       Supported numa-policies:
+
+       <b>interleave</b>
+              Memory will be allocated using round robin on nodes. When
+              memory cannot be allocated on the current interleave,
+              target fall back to other nodes.  Multiple nodes may be
+              specified.
+
+       <b>membind</b>
+              Only  allocate  memory  from  nodes. Allocation will fail
+              when there is not enough memory available on these nodes.
+              Multiple nodes  may be specified.
+
+       <b>preferred</b>
+              Preferably allocate memory on node, but if memory cannot
+              be allocated  there  fall  back  to other nodes.  This
+              option takes only a single node number.
+
+       <b>default</b>
+              Memory will be allocated on the local node (the node the
+              thread is running on)
+</pre>

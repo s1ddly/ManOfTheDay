@@ -1,0 +1,13 @@
+<pre>
+       <b>lxc-user-nic </b>is a setuid-root program with which unprivileged
+       users may manage network interfaces for use by a lxc container.
+
+       It will consult the configuration file <i>/usr/local/etc/lxc/lxc-</i>
+       <i>usernet</i> to determine the number of interfaces which the calling
+       user is allowed to create, and which bridge they may attach them
+       to. It tracks the number of interfaces each user has created
+       using the file <i>/run/lxc/nics</i>. It ensures that the calling user is
+       privileged over the network namespace to which the interface will
+       be attached.  <b>lxc-user-nic </b>also allows one to delete network
+       devices.  Currently only ovs ports can be deleted.
+</pre>

@@ -1,0 +1,33 @@
+<pre>
+       <a href="https://man7.org/linux/man-pages/man1/yum-versionlock.1.html">yum-versionlock(1)</a> is a Yum plugin that takes a set of
+       name/versions for packages and excludes all other versions of
+       those packages (including optionally following obsoletes).  This
+       allows you to protect packages from being updated by newer
+       versions.
+
+       The plugin provides a command "versionlock" which allows you to
+       view and edit the list of locked packages easily.
+
+       <b>yum versionlock add &lt;package-wildcard&gt;...</b>
+              Add a versionlock for all of the packages in the rpmdb
+              matching the given wildcards.
+
+       <b>yum versionlock exclude &lt;package-wildcard&gt;...</b>
+              Opposite; disallow currently available versions of the
+              packages matching the given wildcards.
+
+       <b>yum versionlock list</b>
+              List the current versionlock entries.
+
+       <b>yum versionlock status</b>
+              List any available updates that are currently blocked by
+              versionlock.  That is, for each entry in the lock list,
+              print the newest package available in the repos unless it
+              is the particular locked/excluded version.
+
+       <b>yum versionlock delete &lt;entry-wildcard&gt;...</b>
+              Remove any matching versionlock entries.
+
+       <b>yum versionlock clear</b>
+              Remove all versionlock entries.
+</pre>

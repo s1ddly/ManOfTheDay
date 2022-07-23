@@ -1,0 +1,26 @@
+<pre>
+       The <b>@TABS@ </b>program clears and sets tab-stops on the terminal.
+       This uses the terminfo <i>clear_all_tabs</i> and <i>set_tab</i> capabilities.
+       If either is absent, <b>@TABS@ </b>is unable to clear/set tab-stops.
+       The terminal should be configured to use hard tabs, e.g.,
+
+           stty tab0
+
+       Like <b>@CLEAR@</b>(1), <b>@TABS@ </b>writes to the standard output.  You can
+       redirect the standard output to a file (which prevents <b>@TABS@</b>
+       from actually changing the tabstops), and later <b>cat </b>the file to
+       the screen, setting tabstops at that point.
+
+       These are hardware tabs, which cannot be queried rapidly by
+       applications running in the terminal, if at all.  Curses and
+       other full-screen applications may use hardware tabs in
+       optimizing their output to the terminal.  If the hardware
+       tabstops differ from the information in the terminal database,
+       the result is unpredictable.  Before running curses programs, you
+       should either reset tab-stops to the standard interval
+
+           tabs -8
+
+       or use the <b>@RESET@ </b>program, since the normal initialization
+       sequences do not ensure that tab-stops are reset.
+</pre>

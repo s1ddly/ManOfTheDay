@@ -1,0 +1,23 @@
+<pre>
+       The commands under <b>btrfs quota </b>are used to affect the global
+       status of quotas of a btrfs filesystem. The quota groups
+       (qgroups) are managed by the subcommand <b>btrfs qgroup</b>(8).
+
+           <b>Note</b>
+           Qgroups are different than the traditional user quotas and
+           designed to track shared and exclusive data per-subvolume.
+           Please refer to the section <i>HIERARCHICAL QUOTA GROUP CONCEPTS</i>
+           for a detailed description.
+
+   <b>PERFORMANCE IMPLICATIONS</b>
+       When quotas are activated, they affect all extent processing,
+       which takes a performance hit. Activation of qgroups is not
+       recommended unless the user intends to actually use them.
+
+   <b>STABILITY STATUS</b>
+       The qgroup implementation has turned out to be quite difficult as
+       it affects the core of the filesystem operation. Qgroup users
+       have hit various corner cases over time, such as incorrect
+       accounting or system instability. The situation is gradually
+       improving and issues found and fixed.
+</pre>

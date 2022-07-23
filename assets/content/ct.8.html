@@ -1,0 +1,15 @@
+<pre>
+       The ct action is a tc action for sending packets and interacting
+       with the netfilter conntrack module.
+
+       It can (as shown in the synopsis, in order):
+
+       Send the packet to conntrack, and commit the connection, while
+       configuring a 32bit mark, 128bit label, and src/dst nat.
+
+       Send the packet to conntrack, which will mark the packet with the
+       connection's state and configured metadata (mark/label), and
+       execute previous configured nat.
+
+       Clear the packet's of previous connection tracking state.
+</pre>

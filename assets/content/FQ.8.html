@@ -1,0 +1,27 @@
+<pre>
+       FQ (Fair Queue) is a classless packet scheduler meant to be
+       mostly used for locally generated traffic.  It is designed to
+       achieve per flow pacing.  FQ does flow separation, and is able to
+       respect pacing requirements set by TCP stack.  All packets
+       belonging to a socket are considered as a 'flow'.  For non local
+       packets (router workload), packet hash is used as fallback.
+
+       An application can specify a maximum pacing rate using the
+       <b>SO_MAX_PACING_RATE </b>setsockopt call.  This packet scheduler adds
+       delay between packets to respect rate limitation set on each
+       socket. Note that after linux-4.20, linux adopted EDT (Earliest
+       Departure Time) and TCP directly sets the appropriate Departure
+       Time for each skb.
+
+       Dequeueing happens in a round-robin fashion.  A special FIFO
+       queue is reserved for high priority packets ( <b>TC_PRIO_CONTROL</b>
+       priority), such packets are always dequeued first.
+
+       FQ is non-work-conserving.
+
+       TCP pacing is good for flows having idle times, as the congestion
+       window permits TCP stack to queue a possibly large number of
+       packets.  This removes the 'slow start after idle' choice, badly
+       hitting large BDP flows and applications delivering chunks of
+       data such as video streams.
+</pre>

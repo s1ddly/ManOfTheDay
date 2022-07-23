@@ -1,0 +1,17 @@
+<pre>
+       The <i>exec</i> utility shall open, close, and/or copy file descriptors
+       as specified by any redirections as part of the command.
+
+       If <i>exec</i> is specified without <i>command</i> or <i>argument</i>s, and any file
+       descriptors with numbers greater than 2 are opened with
+       associated redirection statements, it is unspecified whether
+       those file descriptors remain open when the shell invokes another
+       utility.  Scripts concerned that child shells could misuse open
+       file descriptors can always close them explicitly, as shown in
+       one of the following examples.
+
+       If <i>exec</i> is specified with <i>command</i>, it shall replace the shell
+       with <i>command</i> without creating a new process. If <i>argument</i>s are
+       specified, they shall be arguments to <i>command</i>.  Redirection
+       affects the current shell execution environment.
+</pre>

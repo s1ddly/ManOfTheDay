@@ -1,0 +1,87 @@
+<pre>
+       In the first three forms, copy entries from <b>&lt;tree-ish&gt; </b>to the
+       index. In the last form, set the current branch head (<b>HEAD</b>) to
+       <b>&lt;commit&gt;</b>, optionally modifying index and working tree to match.
+       The <b>&lt;tree-ish&gt;</b>/<b>&lt;commit&gt; </b>defaults to <b>HEAD </b>in all forms.
+
+       <i>git reset</i> [-q] [&lt;tree-ish&gt;] [--] &lt;pathspec&gt;..., <i>git reset</i> [-q]
+       [--pathspec-from-file=&lt;file&gt; [--pathspec-file-nul]] [&lt;tree-ish&gt;]
+           These forms reset the index entries for all paths that match
+           the <b>&lt;pathspec&gt; </b>to their state at <b>&lt;tree-ish&gt;</b>. (It does not
+           affect the working tree or the current branch.)
+
+           This means that <b>git reset &lt;pathspec&gt; </b>is the opposite of <b>git</b>
+           <b>add &lt;pathspec&gt;</b>. This command is equivalent to <b>git restore</b>
+           <b>[--source=&lt;tree-ish&gt;] --staged &lt;pathspec&gt;...</b>.
+
+           After running <b>git reset &lt;pathspec&gt; </b>to update the index entry,
+           you can use <a href="https://man7.org/linux/man-pages/man1/git-restore.1.html">git-restore(1)</a> to check the contents out of the
+           index to the working tree. Alternatively, using
+           <a href="https://man7.org/linux/man-pages/man1/git-restore.1.html">git-restore(1)</a> and specifying a commit with <b>--source</b>, you can
+           copy the contents of a path out of a commit to the index and
+           to the working tree in one go.
+
+       <i>git reset</i> (--patch | -p) [&lt;tree-ish&gt;] [--] [&lt;pathspec&gt;...]
+           Interactively select hunks in the difference between the
+           index and <b>&lt;tree-ish&gt; </b>(defaults to <b>HEAD</b>). The chosen hunks are
+           applied in reverse to the index.
+
+           This means that <b>git reset -p </b>is the opposite of <b>git add -p</b>,
+           i.e. you can use it to selectively reset hunks. See the
+           “Interactive Mode” section of <a href="https://man7.org/linux/man-pages/man1/git-add.1.html">git-add(1)</a> to learn how to
+           operate the <b>--patch </b>mode.
+
+       <i>git reset</i> [&lt;mode&gt;] [&lt;commit&gt;]
+           This form resets the current branch head to <b>&lt;commit&gt; </b>and
+           possibly updates the index (resetting it to the tree of
+           <b>&lt;commit&gt;</b>) and the working tree depending on <b>&lt;mode&gt;</b>. If <b>&lt;mode&gt;</b>
+           is omitted, defaults to <b>--mixed</b>. The <b>&lt;mode&gt; </b>must be one of
+           the following:
+
+           --soft
+               Does not touch the index file or the working tree at all
+               (but resets the head to <b>&lt;commit&gt;</b>, just like all modes
+               do). This leaves all your changed files "Changes to be
+               committed", as <b>git status </b>would put it.
+
+           --mixed
+               Resets the index but not the working tree (i.e., the
+               changed files are preserved but not marked for commit)
+               and reports what has not been updated. This is the
+               default action.
+
+               If <b>-N </b>is specified, removed paths are marked as
+               intent-to-add (see <a href="https://man7.org/linux/man-pages/man1/git-add.1.html">git-add(1)</a>).
+
+           --hard
+               Resets the index and working tree. Any changes to tracked
+               files in the working tree since <b>&lt;commit&gt; </b>are discarded.
+
+           --merge
+               Resets the index and updates the files in the working
+               tree that are different between <b>&lt;commit&gt; </b>and <b>HEAD</b>, but
+               keeps those which are different between the index and
+               working tree (i.e. which have changes which have not been
+               added). If a file that is different between <b>&lt;commit&gt; </b>and
+               the index has unstaged changes, reset is aborted.
+
+               In other words, <b>--merge </b>does something like a <b>git</b>
+               <b>read-tree -u -m &lt;commit&gt;</b>, but carries forward unmerged
+               index entries.
+
+           --keep
+               Resets index entries and updates files in the working
+               tree that are different between <b>&lt;commit&gt; </b>and <b>HEAD</b>. If a
+               file that is different between <b>&lt;commit&gt; </b>and <b>HEAD </b>has
+               local changes, reset is aborted.
+
+           --[no-]recurse-submodules
+               When the working tree is updated, using
+               --recurse-submodules will also recursively reset the
+               working tree of all active submodules according to the
+               commit recorded in the superproject, also setting the
+               submodules' HEAD to be detached at that commit.
+
+       See "Reset, restore and revert" in <a href="https://man7.org/linux/man-pages/man1/git.1.html">git(1)</a> for the differences
+       between the three commands.
+</pre>

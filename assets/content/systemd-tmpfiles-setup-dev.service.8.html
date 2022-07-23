@@ -1,0 +1,44 @@
+<pre>
+       <b>systemd-tmpfiles </b>creates, deletes, and cleans up volatile and
+       temporary files and directories, using the configuration file
+       format and location specified in <a href="https://man7.org/linux/man-pages/man5/tmpfiles.d.5.html">tmpfiles.d(5)</a>. It must be
+       invoked with one or more options <b>--create</b>, <b>--remove</b>, and <b>--clean</b>,
+       to select the respective subset of operations.
+
+       By default, directives from all configuration files are applied.
+       When invoked with <b>--replace=</b><i>PATH</i>, arguments specified on the
+       command line are used instead of the configuration file <i>PATH</i>.
+       Otherwise, if one or more absolute filenames are passed on the
+       command line, only the directives in these files are applied. If
+       "-" is specified instead of a filename, directives are read from
+       standard input. If only the basename of a configuration file is
+       specified, all configuration directories as specified in
+       <a href="https://man7.org/linux/man-pages/man5/tmpfiles.d.5.html">tmpfiles.d(5)</a> are searched for a matching file and the file found
+       that has the highest priority is executed.
+
+       System services (systemd-tmpfiles-setup.service,
+       systemd-tmpfiles-setup-dev.service,
+       systemd-tmpfiles-clean.service) invoke <b>systemd-tmpfiles </b>to create
+       system files and to perform system wide cleanup. Those services
+       read administrator-controlled configuration files in tmpfiles.d/
+       directories. User services (systemd-tmpfiles-setup.service,
+       systemd-tmpfiles-clean.service) also invoke <b>systemd-tmpfiles</b>, but
+       it reads a separate set of files, which includes user-controlled
+       files under ~/.config/user-tmpfiles.d/ and
+       ~/.local/share/user-tmpfiles.d/, and administrator-controlled
+       files under /usr/share/user-tmpfiles.d/. Users may use this to
+       create and clean up files under their control, but the system
+       instance performs global cleanup and is not influenced by user
+       configuration. Note that this means a time-based cleanup
+       configured in the system instance, such as the one typically
+       configured for /tmp/, will thus also affect files created by the
+       user instance if they are placed in /tmp/, even if the user
+       instance's time-based cleanup is turned off.
+
+       To re-apply settings after configuration has been modified,
+       simply restart systemd-tmpfiles-clean.service, which will apply
+       any settings which can be safely executed at runtime. To debug
+       <b>systemd-tmpfiles</b>, it may be useful to invoke it directly from the
+       command line with increased log level (see <i>$SYSTEMD_LOG_LEVEL</i>
+       below).
+</pre>

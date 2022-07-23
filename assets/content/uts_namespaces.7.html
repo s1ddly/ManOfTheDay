@@ -1,0 +1,17 @@
+<pre>
+       UTS namespaces provide isolation of two system identifiers: the
+       hostname and the NIS domain name.  These identifiers are set
+       using <a href="https://man7.org/linux/man-pages/man2/sethostname.2.html">sethostname(2)</a> and <a href="https://man7.org/linux/man-pages/man2/setdomainname.2.html">setdomainname(2)</a>, and can be retrieved
+       using <a href="https://man7.org/linux/man-pages/man2/uname.2.html">uname(2)</a>, <a href="https://man7.org/linux/man-pages/man2/gethostname.2.html">gethostname(2)</a>, and <a href="https://man7.org/linux/man-pages/man2/getdomainname.2.html">getdomainname(2)</a>.  Changes
+       made to these identifiers are visible to all other processes in
+       the same UTS namespace, but are not visible to processes in other
+       UTS namespaces.
+
+       When a process creates a new UTS namespace using <a href="https://man7.org/linux/man-pages/man2/clone.2.html">clone(2)</a> or
+       <a href="https://man7.org/linux/man-pages/man2/unshare.2.html">unshare(2)</a> with the <b>CLONE_NEWUTS </b>flag, the hostname and domain of
+       the new UTS namespace are copied from the corresponding values in
+       the caller's UTS namespace.
+
+       Use of UTS namespaces requires a kernel that is configured with
+       the <b>CONFIG_UTS_NS </b>option.
+</pre>

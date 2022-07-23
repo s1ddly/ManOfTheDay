@@ -1,0 +1,37 @@
+<pre>
+       Updates applications and runtimes.  REF is a reference to the
+       application or runtime to update. If no REF is given, everything
+       is updated, as well as appstream info for all remotes.
+
+       Each REF argument is a full or partial identifier in the flatpak
+       ref format, which looks like "(app|runtime)/ID/ARCH/BRANCH". All
+       elements except ID are optional and can be left out, including
+       the slashes, so most of the time you need only specify ID. Any
+       part left out will be matched against what is installed, and if
+       there are multiple matches an error message will list the
+       alternatives.
+
+       By default this looks for both apps and runtimes with the given
+       REF, but you can limit this by using the <b>--app </b>or <b>--runtime</b>
+       option, or by supplying the initial element in the REF.
+
+       Normally, this command updates the application to the tip of its
+       branch. But it is possible to check out another commit, with the
+       <b>--commit </b>option.
+
+       If the configured remote for a ref being updated has a collection
+       ID configured on it, flatpak will search mounted filesystems such
+       as USB drives as well as Avahi services advertised on the local
+       network for the needed refs, in order to support offline updates.
+       See <b>ostree-find-remotes</b>(1) for more information.
+
+       Note that updating a runtime is different from installing a
+       different branch, and runtime updates are expected to keep strict
+       compatibility. If an application update does cause a problem, it
+       is possible to go back to the previous version, with the <b>--commit</b>
+       option.
+
+       Unless overridden with the <b>--user</b>, <b>--system </b>or <b>--installation</b>
+       option, this command updates any matching refs in the standard
+       system-wide installation and the per-user one.
+</pre>

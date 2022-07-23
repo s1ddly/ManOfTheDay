@@ -1,0 +1,51 @@
+<pre>
+       The <i>read</i> utility shall read a single logical line from standard
+       input into one or more shell variables.
+
+       By default, unless the <b>-r </b>option is specified, &lt;backslash&gt; shall
+       act as an escape character. An unescaped &lt;backslash&gt; shall
+       preserve the literal value of the following character, with the
+       exception of a &lt;newline&gt;.  If a &lt;newline&gt; follows the
+       &lt;backslash&gt;, the <i>read</i> utility shall interpret this as line
+       continuation. The &lt;backslash&gt; and &lt;newline&gt; shall be removed
+       before splitting the input into fields. All other unescaped
+       &lt;backslash&gt; characters shall be removed after splitting the input
+       into fields.
+
+       If standard input is a terminal device and the invoking shell is
+       interactive, <i>read</i> shall prompt for a continuation line when it
+       reads an input line ending with a &lt;backslash&gt; &lt;newline&gt;, unless
+       the <b>-r </b>option is specified.
+
+       The terminating &lt;newline&gt; (if any) shall be removed from the
+       input and the results shall be split into fields as in the shell
+       for the results of parameter expansion (see <i>Section 2.6.5</i>, <i>Field</i>
+       <i>Splitting</i>); the first field shall be assigned to the first
+       variable <i>var</i>, the second field to the second variable <i>var</i>, and so
+       on. If there are fewer fields than there are <i>var</i> operands, the
+       remaining <i>var</i>s shall be set to empty strings. If there are fewer
+       <i>var</i>s than fields, the last <i>var</i> shall be set to a value comprising
+       the following elements:
+
+        *  The field that corresponds to the last <i>var</i> in the normal
+           assignment sequence described above
+
+        *  The delimiter(s) that follow the field corresponding to the
+           last <i>var</i>
+
+        *  The remaining fields and their delimiters, with trailing <i>IFS</i>
+           white space ignored
+
+       The setting of variables specified by the <i>var</i> operands shall
+       affect the current shell execution environment; see <i>Section 2.12</i>,
+       <i>Shell Execution Environment</i>.  If it is called in a subshell or
+       separate utility execution environment, such as one of the
+       following:
+
+           (read foo)
+           nohup read ...
+           find . -exec read ... \;
+
+       it shall not affect the shell variables in the caller's
+       environment.
+</pre>

@@ -1,0 +1,44 @@
+<pre>
+       <b>pmlogger_daily_report </b>and the associated <a href="https://man7.org/linux/man-pages/man1/systemd.1.html">systemd(1)</a> services
+       write daily performance summary reports, much like those produced
+       by <b>sadc</b>(1) and the <a href="https://man7.org/linux/man-pages/man8/sa2.8.html">sa2(8)</a> utility.
+
+       All of the command line arguments are optional and intended to be
+       self explanatory.  The service is not enabled by default.  If the
+       service is enabled and no arguments are specified,
+       <b>pmlogger_daily_report </b>will be run by <b>systemd </b>at 2am each morning
+       and write a performance summary report named <b>sar</b><i>XX</i> (where <i>XX</i> is
+       yesterdays day-of-the-month, wrapping to the previous month if
+       today is the 1st).  The <i>outputfile</i> may be changed with the <b>-f</b>
+       option.  The report will be written to the <i>$PCP_LOG_DIR/sa</i>
+       directory by default, but this may be changed with the <b>-o </b>option
+       to a different <i>directory</i>.
+
+       Note that there are suffciently flexible command line options for
+       <b>pmlogger_daily_report </b>to be used to read any <b>archivefile </b>and
+       write the report to any output directory.
+
+       If the <b>-a </b>option is not given, the default input <i>archivefile</i> is
+       <i>$PCP_ARCHIVE_DIR/HOSTNAME/YYYYMMDD</i>, where <i>HOSTNAME</i> defaults to
+       the local hostname (unless changed with the <b>-h </b>option) and
+       <i>YYYYMMDD</i> is the base name of yesterdays merged archive, as
+       produced by <a href="https://man7.org/linux/man-pages/man1/pmlogger.1.html">pmlogger(1)</a> and the <a href="https://man7.org/linux/man-pages/man1/pmlogger_daily.1.html">pmlogger_daily(1)</a> scripts.  If
+       <i>archivefile</i> is a directory, then <b>pmlogger_daily_report </b>will use
+       all PCP archives found in that directory to write the report
+       (this is known as multi-archive mode, and may be considerably
+       slower than specifying a single archive as the input).
+
+       The reports themselves are created by the <a href="https://man7.org/linux/man-pages/man1/pmrep.1.html">pmrep(1)</a> utility using
+       its default configuration file, see <a href="https://man7.org/linux/man-pages/man5/pmrep.conf.5.html">pmrep.conf(5)</a>.  The <a href="https://man7.org/linux/man-pages/man1/pmrep.1.html">pmrep(1)</a>
+       configuration entries used to write the reports is currently
+       hardwired into the <b>pmlogger_daily_report </b>script.
+
+       Finally, the input archives must contain sufficient metrics as
+       needed by <a href="https://man7.org/linux/man-pages/man1/pmrep.1.html">pmrep(1)</a> to write the report.  On platforms that
+       support it, the <i>pcp-zeroconf</i> package configures PCP logging as
+       required for this - hence <b>pmlogger_daily_report </b>should be used
+       with the <a href="https://man7.org/linux/man-pages/man1/pmlogger.1.html">pmlogger(1)</a> configuration that is set up by <b>pcp-</b>
+       <b>zeroconf</b>.  As the name suggests, <b>pcp-zeroconf </b>requires no
+       additional configuration after installation in order to capture
+       the required archives needed by <b>pmlogger_daily_report</b>.
+</pre>

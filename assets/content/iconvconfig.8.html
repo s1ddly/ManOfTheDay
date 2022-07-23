@@ -1,0 +1,15 @@
+<pre>
+       The <a href="https://man7.org/linux/man-pages/man3/iconv.3.html">iconv(3)</a> function internally uses <i>gconv</i> modules to convert to
+       and from a character set.  A configuration file is used to
+       determine the needed modules for a conversion.  Loading and
+       parsing such a configuration file would slow down programs that
+       use <a href="https://man7.org/linux/man-pages/man3/iconv.3.html">iconv(3)</a>, so a caching mechanism is employed.
+
+       The <b>iconvconfig </b>program reads iconv module configuration files
+       and writes a fast-loading gconv module configuration cache file.
+
+       In addition to the system provided gconv modules, the user can
+       specify custom gconv module directories with the environment
+       variable <b>GCONV_PATH</b>.  However, iconv module configuration caching
+       is used only when the environment variable <b>GCONV_PATH </b>is not set.
+</pre>

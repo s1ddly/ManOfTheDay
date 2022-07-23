@@ -1,0 +1,19 @@
+<pre>
+       <b>Slapmodify </b>is used to apply modifications specified in LDAP
+       Directory Interchange Format (LDIF) to a <a href="https://man7.org/linux/man-pages/man8/slapd.8.html">slapd(8)</a> database.  It
+       opens the given database determined by the database number or
+       suffix and performs modifications corresponding to the provided
+       LDIF to the database.  Databases configured as <b>subordinate </b>of
+       this one are also updated, unless <b>-g </b>is specified.  The LDIF
+       input is read from standard input or the specified file.
+
+       All files eventually created by <b>slapmodify </b>will belong to the
+       identity <b>slapmodify </b>is run as, so make sure you either run
+       <b>slapmodify </b>with the same identity <a href="https://man7.org/linux/man-pages/man8/slapd.8.html">slapd(8)</a> will be run as (see
+       option <b>-u </b>in <a href="https://man7.org/linux/man-pages/man8/slapd.8.html">slapd(8)</a>), or change file ownership before running
+       <a href="https://man7.org/linux/man-pages/man8/slapd.8.html">slapd(8)</a>.
+
+       Note: slapmodify will also perform the relevant indexing whilst
+       modifying the database if any are configured. For specific
+       details, please see <a href="https://man7.org/linux/man-pages/man8/slapindex.8.html">slapindex(8)</a>.
+</pre>

@@ -1,0 +1,31 @@
+<pre>
+       <b>dbpmda </b>is an interactive interface to the interactions between a
+       Performance Metric Domain Agent (<a href="https://man7.org/linux/man-pages/man3/PMDA.3.html">PMDA(3)</a>) and the Performance
+       Metric Collector Daemon (<a href="https://man7.org/linux/man-pages/man1/pmcd.1.html">pmcd(1)</a>).  This allows PMDAs to be
+       attached, initialized and exercised to test for correctness.
+
+       <b>dbpmda </b>interactively prompts the user for commands, many of which
+       emulate the Protocol Data Units (PDUs) that may be sent by a
+       <a href="https://man7.org/linux/man-pages/man1/pmcd.1.html">pmcd(1)</a> process.  After running <b>dbpmda</b>, enter the command <b>help </b>to
+       get a list of the available commands.  The example section below
+       illustrates a session using <b>dbpmda </b>to test a PMDA.
+
+       To simplify repetitive testing of a PMDA, the file <i>.dbpmdarc</i> in
+       the current working directory can contain a list of commands that
+       will be executed by <b>dbpmda </b>on startup, before the user is
+       prompted to enter further commands interactively.  While
+       processing the <i>.dbpmdarc</i> file, interactive mode and command
+       echoing are enabled and then reset at the end of the <i>.dbpmdarc</i>
+       file (see the <b>-i </b>and <b>-e </b>command line options below).
+
+       The <b>-f </b>command line option prevents startup processing of a
+       <i>.dbpmdarc</i> file (if it exists).
+
+       If the system supports <a href="https://man7.org/linux/man-pages/man3/readline.3.html">readline(3)</a> then this will be used to read
+       commands when input is from a tty device, so history and command
+       line editing are available.
+
+       As there are no timeout constraints on a PMDA while using <b>dbpmda</b>
+       (as compared to <a href="https://man7.org/linux/man-pages/man1/pmcd.1.html">pmcd(1)</a>), another debugger like <a href="https://man7.org/linux/man-pages/man1/gdb.1.html">gdb(1)</a> can be
+       used on the PMDA process once it has been attached to <b>dbpmda</b>.
+</pre>

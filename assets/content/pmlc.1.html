@@ -1,0 +1,44 @@
+<pre>
+       <b>pmlc </b>may be used to change those metrics and instances which a
+       <a href="https://man7.org/linux/man-pages/man1/pmlogger.1.html">pmlogger(1)</a> writes to a Performance Co-Pilot archive (see
+       <a href="https://man7.org/linux/man-pages/man1/PCPIntro.1.html">PCPIntro(1)</a>), the frequency with which the metrics are collected
+       and whether the logging is mandatory, advisory, on or off.  It
+       also reports the current logging status of metrics and instances.
+       <b>pmlc </b>may be used to control pmlogger instances on remote hosts as
+       well as those on the local host.
+
+       Normally <b>pmlc </b>operates on the distributed Performance Metrics
+       Name Space (PMNS), however if the <b>-n </b>option is specified an
+       alternative local PMNS is loaded from the file <i>pmnsfile</i>.
+
+       If the <b>-P </b>option is specified, <b>pmlc </b>will attempt to start with a
+       connection to the primary pmlogger on the local host.  If the <b>-p</b>
+       option is specified, then <b>pmlc </b>will attempt to start with a
+       connection to the pmlogger on this TCP/IP <i>port</i>.  Alternatively,
+       if <i>pid</i> is specified, a connection to the pmlogger instance with
+       that process id will be attempted on startup.  The <b>-h </b>option may
+       only be used if <b>-P, -p </b><i>port</i> or a <i>pid</i> is also specified.  In that
+       case <b>pmlc </b>will initially connect to the specified (remote)
+       pmlogger instance on <i>host</i> rather than the local host.  If the
+       connection to the specified pmlogger instance cannot be
+       established, <b>pmlc </b>will start with no connection.  These options
+       typically allow the same file of <b>pmlc </b>commands to be directed to
+       multiple pmlogger instances by varying the command line
+       arguments.  Note that <b>-P</b>, <b>-p </b><i>port</i>, <i>pid</i> and <b>-h </b>are used only when
+       making an initial connection to a pmlogger instance.  They are
+       not used as defaults if subsequent connections are made
+       interactively (see the <b>connect </b>command below).
+
+       By default, <b>pmlc </b>reports the time of day according to the local
+       timezone on the system where <b>pmlc </b>is run.  The <b>-Z </b>option changes
+       the timezone to <i>timezone</i> in the format of the environment
+       variable <b>TZ </b>as described in <a href="https://man7.org/linux/man-pages/man7/environ.7.html">environ(7)</a>.  The <b>-z </b>option changes
+       the timezone to the timezone of the pmlogger instance from which
+       information is being obtained.  Only one of <b>-z </b>or <b>-Z </b>may be
+       specified.
+
+       If standard input is from a tty, <b>pmlc </b>is interactive, with
+       prompts.  The <b>-i </b>flag may be used to force interactive behavior,
+       and is typically used in conjunction with <b>-e </b>to echo all command
+       input on standard output.
+</pre>

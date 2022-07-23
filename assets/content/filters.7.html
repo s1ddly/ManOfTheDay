@@ -1,0 +1,14 @@
+<pre>
+     The smtpd(8) daemon provides a Simple Mail Transfer Protocol (SMTP)
+     implementation that allows an ordinary machine to become Mail
+     eXchangers (MX).  Many features that are commonly used by MX, such
+     as delivery reporting or Spam filtering, are outside the scope of
+     SMTP and too complex to fit in smtpd(8).
+
+     Because an MX needs to provide these features, smtpd(8) provides an
+     API to extend its behavior through pluggable <b>filters</b>.
+
+     At runtime, smtpd(8) can report events to <b>filters </b>and query what it
+     should answer to these events.  This allows the decision logic to
+     rely on third-party programs.
+</pre>

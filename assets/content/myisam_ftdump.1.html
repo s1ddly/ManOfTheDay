@@ -1,0 +1,78 @@
+<pre>
+       <b>myisam_ftdump </b>displays information about FULLTEXT indexes in
+       MyISAM tables. It reads the MyISAM index file directly, so it
+       must be run on the server host where the table is located. Before
+       using <b>myisam_ftdump</b>, be sure to issue a FLUSH TABLES statement
+       first if the server is running.
+
+       <b>myisam_ftdump </b>scans and dumps the entire index, which is not
+       particularly fast. On the other hand, the distribution of words
+       changes infrequently, so it need not be run often.
+
+       Invoke <b>myisam_ftdump </b>like this:
+
+           shell&gt; <b>myisam_ftdump [</b><i>options</i><b>] </b><i>tbl_name index_num</i>
+
+       The <i>tbl_name</i> argument should be the name of a MyISAM table. You
+       can also specify a table by naming its index file (the file with
+       the .MYI suffix). If you do not invoke <b>myisam_ftdump </b>in the
+       directory where the table files are located, the table or index
+       file name must be preceded by the path name to the table´s
+       database directory. Index numbers begin with 0.
+
+       Example: Suppose that the test database contains a table named
+       mytexttablel that has the following definition:
+
+           CREATE TABLE mytexttable
+           (
+             id   INT NOT NULL,
+             txt  TEXT NOT NULL,
+             PRIMARY KEY (id),
+             FULLTEXT (txt)
+           );
+
+       The index on id is index 0 and the FULLTEXT index on txt is index
+       1. If your working directory is the test database directory,
+       invoke <b>myisam_ftdump </b>as follows:
+
+           shell&gt; <b>myisam_ftdump mytexttable 1</b>
+
+       If the path name to the test database directory is
+       /usr/local/mysql/data/test, you can also specify the table name
+       argument using that path name. This is useful if you do not
+       invoke <b>myisam_ftdump </b>in the database directory:
+
+           shell&gt; <b>myisam_ftdump /usr/local/mysql/data/test/mytexttable 1</b>
+
+       You can use <b>myisam_ftdump </b>to generate a list of index entries in
+       order of frequency of occurrence like this:
+
+           shell&gt; <b>myisam_ftdump -c mytexttable 1 | sort -r</b>
+
+       <b>myisam_ftdump </b>supports the following options:
+
+       •   <b>--help</b>, <b>-h -?</b>
+
+           Display a help message and exit.
+
+       •   <b>--count</b>, <b>-c</b>
+
+           Calculate per-word statistics (counts and global weights).
+
+       •   <b>--dump</b>, <b>-d</b>
+
+           Dump the index, including data offsets and word weights.
+
+       •   <b>--length</b>, <b>-l</b>
+
+           Report the length distribution.
+
+       •   <b>--stats</b>, <b>-s</b>
+
+           Report global index statistics. This is the default operation
+           if no other operation is specified.
+
+       •   <b>--verbose</b>, <b>-v</b>
+
+           Verbose mode. Print more output about what the program does.
+</pre>

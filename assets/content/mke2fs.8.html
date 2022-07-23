@@ -1,0 +1,23 @@
+<pre>
+       <b>mke2fs </b>is used to create an ext2, ext3, or ext4 file system,
+       usually in a disk partition (or file) named by <i>device</i>.
+
+       The file system size is specified by <i>fs-size</i>.  If <i>fs-size</i> does
+       not have a suffix, it is interpreted as power-of-two kilobytes,
+       unless the <b>-b </b><i>blocksize</i> option is specified, in which case <i>fs-</i>
+       <i>size</i> is interpreted as the number of <i>blocksize</i> blocks.   If the
+       fs-size is suffixed by 'k', 'm', 'g', 't' (either upper-case or
+       lower-case), then it is interpreted in power-of-two kilobytes,
+       megabytes, gigabytes, terabytes, etc.  If <i>fs-size</i> is omitted,
+       <b>mke2fs </b>will create the file system based on the device size.
+
+       If <b>mke2fs </b>is run as <b>mkfs.XXX </b>(i.e., <b>mkfs.ext2</b>, <b>mkfs.ext3</b>, or
+       <b>mkfs.ext4</b>) the option <b>-t </b><i>XXX</i> is implied; so <b>mkfs.ext3 </b>will create
+       a file system for use with ext3, <b>mkfs.ext4 </b>will create a file
+       system for use with ext4, and so on.
+
+       The defaults of the parameters for the newly created file system,
+       if not overridden by the options listed below, are controlled by
+       the <b>/etc/mke2fs.conf </b>configuration file.  See the <a href="https://man7.org/linux/man-pages/man5/mke2fs.conf.5.html">mke2fs.conf(5)</a>
+       manual page for more details.
+</pre>

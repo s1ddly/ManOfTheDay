@@ -1,0 +1,48 @@
+<pre>
+       Compare two Uniforum style .po files to check that both contain
+       the same set of msgid strings.  The def.po file is an existing PO
+       file with the translations.  The ref.pot file is the last created
+       PO file, or a PO Template file (generally created by xgettext).
+       This is useful for checking that you have translated each and
+       every message in your program.  Where an exact match cannot be
+       found, fuzzy matching is used to produce better diagnostics.
+
+       Mandatory arguments to long options are mandatory for short
+       options too.
+
+   <b>Input file location:</b>
+       def.po translations
+
+       ref.pot
+              references to the sources
+
+       <b>-D</b>, <b>--directory</b>=<i>DIRECTORY</i>
+              add DIRECTORY to list for input files search
+
+   <b>Operation modifiers:</b>
+       <b>-m</b>, <b>--multi-domain</b>
+              apply ref.pot to each of the domains in def.po
+
+       <b>-N</b>, <b>--no-fuzzy-matching</b>
+              do not use fuzzy matching
+
+       <b>--use-fuzzy</b>
+              consider fuzzy entries
+
+       <b>--use-untranslated</b>
+              consider untranslated entries
+
+   <b>Input file syntax:</b>
+       <b>-P</b>, <b>--properties-input</b>
+              input files are in Java .properties syntax
+
+       <b>--stringtable-input</b>
+              input files are in NeXTstep/GNUstep .strings syntax
+
+   <b>Informative output:</b>
+       <b>-h</b>, <b>--help</b>
+              display this help and exit
+
+       <b>-V</b>, <b>--version</b>
+              output version information and exit
+</pre>

@@ -1,0 +1,40 @@
+<pre>
+       The <b>e2image </b>program will save critical ext2, ext3, or ext4 file
+       system metadata located on <i>device</i> to a file specified by <i>image-</i>
+       <i>file</i>.  The image file may be examined by <b>dumpe2fs </b>and <b>debugfs</b>, by
+       using the <b>-i </b>option to those programs.  This can assist an expert
+       in recovering catastrophically corrupted file systems.
+
+       It is a very good idea to create image files for all file systems
+       on a system and save the partition layout (which can be generated
+       using the <b>fdisk -l </b>command) at regular intervals --- at boot
+       time, and/or every week or so.  The image file should be stored
+       on some file system other than the file system whose data it
+       contains, to ensure that this data is accessible in the case
+       where the file system has been badly damaged.
+
+       To save disk space, <b>e2image </b>creates the image file as a sparse
+       file, or in QCOW2 format.  Hence, if the sparse image file needs
+       to be copied to another location, it should either be compressed
+       first or copied using the <b>--sparse=always </b>option to the GNU
+       version of <a href="https://man7.org/linux/man-pages/man1/cp.1.html">cp(1)</a>.  This does not apply to the QCOW2 image, which
+       is not sparse.
+
+       The size of an ext2 image file depends primarily on the size of
+       the file systems and how many inodes are in use.  For a typical
+       10 Gigabyte file system, with 200,000 inodes in use out of 1.2
+       million inodes, the image file will be approximately 35
+       Megabytes; a 4 Gigabyte file system with 15,000 inodes in use out
+       of 550,000 inodes will result in a 3 Megabyte image file.  Image
+       files tend to be quite compressible; an image file taking up 32
+       Megabytes of space on disk will generally compress down to 3 or 4
+       Megabytes.
+
+       If <i>image-file</i> is <b>-</b>, then the output of <b>e2image </b>will be sent to
+       standard output, so that the output can be piped to another
+       program, such as <b>gzip</b>(1).  (Note that this is currently only
+       supported when creating a raw image file using the <b>-r </b>option,
+       since the process of creating a normal image file, or QCOW2 image
+       currently requires random access to the file, which cannot be
+       done using a pipe.
+</pre>

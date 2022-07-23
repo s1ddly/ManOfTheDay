@@ -1,0 +1,18 @@
+<pre>
+       <b>pmlogsize </b>prints information about the size of the index,
+       metadata and data sections of a Performance Co-Pilot (PCP)
+       archive.  The output is intended to guide improvements in archive
+       encoding format for PCP developers and to help trim <a href="https://man7.org/linux/man-pages/man1/pmlogger.1.html">pmlogger(1)</a>
+       configuration files to remove metrics that are bloating the PCP
+       archives with low-value data in production environments.
+
+       The <i>archive</i> arguments can be any mixture of the names of the
+       physical files of a PCP archive or the basename that is common to
+       all the component physical files in a single archive.  In the
+       latter case <i>archive</i> is replaced by a list of all of the matching
+       component file names.
+
+       Note the semantics is a little different to other PCP tools in
+       that <b>foo.meta </b>means <b>just </b>the file <b>foo.meta</b>, not <b>foo.index</b>,
+       <b>foo.meta</b>, <b>foo.0</b>, etc.
+</pre>

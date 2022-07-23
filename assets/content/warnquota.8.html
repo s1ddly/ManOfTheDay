@@ -1,0 +1,49 @@
+<pre>
+       <b>warnquota </b>checks the disk quota for specified local filesystems
+       (or for each local filesystem if none specified) and mails a
+       warning message to those users who have reached their softlimit.
+       It is typically run via <a href="https://man7.org/linux/man-pages/man8/cron.8.html">cron(8)</a>.
+
+       <b>-F, --format=</b><i>quotaformat</i>
+              Perform setting for specified format (ie. don't perform
+              format autodetection).  Possible format names are: <b>vfsold</b>
+              Original quota format with 16-bit UIDs / GIDs, <b>vfsv0 </b>Quota
+              format with 32-bit UIDs / GIDs, 64-bit space usage, 32-bit
+              inode usage and limits, <b>vfsv1 </b>Quota format with 64-bit
+              quota limits and usage, <b>xfs </b>Quota on XFS filesystem.
+
+       <b>-q, --quota-tab=</b><i>quotatab</i>
+              Use <i>quotatab</i> instead of <i>/etc/quotatab</i> as file with device
+              description strings (see <a href="https://man7.org/linux/man-pages/man5/quotatab.5.html">quotatab(5)</a> for syntax).
+
+       <b>-c, --config=</b><i>configfile</i>
+              Use <i>configfile</i> instead of <i>/etc/warnquota.conf</i> as
+              configuration file (see <a href="https://man7.org/linux/man-pages/man5/warnquota.conf.5.html">warnquota.conf(5)</a> for syntax).
+
+       <b>-a, --admins-file=</b><i>adminsfile</i>
+              Use <i>adminsfile</i> instead of <i>/etc/quotagrpadmins</i> as a file
+              with administrators of the groups (see <a href="https://man7.org/linux/man-pages/man5/quotagrpadmins.5.html">quotagrpadmins(5)</a>
+              for syntax).
+
+       <b>-u, --user</b>
+              check whether users are not exceeding quotas (default).
+
+       <b>-g, --group</b>
+              check whether groups are not exceeding quotas. If group is
+              exceeding quota a mail is sent to the user specified in
+              /etc/quotagrpadmins.
+
+       <b>-s, --human-readable[=</b><i>units</i>]
+              Try to report used space, number of used inodes and limits
+              in more appropriate units than the default ones. Units can
+              be also specified explicitely by an optional argument in
+              format [ <b>kgt </b>],[ <b>kgt </b>] where the first character specifies
+              space units and the second character specifies inode
+              units.
+
+       <b>-i, --no-autofs</b>
+              ignore mountpoints mounted by automounter.
+
+       <b>-d, --no-details</b>
+              do not attach quota report in email.
+</pre>

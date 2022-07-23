@@ -1,0 +1,30 @@
+<pre>
+       <a href="https://man7.org/linux/man-pages/man8/lvm.8.html">lvm(8)</a> includes two kinds of caching that can be used to improve
+       the performance of a Logical Volume (LV). When caching, varying
+       subsets of an LV's data are temporarily stored on a smaller,
+       faster device (e.g. an SSD) to improve the performance of the LV.
+
+       To do this with lvm, a new special LV is first created from the
+       faster device. This LV will hold the cache. Then, the new fast LV
+       is attached to the main LV by way of an lvconvert command.
+       lvconvert inserts one of the device mapper caching targets into
+       the main LV's i/o path. The device mapper target combines the
+       main LV and fast LV into a hybrid device that looks like the main
+       LV, but has better performance. While the main LV is being used,
+       portions of its data will be temporarily and transparently stored
+       on the special fast LV.
+
+       The two kinds of caching are:
+
+       • A read and write hot-spot cache, using the dm-cache kernel
+         module.  This cache tracks access patterns and adjusts its
+         content deliberately so that commonly used parts of the main LV
+         are likely to be found on the fast storage. LVM refers to this
+         using the LV type <b>cache</b>.
+
+       • A write cache, using the dm-writecache kernel module.  This
+         cache can be used with SSD or PMEM devices to speed up all
+         writes to the main LV. Data read from the main LV is not stored
+         in the cache, only newly written data.  LVM refers to this
+         using the LV type <b>writecache</b>.
+</pre>

@@ -1,0 +1,17 @@
+<pre>
+       <b>pmhostname </b>reports the name of the host <i>hostname</i> as returned by
+       <a href="https://man7.org/linux/man-pages/man3/gethostbyname.3.html">gethostbyname(3)</a>.
+
+       If <i>hostname</i> is not specified, then the local host name is
+       retrieved using <a href="https://man7.org/linux/man-pages/man2/gethostname.2.html">gethostname(2)</a> and this is than passed to
+       <a href="https://man7.org/linux/man-pages/man3/gethostbyname.3.html">gethostbyname(3)</a>.
+
+       <b>pmhostname </b>provides a service for shell scripts that mimics the
+       logic formerly used by Performance Co-Pilot applications when
+       trying to determine the official name of a host.  PCP
+       applications no longer use DNS-based heuristics, and therefore
+       this command is <i>deprecated</i>.
+
+       If <a href="https://man7.org/linux/man-pages/man3/gethostbyname.3.html">gethostbyname(3)</a> fails, the input host name (either <i>hostname</i>
+       or the result from calling <a href="https://man7.org/linux/man-pages/man2/gethostname.2.html">gethostname(2)</a>) is reported.
+</pre>

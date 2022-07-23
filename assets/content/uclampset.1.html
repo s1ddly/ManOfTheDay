@@ -1,0 +1,34 @@
+<pre>
+       <b>uclampset </b>sets or retrieves the utilization clamping attributes
+       of an existing <i>PID</i>, or runs <i>command</i> with the given attributes.
+
+       Utilization clamping is a new feature added in v5.3. It gives a
+       hint to the scheduler about the allowed range of utilization the
+       task should be operating at.
+
+       The utilization of the task affects frequency selection and task
+       placement. Only schedutil cpufreq governor understands handling
+       util clamp hints at the time of writing. Consult your kernel docs
+       for further info about other cpufreq governors support.
+
+       If you’re running on asymmetric heterogeneous system like Arm’s
+       big.LITTLE. Utilization clamping can help bias task placement. If
+       the task is boosted such that <i>util_min</i> value is higher than the
+       little cores' capacity, then the scheduler will do its best to
+       place it on a big core.
+
+       Similarly, if <i>util_max</i> is smaller than or equal the capacity of
+       the little cores, then the scheduler can still choose to place it
+       there even if the actual utilization of the task is at max.
+
+       Setting a task’s <i>uclamp_min</i> to a none zero value will effectively
+       boost the task as when it runs it’ll always start from this
+       utilization value.
+
+       By setting a task’s <i>uclamp_max</i> below 1024, this will effectively
+       cap the task as when it runs it’ll never be able to go above this
+       utilization value.
+
+       The full utilization range is: [0:1024]. The special value -1 is
+       used to reset to system’s default.
+</pre>

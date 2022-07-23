@@ -1,0 +1,24 @@
+<pre>
+       <b>Slapschema </b>is used to check schema compliance of the contents of
+       a <a href="https://man7.org/linux/man-pages/man8/slapd.8.html">slapd(8)</a> database.  It opens the given database determined by
+       the database number or suffix and checks the compliance of its
+       contents with the corresponding schema. Errors are written to
+       standard output or the specified file.  Databases configured as
+       <b>subordinate </b>of this one are also output, unless <b>-g </b>is specified.
+
+       Administrators may need to modify existing schema items,
+       including adding new required attributes to objectClasses,
+       removing existing required or allowed attributes from
+       objectClasses, entirely removing objectClasses, or any other
+       change that may result in making perfectly valid entries no
+       longer compliant with the modified schema.  The execution of the
+       <b>slapschema </b>tool after modifying the schema can point out
+       inconsistencies that would otherwise surface only when
+       inconsistent entries need to be modified.
+
+       The entry records are checked in database order, not superior
+       first order.  The entry records will be checked considering all
+       (user and operational) attributes stored in the database.
+       Dynamically generated attributes (such as subschemaSubentry) will
+       not be considered.
+</pre>

@@ -1,0 +1,54 @@
+<pre>
+       Output pieces of FILE separated by PATTERN(s) to files 'xx00',
+       'xx01', ..., and output byte counts of each piece to standard
+       output.
+
+       Read standard input if FILE is -
+
+       Mandatory arguments to long options are mandatory for short
+       options too.
+
+       <b>-b</b>, <b>--suffix-format</b>=<i>FORMAT</i>
+              use sprintf FORMAT instead of %02d
+
+       <b>-f</b>, <b>--prefix</b>=<i>PREFIX</i>
+              use PREFIX instead of 'xx'
+
+       <b>-k</b>, <b>--keep-files</b>
+              do not remove output files on errors
+
+       <b>--suppress-matched</b>
+              suppress the lines matching PATTERN
+
+       <b>-n</b>, <b>--digits</b>=<i>DIGITS</i>
+              use specified number of digits instead of 2
+
+       <b>-s</b>, <b>--quiet</b>, <b>--silent</b>
+              do not print counts of output file sizes
+
+       <b>-z</b>, <b>--elide-empty-files</b>
+              remove empty output files
+
+       <b>--help </b>display this help and exit
+
+       <b>--version</b>
+              output version information and exit
+
+   <b>Each PATTERN may be:</b>
+       INTEGER
+              copy up to but not including specified line number
+
+       /REGEXP/[OFFSET]
+              copy up to but not including a matching line
+
+       %REGEXP%[OFFSET]
+              skip to, but not including a matching line
+
+       {INTEGER}
+              repeat the previous pattern specified number of times
+
+       {*}    repeat the previous pattern as many times as possible
+
+       A line OFFSET is a required '+' or '-' followed by a positive
+       integer.
+</pre>

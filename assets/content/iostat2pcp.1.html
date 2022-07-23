@@ -1,0 +1,83 @@
+<pre>
+       <b>iostat2pcp </b>reads a text file created with <a href="https://man7.org/linux/man-pages/man1/iostat.1.html">iostat(1)</a> (<i>infile</i>) and
+       translates this into a Performance Co-Pilot (PCP) archive with
+       the basename <i>outfile</i>.  If <i>infile</i> is ``-'' then <i>iostat2pcp</i> reads
+       from standard input, allowing easy preprocessing of the <a href="https://man7.org/linux/man-pages/man1/iostat.1.html">iostat(1)</a>
+       output with <a href="https://man7.org/linux/man-pages/man1/sed.1.html">sed(1)</a> or similar.
+
+       The resultant PCP archive may be used with all the PCP client
+       tools to graph subsets of the data using <a href="https://man7.org/linux/man-pages/man1/pmchart.1.html">pmchart(1)</a>, perform data
+       reduction and reporting, filter with the PCP inference engine
+       <a href="https://man7.org/linux/man-pages/man1/pmie.1.html">pmie(1)</a>, etc.
+
+       A series of physical files will be created with the prefix
+       <i>outfile</i>.  These are <i>outfile</i><b>.0 </b>(the performance data),
+       <i>outfile</i><b>.meta </b>(the metadata that describes the performance data)
+       and <i>outfile</i><b>.index </b>(a temporal index to improve efficiency of
+       replay operations for the archive).  If any of these files exists
+       already, then <b>iostat2pcp </b>will <b>not </b>overwrite them and will exit
+       with an error message.
+
+       The first output sample from <a href="https://man7.org/linux/man-pages/man1/iostat.1.html">iostat(1)</a> contains a statistical
+       summary since boot time and is ignored by <i>iostat2pcp</i>, so the
+       first real data set is the second one in the <a href="https://man7.org/linux/man-pages/man1/iostat.1.html">iostat(1)</a> output.
+
+       The best results are obtained when <a href="https://man7.org/linux/man-pages/man1/iostat.1.html">iostat(1)</a> was run with its own
+       <b>-t </b>flag, so each output sample is prefixed with a timestamp.
+       Even better is <b>-t </b>with $<b>S_TIME_FORMAT=ISO </b>set in environment when
+       <a href="https://man7.org/linux/man-pages/man1/iostat.1.html">iostat(1)</a> is run, in which case the timestamp includes the
+       timezone.
+
+       Note that if $<b>S_TIME_FORMAT=ISO </b>is <b>not </b>used with the <b>-t </b>option
+       then <a href="https://man7.org/linux/man-pages/man1/iostat.1.html">iostat(1)</a> may produce a timestamp controlled by <b>LC_TIME </b>from
+       the locale that is in a format <i>iostat2pcp</i> cannot parse.  The
+       formats for the timestamp that <i>iostat2pcp</i> accepts are illustrated
+       by these examples:
+
+       <b>2013-07-06T21:34:39+1000</b>
+           (for the $<b>S_TIME_FORMAT=ISO</b>).
+
+       <b>2013-07-06 21:34:39</b>
+           (for some of the European formats, e.g. de_AT, de_BE, de_LU
+           and en_DK.utf8).
+
+       <b>06/07/13 21:34:39</b>
+           (for all of the $<b>LC_TIME </b>settings for English locales outside
+           North America, e.g. en_AU, en_GB, en_IE, en_NZ, en_SG and
+           en_ZA, and all the Spanish locales, e.g. es_ES, es_MX and
+           es_AR).
+
+       In particular, note that some common North American $<b>LC_TIME</b>
+       settings will <b>not </b>work with <i>iostat2pcp</i> (namely, en_US, POSIX and
+       C) because they use the MM/DD format which may be incorrectly
+       converted with the assumed DD/MM format.  This is another reason
+       to recommend setting $<b>S_TIME_FORMAT=ISO</b>.
+
+       If there are no timestamps in the input stream, <i>iostat2pcp</i> will
+       try and deduce the sample interval if basic Disk data (<b>-d </b>option
+       for <a href="https://man7.org/linux/man-pages/man1/iostat.1.html">iostat(1)</a>) is found.  If this fails, then the <b>-t </b>option may
+       be used to specify the sample <i>interval</i> in seconds.  This option
+       is ignored if timestamps are found in the input stream.
+
+       The <b>-S </b>option may be used to specify as start time for the first
+       real sample in <i>infile</i>, where <i>start</i> must have the format HH:MM:SS.
+       This option is ignored if timestamps are found in the input
+       stream.
+
+       The <b>-Z </b>option may be used to specify a timezone.  It must have
+       the format +HHMM (for hours and minutes East of UTC) or -HHMM
+       (for hours and minutes West of UTC).  Note in particular that
+       <b>neither </b>the <b>zoneinfo </b>(aka Olson) format, e.g. Europe/Paris, nor
+       the Posix <b>TZ </b>format, e.g.  EST+5 is allowed for the <b>-Z </b>option.
+       This option is ignored if ISO timestamps are found in the input
+       stream.  If the timezone is not specified and cannot be deduced,
+       it defaults to ``UTC''.
+
+       Some additional diagnostic output is generated with the <b>-v</b>
+       option.
+
+       <b>iostat2pcp </b>is a Perl script that uses the PCP::LogImport Perl
+       wrapper around the PCP <i>libpcp_import</i> library, and as such could
+       be used as an example to develop new tools to import other types
+       of performance data and create PCP archives.
+</pre>

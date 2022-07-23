@@ -1,0 +1,29 @@
+<pre>
+       jailcheck attaches itself to all sandboxes started by the user
+       and performs some basic tests on the sandbox filesystem:
+
+       <b>1. Virtual directories</b>
+              jailcheck extracts a list with the main virtual
+              directories installed by the sandbox.  These directories
+              are build by firejail at startup using --private* and
+              --whitelist commands.
+
+       <b>2. Noexec test</b>
+              jailcheck inserts executable programs in /home/username,
+              /tmp, and /var/tmp directories and tries to run them from
+              inside the sandbox, thus testing if the directory is
+              executable or not.
+
+       <b>3. Read access test</b>
+              jailcheck creates test files in the directories specified
+              by the user and tries to read them from inside the
+              sandbox.
+
+       <b>4. AppArmor test</b>
+
+       <b>5. Seccomp test</b>
+
+       <b>6. Networking test</b>
+
+       The program is started as root using sudo.
+</pre>

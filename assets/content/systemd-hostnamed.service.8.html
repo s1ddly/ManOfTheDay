@@ -1,0 +1,30 @@
+<pre>
+       systemd-hostnamed.service is a system service that may be used to
+       change the system's hostname and related machine metadata from
+       user programs. It is automatically activated on request and
+       terminates itself when unused.
+
+       It currently offers access to five variables:
+
+       •   The current hostname (Example: "dhcp-192-168-47-11")
+
+       •   The static (configured) hostname (Example:
+           "lennarts-computer")
+
+       •   The pretty hostname (Example: "Lennart's Computer")
+
+       •   A suitable icon name for the local host (Example:
+           "computer-laptop")
+
+       •   A chassis type (Example: "tablet")
+
+       The static hostname is stored in /etc/hostname, see <a href="https://man7.org/linux/man-pages/man5/hostname.5.html">hostname(5)</a>
+       for more information. The pretty hostname, chassis type, and icon
+       name are stored in /etc/machine-info, see <a href="https://man7.org/linux/man-pages/man5/machine-info.5.html">machine-info(5)</a>.
+
+       The tool <a href="https://man7.org/linux/man-pages/man1/hostnamectl.1.html">hostnamectl(1)</a> is a command line client to this service.
+
+       See <a href="https://man7.org/linux/man-pages/man5/org.freedesktop.hostname1.5.html">org.freedesktop.hostname1(5)</a> and
+       <a href="https://man7.org/linux/man-pages/man5/org.freedesktop.LogControl1.5.html">org.freedesktop.LogControl1(5)</a> for a description of the D-Bus
+       API.
+</pre>

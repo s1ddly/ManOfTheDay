@@ -1,0 +1,46 @@
+<pre>
+       The <b>resize2fs </b>program will resize ext2, ext3, or ext4 file
+       systems.  It can be used to enlarge or shrink an unmounted file
+       system located on <i>device</i>.  If the file system is mounted, it can
+       be used to expand the size of the mounted file system, assuming
+       the kernel and the file system supports on-line resizing.
+       (Modern Linux 2.6 kernels will support on-line resize for file
+       systems mounted using ext3 and ext4; ext3 file systems will
+       require the use of file systems with the resize_inode feature
+       enabled.)
+
+       The <i>size</i> parameter specifies the requested new size of the file
+       system.  If no units are specified, the units of the <i>size</i>
+       parameter shall be the file system blocksize of the file system.
+       Optionally, the <i>size</i> parameter may be suffixed by one of the
+       following units designators: 'K', 'M', 'G', 'T' (either upper-
+       case or lower-case) or 's' for power-of-two kilobytes, megabytes,
+       gigabytes, terabytes or 512 byte sectors respectively. The <i>size</i>
+       of the file system may never be larger than the size of the
+       partition.  If <i>size</i> parameter is not specified, it will default
+       to the size of the partition.
+
+       The <b>resize2fs </b>program does not manipulate the size of partitions.
+       If you wish to enlarge a file system, you must make sure you can
+       expand the size of the underlying partition first.  This can be
+       done using <a href="https://man7.org/linux/man-pages/man8/fdisk.8.html">fdisk(8)</a> by deleting the partition and recreating it
+       with a larger size or using <a href="https://man7.org/linux/man-pages/man8/lvextend.8.html">lvextend(8)</a>, if you're using the
+       logical volume manager <a href="https://man7.org/linux/man-pages/man8/lvm.8.html">lvm(8)</a>.  When recreating the partition,
+       make sure you create it with the same starting disk cylinder as
+       before!  Otherwise, the resize operation will certainly not work,
+       and you may lose your entire file system.  After running
+       <a href="https://man7.org/linux/man-pages/man8/fdisk.8.html">fdisk(8)</a>, run resize2fs to resize the ext2 file system to use all
+       of the space in the newly enlarged partition.
+
+       If you wish to shrink an ext2 partition, first use <b>resize2fs </b>to
+       shrink the size of file system.  Then you may use <a href="https://man7.org/linux/man-pages/man8/fdisk.8.html">fdisk(8)</a> to
+       shrink the size of the partition.  When shrinking the size of the
+       partition, make sure you do not make it smaller than the new size
+       of the ext2 file system!
+
+       The <b>-b </b>and <b>-s </b>options enable and disable the 64bit feature,
+       respectively.  The resize2fs program will, of course, take care
+       of resizing the block group descriptors and moving other data
+       blocks out of the way, as needed.  It is not possible to resize
+       the file system concurrent with changing the 64bit status.
+</pre>

@@ -1,0 +1,61 @@
+<pre>
+       The <b>rpc.mountd </b>daemon implements the server side of the NFS MOUNT
+       protocol, an NFS side protocol used by NFS version 2 [RFC1094]
+       and NFS version 3 [RFC1813].  It also responds to requests from
+       the Linux kernel to authenticate clients and provides details of
+       access permissions.
+
+       The NFS server (<i>nfsd</i>) maintains a cache of authentication and
+       authorization information which is used to identify the source of
+       each request, and then what access permissions that source has to
+       any local filesystem.  When required information is not found in
+       the cache, the server sends a request to <b>mountd </b>to fill in the
+       missing information.  Mountd uses a table of information stored
+       in <b>/var/lib/nfs/etab </b>and maintained by <a href="https://man7.org/linux/man-pages/man8/exportfs.8.html">exportfs(8)</a>, possibly
+       based on the contents of <a href="https://man7.org/linux/man-pages/man5/exports.5.html">exports(5)</a>, to respond to each request.
+
+   <b>Mounting exported NFS File Systems</b>
+       The NFS MOUNT protocol has several procedures.  The most
+       important of these are MNT (mount an export) and UMNT (unmount an
+       export).
+
+       A MNT request has two arguments: an explicit argument that
+       contains the pathname of the root directory of the export to be
+       mounted, and an implicit argument that is the sender's IP
+       address.
+
+       When receiving a MNT request from an NFS client, <b>rpc.mountd</b>
+       checks both the pathname and the sender's IP address against its
+       export table.  If the sender is permitted to access the requested
+       export, <b>rpc.mountd </b>returns an NFS file handle for the export's
+       root directory to the client.  The client can then use the root
+       file handle and NFS LOOKUP requests to navigate the directory
+       structure of the export.
+
+   <b>The rmtab File</b>
+       The <b>rpc.mountd </b>daemon registers every successful MNT request by
+       adding an entry to the <i>/var/lib/nfs/rmtab</i> file.  When receivng a
+       UMNT request from an NFS client, <b>rpc.mountd </b>simply removes the
+       matching entry from <i>/var/lib/nfs/rmtab</i>, as long as the access
+       control list for that export allows that sender to access the
+       export.
+
+       Clients can discover the list of file systems an NFS server is
+       currently exporting, or the list of other clients that have
+       mounted its exports, by using the <a href="https://man7.org/linux/man-pages/man8/showmount.8.html">showmount(8)</a> command.
+       <a href="https://man7.org/linux/man-pages/man8/showmount.8.html">showmount(8)</a> uses other procedures in the NFS MOUNT protocol to
+       report information about the server's exported file systems.
+
+       Note, however, that there is little to guarantee that the
+       contents of <i>/var/lib/nfs/rmtab</i> are accurate.  A client may
+       continue accessing an export even after invoking UMNT.  If the
+       client reboots without sending a UMNT request, stale entries
+       remain for that client in <i>/var/lib/nfs/rmtab</i>.
+
+   <b>Mounting File Systems with NFSv4</b>
+       Version 4 (and later) of NFS does not use a separate NFS MOUNT
+       protocol.  Instead mounting is performed using regular NFS
+       requests handled by the NFS server in the Linux kernel (<i>nfsd</i>).
+       Consequently <i>/var/lib/nfs/rmtab</i> is not updated to reflect any
+       NFSv4 activity.
+</pre>

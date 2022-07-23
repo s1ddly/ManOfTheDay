@@ -1,0 +1,33 @@
+<pre>
+       <b>portablectl </b>may be used to attach, detach or inspect portable
+       service images. It's primarily a command interfacing with
+       <a href="https://man7.org/linux/man-pages/man8/systemd-portabled.service.8.html">systemd-portabled.service(8)</a>.
+
+       Portable service images contain an OS file system tree along with
+       <a href="https://man7.org/linux/man-pages/man1/systemd.1.html">systemd(1)</a> unit file information. A service image may be
+       "attached" to the local system. If attached, a set of unit files
+       are copied from the image to the host, and extended with
+       <i>RootDirectory=</i> or <i>RootImage=</i> assignments (in case of service
+       units) pointing to the image file or directory, ensuring the
+       services will run within the file system context of the image.
+
+       Portable service images are an efficient way to bundle multiple
+       related services and other units together, and transfer them as a
+       whole between systems. When these images are attached the local
+       system the contained units may run in most ways like regular
+       system-provided units, either with full privileges or inside
+       strict sandboxing, depending on the selected configuration.
+
+       Specifically portable service images may be of the following
+       kind:
+
+       •   Directory trees containing an OS, including the top-level
+           directories /usr/, /etc/, and so on.
+
+       •   btrfs subvolumes containing OS trees, similar to normal
+           directory trees.
+
+       •   Binary "raw" disk images containing MBR or GPT partition
+           tables and Linux file system partitions. (These must be
+           regular files, with the .raw suffix.)
+</pre>

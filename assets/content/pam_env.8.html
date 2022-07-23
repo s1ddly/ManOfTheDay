@@ -1,0 +1,23 @@
+<pre>
+       The pam_env PAM module allows the (un)setting of environment
+       variables. Supported is the use of previously set environment
+       variables as well as <i>PAM_ITEM</i>s such as <i>PAM_RHOST</i>.
+
+       By default rules for (un)setting of variables are taken from the
+       config file /etc/security/pam_env.conf. An alternate file can be
+       specified with the <i>conffile</i> option.
+
+       Second a file (/etc/environment by default) with simple <i>KEY=VAL</i>
+       pairs on separate lines will be read. With the <i>envfile</i> option an
+       alternate file can be specified. And with the <i>readenv</i> option this
+       can be completly disabled.
+
+       Third it will read a user configuration file
+       ($HOME/.pam_environment by default). The default file file can be
+       changed with the <i>user_envfile</i> option and it can be turned on and
+       off with the <i>user_readenv</i> option.
+
+       Since setting of PAM environment variables can have side effects
+       to other modules, this module should be the last one on the
+       stack.
+</pre>

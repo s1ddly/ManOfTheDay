@@ -1,0 +1,17 @@
+<pre>
+       The <i>stapbpf</i> program is the BPF back-end of the Systemtap tool.
+       It expects a bpf-elf file produced by the front-end <i>stap</i> tool,
+       when run with <i>--runtime=bpf</i>.
+
+       Splitting the systemtap tool into a front-end and a back-end
+       allows a user to compile a systemtap script on a development
+       machine that has the debugging information needed to compile the
+       script and then transfer the resulting shared object to a
+       production machine that doesn't have any development tools or
+       debugging information installed.
+
+       Please refer to <a href="https://man7.org/linux/man-pages/man7/stappaths.7.html">stappaths(7)</a> for the version number, or run
+
+        $ rpm -q systemtap # (for Fedora/RHEL)
+        $ apt-get -v systemtap # (for Ubuntu)
+</pre>

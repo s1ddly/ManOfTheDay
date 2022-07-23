@@ -1,0 +1,30 @@
+<pre>
+       The <b>setfont </b>command reads a font from the file <i>font.new</i> and loads
+       it into the EGA/VGA character generator, and optionally outputs
+       the previous font.  It can also load various mapping tables and
+       output the previous versions.
+
+       If no args are given (or only the option -<i>N</i> for some number <i>N</i>),
+       then a default (8x<i>N</i>) font is loaded (see below).  One may give
+       several small fonts, all containing a Unicode table, and <b>setfont</b>
+       will combine them and load the union.  Typical use:
+
+       <b>setfont</b>
+              Load a default font.
+
+       <b>setfont drdos8x16</b>
+              Load a given font (here the 448-glyph drdos font).
+
+       <b>setfont cybercafe -u cybercafe</b>
+              Load a given font that does not have a Unicode map and
+              provide one explicitly.
+
+       <b>setfont LatArCyrHeb-19 -m 8859-2</b>
+              Load a given font (here a 512-glyph font combining several
+              character sets) and indicate that one's local character
+              set is ISO 8859-2.
+
+       Note: if a font has more than 256 glyphs, only 8 out of 16 colors
+       can be used simultaneously. It can make console perception worse
+       (loss of intensity and even some colors).
+</pre>

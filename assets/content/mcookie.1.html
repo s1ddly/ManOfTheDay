@@ -1,0 +1,11 @@
+<pre>
+       <b>mcookie </b>generates a 128-bit random hexadecimal number for use
+       with the X authority system. Typical usage:
+
+          <b>xauth add :0 . </b>mcookie
+
+       The "random" number generated is actually the MD5 message digest
+       of random information coming from one of the sources <a href="https://man7.org/linux/man-pages/man2/getrandom.2.html">getrandom(2)</a>
+       system call, <i>/dev/urandom</i>, <i>/dev/random</i>, or the <i>libc pseudo-random</i>
+       <i>functions</i>, in this preference order. See also the option <b>--file</b>.
+</pre>

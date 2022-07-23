@@ -1,0 +1,76 @@
+<pre>
+       <b>systemd-machined </b>is a system service that keeps track of locally
+       running virtual machines and containers.
+
+       <b>systemd-machined </b>is useful for registering and keeping track of
+       both OS containers (containers that share the host kernel but run
+       a full init system of their own and behave in most regards like a
+       full virtual operating system rather than just one virtualized
+       app) and full virtual machines (virtualized hardware running
+       normal operating systems and possibly different kernels).
+
+       <b>systemd-machined </b>should <i>not</i> be used for registering/keeping track
+       of application sandbox containers. A <i>machine</i> in the context of
+       <b>systemd-machined </b>is supposed to be an abstract term covering both
+       OS containers and full virtual machines, but not application
+       sandboxes.
+
+       Machines registered with machined are exposed in various ways in
+       the system. For example:
+
+       •   Tools like <a href="https://man7.org/linux/man-pages/man1/ps.1.html">ps(1)</a> will show to which machine a specific
+           process belongs in a column of its own, and so will
+           <b>gnome-system-monitor</b><b></b>[1] or <a href="https://man7.org/linux/man-pages/man1/systemd-cgls.1.html">systemd-cgls(1)</a>.
+
+       •   systemd's various tools (<a href="https://man7.org/linux/man-pages/man1/systemctl.1.html">systemctl(1)</a>, <a href="https://man7.org/linux/man-pages/man1/journalctl.1.html">journalctl(1)</a>,
+           <a href="https://man7.org/linux/man-pages/man1/loginctl.1.html">loginctl(1)</a>, <a href="https://man7.org/linux/man-pages/man1/hostnamectl.1.html">hostnamectl(1)</a>, <a href="https://man7.org/linux/man-pages/man1/timedatectl.1.html">timedatectl(1)</a>, <a href="https://man7.org/linux/man-pages/man1/localectl.1.html">localectl(1)</a>,
+           <a href="https://man7.org/linux/man-pages/man1/machinectl.1.html">machinectl(1)</a>, ...) support the <b>-M </b>switch to operate on local
+           containers instead of the host system.
+
+       •   <b>systemctl list-machines </b>will show the system state of all
+           local containers, connecting to the container's init system
+           for that.
+
+       •   systemctl's <b>--recursive </b>switch has the effect of not only
+           showing the locally running services, but recursively showing
+           the services of all registered containers.
+
+       •   The <b>machinectl </b>command provides access to a number of useful
+           operations on registered containers, such as introspecting
+           them, rebooting, shutting them down, and getting a login
+           prompt on them.
+
+       •   The <a href="https://man7.org/linux/man-pages/man3/sd-bus.3.html">sd-bus(3)</a> library exposes the
+           <a href="https://man7.org/linux/man-pages/man3/sd_bus_open_system_machine.3.html">sd_bus_open_system_machine(3)</a> call to connect to the system
+           bus of any registered container.
+
+       •   The <a href="https://man7.org/linux/man-pages/man8/nss-mymachines.8.html">nss-mymachines(8)</a> module makes sure all registered
+           containers can be resolved via normal glibc <a href="https://man7.org/linux/man-pages/man3/gethostbyname.3.html">gethostbyname(3)</a>
+           or <a href="https://man7.org/linux/man-pages/man3/getaddrinfo.3.html">getaddrinfo(3)</a> calls.
+
+       See <a href="https://man7.org/linux/man-pages/man1/systemd-nspawn.1.html">systemd-nspawn(1)</a> for some examples on how to run containers
+       with OS tools.
+
+       If you are interested in writing a VM or container manager that
+       makes use of machined, please have look at <b>Writing Virtual</b>
+       <b>Machine or Container Managers</b><b></b>[2]. Also see the <b>New Control Group</b>
+       <b>Interfaces</b><b></b>[3].
+
+       The daemon provides both a C library interface (which is shared
+       with <a href="https://man7.org/linux/man-pages/man8/systemd-logind.service.8.html">systemd-logind.service(8)</a>) as well as a D-Bus interface. The
+       library interface may be used to introspect and watch the state
+       of virtual machines/containers. The bus interface provides the
+       same but in addition may also be used to register or terminate
+       machines. For more information please consult <a href="https://man7.org/linux/man-pages/man3/sd-login.3.html">sd-login(3)</a> and
+       <a href="https://man7.org/linux/man-pages/man5/org.freedesktop.machine1.5.html">org.freedesktop.machine1(5)</a> and <a href="https://man7.org/linux/man-pages/man5/org.freedesktop.LogControl1.5.html">org.freedesktop.LogControl1(5)</a>.
+
+       A small companion daemon <a href="https://man7.org/linux/man-pages/man8/systemd-importd.service.8.html">systemd-importd.service(8)</a> is also
+       available, which implements importing, exporting, and downloading
+       of container and VM images.
+
+       For each container registered with systemd-machined.service that
+       employs user namespacing, users/groups are synthesized for the
+       used UIDs/GIDs. These are made available to the system using the
+       <b>User/Group Record Lookup API via Varlink</b><b></b>[4], and thus may be
+       resolved with <a href="https://man7.org/linux/man-pages/man1/userdbctl.1.html">userdbctl(1)</a> or the usual glibc NSS calls.
+</pre>

@@ -1,0 +1,46 @@
+<pre>
+       Generators are small executables placed in
+       /usr/lib/systemd/system-generators/ and other directories listed
+       above.  <a href="https://man7.org/linux/man-pages/man1/systemd.1.html">systemd(1)</a> will execute these binaries very early at
+       bootup and at configuration reload time — before unit files are
+       loaded. Their main purpose is to convert configuration that is
+       not native to the service manager into dynamically generated unit
+       files, symlinks or unit file drop-ins, so that they can extend
+       the unit file hierarchy the service manager subsequently loads
+       and operates on.
+
+       Each generator is called with three directory paths that are to
+       be used for generator output. In these three directories,
+       generators may dynamically generate unit files (regular ones,
+       instances, as well as templates), unit file .d/ drop-ins, and
+       create symbolic links to unit files to add additional
+       dependencies, create aliases, or instantiate existing templates.
+       Those directories are included in the unit load path of
+       <a href="https://man7.org/linux/man-pages/man1/systemd.1.html">systemd(1)</a>, allowing generated configuration to extend or
+       override existing definitions.
+
+       Directory paths for generator output differ by priority:
+       .../generator.early has priority higher than the admin
+       configuration in /etc/, while .../generator has lower priority
+       than /etc/ but higher than vendor configuration in /usr/, and
+       .../generator.late has priority lower than all other
+       configuration. See the next section and the discussion of unit
+       load paths and unit overriding in <a href="https://man7.org/linux/man-pages/man5/systemd.unit.5.html">systemd.unit(5)</a>.
+
+       Generators are loaded from a set of paths determined during
+       compilation, as listed above. System and user generators are
+       loaded from directories with names ending in system-generators/
+       and user-generators/, respectively. Generators found in
+       directories listed earlier override the ones with the same name
+       in directories lower in the list. A symlink to /dev/null or an
+       empty file can be used to mask a generator, thereby preventing it
+       from running. Please note that the order of the two directories
+       with the highest priority is reversed with respect to the unit
+       load path, and generators in /run/ overwrite those in /etc/.
+
+       After installing new generators or updating the configuration,
+       <b>systemctl daemon-reload </b>may be executed. This will delete the
+       previous configuration created by generators, re-run all
+       generators, and cause <b>systemd </b>to reload units from disk. See
+       <a href="https://man7.org/linux/man-pages/man1/systemctl.1.html">systemctl(1)</a> for more information.
+</pre>

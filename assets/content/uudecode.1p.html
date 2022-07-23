@@ -1,0 +1,31 @@
+<pre>
+       The <i>uudecode</i> utility shall read a file, or standard input if no
+       file is specified, that includes data created by the <i>uuencode</i>
+       utility. The <i>uudecode</i> utility shall scan the input file,
+       searching for data compatible with one of the formats specified
+       in <i>uuencode</i>, and attempt to create or overwrite the file
+       described by the data (or overridden by the <b>-o </b>option). The
+       pathname shall be contained in the data or specified by the <b>-o</b>
+       option. The file access permission bits and contents for the file
+       to be produced shall be contained in that data. The mode bits of
+       the created file (other than standard output) shall be set from
+       the file access permission bits contained in the data; that is,
+       other attributes of the mode, including the file mode creation
+       mask (see <i>umask</i>), shall not affect the file being produced. If
+       either of the <i>op</i> characters <b>'+' </b>and <b>'-' </b>(see <i>chmod</i>) are specified
+       in symbolic mode, the initial mode on which those operations are
+       based is unspecified.
+
+       If the pathname of the file resolves to an existing file and the
+       user does not have write permission on that file, <i>uudecode</i> shall
+       terminate with an error. If the pathname of the file resolves to
+       an existing file and the user has write permission on that file,
+       the existing file shall be overwritten and, if possible, the mode
+       bits of the file (other than standard output) shall be set as
+       described above; if the mode bits cannot be set, <i>uudecode</i> shall
+       not treat this as an error.
+
+       If the input data was produced by <i>uuencode</i> on a system with a
+       different number of bits per byte than on the target system, the
+       results of <i>uudecode</i> are unspecified.
+</pre>

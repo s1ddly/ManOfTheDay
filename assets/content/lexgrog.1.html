@@ -1,0 +1,14 @@
+<pre>
+       <b>lexgrog </b>is an implementation of the traditional “groff guess”
+       utility in <b>lex</b>.  It reads the list of files on its command line
+       as either man page source files or preformatted “cat” pages, and
+       displays their name and description as used by <b>apropos </b>and
+       <b>whatis</b>, the list of preprocessing filters required by the man
+       page before it is passed to <b>nroff </b>or <b>troff</b>, or both.
+
+       If its input is badly formatted, <b>lexgrog </b>will print “parse
+       failed”; this may be useful for external programs that need to
+       check man pages for correctness.  If one of <b>lexgrog</b>'s input files
+       is “-”, it will read from standard input; if any input file is
+       compressed, a decompressed version will be read automatically.
+</pre>

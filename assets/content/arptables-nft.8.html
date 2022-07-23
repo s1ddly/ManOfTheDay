@@ -1,0 +1,44 @@
+<pre>
+       <b>arptables </b>is a user space tool, it is used to set up and maintain
+       the tables of ARP rules in the Linux kernel. These rules inspect
+       the ARP frames which they see.  <b>arptables </b>is analogous to the
+       <b>iptables </b>user space tool, but <b>arptables </b>is less complicated.
+
+   <b>CHAINS</b>
+       The kernel table is used to divide functionality into different
+       sets of rules. Each set of rules is called a chain.  Each chain
+       is an ordered list of rules that can match ARP frames. If a rule
+       matches an ARP frame, then a processing specification tells what
+       to do with that matching frame. The processing specification is
+       called a 'target'. However, if the frame does not match the
+       current rule in the chain, then the next rule in the chain is
+       examined and so forth.  The user can create new (user-defined)
+       chains which can be used as the 'target' of a rule.
+
+   <b>TARGETS</b>
+       A firewall rule specifies criteria for an ARP frame and a frame
+       processing specification called a target.  When a frame matches a
+       rule, then the next action performed by the kernel is specified
+       by the target.  The target can be one of these values: <i>ACCEPT</i>,
+       <i>DROP</i>, <i>CONTINUE</i>, <i>RETURN</i>, an 'extension' (see below) or a user-
+       defined chain.
+
+       <i>ACCEPT</i> means to let the frame through.  <i>DROP</i> means the frame has
+       to be dropped.  <i>CONTINUE</i> means the next rule has to be checked.
+       This can be handy to know how many frames pass a certain point in
+       the chain or to log those frames.  <i>RETURN</i> means stop traversing
+       this chain and resume at the next rule in the previous (calling)
+       chain.  For the extension targets please see the <b>TARGET</b>
+       <b>EXTENSIONS </b>section of this man page.
+
+   <b>TABLES</b>
+       There is only one ARP table in the Linux kernel.  The table is
+       <b>filter.  </b>You can drop the '-t filter' argument to the arptables
+       command.  The -t argument must be the first argument on the
+       arptables command line, if used.
+
+       <b>-t, --table</b>
+              <b>filter</b>, is the only table and contains two built-in
+              chains: <b>INPUT </b>(for frames destined for the host) and
+              <b>OUTPUT </b>(for locally-generated frames).
+</pre>

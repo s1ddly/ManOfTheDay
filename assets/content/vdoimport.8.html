@@ -1,0 +1,8 @@
+<pre>
+       vdoimport utility imports VDO volumes created and managed by
+       <b>vdo</b>(8) manager into <b>lvm2</b>(8) managed VDO LV. This is realized by
+       moving VDO superblock by 2MiB and creating lvm2 metadata at the
+       front of this device. The operation is not reversible, thus after
+       conversion to lvm2 the access to VDO data is only possible with
+       <b>lvm2</b>(8) commands, <b>vdo</b>(8) manager no longer control such volume.
+</pre>

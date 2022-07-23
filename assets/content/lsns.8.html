@@ -1,0 +1,23 @@
+<pre>
+       <b>lsns </b>lists information about all the currently accessible
+       namespaces or about the given <i>namespace</i>. The <i>namespace</i> identifier
+       is an inode number.
+
+       The default output is subject to change. So whenever possible,
+       you should avoid using default outputs in your scripts. Always
+       explicitly define expected output mode (<b>--tree </b>or <b>--list</b>) and
+       columns by using the <b>--output </b>option together with a columns list
+       in environments where a stable output is required.
+
+       The <b>NSFS </b>column, printed when <b>net </b>is specified for the <b>--type</b>
+       option, is special; it uses multi-line cells. Use the option
+       <b>--nowrap </b>to switch to ","-separated single-line representation.
+
+       Note that <b>lsns </b>reads information directly from the <i>/proc</i>
+       filesystem and for non-root users it may return incomplete
+       information. The current <i>/proc</i> filesystem may be unshared and
+       affected by a PID namespace (see <b>unshare --mount-proc </b>for more
+       details). <b>lsns </b>is not able to see persistent namespaces without
+       processes where the namespace instance is held by a bind mount to
+       /proc/<i>pid</i>/ns/<i>type</i>.
+</pre>

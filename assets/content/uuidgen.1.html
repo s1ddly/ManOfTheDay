@@ -1,0 +1,27 @@
+<pre>
+       The <b>uuidgen </b>program creates (and prints) a new universally unique
+       identifier (UUID) using the <b>libuuid</b>(3) library. The new UUID can
+       reasonably be considered unique among all UUIDs created on the
+       local system, and among UUIDs created on other systems in the
+       past and in the future.
+
+       There are three types of UUIDs which <b>uuidgen </b>can generate:
+       time-based UUIDs, random-based UUIDs, and hash-based UUIDs. By
+       default <b>uuidgen </b>will generate a random-based UUID if a
+       high-quality random number generator is present. Otherwise, it
+       will choose a time-based UUID. It is possible to force the
+       generation of one of these first two UUID types by using the
+       <b>--random </b>or <b>--time </b>options.
+
+       The third type of UUID is generated with the <b>--md5 </b>or <b>--sha1</b>
+       options, followed by <b>--namespace </b><i>namespace</i> and <b>--name </b><i>name</i>. The
+       <i>namespace</i> may either be a well-known UUID, or else an alias to
+       one of the well-known UUIDs defined in RFC 4122, that is <b>@dns</b>,
+       <b>@url</b>, <b>@oid</b>, or <b>@x500</b>. The <i>name</i> is an arbitrary string value. The
+       generated UUID is the digest of the concatenation of the
+       namespace UUID and the name value, hashed with the MD5 or SHA1
+       algorithms. It is, therefore, a predictable value which may be
+       useful when UUIDs are being used as handles or nonces for more
+       complex values or values which shouldn’t be disclosed directly.
+       See the RFC for more information.
+</pre>

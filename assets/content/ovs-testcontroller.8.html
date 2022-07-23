@@ -1,0 +1,49 @@
+<pre>
+       <b>ovs-testcontroller </b>is a simple OpenFlow controller that manages
+       any number of switches over the OpenFlow protocol, causing them
+       to function as L2 MAC-learning switches or hubs.  It is suitable
+       for initial testing of OpenFlow networks.  It is not a necessary
+       or desirable part of a production OpenFlow deployment.
+
+       <b>ovs-testcontroller </b>controls one or more OpenFlow switches,
+       specified as one or more of the following OpenFlow connection
+       methods:
+
+              <b>pssl:</b>[<i>port</i>][<b>:</b><i>host</i>]
+              <b>ptcp:</b>[<i>port</i>][<b>:</b><i>host</i>]
+                     Listens for OpenFlow connections on <i>port</i>.  The
+                     default <i>port</i> is 6653.  By default, connections are
+                     allowed from any IPv4 address.  Specify <i>host</i> as an
+                     IPv4 address or a bracketed IPv6 address (e.g.
+                     <b>ptcp:6653:[::1]</b>).  On Linux, use <b>%</b><i>device</i> to
+                     designate a scope for IPv6 link-level addresses,
+                     e.g. <b>ptcp:6653:[fe80::1234%eth0]</b>.  DNS names can be
+                     used if built with unbound library.  For <b>pssl</b>, the
+                     <b>--private-key</b>,<b>--certificate</b>, and <b>--ca-cert </b>options
+                     are mandatory.
+
+              <b>punix:</b><i>file</i>
+                     Listens for OpenFlow connections on the Unix domain
+                     server socket named <i>file</i>.
+
+              <b>ssl:</b><i>host</i>[<b>:</b><i>port</i>]
+              <b>tcp:</b><i>host</i>[<b>:</b><i>port</i>]
+                     The specified <i>port</i> on the given <i>host</i>, which can be
+                     expressed either as a DNS name (if built with
+                     unbound library) or an IP address in IPv4 or IPv6
+                     address format.  Wrap IPv6 addresses in square
+                     brackets, e.g. <b>tcp:[::1]:6653</b>.  On Linux, use
+                     <b>%</b><i>device</i> to designate a scope for IPv6 link-level
+                     addresses, e.g. <b>tcp:[fe80::1234%eth0]:6653</b>.  For
+                     <b>ssl</b>, the <b>--private-key</b>, <b>--certificate</b>, and
+                     <b>--ca-cert </b>options are mandatory.
+
+                     If <i>port</i> is not specified, it defaults to 6653.
+
+              <b>unix:</b><i>file</i>
+                     On POSIX, a Unix domain server socket named <i>file</i>.
+
+                     On Windows, connect to a local named pipe that is
+                     represented by a file created in the path <i>file</i> to
+                     mimic the behavior of a Unix domain socket.
+</pre>

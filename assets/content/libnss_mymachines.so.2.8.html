@@ -1,0 +1,34 @@
+<pre>
+       <b>nss-mymachines </b>is a plug-in module for the GNU Name Service
+       Switch (NSS) functionality of the GNU C Library (<b>glibc</b>),
+       providing hostname resolution for the names of containers running
+       locally that are registered with <a href="https://man7.org/linux/man-pages/man8/systemd-machined.service.8.html">systemd-machined.service(8)</a>. The
+       container names are resolved to the IP addresses of the specific
+       container, ordered by their scope. This functionality only
+       applies to containers using network namespacing (see the
+       description of <b>--private-network </b>in <a href="https://man7.org/linux/man-pages/man1/systemd-nspawn.1.html">systemd-nspawn(1)</a>). Note that
+       the name that is resolved is the one registered with
+       <b>systemd-machined</b>, which may be different than the hostname
+       configured inside of the container.
+
+       Note that this NSS module only makes available names of the
+       containers running immediately below the current system context.
+       It does not provide host name resolution for containers running
+       side-by-side with the invoking system context, or containers
+       further up or down the container hierarchy. Or in other words, on
+       the host system it provides host name resolution for the
+       containers running immediately below the host environment. When
+       used inside a container environment however, it will not be able
+       to provide name resolution for containers running on the host (as
+       those are siblings and not children of the current container
+       environment), but instead only for nested containers running
+       immediately below its own container environment.
+
+       To activate the NSS module, add "mymachines" to the line starting
+       with "hosts:" in /etc/nsswitch.conf.
+
+       It is recommended to place "mymachines" before the "resolve" or
+       "dns" entry of the "hosts:" line of /etc/nsswitch.conf in order
+       to make sure that its mappings are preferred over other resolvers
+       such as DNS.
+</pre>

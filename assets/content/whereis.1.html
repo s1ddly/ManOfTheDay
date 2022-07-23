@@ -1,0 +1,25 @@
+<pre>
+       <b>whereis </b>locates the binary, source and manual files for the
+       specified command names. The supplied names are first stripped of
+       leading pathname components. Prefixes of <b>s. </b>resulting from use of
+       source code control are also dealt with. <b>whereis </b>then attempts to
+       locate the desired program in the standard Linux places, and in
+       the places specified by <b>$PATH </b>and <b>$MANPATH</b>.
+
+       The search restrictions (options <b>-b</b>, <b>-m </b>and <b>-s</b>) are cumulative
+       and apply to the subsequent <i>name</i> patterns on the command line.
+       Any new search restriction resets the search mask. For example,
+
+          <b>whereis -bm ls tr -m gcc</b>
+
+       searches for "ls" and "tr" binaries and man pages, and for "gcc"
+       man pages only.
+
+       The options <b>-B</b>, <b>-M </b>and <b>-S </b>reset search paths for the subsequent
+       <i>name</i> patterns. For example,
+
+          <b>whereis -m ls -M /usr/share/man/man1 -f cal</b>
+
+       searches for "<b>ls</b>" man pages in all default paths, but for "cal"
+       in the <i>/usr/share/man/man1</i> directory only.
+</pre>

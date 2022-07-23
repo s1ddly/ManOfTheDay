@@ -1,0 +1,20 @@
+<pre>
+   <b>rdma link show - display rdma link attributes</b>
+       <i>DEV/PORT_INDEX</i> - specifies the RDMA link to show.  If this
+       argument is omitted all links are listed.
+
+   <b>rdma link add NAME type TYPE netdev NETDEV - add an rdma link for the</b>
+       <b>specified type to the network device</b>
+       <b>NAME </b>- specifies the new name of the rdma link to add
+
+       <b>TYPE </b>- specifies which rdma type to use.  Link types:
+
+               <b>rxe </b>- Soft RoCE driver
+
+               <b>siw </b>- Soft iWARP driver
+
+       <b>NETDEV </b>- specifies the network device to which the link is bound
+
+   <b>rdma link delete NAME - delete an rdma link</b>
+       <b>NAME </b>- specifies the name of the rdma link to delete
+</pre>

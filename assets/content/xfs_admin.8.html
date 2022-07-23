@@ -1,0 +1,15 @@
+<pre>
+       <b>xfs_admin </b>uses the <a href="https://man7.org/linux/man-pages/man8/xfs_db.8.html">xfs_db(8)</a> command to modify various parameters
+       of a filesystem.
+
+       Devices that are mounted cannot be modified.  Administrators must
+       unmount filesystems before <b>xfs_admin </b>or <a href="https://man7.org/linux/man-pages/man8/xfs_db.8.html">xfs_db(8)</a> can convert
+       parameters.  A number of parameters of a mounted filesystem can
+       be examined and modified using the <a href="https://man7.org/linux/man-pages/man8/xfs_growfs.8.html">xfs_growfs(8)</a> command.
+
+       The optional <b>logdev </b>parameter specifies the device special file
+       where the filesystem's external log resides.  This is required
+       only for filesystems that use an external log.  See the <b>mkfs.xfs</b>
+       <b>-l </b>option, and refer to <a href="https://man7.org/linux/man-pages/man5/xfs.5.html">xfs(5)</a> for a detailed description of the
+       XFS log.
+</pre>

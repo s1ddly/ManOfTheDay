@@ -1,0 +1,23 @@
+<pre>
+       Based on examination of the <i>linux/kernel/reboot.c</i> code, it is
+       clear that there are two supported functions that the
+       &lt;Ctrl-Alt-Del&gt; sequence can perform.
+
+       <b>hard</b>
+           Immediately reboot the computer without calling <a href="https://man7.org/linux/man-pages/man2/sync.2.html">sync(2)</a> and
+           without any other preparation. This is the default.
+
+       <b>soft</b>
+           Make the kernel send the <b>SIGINT </b>(interrupt) signal to the
+           <b>init </b>process (this is always the process with PID 1). If this
+           option is used, the <b>init</b>(8) program must support this
+           feature. Since there are now several <b>init</b>(8) programs in the
+           Linux community, please consult the documentation for the
+           version that you are currently using.
+
+       When the command is run without any argument, it will display the
+       current setting.
+
+       The function of <b>ctrlaltdel </b>is usually set in the <i>/etc/rc.local</i>
+       file.
+</pre>

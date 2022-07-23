@@ -1,0 +1,36 @@
+<pre>
+       The <i>string</i> operand shall be treated as a pathname, as defined in
+       the Base Definitions volume of POSIX.1‐2017, <i>Section 3.271</i>,
+       <i>Pathname</i>.  The string <i>string</i> shall be converted to the filename
+       corresponding to the last pathname component in <i>string</i> and then
+       the suffix string <i>suffix</i>, if present, shall be removed. This
+       shall be done by performing actions equivalent to the following
+       steps in order:
+
+        1. If <i>string</i> is a null string, it is unspecified whether the
+           resulting string is <b>'.'  </b>or a null string. In either case,
+           skip steps 2 through 6.
+
+        2. If <i>string</i> is <b>"//"</b>, it is implementation-defined whether steps
+           3 to 6 are skipped or processed.
+
+        3. If <i>string</i> consists entirely of &lt;slash&gt; characters, <i>string</i>
+           shall be set to a single &lt;slash&gt; character. In this case,
+           skip steps 4 to 6.
+
+        4. If there are any trailing &lt;slash&gt; characters in <i>string</i>, they
+           shall be removed.
+
+        5. If there are any &lt;slash&gt; characters remaining in <i>string</i>, the
+           prefix of <i>string</i> up to and including the last &lt;slash&gt;
+           character in <i>string</i> shall be removed.
+
+        6. If the <i>suffix</i> operand is present, is not identical to the
+           characters remaining in <i>string</i>, and is identical to a suffix
+           of the characters remaining in <i>string</i>, the suffix <i>suffix</i>
+           shall be removed from <i>string</i>.  Otherwise, <i>string</i> is not
+           modified by this step. It shall not be considered an error if
+           <i>suffix</i> is not found in <i>string</i>.
+
+       The resulting string shall be written to standard output.
+</pre>

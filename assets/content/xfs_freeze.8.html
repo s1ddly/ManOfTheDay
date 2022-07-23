@@ -1,0 +1,35 @@
+<pre>
+       <b>xfs_freeze </b>suspends and resumes access to an XFS filesystem (see
+       <a href="https://man7.org/linux/man-pages/man5/xfs.5.html">xfs(5)</a>).
+
+       <b>xfs_freeze </b>halts new access to the filesystem and creates a
+       stable image on disk.  <b>xfs_freeze </b>is intended to be used with
+       volume managers and hardware RAID devices that support the
+       creation of snapshots.
+
+       The <i>mount-point</i> argument is the pathname of the directory where
+       the filesystem is mounted.  The filesystem must be mounted to be
+       frozen (see <a href="https://man7.org/linux/man-pages/man8/mount.8.html">mount(8)</a>).
+
+       The <b>-f </b>flag requests the specified XFS filesystem to be frozen
+       from new modifications.  When this is selected, all ongoing
+       transactions in the filesystem are allowed to complete, new write
+       system calls are halted, other calls which modify the filesystem
+       are halted, and all dirty data, metadata, and log information are
+       written to disk.  Any process attempting to write to the frozen
+       filesystem will block waiting for the filesystem to be unfrozen.
+
+       Note that even after freezing, the on-disk filesystem can contain
+       information on files that are still in the process of unlinking.
+       These files will not be unlinked until the filesystem is unfrozen
+       or a clean mount of the snapshot is complete.
+
+       The <b>-u </b>flag is used to un-freeze the filesystem and allow
+       operations to continue.  Any filesystem modifications that were
+       blocked by the freeze are unblocked and allowed to complete.
+
+       The <b>-V </b>flag prints the version number and exits.
+
+       Unless <b>-V </b>is specified, one of <b>-f </b>or <b>-u </b>must be supplied to
+       <b>xfs_freeze</b>.
+</pre>

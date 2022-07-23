@@ -1,0 +1,52 @@
+<pre>
+       <b>mkfs.xfs </b>constructs an XFS filesystem by writing on a special
+       file using the values found in the arguments of the command line.
+       It is invoked automatically by <a href="https://man7.org/linux/man-pages/man8/mkfs.8.html">mkfs(8)</a> when it is given the <b>-t</b>
+       <b>xfs </b>option.
+
+       In its simplest (and most commonly used form), the size of the
+       filesystem is determined from the disk driver.  As an example, to
+       make a filesystem with an internal log on the first partition on
+       the first SCSI disk, use:
+
+              <b>mkfs.xfs /dev/sda1</b>
+
+       The metadata log can be placed on another device to reduce the
+       number of disk seeks.  To create a filesystem on the first
+       partition on the first SCSI disk with a 10MiB log located on the
+       first partition on the second SCSI disk, use:
+
+              <b>mkfs.xfs -l logdev=/dev/sdb1,size=10m /dev/sda1</b>
+
+       Each of the <i>option</i> elements in the argument list above can be
+       given as multiple comma-separated suboptions if multiple
+       suboptions apply to the same option.  Equivalently, each main
+       option can be given multiple times with different suboptions.
+       For example, <b>-l internal,size=10m </b>and <b>-l internal -l size=10m </b>are
+       equivalent.
+
+       In the descriptions below, sizes are given in sectors, bytes,
+       blocks, kilobytes, megabytes, gigabytes, etc.  Sizes are treated
+       as hexadecimal if prefixed by 0x or 0X, octal if prefixed by 0,
+       or decimal otherwise.  The following lists possible
+       multiplication suffixes:
+              <b>s </b>- multiply by sector size (default = 512, see <b>-s </b>option
+                     below).
+              <b>b </b>- multiply by filesystem block size (default = 4K, see
+                     <b>-b </b>option below).
+              <b>k </b>- multiply by one kilobyte (1,024 bytes).
+              <b>m </b>- multiply by one megabyte (1,048,576 bytes).
+              <b>g </b>- multiply by one gigabyte (1,073,741,824 bytes).
+              <b>t </b>- multiply by one terabyte (1,099,511,627,776 bytes).
+              <b>p </b>- multiply by one petabyte (1,024 terabytes).
+              <b>e </b>- multiply by one exabyte (1,048,576 terabytes).
+
+       When specifying parameters in units of sectors or filesystem
+       blocks, the <b>-s </b>option or the <b>-b </b>option may be used to specify the
+       size of the sector or block.  If the size of the block or sector
+       is not specified, the default sizes (block: 4KiB, sector: 512B)
+       will be used.
+
+       Many feature options allow an optional argument of 0 or 1, to
+       explicitly disable or enable the functionality.
+</pre>

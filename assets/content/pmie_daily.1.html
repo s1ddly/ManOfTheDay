@@ -1,0 +1,17 @@
+<pre>
+       This series of shell scripts and associated control files may be
+       used to create a customized regime of administration and
+       management for the Performance Co-Pilot (see <a href="https://man7.org/linux/man-pages/man1/PCPIntro.1.html">PCPIntro(1)</a>)
+       inference engine, <a href="https://man7.org/linux/man-pages/man1/pmie.1.html">pmie(1)</a>.
+
+       <b>pmie_check </b>may be run at any time of the day and verifies that a
+       desired set of <b>pmie </b>processes is running.  If not, it (re-)starts
+       any missing inference engine processes.
+
+       <b>pmie_daily </b>is intended to be run once per day, preferably in the
+       early morning, as soon after midnight as practicable.  Its task
+       is to rotate the log files for the running <b>pmie </b>processes - these
+       files may grow without bound if the ``print'' action is used, or
+       any other <b>pmie </b>action writes to its stdout/stderr streams.  After
+       some period, old <b>pmie </b>log files are discarded.
+</pre>

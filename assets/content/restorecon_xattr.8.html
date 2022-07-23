@@ -1,0 +1,19 @@
+<pre>
+       <b>restorecon_xattr </b>will display the SHA1 digests added to extended
+       attributes <i>security.sehash</i> or delete the attribute completely.
+       These attributes are set by <a href="https://man7.org/linux/man-pages/man8/restorecon.8.html">restorecon(8)</a> or <a href="https://man7.org/linux/man-pages/man8/setfiles.8.html">setfiles(8)</a> to
+       specified directories when relabeling recursively.
+
+       <b>restorecon_xattr </b>is useful for managing the extended attribute
+       entries particularly when users forget what directories they ran
+       <a href="https://man7.org/linux/man-pages/man8/restorecon.8.html">restorecon(8)</a> or <a href="https://man7.org/linux/man-pages/man8/setfiles.8.html">setfiles(8)</a> from.
+
+       <b>RAMFS </b>and <b>TMPFS </b>filesystems do not support the <i>security.sehash</i>
+       extended attribute and are automatically excluded from searches.
+
+       By default <b>restorecon_xattr </b>will display the SHA1 digests with
+       "Match" appended if they match the default specfile set or the
+       <i>specfile</i> set used with the <b>-f </b>option. Non-matching SHA1 digests
+       will be displayed with "No Match" appended.  This feature can be
+       disabled by the <b>-n </b>option.
+</pre>

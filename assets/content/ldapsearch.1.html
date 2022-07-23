@@ -1,0 +1,19 @@
+<pre>
+       <i>ldapsearch</i> is a shell-accessible interface to the
+       <a href="https://man7.org/linux/man-pages/man3/ldap_search_ext.3.html">ldap_search_ext(3)</a> library call.
+
+       <b>ldapsearch </b>opens a connection to an LDAP server, binds, and
+       performs a search using specified parameters.   The <i>filter</i> should
+       conform to the string representation for search filters as
+       defined in RFC 4515.  If not provided, the default filter,
+       <b>(objectClass=*)</b>, is used.
+
+       If <b>ldapsearch </b>finds one or more entries, the attributes specified
+       by <i>attrs</i> are returned.  If <b>* </b>is listed, all user attributes are
+       returned.  If <b>+ </b>is listed, all operational attributes are
+       returned.  If no <i>attrs</i> are listed, all user attributes are
+       returned.  If only 1.1 is listed, no attributes will be returned.
+
+       The search results are displayed using an extended version of
+       LDIF.  Option <i>-L</i> controls the format of the output.
+</pre>

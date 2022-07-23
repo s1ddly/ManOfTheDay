@@ -1,0 +1,18 @@
+<pre>
+       <b>mkfs.btrfs </b>is used to create the btrfs filesystem on a single or
+       multiple devices. <i>&lt;device&gt;</i> is typically a block device but can be
+       a file-backed image as well. Multiple devices are grouped by UUID
+       of the filesystem.
+
+       Before mounting such filesystem, the kernel module must know all
+       the devices either via preceding execution of <b>btrfs device scan</b>
+       or using the <b>device </b>mount option. See section <b>MULTIPLE DEVICES</b>
+       for more details.
+
+       The default block group profiles for data and metadata depend on
+       number of devices and possibly other factors. It’s recommended to
+       use specific profiles but the defaults should be OK and allowing
+       future conversions to other profiles. Please see options <i>-d</i> and
+       <i>-m</i> for further detals and <a href="https://man7.org/linux/man-pages/man8/btrfs-balance.8.html">btrfs-balance(8)</a> for the profile
+       conversion post mkfs.
+</pre>

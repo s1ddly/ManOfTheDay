@@ -1,0 +1,17 @@
+<pre>
+       <b>lxc-update-config </b>detects any legacy configuration keys in the
+       given <i>config</i> file and will replace them with the appropriate new
+       configuration keys.
+
+       <b>lxc-update-config </b>will first create a backup of the old <i>config</i>
+       file in the same directory and name it <i>config.backup</i> and then
+       update the original <i>config</i> file in place. In case the update
+       fails to apply or leads to an invalid <i>config</i> file that cannot be
+       used to start a container users can either compare <i>config</i> with
+       <i>config.backup</i> and try to manually repair any the invalid
+       configuration keys or simply rollback to the legacy configuration
+       file by copying <i>config.backup</i> to <i>config</i>.
+
+       Any failures for <b>lxc-update-config </b>to generate a useable <i>config</i>
+       file are a bug and should be reported upstream.
+</pre>

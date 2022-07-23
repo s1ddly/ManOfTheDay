@@ -1,0 +1,19 @@
+<pre>
+       The <b>mpstat </b>command writes to standard output activities for each
+       available processor, processor 0 being the first one.  Global
+       average activities among all processors are also reported.  The
+       <b>mpstat </b>command can be used on both SMP and UP machines, but in
+       the latter, only global average activities will be printed. If no
+       activity has been selected, then the default report is the CPU
+       utilization report.
+
+       The <i>interval</i> parameter specifies the amount of time in seconds
+       between each report.  A value of 0 (or no parameters at all)
+       indicates that processors statistics are to be reported for the
+       time since system startup (boot). The <i>count</i> parameter can be
+       specified in conjunction with the <i>interval</i> parameter if this one
+       is not set to zero. The value of <i>count</i> determines the number of
+       reports generated at <i>interval</i> seconds apart. If the <i>interval</i>
+       parameter is specified without the <i>count</i> parameter, the <b>mpstat</b>
+       command generates reports continuously.
+</pre>

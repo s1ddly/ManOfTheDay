@@ -1,0 +1,64 @@
+<pre>
+       Pack a Aria-table to take much less space.  Keys are not updated,
+       you must run <b>aria_chk -rq </b>on the index (.MAI) file afterwards to
+       update the keys.  You should give the .MAI file as the filename
+       argument.  To unpack a packed table, run <b>aria_chk -u </b>on the table
+
+       <b>-b</b>, <b>--backup</b>
+              Make a backup of the table as table_name.OLD.
+
+       <b>--character-sets-dir</b>=<i>name</i>
+              Directory where character sets are.
+
+       <b>-#</b>, <b>--debug</b>[=<i>name</i>]
+              Output debug log. Often this is 'd:t:o,filename'.
+
+       <b>-f</b>, <b>--force</b>
+              Force packing of table even if it gets bigger or if
+              tempfile exists.
+
+       <b>-j</b>, <b>--join</b>=<i>name</i>
+              Join all given tables into 'new_table_name'. All tables
+              MUST have identical layouts.
+
+       <b>-?</b>, <b>--help</b>
+              Display this help and exit.
+
+       <b>-s</b>, <b>--silent</b>
+              Be more silent.
+
+       <b>-T</b>, <b>--tmpdir</b>=<i>name</i>
+              Use temporary directory to store temporary table.
+
+       <b>-t</b>, <b>--test</b>
+              Don't pack table, only test packing it.
+
+       <b>-v</b>, <b>--verbose</b>
+              Write info about progress and packing result. Use many <b>-v</b>
+              for more verbosity!
+
+       <b>-V</b>, <b>--version</b>
+              Output version information and exit.
+
+       <b>-w</b>, <b>--wait</b>
+              Wait and retry if table is in use.
+
+       Default options are read from the following files in the given
+       order: <b>/etc/my.cnf /etc/mysql/my.cnf ~/.my.cnf</b>
+
+       The following groups are read: <b>ariapack</b>
+
+       The following options may be given as the first argument:
+
+       <b>--print-defaults</b>
+              Print the program argument list and exit.
+
+       <b>--no-defaults</b>
+              Don't read default options from any option file.
+
+       <b>--defaults-file=</b>#
+              Only read default options from the given file #.
+
+       <b>--defaults-extra-file=</b>#
+              Read this file after the global files are read.
+</pre>

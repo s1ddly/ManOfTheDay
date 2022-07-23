@@ -1,0 +1,10 @@
+<pre>
+       <b>inotifywait </b>efficiently waits for changes to files using Linux's
+       <a href="https://man7.org/linux/man-pages/man7/inotify.7.html">inotify(7)</a> interface.  It is suitable for waiting for changes to
+       files from shell scripts.  It can either exit once an event
+       occurs, or continually execute and output events as they occur.
+
+       <b>fsnotifywait </b>is similar to <b>inotifywait </b>but it is using Linux's
+       <a href="https://man7.org/linux/man-pages/man7/fanotify.7.html">fanotify(7)</a> interface by default. If explicitly sepcified, it
+       uses the <a href="https://man7.org/linux/man-pages/man7/inotify.7.html">inotify(7)</a> interface.
+</pre>

@@ -1,0 +1,14 @@
+<pre>
+       lvextend extends the size of an LV. This requires allocating
+       logical extents from the VG's free physical extents. If the
+       extension adds a new LV segment, the new segment will use the
+       existing segment type of the LV.
+
+       Extending a copy-on-write snapshot LV adds space for COW blocks.
+
+       Use <a href="https://man7.org/linux/man-pages/man8/lvconvert.8.html">lvconvert(8)</a> to change the number of data images in a RAID or
+       mirrored LV.
+
+       In the usage section below, <b>--size </b><i>Size</i> can be replaced with
+       <b>--extents </b><i>Number</i>.  See both descriptions the options section.
+</pre>

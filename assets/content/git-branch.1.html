@@ -1,0 +1,66 @@
+<pre>
+       If <b>--list </b>is given, or if there are no non-option arguments,
+       existing branches are listed; the current branch will be
+       highlighted in green and marked with an asterisk. Any branches
+       checked out in linked worktrees will be highlighted in cyan and
+       marked with a plus sign. Option <b>-r </b>causes the remote-tracking
+       branches to be listed, and option <b>-a </b>shows both local and remote
+       branches.
+
+       If a <b>&lt;pattern&gt; </b>is given, it is used as a shell wildcard to
+       restrict the output to matching branches. If multiple patterns
+       are given, a branch is shown if it matches any of the patterns.
+
+       Note that when providing a <b>&lt;pattern&gt;</b>, you must use <b>--list</b>;
+       otherwise the command may be interpreted as branch creation.
+
+       With <b>--contains</b>, shows only the branches that contain the named
+       commit (in other words, the branches whose tip commits are
+       descendants of the named commit), <b>--no-contains </b>inverts it. With
+       <b>--merged</b>, only branches merged into the named commit (i.e. the
+       branches whose tip commits are reachable from the named commit)
+       will be listed. With <b>--no-merged </b>only branches not merged into
+       the named commit will be listed. If the &lt;commit&gt; argument is
+       missing it defaults to <b>HEAD </b>(i.e. the tip of the current branch).
+
+       The command’s second form creates a new branch head named
+       &lt;branchname&gt; which points to the current <b>HEAD</b>, or &lt;start-point&gt;
+       if given. As a special case, for &lt;start-point&gt;, you may use
+       <b>"A...B" </b>as a shortcut for the merge base of <b>A </b>and <b>B </b>if there is
+       exactly one merge base. You can leave out at most one of <b>A </b>and <b>B</b>,
+       in which case it defaults to <b>HEAD</b>.
+
+       Note that this will create the new branch, but it will not switch
+       the working tree to it; use "git switch &lt;newbranch&gt;" to switch to
+       the new branch.
+
+       When a local branch is started off a remote-tracking branch, Git
+       sets up the branch (specifically the <b>branch.&lt;name&gt;.remote </b>and
+       <b>branch.&lt;name&gt;.merge </b>configuration entries) so that <i>git pull</i> will
+       appropriately merge from the remote-tracking branch. This
+       behavior may be changed via the global <b>branch.autoSetupMerge</b>
+       configuration flag. That setting can be overridden by using the
+       <b>--track </b>and <b>--no-track </b>options, and changed later using <b>git</b>
+       <b>branch --set-upstream-to</b>.
+
+       With a <b>-m </b>or <b>-M </b>option, &lt;oldbranch&gt; will be renamed to
+       &lt;newbranch&gt;. If &lt;oldbranch&gt; had a corresponding reflog, it is
+       renamed to match &lt;newbranch&gt;, and a reflog entry is created to
+       remember the branch renaming. If &lt;newbranch&gt; exists, -M must be
+       used to force the rename to happen.
+
+       The <b>-c </b>and <b>-C </b>options have the exact same semantics as <b>-m </b>and <b>-M</b>,
+       except instead of the branch being renamed, it will be copied to
+       a new name, along with its config and reflog.
+
+       With a <b>-d </b>or <b>-D </b>option, <b>&lt;branchname&gt; </b>will be deleted. You may
+       specify more than one branch for deletion. If the branch
+       currently has a reflog then the reflog will also be deleted.
+
+       Use <b>-r </b>together with <b>-d </b>to delete remote-tracking branches. Note,
+       that it only makes sense to delete remote-tracking branches if
+       they no longer exist in the remote repository or if <i>git fetch</i> was
+       configured not to fetch them again. See also the <i>prune</i> subcommand
+       of <a href="https://man7.org/linux/man-pages/man1/git-remote.1.html">git-remote(1)</a> for a way to clean up all obsolete
+       remote-tracking branches.
+</pre>

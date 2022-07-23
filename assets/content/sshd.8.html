@@ -1,0 +1,125 @@
+<pre>
+     <b>sshd </b>(OpenSSH Daemon) is the daemon program for ssh(1).  It
+     provides secure encrypted communications between two untrusted
+     hosts over an insecure network.
+
+     <b>sshd </b>listens for connections from clients.  It is normally started
+     at boot from <i>/etc/rc</i>.  It forks a new daemon for each incoming
+     connection.  The forked daemons handle key exchange, encryption,
+     authentication, command execution, and data exchange.
+
+     <b>sshd </b>can be configured using command-line options or a
+     configuration file (by default sshd_config(5)); command-line
+     options override values specified in the configuration file.  <b>sshd</b>
+     rereads its configuration file when it receives a hangup signal,
+     SIGHUP, by executing itself with the name and options it was
+     started with, e.g. <i>/usr/sbin/sshd</i>.
+
+     The options are as follows:
+
+     <b>-4      </b>Forces <b>sshd </b>to use IPv4 addresses only.
+
+     <b>-6      </b>Forces <b>sshd </b>to use IPv6 addresses only.
+
+     <b>-C </b><i>connection_spec</i>
+             Specify the connection parameters to use for the <b>-T</b>
+             extended test mode.  If provided, any <b>Match </b>directives in
+             the configuration file that would apply are applied before
+             the configuration is written to standard output.  The
+             connection parameters are supplied as keyword=value pairs
+             and may be supplied in any order, either with multiple <b>-C</b>
+             options or as a comma-separated list.  The keywords are
+             “addr”, “user”, “host”, “laddr”, “lport”, and “rdomain” and
+             correspond to source address, user, resolved source host
+             name, local address, local port number and routing domain
+             respectively.
+
+     <b>-c </b><i>host_certificate_file</i>
+             Specifies a path to a certificate file to identify <b>sshd</b>
+             during key exchange.  The certificate file must match a
+             host key file specified using the <b>-h </b>option or the <b>HostKey</b>
+             configuration directive.
+
+     <b>-D      </b>When this option is specified, <b>sshd </b>will not detach and
+             does not become a daemon.  This allows easy monitoring of
+             <b>sshd</b>.
+
+     <b>-d      </b>Debug mode.  The server sends verbose debug output to
+             standard error, and does not put itself in the background.
+             The server also will not fork(2) and will only process one
+             connection.  This option is only intended for debugging for
+             the server.  Multiple <b>-d </b>options increase the debugging
+             level.  Maximum is 3.
+
+     <b>-E </b><i>log_file</i>
+             Append debug logs to <i>log_file</i> instead of the system log.
+
+     <b>-e      </b>Write debug logs to standard error instead of the system
+             log.
+
+     <b>-f </b><i>config_file</i>
+             Specifies the name of the configuration file.  The default
+             is <i>/etc/ssh/sshd_config</i>.  <b>sshd </b>refuses to start if there is
+             no configuration file.
+
+     <b>-g </b><i>login_grace_time</i>
+             Gives the grace time for clients to authenticate themselves
+             (default 120 seconds).  If the client fails to authenticate
+             the user within this many seconds, the server disconnects
+             and exits.  A value of zero indicates no limit.
+
+     <b>-h </b><i>host_key_file</i>
+             Specifies a file from which a host key is read.  This
+             option must be given if <b>sshd </b>is not run as root (as the
+             normal host key files are normally not readable by anyone
+             but root).  The default is <i>/etc/ssh/ssh_host_ecdsa_key</i>,
+             <i>/etc/ssh/ssh_host_ed25519_key</i> and
+             <i>/etc/ssh/ssh_host_rsa_key</i>.  It is possible to have multiple
+             host key files for the different host key algorithms.
+
+     <b>-i      </b>Specifies that <b>sshd </b>is being run from inetd(8).
+
+     <b>-o </b><i>option</i>
+             Can be used to give options in the format used in the
+             configuration file.  This is useful for specifying options
+             for which there is no separate command-line flag.  For full
+             details of the options, and their values, see
+             sshd_config(5).
+
+     <b>-p </b><i>port</i>
+             Specifies the port on which the server listens for
+             connections (default 22).  Multiple port options are
+             permitted.  Ports specified in the configuration file with
+             the <b>Port </b>option are ignored when a command-line port is
+             specified.  Ports specified using the <b>ListenAddress </b>option
+             override command-line ports.
+
+     <b>-q      </b>Quiet mode.  Nothing is sent to the system log.  Normally
+             the beginning, authentication, and termination of each
+             connection is logged.
+
+     <b>-T      </b>Extended test mode.  Check the validity of the
+             configuration file, output the effective configuration to
+             stdout and then exit.  Optionally, <b>Match </b>rules may be
+             applied by specifying the connection parameters using one
+             or more <b>-C </b>options.
+
+     <b>-t      </b>Test mode.  Only check the validity of the configuration
+             file and sanity of the keys.  This is useful for updating
+             <b>sshd </b>reliably as configuration options may change.
+
+     <b>-u </b><i>len</i>  This option is used to specify the size of the field in the
+             utmp structure that holds the remote host name.  If the
+             resolved host name is longer than <i>len</i>, the dotted decimal
+             value will be used instead.  This allows hosts with very
+             long host names that overflow this field to still be
+             uniquely identified.  Specifying <b>-u0 </b>indicates that only
+             dotted decimal addresses should be put into the <i>utmp</i> file.
+             <b>-u0 </b>may also be used to prevent <b>sshd </b>from making DNS
+             requests unless the authentication mechanism or
+             configuration requires it.  Authentication mechanisms that
+             may require DNS include <b>HostbasedAuthentication </b>and using a
+             <b>from="pattern-list" </b>option in a key file.  Configuration
+             options that require DNS include using a USER@HOST pattern
+             in <b>AllowUsers </b>or <b>DenyUsers</b>.
+</pre>

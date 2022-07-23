@@ -1,0 +1,16 @@
+<pre>
+       The mk-ca-bundle tool downloads the certdata.txt file from
+       Mozilla's source tree over HTTPS, then parses certdata.txt and
+       extracts certificates into PEM format. By default, only CA root
+       certificates trusted to issue SSL server authentication
+       certificates are extracted. These are then processed with the
+       OpenSSL commandline tool to produce the final ca-bundle file.
+
+       The default <i>outputfile</i> name is <b>ca-bundle.crt</b>. By setting it to
+       '-' (a single dash) you will get the output sent to STDOUT
+       instead of a file.
+
+       The PEM format this scripts uses for output makes the result
+       readily available for use by just about all OpenSSL or GnuTLS
+       powered applications, such as curl, wget and more.
+</pre>

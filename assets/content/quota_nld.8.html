@@ -1,0 +1,16 @@
+<pre>
+       <b>quota_nld </b>listens on netlink socket and processes received quota
+       warnings. By default <b>quota_nld </b>forwards warning messages to both
+       the system's DBUS (so that the desktop manager can display a
+       dialog) and the last-accessed terminal of the user to whom each
+       warning is directed. Either of these destinations can be disabled
+       with the <b>-D </b>and <b>-C </b>options, respectively.
+
+       In the case of the user's terminal, quota messages about falling
+       below the hard and soft limits are not sent unless the <b>-b </b>option
+       is specified. In the case of the DBUS, all quota messages are
+       sent.
+
+       Note, that you have to enable the kernel support for sending
+       quota messages over netlink (in Filesystems-&gt;Quota menu).
+</pre>

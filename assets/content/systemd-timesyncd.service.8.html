@@ -1,0 +1,37 @@
+<pre>
+       systemd-timesyncd is a system service that may be used to
+       synchronize the local system clock with a remote Network Time
+       Protocol (NTP) server. It also saves the local time to disk every
+       time the clock has been synchronized and uses this to possibly
+       advance the system realtime clock on subsequent reboots to ensure
+       it (roughly) monotonically advances even if the system lacks a
+       battery-buffered RTC chip.
+
+       The systemd-timesyncd service implements SNTP only. This
+       minimalistic service will step the system clock for large offsets
+       or slowly adjust it for smaller deltas. Complex use cases that
+       require full NTP support (and where SNTP is not sufficient) are
+       not covered by systemd-timesyncd.
+
+       The NTP servers contacted are determined from the global settings
+       in <a href="https://man7.org/linux/man-pages/man5/timesyncd.conf.5.html">timesyncd.conf(5)</a>, the per-link static settings in .network
+       files, and the per-link dynamic settings received over DHCP. See
+       <a href="https://man7.org/linux/man-pages/man5/systemd.network.5.html">systemd.network(5)</a> for further details.
+
+       <a href="https://man7.org/linux/man-pages/man1/timedatectl.1.html">timedatectl(1)</a>'s <b>set-ntp </b>command may be used to enable and start,
+       or disable and stop this service.
+
+       <a href="https://man7.org/linux/man-pages/man1/timedatectl.1.html">timedatectl(1)</a>'s <b>timesync-status </b>or <b>show-timesync </b>command can be
+       used to show the current status of this service.
+
+       systemd-timesyncd initialization delays the start of units that
+       are ordered after time-set.target (see <a href="https://man7.org/linux/man-pages/man7/systemd.special.7.html">systemd.special(7)</a> for
+       details) until the local time has been updated from
+       /var/lib/systemd/timesync/clock (see below) in order to make it
+       roughly monotonic. It does not delay other units until
+       synchronization with an accurate reference time sources has been
+       reached. Use <a href="https://man7.org/linux/man-pages/man8/systemd-time-wait-sync.service.8.html">systemd-time-wait-sync.service(8)</a> to achieve that,
+       which will delay start of units that are ordered after
+       time-sync.target until synchronization to an accurate reference
+       clock is reached.
+</pre>

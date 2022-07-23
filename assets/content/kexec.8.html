@@ -1,0 +1,13 @@
+<pre>
+       <b>kexec </b>is a system call that enables you to load and boot into
+       another kernel from the currently running kernel.  <b>kexec </b>performs
+       the function of the boot loader from within the kernel. The
+       primary difference between a standard system boot and a <b>kexec</b>
+       boot is that the hardware initialization normally performed by
+       the BIOS or firmware (depending on architecture) is not performed
+       during a <b>kexec </b>boot. This has the effect of reducing the time
+       required for a reboot.
+
+       Make sure you have selected <b>CONFIG_KEXEC=y </b>when configuring the
+       kernel. The <b>CONFIG_KEXEC </b>option enables the <b>kexec </b>system call.
+</pre>

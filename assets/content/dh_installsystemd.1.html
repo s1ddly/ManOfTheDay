@@ -1,0 +1,23 @@
+<pre>
+       <b>dh_installsystemd </b>is a debhelper program that is responsible for
+       installing package maintainer supplied systemd unit files.
+
+       It also finds the service files installed by a package and
+       generates <i>preinst</i>, <i>postinst</i>, and <i>prerm</i> code blocks for enabling,
+       disabling, starting, stopping, and restarting the corresponding
+       systemd services, when the package is installed, updated, or
+       removed. These snippets are added to the maintainer scripts by
+       <a href="https://man7.org/linux/man-pages/man1/dh_installdeb.1.html">dh_installdeb(1)</a>.
+
+       <b>deb-systemd-helper</b>(1) is used to enable and disable systemd
+       units, thus it is not necessary that the machine actually runs
+       systemd during package installation time, enabling happens on all
+       machines in order to be able to switch from sysvinit to systemd
+       and back.
+
+       <b>dh_installsystemd </b>operates on all unit files installed by a
+       package. For only generating blocks for specific unit files, pass
+       them as arguments, "dh_installsystemd quota.service". Specific
+       unit files can be excluded from processing using the <b>-X </b>common
+       <b>debhelper</b>(1) option.
+</pre>

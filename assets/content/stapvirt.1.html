@@ -1,0 +1,25 @@
+<pre>
+       The <i>stapvirt</i> program can be used to add ports to domains managed
+       by libvirt (see &lt;<a href="https://man7.org/linux/man-pagestp://libvirt.org/">http://libvirt.org/</a>&gt;).  These ports can then be
+       used by <i>stap</i> to run scripts inside the domains (see the
+       '--remote' option in <a href="https://man7.org/linux/man-pages/man1/stap.1.html">stap(1)</a> for more information).
+
+       Ports are added to the definition of the domain using the <b>port-</b>
+       <b>add </b>command.  These ports can later be removed using the <b>port-</b>
+       <b>remove </b>command.  Note that there can only be as many simultaneous
+       <i>stap</i> sessions as there are ports.
+
+       Starting from libvirt v1.1.1 and QEMU v0.10.0, SystemTap ports
+       can be hotplugged and thus do not need to be added first using
+       the <b>port-add </b>command.  However, you need to ensure that there is
+       a virtio-serial controller in place so that hotplugged ports can
+       be connected. If creating a domain using virt-install, you can do
+       this by adding this option:
+
+              <b>$ </b>virt-install [...] --controller=virtio-serial
+
+       If the domain has already been created, you can simply do <b>port-</b>
+       <b>add </b>followed immediately by <b>port-remove</b>, and then power off and
+       restart the domain. The port will be removed, but the controller
+       will remain.
+</pre>

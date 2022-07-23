@@ -1,0 +1,39 @@
+<pre>
+       Shrink or extend the size of each FILE to the specified size
+
+       A FILE argument that does not exist is created.
+
+       If a FILE is larger than the specified size, the extra data is
+       lost.  If a FILE is shorter, it is extended and the sparse
+       extended part (hole) reads as zero bytes.
+
+       Mandatory arguments to long options are mandatory for short
+       options too.
+
+       <b>-c</b>, <b>--no-create</b>
+              do not create any files
+
+       <b>-o</b>, <b>--io-blocks</b>
+              treat SIZE as number of IO blocks instead of bytes
+
+       <b>-r</b>, <b>--reference</b>=<i>RFILE</i>
+              base size on RFILE
+
+       <b>-s</b>, <b>--size</b>=<i>SIZE</i>
+              set or adjust the file size by SIZE bytes
+
+       <b>--help </b>display this help and exit
+
+       <b>--version</b>
+              output version information and exit
+
+       The SIZE argument is an integer and optional unit (example: 10K
+       is 10*1024).  Units are K,M,G,T,P,E,Z,Y (powers of 1024) or
+       KB,MB,... (powers of 1000).  Binary prefixes can be used, too:
+       KiB=K, MiB=M, and so on.
+
+       SIZE may also be prefixed by one of the following modifying
+       characters: '+' extend by, '-' reduce by, '&lt;' at most, '&gt;' at
+       least, '/' round down to multiple of, '%' round up to multiple
+       of.
+</pre>

@@ -1,0 +1,20 @@
+<pre>
+       Lists the contents of a given tree object, like what "/bin/ls -a"
+       does in the current working directory. Note that:
+
+       •   the behaviour is slightly different from that of "/bin/ls" in
+           that the <i>&lt;path&gt;</i> denotes just a list of patterns to match,
+           e.g. so specifying directory name (without <b>-r</b>) will behave
+           differently, and order of the arguments does not matter.
+
+       •   the behaviour is similar to that of "/bin/ls" in that the
+           <i>&lt;path&gt;</i> is taken as relative to the current working directory.
+           E.g. when you are in a directory <i>sub</i> that has a directory
+           <i>dir</i>, you can run <i>git ls-tree -r HEAD dir</i> to list the contents
+           of the tree (that is <b>sub/dir </b>in <b>HEAD</b>). You don’t want to give
+           a tree that is not at the root level (e.g.  <b>git ls-tree -r</b>
+           <b>HEAD:sub dir</b>) in this case, as that would result in asking
+           for <b>sub/sub/dir </b>in the <b>HEAD </b>commit. However, the current
+           working directory can be ignored by passing --full-tree
+           option.
+</pre>

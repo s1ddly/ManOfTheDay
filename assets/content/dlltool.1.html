@@ -1,0 +1,76 @@
+<pre>
+       <b>dlltool </b>reads its inputs, which can come from the <b>-d </b>and <b>-b</b>
+       options as well as object files specified on the command line.
+       It then processes these inputs and if the <b>-e </b>option has been
+       specified it creates a exports file.  If the <b>-l </b>option has been
+       specified it creates a library file and if the <b>-z </b>option has been
+       specified it creates a def file.  Any or all of the <b>-e</b>, <b>-l </b>and <b>-z</b>
+       options can be present in one invocation of dlltool.
+
+       When creating a DLL, along with the source for the DLL, it is
+       necessary to have three other files.  <b>dlltool </b>can help with the
+       creation of these files.
+
+       The first file is a <i>.def</i> file which specifies which functions are
+       exported from the DLL, which functions the DLL imports, and so
+       on.  This is a text file and can be created by hand, or <b>dlltool</b>
+       can be used to create it using the <b>-z </b>option.  In this case
+       <b>dlltool </b>will scan the object files specified on its command line
+       looking for those functions which have been specially marked as
+       being exported and put entries for them in the <i>.def</i> file it
+       creates.
+
+       In order to mark a function as being exported from a DLL, it
+       needs to have an <b>-export:&lt;name_of_function&gt; </b>entry in the <b>.drectve</b>
+       section of the object file.  This can be done in C by using the
+       <b>asm() </b>operator:
+
+                 asm (".section .drectve");
+                 asm (".ascii \"-export:my_func\"");
+
+                 int my_func (void) { ... }
+
+       The second file needed for DLL creation is an exports file.  This
+       file is linked with the object files that make up the body of the
+       DLL and it handles the interface between the DLL and the outside
+       world.  This is a binary file and it can be created by giving the
+       <b>-e </b>option to <b>dlltool </b>when it is creating or reading in a <i>.def</i>
+       file.
+
+       The third file needed for DLL creation is the library file that
+       programs will link with in order to access the functions in the
+       DLL (an `import library').  This file can be created by giving
+       the <b>-l </b>option to dlltool when it is creating or reading in a <i>.def</i>
+       file.
+
+       If the <b>-y </b>option is specified, dlltool generates a delay-import
+       library that can be used instead of the normal import library to
+       allow a program to link to the dll only as soon as an imported
+       function is called for the first time. The resulting executable
+       will need to be linked to the static delayimp library containing
+       _<b>_delayLoadHelper2()</b>, which in turn will import LoadLibraryA and
+       GetProcAddress from kernel32.
+
+       <b>dlltool </b>builds the library file by hand, but it builds the
+       exports file by creating temporary files containing assembler
+       statements and then assembling these.  The <b>-S </b>command-line option
+       can be used to specify the path to the assembler that dlltool
+       will use, and the <b>-f </b>option can be used to pass specific flags to
+       that assembler.  The <b>-n </b>can be used to prevent dlltool from
+       deleting these temporary assembler files when it is done, and if
+       <b>-n </b>is specified twice then this will prevent dlltool from
+       deleting the temporary object files it used to build the library.
+
+       Here is an example of creating a DLL from a source file <b>dll.c </b>and
+       also creating a program (from an object file called <b>program.o</b>)
+       that uses that DLL:
+
+                 gcc -c dll.c
+                 dlltool -e exports.o -l dll.lib dll.o
+                 gcc dll.o exports.o -o dll.dll
+                 gcc program.o dll.lib -o program
+
+       <b>dlltool </b>may also be used to query an existing import library to
+       determine the name of the DLL to which it is associated.  See the
+       description of the <b>-I </b>or <b>--identify </b>option.
+</pre>

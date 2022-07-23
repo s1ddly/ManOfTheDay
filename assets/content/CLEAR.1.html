@@ -1,0 +1,12 @@
+<pre>
+       <b>@CLEAR@ </b>clears your screen if this is possible, including its
+       scrollback buffer (if the extended “E3” capability is defined).
+       <b>@CLEAR@ </b>looks in the environment for the terminal type given by
+       the environment variable <b>TERM</b>, and then in the <b>terminfo </b>database
+       to determine how to clear the screen.
+
+       <b>@CLEAR@ </b>writes to the standard output.  You can redirect the
+       standard output to a file (which prevents <b>@CLEAR@ </b>from actually
+       clearing the screen), and later <b>cat </b>the file to the screen,
+       clearing it at that point.
+</pre>

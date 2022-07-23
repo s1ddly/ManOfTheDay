@@ -1,0 +1,29 @@
+<pre>
+       This manual page lists C operators and their precedence in
+       evaluation.
+
+       <b>Operator                            Associativity   Notes</b>
+       () [] -&gt; . ++ --                    left to right   [1]
+       ! ~ ++ -- + - (type) * &amp; sizeof     right to left   [2]
+       * / %                               left to right
+       + -                                 left to right
+       &lt;&lt; &gt;&gt;                               left to right
+       &lt; &lt;= &gt; &gt;=                           left to right
+       == !=                               left to right
+       &amp;                                   left to right
+       ^                                   left to right
+       |                                   left to right
+       &amp;&amp;                                  left to right
+       ||                                  left to right
+       ?:                                  right to left
+       = += -= *= /= %= &lt;&lt;= &gt;&gt;= &amp;= ^= |=   right to left
+       ,                                   left to right
+
+       The following notes provide further information to the above
+       table:
+
+       [1] The ++ and -- operators at this precedence level are the
+           postfix flavors of the operators.
+       [2] The ++ and -- operators at this precedence level are the
+           prefix flavors of the operators.
+</pre>

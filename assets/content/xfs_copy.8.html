@@ -1,0 +1,38 @@
+<pre>
+       <b>xfs_copy </b>copies an XFS filesystem to one or more targets in
+       parallel (see <a href="https://man7.org/linux/man-pages/man5/xfs.5.html">xfs(5)</a>).  The first (<i>source</i>) argument must be the
+       pathname of the device or file containing the XFS filesystem. The
+       remaining arguments specify one or more <i>target</i> devices or file
+       names. If the pathnames specify devices, a copy of the source XFS
+       filesystem is created on each device. The <i>target</i> can also be the
+       name of a regular file, in which case an image of the source XFS
+       filesystem is created in that file. If the file does not exist,
+       <b>xfs_copy </b>creates the file. The length of the resulting file is
+       equal to the size of the source filesystem. However, if the file
+       is created on an XFS filesystem, the file consumes roughly the
+       amount of space actually used in the source filesystem by the
+       filesystem and the XFS log.  The space saving is because <b>xfs_copy</b>
+       seeks over free blocks instead of copying them and the XFS
+       filesystem supports sparse files efficiently.
+
+       <b>xfs_copy </b>should only be used to copy unmounted filesystems, read-
+       only mounted filesystems, or frozen filesystems (see
+       <a href="https://man7.org/linux/man-pages/man8/xfs_freeze.8.html">xfs_freeze(8)</a>).  Otherwise, the generated filesystem(s) would be
+       inconsistent or corrupt.
+
+       <b>xfs_copy </b>does not alter the source filesystem in any way. Each
+       new (target) filesystem is identical to the original filesystem
+       except that new filesystems each have a new unique filesystem
+       identifier (UUID).  Therefore, if both the old and new
+       filesystems will be used as separate distinct filesystems,
+       <b>xfs_copy </b>or <a href="https://man7.org/linux/man-pages/man8/xfsdump.8.html">xfsdump(8)</a>/<a href="https://man7.org/linux/man-pages/man8/xfsrestore.8.html">xfsrestore(8)</a> should be used to generate
+       the new filesystem(s) instead of <a href="https://man7.org/linux/man-pages/man1/dd.1.html">dd(1)</a> or other programs that do
+       block-by-block disk copying.
+
+       <b>xfs_copy </b>uses synchronous writes to ensure that write errors are
+       detected.
+
+       <b>xfs_copy </b>uses <a href="https://man7.org/linux/man-pages/man7/pthreads.7.html">pthreads(7)</a> to perform simultaneous parallel
+       writes.  <b>xfs_copy </b>creates one additional thread for each target
+       to be written.  All threads die if <b>xfs_copy </b>terminates or aborts.
+</pre>

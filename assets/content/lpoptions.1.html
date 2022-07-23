@@ -1,0 +1,16 @@
+<pre>
+       <b>lpoptions </b>displays or sets printer options and defaults.  If no
+       printer is specified using the <i>-p</i> option, the default printer is
+       used as described in <a href="https://man7.org/linux/man-pages/man1/lp.1.html">lp(1)</a>.
+
+       If no <i>-l</i>, <i>-o</i>, or <i>-r</i> options are specified, the current options
+       are reported on the standard output.
+
+       Options set with the <b>lpoptions </b>command are used by the <a href="https://man7.org/linux/man-pages/man1/lp.1.html">lp(1)</a> and
+       <a href="https://man7.org/linux/man-pages/man1/lpr.1.html">lpr(1)</a> commands when submitting jobs.
+
+       When run by the root user, <b>lpoptions </b>gets and sets default
+       options and instances for all users in the <i>/etc/cups/lpoptions</i>
+       file.  Otherwise, the per-user defaults are managed in the
+       <i>~/.cups/lpoptions</i> file.
+</pre>

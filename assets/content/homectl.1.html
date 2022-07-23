@@ -1,0 +1,80 @@
+<pre>
+       <b>homectl </b>may be used to create, remove, change or inspect a user's
+       home directory. It's primarily a command interfacing with
+       <a href="https://man7.org/linux/man-pages/man8/systemd-homed.service.8.html">systemd-homed.service(8)</a> which manages home directories of users.
+
+       Home directories managed by systemd-homed.service are
+       self-contained, and thus include the user's full metadata record
+       in the home's data storage itself, making them easy to migrate
+       between machines. In particular, a home directory describes a
+       matching user record, and every user record managed by
+       systemd-homed.service also implies existence and encapsulation of
+       a home directory. The user account and home directory become the
+       same concept.
+
+       The following backing storage mechanisms are supported:
+
+       •   An individual LUKS2 encrypted loopback file for a user,
+           stored in /home/*.home. At login the file system contained in
+           this files is mounted, after the LUKS2 encrypted volume has
+           been attached. The user's password is identical to the
+           encryption passphrase of the LUKS2 volume. Access to data
+           without preceding user authentication is thus not possible,
+           even for the system administrator. This storage mechanism
+           provides the strongest data security and is thus recommended.
+
+       •   Similar, but the LUKS2 encrypted file system is located on
+           regular block device, such as an USB storage stick. In this
+           mode home directories and all data they include are nicely
+           migratable between machines, simply by plugging the USB stick
+           into different systems at different times.
+
+       •   An encrypted directory using "fscrypt" on file systems that
+           support it (at the moment this is primarily "ext4"), located
+           in /home/*.homedir. This mechanism also provides encryption,
+           but substantially weaker than LUKS2, as most file system
+           metadata is unprotected. Moreover it currently does not
+           support changing user passwords once the home directory has
+           been created.
+
+       •   A "btrfs" subvolume for each user, also located in
+           /home/*.homedir. This provides no encryption, but good quota
+           support.
+
+       •   A regular directory for each user, also located in
+           /home/*.homedir. This provides no encryption, but is a
+           suitable fallback available on all machines, even where
+           LUKS2, "fscrypt" or "btrfs" support is not available.
+
+       •   An individual Windows file share (CIFS) for each user.
+
+       Note that systemd-homed.service and <b>homectl </b>will not manage
+       "classic" UNIX user accounts as created with <a href="https://man7.org/linux/man-pages/man8/useradd.8.html">useradd(8)</a> or
+       similar tools. In particular, this functionality is not suitable
+       for managing system users (i.e. users with a UID below 1000) but
+       is exclusive to regular ("human") users.
+
+       Note that users/home directories managed via
+       <b>systemd-homed.service </b>do not show up in /etc/passwd and similar
+       files, they are synthesized via glibc NSS during runtime. They
+       are thus resolvable and may be enumerated via the <a href="https://man7.org/linux/man-pages/man1/getent.1.html">getent(1)</a> tool.
+
+       This tool interfaces directly with systemd-homed.service, and may
+       execute specific commands on the home directories it manages.
+       Since every home directory managed that way also defines a JSON
+       user and group record these home directories may also be
+       inspected and enumerated via <a href="https://man7.org/linux/man-pages/man1/userdbctl.1.html">userdbctl(1)</a>.
+
+       Home directories managed by systemd-homed.service are usually in
+       one of two states, or in a transition state between them: when
+       "active" they are unlocked and mounted, and thus accessible to
+       the system and its programs; when "inactive" they are not mounted
+       and thus not accessible. Activation happens automatically at
+       login of the user and usually can only complete after a password
+       (or other authentication token) has been supplied. Deactivation
+       happens after the user fully logged out. A home directory remains
+       active as long as the user is logged in at least once, i.e. has
+       at least one login session. When the user logs in a second time
+       simultaneously the home directory remains active. It is
+       deactivated only after the last of the user's sessions ends.
+</pre>

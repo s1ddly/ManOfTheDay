@@ -1,0 +1,16 @@
+<pre>
+       If <i>n</i> is specified, the <i>continue</i> utility shall return to the top
+       of the <i>n</i>th enclosing <b>for</b>, <b>while</b>, or <b>until </b>loop. If <i>n</i> is not
+       specified, <i>continue</i> shall behave as if <i>n</i> was specified as 1.
+       Returning to the top of the loop involves repeating the condition
+       list of a <b>while </b>or <b>until </b>loop or performing the next assignment
+       of a <b>for </b>loop, and re-executing the loop if appropriate.
+
+       The value of <i>n</i> is a positive decimal integer. If <i>n</i> is greater
+       than the number of enclosing loops, the outermost enclosing loop
+       shall be used. If there is no enclosing loop, the behavior is
+       unspecified.
+
+       The meaning of ``enclosing'' shall be as specified in the
+       description of the <i>break</i> utility.
+</pre>

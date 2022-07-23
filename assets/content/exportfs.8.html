@@ -1,0 +1,37 @@
+<pre>
+       An NFS server maintains a table of local physical file systems
+       that are accessible to NFS clients.  Each file system in this
+       table is  referred to as an <i>exported file system</i>, or <i>export</i>, for
+       short.
+
+       The <b>exportfs </b>command maintains the current table of exports for
+       the NFS server.  The master export table is kept in a file named
+       <i>/var/lib/nfs/etab</i>.  This file is read by <b>rpc.mountd </b>when a client
+       sends an NFS MOUNT request.
+
+       Normally the master export table is initialized with the contents
+       of <i>/etc/exports</i> and files under <i>/etc/exports.d</i> by invoking
+       <b>exportfs -a</b>.  However, a system administrator can choose to add
+       or delete exports without modifying <i>/etc/exports</i> or files under
+       <i>/etc/exports.d</i> by using the <b>exportfs </b>command.
+
+       <b>exportfs </b>and its partner program <b>rpc.mountd </b>work in one of two
+       modes: a legacy mode which applies to 2.4 and earlier versions of
+       the Linux kernel, and a new mode which applies to 2.6 and later
+       versions, providing the <b>nfsd </b>virtual filesystem has been mounted
+       at <i>/proc/fs/nfsd</i> or <i>/proc/fs/nfs</i>.  On 2.6 kernels, if this
+       filesystem is not mounted, the legacy mode is used.
+
+       In the new mode, <b>exportfs </b>does not give any information to the
+       kernel, but provides it only to <b>rpc.mountd </b>through the
+       <i>/var/lib/nfs/etab</i> file.  <b>rpc.mountd </b>then manages kernel requests
+       for information about exports, as needed.
+
+       In the legacy mode, exports which identify a specific host,
+       rather than a subnet or netgroup, are entered directly into the
+       kernel's export table, as well as being written to
+       <i>/var/lib/nfs/etab</i>.  Further, exports listed in <i>/var/lib/nfs/rmtab</i>
+       which match a non host-specific export request will cause an
+       appropriate export entry for the host given in <i>rmtab</i> to be added
+       to the kernel's export table.
+</pre>

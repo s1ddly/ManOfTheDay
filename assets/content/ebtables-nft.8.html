@@ -1,0 +1,68 @@
+<pre>
+       <b>ebtables </b>is an application program used to set up and maintain
+       the tables of rules (inside the Linux kernel) that inspect
+       Ethernet frames.  It is analogous to the <b>iptables </b>application,
+       but less complicated, due to the fact that the Ethernet protocol
+       is much simpler than the IP protocol.
+
+   <b>CHAINS</b>
+       There are two ebtables tables with built-in chains in the Linux
+       kernel. These tables are used to divide functionality into
+       different sets of rules. Each set of rules is called a chain.
+       Each chain is an ordered list of rules that can match Ethernet
+       frames. If a rule matches an Ethernet frame, then a processing
+       specification tells what to do with that matching frame. The
+       processing specification is called a 'target'. However, if the
+       frame does not match the current rule in the chain, then the next
+       rule in the chain is examined and so forth.  The user can create
+       new (user-defined) chains that can be used as the 'target' of a
+       rule. User-defined chains are very useful to get better
+       performance over the linear traversal of the rules and are also
+       essential for structuring the filtering rules into well-organized
+       and maintainable sets of rules.
+
+   <b>TARGETS</b>
+       A firewall rule specifies criteria for an Ethernet frame and a
+       frame processing specification called a target.  When a frame
+       matches a rule, then the next action performed by the kernel is
+       specified by the target.  The target can be one of these values:
+       <b>ACCEPT</b>, <b>DROP</b>, <b>CONTINUE</b>, <b>RETURN</b>, an 'extension' (see below) or a
+       jump to a user-defined chain.
+
+       <b>ACCEPT </b>means to let the frame through.  <b>DROP </b>means the frame has
+       to be dropped.  <b>CONTINUE </b>means the next rule has to be checked.
+       This can be handy, f.e., to know how many frames pass a certain
+       point in the chain, to log those frames or to apply multiple
+       targets on a frame.  <b>RETURN </b>means stop traversing this chain and
+       resume at the next rule in the previous (calling) chain.  For the
+       extension targets please refer to the <b>TARGET EXTENSIONS </b>section
+       of this man page.
+
+   <b>TABLES</b>
+       As stated earlier, there are two ebtables tables in the Linux
+       kernel.  The table names are <b>filter </b>and <b>nat</b>.  Of these two
+       tables, the filter table is the default table that the command
+       operates on.  If you are working with the filter table, then you
+       can drop the '-t filter' argument to the ebtables command.
+       However, you will need to provide the -t argument for <b>nat </b>table.
+       Moreover, the -t argument must be the first argument on the
+       ebtables command line, if used.
+
+       <b>-t, --table</b>
+              <b>filter </b>is the default table and contains three built-in
+              chains: <b>INPUT </b>(for frames destined for the bridge itself,
+              on the level of the MAC destination address), <b>OUTPUT </b>(for
+              locally-generated or (b)routed frames) and <b>FORWARD </b>(for
+              frames being forwarded by the bridge).
+              <b>nat </b>is mostly used to change the mac addresses and
+              contains three built-in chains: <b>PREROUTING </b>(for altering
+              frames as soon as they come in), <b>OUTPUT </b>(for altering
+              locally generated or (b)routed frames before they are
+              bridged) and <b>POSTROUTING </b>(for altering frames as they are
+              about to go out). A small note on the naming of chains
+              PREROUTING and POSTROUTING: it would be more accurate to
+              call them PREFORWARDING and POSTFORWARDING, but for all
+              those who come from the iptables world to ebtables it is
+              easier to have the same names. Note that you can change
+              the name (<b>-E</b>) if you don't like the default.
+</pre>

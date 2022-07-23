@@ -1,0 +1,12 @@
+<pre>
+       the <b>fw </b>filter allows to classify packets based on a previously
+       set <b>fwmark </b>by <b>iptables</b>.  If it is identical to the filter's
+       <b>handle</b>, the filter matches.  <b>iptables </b>allows to mark single
+       packets with the <b>MARK </b>target, or whole connections using
+       <b>CONNMARK</b>.  The benefit of using this filter instead of doing the
+       heavy-lifting with <b>tc </b>itself is that on one hand it might be
+       convenient to keep packet filtering and classification in one
+       place, possibly having to match a packet just once, and on the
+       other users familiar with <b>iptables </b>but not <b>tc </b>will have a less
+       hard time adding QoS to their setups.
+</pre>

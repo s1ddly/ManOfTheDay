@@ -1,0 +1,36 @@
+<pre>
+       The <b>lttng enable-rotation </b>command sets a rotation schedule for
+       the current tracing session, or for the tracing session named
+       <i>SESSION</i> if provided. See <a href="https://man7.org/linux/man-pages/man1/lttng-rotate.1.html">lttng-rotate(1)</a> for more information
+       about the concepts of a tracing session <i>rotation</i> and a <i>trace</i>
+       <i>chunk</i>.
+
+       With the <b>--timer </b>option, the rotation schedule is set so that an
+       automatic rotation occurs at least every <i>PERIOD</i> (microseconds
+       without a unit suffix).
+
+       With the <b>--size </b>option, the rotation schedule is set so that an
+       automatic rotation occurs every time the total size of the
+       flushed part of the current trace chunk is at least <i>SIZE</i> (bytes
+       without a unit suffix).
+
+       With both the <b>--timer </b>and <b>--size </b>options, LTTng checks the
+       schedule condition periodically using the monitor timers of the
+       tracing session’s channels. This means that, with the <b>--timer</b>
+       option, the automatic rotation can occur when the elapsed time
+       since the last automatic rotation is greater than <i>PERIOD</i>, and
+       with the <b>--size </b>option, the automatic rotation can occur when the
+       size of the flushed part of the current trace chunk is greater
+       than <i>SIZE</i>. See the <b>--monitor-timer </b>option in
+       <a href="https://man7.org/linux/man-pages/man1/lttng-enable-channel.1.html">lttng-enable-channel(1)</a> for more information about the monitor
+       timer.
+
+       The naming convention of a trace chunk archive which an automatic
+       rotation creates is the same as with the immediate rotation
+       command, <a href="https://man7.org/linux/man-pages/man1/lttng-rotate.1.html">lttng-rotate(1)</a>.
+
+       You can unset a rotation schedule with the
+       <a href="https://man7.org/linux/man-pages/man1/lttng-disable-rotation.1.html">lttng-disable-rotation(1)</a> command.
+
+       See <i>LIMITATIONS</i> for important limitations regarding this command.
+</pre>

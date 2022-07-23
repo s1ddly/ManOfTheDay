@@ -1,0 +1,18 @@
+<pre>
+   <b>rdma system set - set RDMA subsystem network namespace mode</b>
+   <b>rdma system show - display RDMA subsystem network namespace mode</b>
+       <i>NEWMODE</i> - specifies the RDMA subsystem mode. Either exclusive or
+       shared.  When user wants to assign dedicated RDMA device to a
+       particular network namespace, exclusive mode should be set before
+       creating any network namespace. If there are active network
+       namespaces and if one or more RDMA devices exist, changing mode
+       from shared to exclusive returns error code EBUSY.
+
+       When RDMA subsystem is in shared mode, RDMA device is accessible
+       in all network namespace. When RDMA device isolation among
+       multiple network namespaces is not needed, shared mode can be
+       used.
+
+       It is preferred to not change the subsystem mode when there is
+       active RDMA traffic running, even though it is supported.
+</pre>

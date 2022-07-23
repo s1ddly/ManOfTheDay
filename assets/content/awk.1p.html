@@ -1,0 +1,24 @@
+<pre>
+       The <i>awk</i> utility shall execute programs written in the <i>awk</i>
+       programming language, which is specialized for textual data
+       manipulation. An <i>awk</i> program is a sequence of patterns and
+       corresponding actions. When input is read that matches a pattern,
+       the action associated with that pattern is carried out.
+
+       Input shall be interpreted as a sequence of records. By default,
+       a record is a line, less its terminating &lt;newline&gt;, but this can
+       be changed by using the <b>RS </b>built-in variable. Each record of
+       input shall be matched in turn against each pattern in the
+       program. For each pattern matched, the associated action shall be
+       executed.
+
+       The <i>awk</i> utility shall interpret each input record as a sequence
+       of fields where, by default, a field is a string of non-&lt;blank&gt;
+       non-&lt;newline&gt; characters. This default &lt;blank&gt; and &lt;newline&gt;
+       field delimiter can be changed by using the <b>FS </b>built-in variable
+       or the <b>-F </b><i>sepstring</i> option. The <i>awk</i> utility shall denote the
+       first field in a record $1, the second $2, and so on. The symbol
+       $0 shall refer to the entire record; setting any other field
+       causes the re-evaluation of $0. Assigning to $0 shall reset the
+       values of all other fields and the <b>NF </b>built-in variable.
+</pre>

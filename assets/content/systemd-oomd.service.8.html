@@ -1,0 +1,18 @@
+<pre>
+       <b>systemd-oomd </b>is a system service that uses cgroups-v2 and
+       pressure stall information (PSI) to monitor and take action on
+       processes before an OOM occurs in kernel space.
+
+       You can enable monitoring and actions on units by setting
+       <i>ManagedOOMSwap=</i> and/or <i>ManagedOOMMemoryPressure=</i> to the
+       appropriate value.  <b>systemd-oomd </b>will periodically poll enabled
+       units' cgroup data to detect when corrective action needs to
+       occur. When an action needs to happen, it will only be performed
+       on the descendant cgroups of the enabled units. More precisely,
+       only cgroups with memory.oom.group set to <b>1 </b>and leaf cgroup nodes
+       are eligible candidates. Action will be taken recursively on all
+       of the processes under the chosen candidate.
+
+       See <a href="https://man7.org/linux/man-pages/man5/oomd.conf.5.html">oomd.conf(5)</a> for more information about the configuration of
+       this service.
+</pre>

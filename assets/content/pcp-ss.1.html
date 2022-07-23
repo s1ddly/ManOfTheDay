@@ -1,0 +1,22 @@
+<pre>
+       <b>pcp-ss </b>reports socket statistics collected by the <a href="https://man7.org/linux/man-pages/man1/pmdasockets.1.html">pmdasockets(1)</a>
+       PMDA agent.  The command is intended to be closely compatible
+       with many of the <a href="https://man7.org/linux/man-pages/man8/ss.8.html">ss(8)</a> command line options and reporting
+       formats, but also offer the advantages of local or remote
+       monitoring (in live mode) and also historical replay from a
+       previously recorded PCP archive.
+
+       Live mode uses the <b>pcp -h </b><i>host</i> option and requires the
+       <a href="https://man7.org/linux/man-pages/man1/pmdasockets.1.html">pmdasockets(1)</a> PMDA to be installed and enabled on the target
+       <i>host</i> (local or remote), see <a href="https://man7.org/linux/man-pages/man1/pmdasockets.1.html">pmdasockets(1)</a> for details on how to
+       enable the <b>sockets </b>PMDA on a particular host.  The default source
+       is live metrics collected on <b>localhost</b>, if neither of the <b>-h </b>or
+       <b>-a </b>options are given.
+
+       Historical/archive replay uses the <b>pcp -a </b><i>archive</i> option, where
+       <i>archive</i> is the basename of a previously recorded PCP archive.
+       The archive replay feature is particularly useful because socket
+       statistics can be reported for a designated time using the <b>pcp</b>
+       <b>--origin </b>option (which defaults to the start time of the
+       archive).
+</pre>

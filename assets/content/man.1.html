@@ -1,0 +1,52 @@
+<pre>
+       <b>man </b>is the system's manual pager.  Each <i>page</i> argument given to
+       <b>man </b>is normally the name of a program, utility or function.  The
+       <i>manual page</i> associated with each of these arguments is then found
+       and displayed.  A <i>section</i>, if provided, will direct <b>man </b>to look
+       only in that <i>section</i> of the manual.  The default action is to
+       search in all of the available <i>sections</i> following a pre-defined
+       order (see <b>DEFAULTS</b>), and to show only the first <i>page</i> found, even
+       if <i>page</i> exists in several <i>sections</i>.
+
+       The table below shows the <i>section</i> numbers of the manual followed
+       by the types of pages they contain.
+
+       1   Executable programs or shell commands
+       2   System calls (functions provided by the kernel)
+       3   Library calls (functions within program libraries)
+       4   Special files (usually found in <i>/dev</i>)
+       5   File formats and conventions, e.g. <i>/etc/passwd</i>
+       6   Games
+       7   Miscellaneous (including macro packages and conventions),
+           e.g. <a href="https://man7.org/linux/man-pages/man7/man.7.html">man(7)</a>, <a href="https://man7.org/linux/man-pages/man7/groff.7.html">groff(7)</a>
+       8   System administration commands (usually only for root)
+       9   Kernel routines [Non standard]
+
+       A manual <i>page</i> consists of several sections.
+
+       Conventional section names include <b>NAME</b>, <b>SYNOPSIS</b>, <b>CONFIGURATION</b>,
+       <b>DESCRIPTION</b>, <b>OPTIONS</b>, <b>EXIT STATUS</b>, <b>RETURN VALUE</b>, <b>ERRORS</b>,
+       <b>ENVIRONMENT</b>, <b>FILES</b>, <b>VERSIONS</b>, <b>CONFORMING TO</b>, <b>NOTES</b>, <b>BUGS</b>,
+       <b>EXAMPLE</b>, <b>AUTHORS</b>, and <b>SEE ALSO</b>.
+
+       The following conventions apply to the <b>SYNOPSIS </b>section and can
+       be used as a guide in other sections.
+
+       <b>bold text          </b>type exactly as shown.
+       <i>italic text</i>        replace with appropriate argument.
+       [<b>-abc</b>]             any or all arguments within [ ] are optional.
+       <b>-a</b>|<b>-b              </b>options delimited by | cannot be used
+                          together.
+       <i>argument</i> ...       <i>argument</i> is repeatable.
+       [<i>expression</i>] ...   entire <i>expression</i> within [ ] is repeatable.
+
+       Exact rendering may vary depending on the output device.  For
+       instance, man will usually not be able to render italics when
+       running in a terminal, and will typically use underlined or
+       coloured text instead.
+
+       The command or function illustration is a pattern that should
+       match all possible invocations.  In some cases it is advisable to
+       illustrate several exclusive invocations as is shown in the
+       <b>SYNOPSIS </b>section of this manual page.
+</pre>

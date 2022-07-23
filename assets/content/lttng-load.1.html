@@ -1,0 +1,52 @@
+<pre>
+       The <b>lttng load </b>command loads the configurations of one or more
+       tracing sessions from files.
+
+       The <b>lttng load </b>command is used in conjunction with the
+       <a href="https://man7.org/linux/man-pages/man1/lttng-save.1.html">lttng-save(1)</a> command to save and restore the complete
+       configurations of tracing sessions. This includes the enabled
+       channels and event rules, the context added to channels, the
+       tracing activity, and more.
+
+       Once one or more tracing session configurations are loaded, they
+       appear exactly as they were saved from the user’s point of view.
+
+       The following directories are searched, non-recursively, in this
+       order for configuration files:
+
+        1. <b>$LTTNG_HOME/.lttng/sessions </b>(<b>$LTTNG_HOME </b>defaults to <b>$HOME</b>)
+
+        2. <b>/usr/local/etc/lttng/sessions</b>
+
+       The input path can be overridden with the <b>--input-path </b>option.
+       When this option is specified, the default directories are NOT
+       searched for configuration files. When it’s not specified, <i>both</i>
+       default directories are searched for configuration files.
+
+       If the input path is a <b>directory</b>, then:
+
+       •   If <i>SESSION</i> is specified, the tracing session configuration
+           named <i>SESSION</i> is searched for in all the files of this
+           directory and loaded if found.
+
+       •   If <i>SESSION</i> is not specified, the <b>--all </b>option is implicit:
+           all the tracing session configurations found in all the files
+           in this directory are loaded.
+
+       If the input path is a <b>file</b>, then:
+
+       •   If <i>SESSION</i> is specified, the tracing session configuration
+           named <i>SESSION</i> is searched for in this file and loaded if
+           found.
+
+       •   If <i>SESSION</i> is not specified, the <b>--all </b>option is implicit:
+           all the tracing session configurations found in this file are
+           loaded.
+
+       Aspects of the loaded configurations can be overridden at load
+       time using the <b>--override-url </b>and <b>--override-name </b>options.
+
+       By default, existing tracing sessions are not overwritten when
+       loading: the command fails. The <b>--force </b>option can be used to
+       allow this.
+</pre>

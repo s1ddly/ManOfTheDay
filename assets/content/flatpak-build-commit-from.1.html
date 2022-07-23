@@ -1,0 +1,20 @@
+<pre>
+       Creates new commits on the DST-REF branch in the DST-REPO, with
+       the contents (and most of the metadata) taken from another
+       branch, either from another repo, or from another branch in the
+       same repository.
+
+       The collection ID set on DST-REPO (if set) will be used for the
+       newly created commits.
+
+       This command is very useful when you want to maintain a branch
+       with a clean history that has no unsigned or broken commits. For
+       instance, you can import the head from a different repository
+       from an automatic builder when you've verified that it worked.
+       The new commit will have no parents or signatures from the
+       autobuilder, and can be properly signed with the official key.
+
+       Any deltas that affect the original commit and that match parent
+       commits in the destination repository are copied and rewritten
+       for the new commit id.
+</pre>

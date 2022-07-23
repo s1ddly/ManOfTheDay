@@ -1,0 +1,25 @@
+<pre>
+       Reads a tag contents on standard input and creates a tag object.
+       The output is the new tag’s &lt;object&gt; identifier.
+
+       This command is mostly equivalent to <a href="https://man7.org/linux/man-pages/man1/git-hash-object.1.html">git-hash-object(1)</a> invoked
+       with <b>-t tag -w --stdin</b>. I.e. both of these will create and write
+       a tag found in <b>my-tag</b>:
+
+           git mktag &lt;my-tag
+           git hash-object -t tag -w --stdin &lt;my-tag
+
+       The difference is that mktag will die before writing the tag if
+       the tag doesn’t pass a <a href="https://man7.org/linux/man-pages/man1/git-fsck.1.html">git-fsck(1)</a> check.
+
+       The "fsck" check done mktag is stricter than what <a href="https://man7.org/linux/man-pages/man1/git-fsck.1.html">git-fsck(1)</a>
+       would run by default in that all <b>fsck.&lt;msg-id&gt; </b>messages are
+       promoted from warnings to errors (so e.g. a missing "tagger" line
+       is an error).
+
+       Extra headers in the object are also an error under mktag, but
+       ignored by <a href="https://man7.org/linux/man-pages/man1/git-fsck.1.html">git-fsck(1)</a>. This extra check can be turned off by
+       setting the appropriate <b>fsck.&lt;msg-id&gt; </b>varible:
+
+           git -c fsck.extraHeaderEntry=ignore mktag &lt;my-tag-with-headers
+</pre>

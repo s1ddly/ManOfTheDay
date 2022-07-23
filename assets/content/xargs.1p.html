@@ -1,0 +1,47 @@
+<pre>
+       The <i>xargs</i> utility shall construct a command line consisting of
+       the <i>utility</i> and <i>argument</i> operands specified followed by as many
+       arguments read in sequence from standard input as fit in length
+       and number constraints specified by the options. The <i>xargs</i>
+       utility shall then invoke the constructed command line and wait
+       for its completion. This sequence shall be repeated until one of
+       the following occurs:
+
+        *  An end-of-file condition is detected on standard input.
+
+        *  An argument consisting of just the logical end-of-file string
+           (see the <b>-E </b><i>eofstr</i> option) is found on standard input after
+           double-quote processing, &lt;apostrophe&gt; processing, and
+           &lt;backslash&gt;-escape processing (see next paragraph). All
+           arguments up to but not including the argument consisting of
+           just the logical end-of-file string shall be used as
+           arguments in constructed command lines.
+
+        *  An invocation of a constructed command line returns an exit
+           status of 255.
+
+       The application shall ensure that arguments in the standard input
+       are separated by unquoted &lt;blank&gt; characters, unescaped &lt;blank&gt;
+       characters, or &lt;newline&gt; characters. A string of zero or more
+       non-double-quote (<b>'"'</b>) characters and non-&lt;newline&gt; characters
+       can be quoted by enclosing them in double-quotes. A string of
+       zero or more non-&lt;apostrophe&gt; (<b>'\''</b>) characters and non-&lt;newline&gt;
+       characters can be quoted by enclosing them in &lt;apostrophe&gt;
+       characters. Any unquoted character can be escaped by preceding it
+       with a &lt;backslash&gt;.  The utility named by <i>utility</i> shall be
+       executed one or more times until the end-of-file is reached or
+       the logical end-of file string is found. The results are
+       unspecified if the utility named by <i>utility</i> attempts to read from
+       its standard input.
+
+       The generated command line length shall be the sum of the size in
+       bytes of the utility name and each argument treated as strings,
+       including a null byte terminator for each of these strings. The
+       <i>xargs</i> utility shall limit the command line length such that when
+       the command line is invoked, the combined argument and
+       environment lists (see the <i>exec</i> family of functions in the System
+       Interfaces volume of POSIX.1‐2017) shall not exceed
+       {ARG_MAX}-2048 bytes. Within this constraint, if neither the <b>-n</b>
+       nor the <b>-s </b>option is specified, the default command line length
+       shall be at least {LINE_MAX}.
+</pre>

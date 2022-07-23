@@ -1,0 +1,103 @@
+<pre>
+   <b>Metadata updates:</b>
+       To service metadata update requests a daemon, <i>mdmon</i>, is
+       introduced.  <i>Mdmon</i> is tasked with polling the sysfs namespace
+       looking for changes in <b>array_state</b>, <b>sync_action</b>, and per disk
+       <b>state </b>attributes.  When a change is detected it calls a per
+       metadata type handler to make modifications to the metadata.  The
+       following actions are taken:
+
+              <b>array_state - inactive</b>
+                     Clear the dirty bit for the volume and let the
+                     array be stopped
+
+              <b>array_state - write pending</b>
+                     Set the dirty bit for the array and then set
+                     <b>array_state </b>to <b>active</b>.  Writes are blocked until
+                     userspace writes <b>active.</b>
+
+              <b>array_state - active-idle</b>
+                     The safe mode timer has expired so set array state
+                     to clean to block writes to the array
+
+              <b>array_state - clean</b>
+                     Clear the dirty bit for the volume
+
+              <b>array_state - read-only</b>
+                     This is the initial state that all arrays start at.
+                     <i>mdmon</i> takes one of the three actions:
+
+                     1/     Transition the array to read-auto keeping
+                            the dirty bit clear if the metadata handler
+                            determines that the array does not need
+                            resyncing or other modification
+
+                     2/     Transition the array to active if the
+                            metadata handler determines a resync or some
+                            other manipulation is necessary
+
+                     3/     Leave the array read-only if the volume is
+                            marked to not be monitored; for example, the
+                            metadata version has been set to
+                            "external:-dev/md127" instead of
+                            "external:/dev/md127"
+
+              <b>sync_action - resync-to-idle</b>
+                     Notify the metadata handler that a resync may have
+                     completed.  If a resync process is idled before it
+                     completes this event allows the metadata handler to
+                     checkpoint resync.
+
+              <b>sync_action - recover-to-idle</b>
+                     A spare may have completed rebuilding so tell the
+                     metadata handler about the state of each disk.
+                     This is the metadata handler's opportunity to clear
+                     any "out-of-sync" bits and clear the volume's
+                     degraded status.  If a recovery process is idled
+                     before it completes this event allows the metadata
+                     handler to checkpoint recovery.
+
+              <b>&lt;disk&gt;/state - faulty</b>
+                     A disk failure kicks off a series of events.
+                     First, notify the metadata handler that a disk has
+                     failed, and then notify the kernel that it can
+                     unblock writes that were dependent on this disk.
+                     After unblocking the kernel this disk is set to be
+                     removed+ from the member array.  Finally the disk
+                     is marked failed in all other member arrays in the
+                     container.
+
+                     + Note This behavior differs slightly from native
+                     MD arrays where removal is reserved for a <b>mdadm</b>
+                     <b>--remove </b>event.  In the external metadata case the
+                     container holds the final reference on a block
+                     device and a <b>mdadm --remove &lt;container&gt; &lt;victim&gt;</b>
+                     call is still required.
+
+   <b>Containers:</b>
+       External metadata formats, like DDF, differ from the native MD
+       metadata formats in that they define a set of disks and a series
+       of sub-arrays within those disks.  MD metadata in comparison
+       defines a 1:1 relationship between a set of block devices and a
+       RAID array.  For example to create 2 arrays at different RAID
+       levels on a single set of disks, MD metadata requires the disks
+       be partitioned and then each array can be created with a subset
+       of those partitions.  The supported external formats perform this
+       disk carving internally.
+
+       Container devices simply hold references to all member disks and
+       allow tools like <i>mdmon</i> to determine which active arrays belong to
+       which container.  Some array management commands like disk
+       removal and disk add are now only valid at the container level.
+       Attempts to perform these actions on member arrays are blocked
+       with error messages like:
+
+              "mdadm: Cannot remove disks from a ´member´ array, perform
+              this operation on the parent container"
+
+       Containers are identified in /proc/mdstat with a metadata version
+       string "external:&lt;metadata name&gt;". Member devices are identified
+       by "external:/&lt;container device&gt;/&lt;member index&gt;", or
+       "external:-&lt;container device&gt;/&lt;member index&gt;" if the array is to
+       remain readonly.
+</pre>

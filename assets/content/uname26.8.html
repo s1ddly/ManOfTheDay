@@ -1,0 +1,13 @@
+<pre>
+       <b>setarch </b>modifies execution domains and process personality flags.
+
+       The execution domains currently only affects the output of <b>uname</b>
+       <b>-m</b>. For example, on an AMD64 system, running <b>setarch i386 </b><i>program</i>
+       will cause <i>program</i> to see i686 instead of <i>x86_64</i> as the machine
+       type. It can also be used to set various personality options. The
+       default <i>program</i> is <b>/bin/sh</b>.
+
+       Since version 2.33 the <i>arch</i> command line argument is optional and
+       <b>setarch </b>may be used to change personality flags (ADDR_LIMIT_*,
+       SHORT_INODE, etc) without modification of the execution domain.
+</pre>

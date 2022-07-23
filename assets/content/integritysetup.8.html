@@ -1,0 +1,51 @@
+<pre>
+       Integritysetup is used to configure dm-integrity managed device-
+       mapper mappings.
+
+       Device-mapper integrity target provides read-write transparent
+       integrity checking of block devices. The dm-integrity target
+       emulates additional data integrity field per-sector. You can use
+       this additional field directly with integritysetup utility, or
+       indirectly (for authenticated encryption) through cryptsetup.
+
+       Integritysetup supports these operations:
+
+       <i>format</i> &lt;device&gt;
+
+              Formats &lt;device&gt; (calculates space and dm-integrity
+              superblock and wipes the device).
+
+              <b>&lt;options&gt; </b>can be [--data-device, --batch-mode, --no-wipe,
+              --journal-size, --interleave-sectors, --tag-size,
+              --integrity, --integrity-key-size, --integrity-key-file,
+              --sector-size, --progress-frequency]
+
+       <i>open</i> &lt;device&gt; &lt;name&gt;
+       <i>create</i> &lt;name&gt; &lt;device&gt; (<b>OBSOLETE syntax</b>)
+
+              Open a mapping with &lt;name&gt; backed by device &lt;device&gt;.
+
+              <b>&lt;options&gt; </b>can be [--data-device, --batch-mode,
+              --journal-watermark, --journal-commit-time,
+              --buffer-sectors, --integrity, --integrity-key-size,
+              --integrity-key-file, --integrity-no-journal,
+              --integrity-recalculate, --integrity-recalculate-
+              reset,--integrity-recovery-mode, --allow-discards]
+
+       <i>close</i> &lt;name&gt;
+
+              Removes existing mapping &lt;name&gt;.
+
+              For backward compatibility, there is <b>remove </b>command alias
+              for the <b>close </b>command.
+
+              <b>&lt;options&gt; </b>can be [--deferred] or [--cancel-deferred]
+
+       <i>status</i> &lt;name&gt;
+
+              Reports status for the active integrity mapping &lt;name&gt;.
+
+       <i>dump</i> &lt;device&gt;
+
+              Reports parameters from on-disk stored superblock.
+</pre>

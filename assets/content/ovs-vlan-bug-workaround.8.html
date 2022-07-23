@@ -1,0 +1,45 @@
+<pre>
+       Some Linux network drivers support a feature called ``VLAN
+       acceleration''.  VLAN acceleration is associated with a data
+       structure called a <b>vlan_group </b>that is, abstractly, a dictionary
+       that maps from a VLAN ID (in the range 0 to 4095) to a VLAN
+       device, that is, a Linux network device associated with a
+       particular VLAN, e.g. <b>eth0.9 </b>for VLAN 9 on <b>eth0</b>.
+
+       Some drivers that support VLAN acceleration have bugs that fall
+       roughly into the categories listed below.  <b>ovs-vlan-test</b>(8) can
+       test for these driver bugs.
+
+       •      When NICs use VLAN stripping on receive they must pass a
+              pointer to a <b>vlan_group </b>when reporting the stripped tag to
+              the networking core.  If no <b>vlan_group </b>is in use then some
+              drivers just drop the extracted tag.  Drivers are supposed
+              to only enable stripping if a <b>vlan_group </b>is registered but
+              not all of them do that.
+
+       •      On receive, some drivers handle priority tagged packets
+              specially and don't pass the tag onto the network stack at
+              all, so Open vSwitch never has a chance to see it.
+
+       •      Some drivers size their receive buffers based on whether a
+              <b>vlan_group </b>is enabled, meaning that a maximum size packet
+              with a VLAN tag will not fit if no <b>vlan_group </b>is
+              configured.
+
+       •      On transmit, some drivers expect that VLAN acceleration
+              will be used if it is available, which can only be done if
+              a <b>vlan_group </b>is configured.  In these cases, the driver
+              may fail to parse the packet and correctly setup checksum
+              offloading or TSO.
+
+       The correct long term solution is to fix these driver bugs.
+
+       For now, <b>ovs-vlan-bug-workaround </b>can enable a special-purpose
+       workaround for devices with buggy VLAN acceleration.  A kernel
+       patch must be applied for this workaround to work.
+
+       Use the command <b>ovs-vlan-bug-workaround </b><i>netdev</i> <b>on </b>to enable the
+       VLAN driver bug workaround for network device <i>netdev</i>.  Use the
+       command <b>ovs-vlan-bug-workaround </b><i>netdev</i> <b>off </b>to disable the VLAN
+       driver bug workaround for network device <i>netdev</i>.
+</pre>

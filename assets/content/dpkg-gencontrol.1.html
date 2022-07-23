@@ -1,0 +1,26 @@
+<pre>
+       <b>dpkg-gencontrol </b>reads information from an unpacked Debian source
+       tree and generates a binary package control file (which defaults
+       to debian/tmp/DEBIAN/control); during this process it will
+       simplify the relation fields.
+
+       Thus <b>Pre-Depends</b>, <b>Depends</b>, <b>Recommends </b>and <b>Suggests </b>are simplified
+       in this order by removing dependencies which are known to be true
+       according to the stronger dependencies already parsed. It will
+       also remove any self-dependency (in fact it will remove any
+       dependency which evaluates to true given the current version of
+       the package as installed). Logically it keeps the intersection of
+       multiple dependencies on the same package. The order of
+       dependencies is preserved as best as possible: if any dependency
+       must be discarded due to another dependency appearing further in
+       the field, the superseding dependency will take the place of the
+       discarded one.
+
+       The other relation fields (<b>Enhances</b>, <b>Conflicts</b>, <b>Breaks</b>, <b>Replaces</b>
+       and <b>Provides</b>) are also simplified individually by computing the
+       union of the various dependencies when a package is listed
+       multiple times in the field.
+
+       <b>dpkg-gencontrol </b>also adds an entry for the binary package to
+       <b>debian/files</b>.
+</pre>

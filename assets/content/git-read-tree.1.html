@@ -1,0 +1,13 @@
+<pre>
+       Reads the tree information given by &lt;tree-ish&gt; into the index,
+       but does not actually <b>update </b>any of the files it "caches". (see:
+       <a href="https://man7.org/linux/man-pages/man1/git-checkout-index.1.html">git-checkout-index(1)</a>)
+
+       Optionally, it can merge a tree into the index, perform a
+       fast-forward (i.e. 2-way) merge, or a 3-way merge, with the <b>-m</b>
+       flag. When used with <b>-m</b>, the <b>-u </b>flag causes it to also update the
+       files in the work tree with the result of the merge.
+
+       Trivial merges are done by <i>git read-tree</i> itself. Only conflicting
+       paths will be in unmerged state when <i>git read-tree</i> returns.
+</pre>

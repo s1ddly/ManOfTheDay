@@ -1,0 +1,25 @@
+<pre>
+       <b>id128 </b>may be used to conveniently print <a href="https://man7.org/linux/man-pages/man3/sd-id128.3.html">sd-id128(3)</a> UUIDs. What
+       identifier is printed depends on the specific verb.
+
+       With <b>new</b>, a new random identifier will be generated.
+
+       With <b>machine-id</b>, the identifier of the current machine will be
+       printed. See <a href="https://man7.org/linux/man-pages/man5/machine-id.5.html">machine-id(5)</a>.
+
+       With <b>boot-id</b>, the identifier of the current boot will be printed.
+
+       Both <b>machine-id </b>and <b>boot-id </b>may be combined with the
+       <b>--app-specific=</b><i>app-id</i> switch to generate application-specific
+       IDs. See <a href="https://man7.org/linux/man-pages/man3/sd_id128_get_machine.3.html">sd_id128_get_machine(3)</a> for the discussion when this is
+       useful.
+
+       With <b>invocation-id</b>, the identifier of the current service
+       invocation will be printed. This is available in systemd
+       services. See <a href="https://man7.org/linux/man-pages/man5/systemd.exec.5.html">systemd.exec(5)</a>.
+
+       With <b>show</b>, well-known UUIDs are printed. When no arguments are
+       specified, all known UUIDs are shown. When arguments are
+       specified, they must be the names or values of one or more known
+       UUIDs, which are then printed.
+</pre>

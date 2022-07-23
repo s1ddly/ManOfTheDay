@@ -1,0 +1,80 @@
+<pre>
+       <i>Cron</i> is started from <i>/etc/rc.d/init.d</i> or <i>/etc/init.d</i> when
+       classical sysvinit scripts are used. In case systemd is enabled,
+       then unit file is installed into
+       <i>/lib/systemd/system/crond.service</i> and daemon is started by
+       <i>systemctl start crond.service</i> command. It returns immediately,
+       thus, there is no need to need to start it with the '&amp;'
+       parameter.
+
+       <i>Cron</i> searches <i>/var/spool/cron</i> for crontab files which are named
+       after accounts in <i>/etc/passwd;</i> The found crontabs are loaded into
+       the memory.  <i>Cron</i> also searches for <i>/etc/anacrontab</i> and any files
+       in the <i>/etc/cron.d</i> directory, which have a different format (see
+       <a href="https://man7.org/linux/man-pages/man5/crontab.5.html">crontab(5)</a>).  <i>Cron</i> examines all stored crontabs and checks each
+       job to see if it needs to be run in the current minute.  When
+       executing commands, any output is mailed to the owner of the
+       crontab (or to the user specified in the <i>MAILTO</i> environment
+       variable in the crontab, if such exists).  Any job output can
+       also be sent to syslog by using the <b>-s </b>option.
+
+       There are two ways how changes in crontables are checked.  The
+       first method is checking the modtime of a file.  The second
+       method is using the inotify support.  Using of inotify is logged
+       in the <i>/var/log/cron</i> log after the daemon is started.  The
+       inotify support checks for changes in all crontables and accesses
+       the hard disk only when a change is detected.
+
+       When using the modtime option, <i>Cron</i> checks its crontables'
+       modtimes every minute to check for any changes and reloads the
+       crontables which have changed.  There is no need to restart <i>Cron</i>
+       after some of the crontables were modified.  The modtime option
+       is also used when inotify can not be initialized.
+
+       <i>Cron</i> checks these files and directories:
+
+       <i>/etc/crontab</i>
+              system crontab.  Nowadays the file is empty by default.
+              Originally it was usually used to run daily, weekly,
+              monthly jobs.  By default these jobs are now run through
+              anacron which reads <i>/etc/anacrontab</i> configuration file.
+              See <a href="https://man7.org/linux/man-pages/man5/anacrontab.5.html">anacrontab(5)</a> for more details.
+
+       <i>/etc/cron.d/</i>
+              directory that contains system cronjobs stored for
+              different users.
+
+       <i>/var/spool/cron</i>
+              directory that contains user crontables created by the
+              <i>crontab</i> command.
+
+       Note that the <a href="https://man7.org/linux/man-pages/man1/crontab.1.html">crontab(1)</a> command updates the modtime of the spool
+       directory whenever it changes a crontab.
+
+   <b>Daylight Saving Time and other time changes</b>
+       Local time changes of less than three hours, such as those caused
+       by the Daylight Saving Time changes, are handled in a special
+       way.  This only applies to jobs that run at a specific time and
+       jobs that run with a granularity greater than one hour.  Jobs
+       that run more frequently are scheduled normally.
+
+       If time was adjusted one hour forward, those jobs that would have
+       run in the interval that has been skipped will be run
+       immediately.  Conversely, if time was adjusted backward, running
+       the same job twice is avoided.
+
+       Time changes of more than 3 hours are considered to be
+       corrections to the clock or the timezone, and the new time is
+       used immediately.
+
+       It is possible to use different time zones for crontables.  See
+       <a href="https://man7.org/linux/man-pages/man5/crontab.5.html">crontab(5)</a> for more information.
+
+   <b>PAM Access Control</b>
+       <i>Cron</i> supports access control with PAM if the system has PAM
+       installed.  For more information, see <a href="https://man7.org/linux/man-pages/man8/pam.8.html">pam(8)</a>.  A PAM
+       configuration file for <i>crond</i> is installed in <i>/etc/pam.d/crond</i>.
+       The daemon loads the PAM environment from the pam_env module.
+       This can be overridden by defining specific settings in the
+       appropriate crontab file.
+</pre>

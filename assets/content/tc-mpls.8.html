@@ -1,0 +1,11 @@
+<pre>
+       The <b>mpls </b>action performs mpls encapsulation or decapsulation on a
+       packet, reflected by the operation modes <i>POP</i>, <i>PUSH</i>, <i>MODIFY</i> and
+       <i>DEC_TTL</i>.  The <i>POP</i> mode requires the ethertype of the header that
+       follows the MPLS header (e.g.  IPv4 or another MPLS). It will
+       remove the outer MPLS header and replace the ethertype in the MAC
+       header with that passed. The <i>PUSH</i> and <i>MODIFY</i> modes update the
+       current MPLS header information or add a new header.  <i>PUSH</i>
+       requires at least an <i>MPLS_LABEL</i>.  <i>DEC_TTL</i> requires no arguments
+       and simply subtracts 1 from the MPLS header TTL field.
+</pre>

@@ -1,0 +1,18 @@
+<pre>
+       <b>termio </b>is the name of the old System V terminal driver interface.
+       This interface defined a <i>termio</i> structure used to store terminal
+       settings, and a range of <a href="https://man7.org/linux/man-pages/man2/ioctl.2.html">ioctl(2)</a> operations to get and set
+       terminal attributes.
+
+       The <b>termio </b>interface is now obsolete: POSIX.1-1990 standardized a
+       modified version of this interface, under the name <b>termios</b>.  The
+       POSIX.1 data structure differs slightly from the System V
+       version, and POSIX.1 defined a suite of functions to replace the
+       various <a href="https://man7.org/linux/man-pages/man2/ioctl.2.html">ioctl(2)</a> operations that existed in System V.  (This was
+       done because <a href="https://man7.org/linux/man-pages/man2/ioctl.2.html">ioctl(2)</a> was unstandardized, and its variadic third
+       argument does not allow argument type checking.)
+
+       If you're looking for a page called "termio", then you can
+       probably find most of the information that you seek in either
+       <a href="https://man7.org/linux/man-pages/man3/termios.3.html">termios(3)</a> or <a href="https://man7.org/linux/man-pages/man2/ioctl_tty.2.html">ioctl_tty(2)</a>.
+</pre>

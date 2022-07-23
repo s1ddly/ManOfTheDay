@@ -1,0 +1,33 @@
+<pre>
+       The <b>query </b>command queries the object named <i>OBJECT</i> from the
+       component class named <i>COMP-CLS-NAME</i> of the type <i>COMP-CLS-TYPE</i>
+       found in the Babeltrace 2 plugin named <i>PLUGIN-NAME</i> and prints the
+       results.
+
+       See <a href="https://man7.org/linux/man-pages/man7/babeltrace2-intro.7.html">babeltrace2-intro(7)</a> to learn more about the Babeltrace 2
+       project and its core concepts.
+
+       The available values for <i>COMP-CLS-TYPE</i> are:
+
+       <b>source</b>, <b>src</b>
+           Source component class.
+
+       <b>filter</b>, <b>flt</b>
+           Filter component class.
+
+       <b>sink</b>
+           Sink component class.
+
+       The exact object names and the parameters that a given component
+       class expects are described in its own documentation.
+       <a href="https://man7.org/linux/man-pages/man1/babeltrace2-help.1.html">babeltrace2-help(1)</a> can generally provide this information.
+
+       You can use the <b>--params </b>option to pass parameters to the
+       component class’s query operation.
+
+       The output of the <b>query </b>command can look like YAML (see
+       &lt;<a href="https://man7.org/linux/man-pagestps://yaml.org/">https://yaml.org/</a>&gt;), but it’s not guaranteed to be
+       YAML-compliant.
+
+       See “EXAMPLES” for usage examples.
+</pre>

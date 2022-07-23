@@ -1,0 +1,48 @@
+<pre>
+       <b>newhelp </b>generates the Performance Co-Pilot help text files used
+       by Performance Metric Domain Agents (PMDAs).
+
+       Normally <b>newhelp </b>operates on the default Performance Metrics Name
+       Space (PMNS), however if the <b>-n </b>option is specified an
+       alternative namespace is loaded from the file <i>pmnsfile</i>.
+
+       When there is only one input file, the base name of the new
+       database is derived from the name of the input <i>file</i>, otherwise
+       the <b>-o </b>flag must be given to explicitly name the database.  If no
+       input files are supplied, <b>newhelp </b>reads from the standard input
+       stream, in which case the <b>-o </b>flag must be given.
+
+       If the output file name is determined to be <b>foo</b>, <b>newhelp </b>will
+       create <b>foo.dir </b>and <b>foo.pag</b>.
+
+       The <b>-V </b>flag causes verbose messages to be printed while <b>newhelp</b>
+       is parsing its input.
+
+       The first line of each entry in a help source file consists of an
+       ``@'' character beginning the line followed by a space and then
+       the performance metric name and a one line description of the
+       metric.  Following lines (up to the next line beginning with
+       ``@'' or end of file) may contain a verbose help description.
+       E.g.
+
+            #
+            # This is an example of newhelp's input syntax
+            #
+            @ kernel.all.cpu.idle CPU idle time
+            A cumulative count of the number of milliseconds
+            of CPU idle time, summed over all processors.
+
+       Three-part numeric metric identifiers (PMIDs) may be used in
+       place of metric names, e.g. 60.0.23 rather than
+       kernel.all.cpu.idle in the example above.  Other than for dynamic
+       metrics (where the existence of a metric is known to a PMDA, but
+       not visible in the PMNS and hence has no name that could be known
+       to <i>newhelp</i>) use of this syntactic variant is not encouraged.
+
+       Lines beginning with ``#'' are ignored, as are blank lines in the
+       file before the first ``@''.  The verbose help text is optional.
+
+       As a special case, a ``metric'' name of the form <i>NNN.MM</i> (for
+       numeric <i>NNN</i> and <i>MM</i>) is interpreted as an instance domain
+       identification, and the text describes the instance domain.
+</pre>

@@ -1,0 +1,35 @@
+<pre>
+       <b>wipefs </b>can erase filesystem, raid or partition-table signatures
+       (magic strings) from the specified <i>device</i> to make the signatures
+       invisible for libblkid. <b>wipefs </b>does not erase the filesystem
+       itself nor any other data from the device.
+
+       When used without any options, <b>wipefs </b>lists all visible
+       filesystems and the offsets of their basic signatures. The
+       default output is subject to change. So whenever possible, you
+       should avoid using default outputs in your scripts. Always
+       explicitly define expected columns by using <b>--output </b><i>columns-list</i>
+       in environments where a stable output is required.
+
+       <b>wipefs </b>calls the BLKRRPART ioctl when it has erased a
+       partition-table signature to inform the kernel about the change.
+       The ioctl is called as the last step and when all specified
+       signatures from all specified devices are already erased. This
+       feature can be used to wipe content on partitions devices as well
+       as partition table on a disk device, for example by <b>wipefs -a</b>
+       <b>/dev/sdc1 /dev/sdc2 /dev/sdc</b>.
+
+       Note that some filesystems and some partition tables store more
+       magic strings on the device (e.g., FAT, ZFS, GPT). The <b>wipefs</b>
+       command (since v2.31) lists all the offset where a magic strings
+       have been detected.
+
+       When option <b>-a </b>is used, all magic strings that are visible for
+       <a href="https://man7.org/linux/man-pages/man3/libblkid.3.html">libblkid(3)</a> are erased. In this case the <b>wipefs </b>scans the device
+       again after each modification (erase) until no magic string is
+       found.
+
+       Note that by default <b>wipefs </b>does not erase nested partition
+       tables on non-whole disk devices. For this the option <b>--force </b>is
+       required.
+</pre>

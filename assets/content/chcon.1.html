@@ -1,0 +1,59 @@
+<pre>
+       Change the SELinux security context of each FILE to CONTEXT.
+       With <b>--reference</b>, change the security context of each FILE to
+       that of RFILE.
+
+       Mandatory arguments to long options are mandatory for short
+       options too.
+
+       <b>--dereference</b>
+              affect the referent of each symbolic link (this is the
+              default), rather than the symbolic link itself
+
+       <b>-h</b>, <b>--no-dereference</b>
+              affect symbolic links instead of any referenced file
+
+       <b>-u</b>, <b>--user</b>=<i>USER</i>
+              set user USER in the target security context
+
+       <b>-r</b>, <b>--role</b>=<i>ROLE</i>
+              set role ROLE in the target security context
+
+       <b>-t</b>, <b>--type</b>=<i>TYPE</i>
+              set type TYPE in the target security context
+
+       <b>-l</b>, <b>--range</b>=<i>RANGE</i>
+              set range RANGE in the target security context
+
+       <b>--no-preserve-root</b>
+              do not treat '/' specially (the default)
+
+       <b>--preserve-root</b>
+              fail to operate recursively on '/'
+
+       <b>--reference</b>=<i>RFILE</i>
+              use RFILE's security context rather than specifying a
+              CONTEXT value
+
+       <b>-R</b>, <b>--recursive</b>
+              operate on files and directories recursively
+
+       <b>-v</b>, <b>--verbose</b>
+              output a diagnostic for every file processed
+
+       The following options modify how a hierarchy is traversed when
+       the <b>-R </b>option is also specified.  If more than one is specified,
+       only the final one takes effect.
+
+       <b>-H     </b>if a command line argument is a symbolic link to a
+              directory, traverse it
+
+       <b>-L     </b>traverse every symbolic link to a directory encountered
+
+       <b>-P     </b>do not traverse any symbolic links (default)
+
+       <b>--help </b>display this help and exit
+
+       <b>--version</b>
+              output version information and exit
+</pre>

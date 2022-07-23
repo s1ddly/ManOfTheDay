@@ -1,0 +1,32 @@
+<pre>
+       The <b>localedef </b>program reads the indicated <i>charmap</i> and <i>input</i>
+       files, compiles them to a binary form quickly usable by the
+       locale functions in the C library (<a href="https://man7.org/linux/man-pages/man3/setlocale.3.html">setlocale(3)</a>, <a href="https://man7.org/linux/man-pages/man3/localeconv.3.html">localeconv(3)</a>,
+       etc.), and places the output in <i>outputpath</i>.
+
+       The <i>outputpath</i> argument is interpreted as follows:
+
+       *  If <i>outputpath</i> contains a slash character ('/'), it is
+          interpreted as the name of the directory where the output
+          definitions are to be stored.  In this case, there is a
+          separate output file for each locale category (<i>LC_TIME</i>,
+          <i>LC_NUMERIC</i>, and so on).
+
+       *  If the <b>--no-archive </b>option is used, <i>outputpath</i> is the name of
+          a subdirectory in <i>/usr/lib/locale</i> where per-category compiled
+          files are placed.
+
+       *  Otherwise, <i>outputpath</i> is the name of a locale and the compiled
+          locale data is added to the archive file
+          <i>/usr/lib/locale/locale-archive</i>.  A locale archive is a memory-
+          mapped file which contains all the system-provided locales; it
+          is used by all localized programs when the environment
+          variable <b>LOCPATH </b>is not set.
+
+       In any case, <b>localedef </b>aborts if the directory in which it tries
+       to write locale files has not already been created.
+
+       If no <i>charmapfile</i> is given, the value <i>ANSI_X3.4-1968</i> (for ASCII)
+       is used by default.  If no <i>inputfile</i> is given, or if it is given
+       as a dash (-), <b>localedef </b>reads from standard input.
+</pre>

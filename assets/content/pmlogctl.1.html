@@ -1,0 +1,67 @@
+<pre>
+       <b>pmlogctl </b>may be used to manage <i>non-primary</i> instances of the
+       Performance Co-Pilot (PCP) archiver <a href="https://man7.org/linux/man-pages/man1/pmlogger.1.html">pmlogger(1)</a>.  This would be
+       most relevant in a PCP archive logger ``farm'' where many
+       <a href="https://man7.org/linux/man-pages/man1/pmlogger.1.html">pmlogger(1)</a> instances would be creating archives of performance
+       data collected from <a href="https://man7.org/linux/man-pages/man1/pmcd.1.html">pmcd(1)</a> on many remote hosts.
+
+       The <i>primary</i> <a href="https://man7.org/linux/man-pages/man1/pmlogger.1.html">pmlogger(1)</a> instance is closely linked to the local
+       <a href="https://man7.org/linux/man-pages/man1/pmcd.1.html">pmcd(1)</a> process and as a consequence shares the same control
+       infrastructure, namely <a href="https://man7.org/linux/man-pages/man1/systemd.1.html">systemd(1)</a> or the PCP <a href="https://man7.org/linux/man-pages/man1/init.1.html">init(1)</a> ``rc
+       scripts''.  This is why the <i>primary</i> <a href="https://man7.org/linux/man-pages/man1/pmlogger.1.html">pmlogger(1)</a> instance <i>cannot</i>
+       be managed with <b>pmlogctl</b>.
+
+       For brevity in the description below, the term ``instance'' means
+       a <a href="https://man7.org/linux/man-pages/man1/pmlogger.1.html">pmlogger(1)</a> instance.
+
+       All instances managed by <b>pmlogctl</b>, <a href="https://man7.org/linux/man-pages/man1/pmlogger_check.1.html">pmlogger_check(1)</a> and
+       <a href="https://man7.org/linux/man-pages/man1/pmlogger_daily.1.html">pmlogger_daily(1)</a> abide by the following rules:
+
+       1. Each instance is fetching performance data from a single
+          <a href="https://man7.org/linux/man-pages/man1/pmcd.1.html">pmcd(1)</a> (i.e. one host), but each <a href="https://man7.org/linux/man-pages/man1/pmcd.1.html">pmcd(1)</a> may be providing
+          performance data to zero, one or more <a href="https://man7.org/linux/man-pages/man1/pmlogger.1.html">pmlogger(1)</a> processes
+          running on one or more hosts.
+
+       2. On the local host, each <a href="https://man7.org/linux/man-pages/man1/pmlogger.1.html">pmlogger(1)</a> instance must be specified
+          once in a <a href="https://man7.org/linux/man-pages/man1/pmlogger_check.1.html">pmlogger_check(1)</a> control file and <a href="https://man7.org/linux/man-pages/man1/pmlogger.1.html">pmlogger(1)</a>
+          creates archives in a unique directory, named in the 4th
+          parameter of the associated control file entry (see the
+          CONFIGURATION section of <a href="https://man7.org/linux/man-pages/man1/pmlogger_check.1.html">pmlogger_check(1)</a>).
+
+       3. Each instance belongs to exactly one <b>class</b>, optionally named
+          using a <b>$class=...  </b>assignment in the associated control file.
+          The special <b>default </b>class is reserved for all instances that
+          do not have an associated <b>$class=...  </b>assignment.  For
+          reporting purposes (refer to the <b>summary </b>command below), the
+          <i>primary</i> <a href="https://man7.org/linux/man-pages/man1/pmlogger.1.html">pmlogger(1)</a> instance is automatically assigned to the
+          special <b>primary </b>class.
+
+       Each <b>pmlogctl </b>execution manages one or more instances updating
+       the associated control files and then running <a href="https://man7.org/linux/man-pages/man1/pmlogger_check.1.html">pmlogger_check(1)</a>
+       to effect the desired change.
+
+       The <i>host</i> arguments are usually valid host names.  For all
+       commands <i>except</i> <b>create </b>and <b>cond-create </b>(described below) the <i>host</i>
+       arguments may also be <a href="https://man7.org/linux/man-pages/man1/egrep.1.html">egrep(1)</a> regular expressions that match the
+       <i>whole</i> of a valid host name, so the pattern used is actually
+       <b>^</b><i>host</i><b>$</b>.  For example <b>foo.*  </b>(matches all host names beginning
+       with ``foo'') or <b>.*foo </b>(matches all host names ending with
+       ``foo'') or <b>.*[fF][oO][oO].*  </b>(matches all host names containing
+       ``foo'' in upper, lower or mixed case).
+
+       The combination of a <i>class</i> from the optional <b>-c </b>option (or
+       <b>default</b>) and the <i>host</i> arguments to each <i>command</i> identifies a
+       <i>target of set</i> instances to which the <i>command</i> operation should be
+       applied.
+
+       The <b>-i </b>option may be used with the <b>create </b>or <b>cond-create </b>commands
+       to override the instance identity that is specified in the ident
+       section of the class policy file (see the CLASS POLICY FILE
+       section below).  Since the identifier must be unique across all
+       instances and all classes, it only makes sense to use this option
+       when there is a single <i>host</i> argument.
+
+       Given the tasks that <b>pmlogctl </b>is undertaking it usually must be
+       run as ``root'', the exceptions being the <b>status </b>command or when
+       the <b>-N </b>option is specified.
+</pre>

@@ -1,0 +1,132 @@
+<pre>
+       <b>systemd-detect-virt </b>detects execution in a virtualized
+       environment. It identifies the virtualization technology and can
+       distinguish full machine virtualization from container
+       virtualization.  systemd-detect-virt exits with a return value of
+       0 (success) if a virtualization technology is detected, and
+       non-zero (error) otherwise. By default, any type of
+       virtualization is detected, and the options <b>--container </b>and <b>--vm</b>
+       can be used to limit what types of virtualization are detected.
+
+       When executed without <b>--quiet </b>will print a short identifier for
+       the detected virtualization technology. The following
+       technologies are currently identified:
+
+       <b>Table 1. Known virtualization technologies (both VM, i.e. full</b>
+       <b>hardware virtualization, and container, i.e. shared kernel</b>
+       <b>virtualization)</b>
+       ┌──────────┬────────────────────┬────────────────────┐
+       │<b>Type      </b>│ <b>ID                 </b>│ <b>Product            </b>│
+       ├──────────┼────────────────────┼────────────────────┤
+       │VM        │ <i>qemu</i>               │ QEMU software      │
+       │          │                    │ virtualization,    │
+       │          │                    │ without KVM        │
+       │          ├────────────────────┼────────────────────┤
+       │          │ <i>kvm</i>                │ Linux KVM kernel   │
+       │          │                    │ virtual machine,   │
+       │          │                    │ in combination     │
+       │          │                    │ with QEMU. Not     │
+       │          │                    │ used for other     │
+       │          │                    │ virtualizers using │
+       │          │                    │ the KVM            │
+       │          │                    │ interfaces, such   │
+       │          │                    │ as Oracle          │
+       │          │                    │ VirtualBox or      │
+       │          │                    │ Amazon EC2 Nitro,  │
+       │          │                    │ see below.         │
+       │          ├────────────────────┼────────────────────┤
+       │          │ <i>amazon</i>             │ Amazon EC2 Nitro   │
+       │          │                    │ using Linux KVM    │
+       │          ├────────────────────┼────────────────────┤
+       │          │ <i>zvm</i>                │ s390 z/VM          │
+       │          ├────────────────────┼────────────────────┤
+       │          │ <i>vmware</i>             │ VMware Workstation │
+       │          │                    │ or Server, and     │
+       │          │                    │ related products   │
+       │          ├────────────────────┼────────────────────┤
+       │          │ <i>microsoft</i>          │ Hyper-V, also      │
+       │          │                    │ known as Viridian  │
+       │          │                    │ or Windows Server  │
+       │          │                    │ Virtualization     │
+       │          ├────────────────────┼────────────────────┤
+       │          │ <i>oracle</i>             │ Oracle VM          │
+       │          │                    │ VirtualBox         │
+       │          │                    │ (historically      │
+       │          │                    │ marketed by        │
+       │          │                    │ innotek and Sun    │
+       │          │                    │ Microsystems), for │
+       │          │                    │ legacy and KVM     │
+       │          │                    │ hypervisor         │
+       │          ├────────────────────┼────────────────────┤
+       │          │ <i>powervm</i>            │ IBM PowerVM        │
+       │          │                    │ hypervisor — comes │
+       │          │                    │ as firmware with   │
+       │          │                    │ some IBM POWER     │
+       │          │                    │ servers            │
+       │          ├────────────────────┼────────────────────┤
+       │          │ <i>xen</i>                │ Xen hypervisor     │
+       │          │                    │ (only domU, not    │
+       │          │                    │ dom0)              │
+       │          ├────────────────────┼────────────────────┤
+       │          │ <i>bochs</i>              │ Bochs Emulator     │
+       │          ├────────────────────┼────────────────────┤
+       │          │ <i>uml</i>                │ User-mode Linux    │
+       │          ├────────────────────┼────────────────────┤
+       │          │ <i>parallels</i>          │ Parallels Desktop, │
+       │          │                    │ Parallels Server   │
+       │          ├────────────────────┼────────────────────┤
+       │          │ <i>bhyve</i>              │ bhyve, FreeBSD     │
+       │          │                    │ hypervisor         │
+       │          ├────────────────────┼────────────────────┤
+       │          │ <i>qnx</i>                │ QNX hypervisor     │
+       ├──────────┼────────────────────┼────────────────────┤
+       │<i>acrn</i>      │ <b>ACRN hypervisor</b><b></b>[1] │                    │
+       ├──────────┼────────────────────┼────────────────────┤
+       │Container │ <i>openvz</i>             │ OpenVZ/Virtuozzo   │
+       │          ├────────────────────┼────────────────────┤
+       │          │ <i>lxc</i>                │ Linux container    │
+       │          │                    │ implementation by  │
+       │          │                    │ LXC                │
+       │          ├────────────────────┼────────────────────┤
+       │          │ <i>lxc-libvirt</i>        │ Linux container    │
+       │          │                    │ implementation by  │
+       │          │                    │ libvirt            │
+       │          ├────────────────────┼────────────────────┤
+       │          │ <i>systemd-nspawn</i>     │ systemd's minimal  │
+       │          │                    │ container          │
+       │          │                    │ implementation,    │
+       │          │                    │ see                │
+       │          │                    │ <a href="https://man7.org/linux/man-pages/man1/systemd-nspawn.1.html">systemd-nspawn(1)</a>  │
+       │          ├────────────────────┼────────────────────┤
+       │          │ <i>docker</i>             │ Docker container   │
+       │          │                    │ manager            │
+       │          ├────────────────────┼────────────────────┤
+       │          │ <i>podman</i>             │ <b>Podman</b><b></b>[2]          │
+       │          │                    │ container manager  │
+       │          ├────────────────────┼────────────────────┤
+       │          │ <i>rkt</i>                │ rkt app container  │
+       │          │                    │ runtime            │
+       │          ├────────────────────┼────────────────────┤
+       │          │ <i>wsl</i>                │ <b>Windows Subsystem  </b>│
+       │          │                    │ <b>for Linux</b><b></b>[3]       │
+       │          ├────────────────────┼────────────────────┤
+       │          │ <i>proot</i>              │ <b>proot</b><b></b>[4] userspace │
+       │          │                    │ chroot/bind mount  │
+       │          │                    │ emulation          │
+       │          ├────────────────────┼────────────────────┤
+       │          │ <i>pouch</i>              │ <b>Pouch</b><b></b>[5] Container │
+       │          │                    │ Engine             │
+       └──────────┴────────────────────┴────────────────────┘
+
+       If multiple virtualization solutions are used, only the
+       "innermost" is detected and identified. That means if both
+       machine and container virtualization are used in conjunction,
+       only the latter will be identified (unless <b>--vm </b>is passed).
+
+       Windows Subsystem for Linux is not a Linux container, but an
+       environment for running Linux userspace applications on top of
+       the Windows kernel using a Linux-compatible interface. WSL is
+       categorized as a container for practical purposes. Multiple WSL
+       environments share the same kernel and services should generally
+       behave like when being run in a container.
+</pre>

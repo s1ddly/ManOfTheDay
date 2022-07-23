@@ -1,0 +1,25 @@
+<pre>
+       <b>mroute </b>objects are multicast routing cache entries created by a
+       user-level mrouting daemon (f.e.  <b>pimd </b>or <b>mrouted </b>).
+
+       Due to the limitations of the current interface to the multicast
+       routing engine, it is impossible to change <b>mroute </b>objects
+       administratively, so we can only display them. This limitation
+       will be removed in the future.
+
+   <b>ip mroute show - list mroute cache entries</b>
+       <b>to </b><i>PREFIX</i> <b>(default)</b>
+              the prefix selecting the destination multicast addresses
+              to list.
+
+       <b>iif </b><i>NAME</i>
+              the interface on which multicast packets are received.
+
+       <b>from </b><i>PREFIX</i>
+              the prefix selecting the IP source addresses of the
+              multicast route.
+
+       <b>table </b><i>TABLE_ID</i>
+              the table id selecting the multicast table. It can be
+              <b>local</b>, <b>main</b>, <b>default</b>, <b>all </b>or a number.
+</pre>

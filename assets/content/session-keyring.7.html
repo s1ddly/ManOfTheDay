@@ -1,0 +1,60 @@
+<pre>
+       The session keyring is a keyring used to anchor keys on behalf of
+       a process.  It is typically created by <a href="https://man7.org/linux/man-pages/man8/pam_keyinit.8.html">pam_keyinit(8)</a> when a user
+       logs in and a link will be added that refers to the
+       <a href="https://man7.org/linux/man-pages/man7/user-keyring.7.html">user-keyring(7)</a>.  Optionally, PAM may revoke the session keyring
+       on logout.  (In typical configurations, PAM does do this
+       revocation.)  The session keyring has the name (description)
+       <i>_ses</i>.
+
+       A special serial number value, <b>KEY_SPEC_SESSION_KEYRING</b>, is
+       defined that can be used in lieu of the actual serial number of
+       the calling process's session keyring.
+
+       From the <a href="https://man7.org/linux/man-pages/man1/keyctl.1.html">keyctl(1)</a> utility, '<b>@s</b>' can be used instead of a numeric
+       key ID in much the same way.
+
+       A process's session keyring is inherited across <a href="https://man7.org/linux/man-pages/man2/clone.2.html">clone(2)</a>,
+       <a href="https://man7.org/linux/man-pages/man2/fork.2.html">fork(2)</a>, and <a href="https://man7.org/linux/man-pages/man2/vfork.2.html">vfork(2)</a>.  The session keyring is preserved across
+       <a href="https://man7.org/linux/man-pages/man2/execve.2.html">execve(2)</a>, even when the executable is set-user-ID or set-group-
+       ID or has capabilities.  The session keyring is destroyed when
+       the last process that refers to it exits.
+
+       If a process doesn't have a session keyring when it is accessed,
+       then, under certain circumstances, the <a href="https://man7.org/linux/man-pages/man7/user-session-keyring.7.html">user-session-keyring(7)</a>
+       will be attached as the session keyring and under others a new
+       session keyring will be created.  (See <a href="https://man7.org/linux/man-pages/man7/user-session-keyring.7.html">user-session-keyring(7)</a>
+       for further details.)
+
+   <b>Special operations</b>
+       The <i>keyutils</i> library provides the following special operations
+       for manipulating session keyrings:
+
+       <a href="https://man7.org/linux/man-pages/man3/keyctl_join_session_keyring.3.html">keyctl_join_session_keyring(3)</a>
+              This operation allows the caller to change the session
+              keyring that it subscribes to.  The caller can join an
+              existing keyring with a specified name (description),
+              create a new keyring with a given name, or ask the kernel
+              to create a new "anonymous" session keyring with the name
+              "_ses".  (This function is an interface to the <a href="https://man7.org/linux/man-pages/man2/keyctl.2.html">keyctl(2)</a>
+              <b>KEYCTL_JOIN_SESSION_KEYRING </b>operation.)
+
+       <a href="https://man7.org/linux/man-pages/man3/keyctl_session_to_parent.3.html">keyctl_session_to_parent(3)</a>
+              This operation allows the caller to make the parent
+              process's session keyring to the same as its own.  For
+              this to succeed, the parent process must have identical
+              security attributes and must be single threaded.  (This
+              function is an interface to the <a href="https://man7.org/linux/man-pages/man2/keyctl.2.html">keyctl(2)</a>
+              <b>KEYCTL_SESSION_TO_PARENT </b>operation.)
+
+       These operations are also exposed through the <a href="https://man7.org/linux/man-pages/man1/keyctl.1.html">keyctl(1)</a> utility
+       as:
+
+           keyctl session
+           keyctl session - [&lt;prog&gt; &lt;arg1&gt; &lt;arg2&gt; ...]
+           keyctl session &lt;name&gt; [&lt;prog&gt; &lt;arg1&gt; &lt;arg2&gt; ...]
+
+       and:
+
+           keyctl new_session
+</pre>

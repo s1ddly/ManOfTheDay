@@ -1,0 +1,43 @@
+<pre>
+       Dump content of Aria log pages.
+
+       <b>-#</b>, <b>--debug</b>[=<i>name</i>]
+              Output debug log. Often the argument is 'd:t:o,filename'.
+
+       <b>-f</b>, <b>--file</b>=<i>name</i>
+              Path to file which will be read
+
+       <b>-?</b>, <b>--help</b>
+              Display this help and exit.
+
+       <b>-o</b>, <b>--offset=</b>#
+              Start reading log from this offset
+
+       <b>-n</b>, <b>--pages=</b>#
+              Number of pages to read
+
+       <b>-U</b>, <b>--unit-test</b>
+              Use unit test record table (for logs created by unittests
+
+       <b>-V</b>, <b>--version</b>
+              Print version and exit.
+
+       Default options are read from the following files in the given
+       order: <b>/etc/my.cnf /etc/mysql/my.cnf ~/.my.cnf</b>
+
+       The following groups are read: <b>aria_dump_log</b>
+
+       The following options may be given as the first argument:
+
+       <b>--print-defaults</b>
+              Print the program argument list and exit.
+
+       <b>--no-defaults</b>
+              Don't read default options from any option file.
+
+       <b>--defaults-file=</b>#
+              Only read default options from the given file #.
+
+       <b>--defaults-extra-file=</b>#
+              Read this file after the global files are read.
+</pre>

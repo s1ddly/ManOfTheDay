@@ -1,0 +1,212 @@
+<pre>
+       The <b>@TPUT@ </b>utility uses the <b>terminfo </b>database to make the values
+       of terminal-dependent capabilities and information available to
+       the shell (see <b>sh</b>(1)), to initialize or reset the terminal, or
+       return the long name of the requested terminal type.  The result
+       depends upon the capability's type:
+
+          string
+               <b>@TPUT@ </b>writes the string to the standard output.  No
+               trailing newline is supplied.
+
+          integer
+               <b>@TPUT@ </b>writes the decimal value to the standard output,
+               with a trailing newline.
+
+          boolean
+               <b>@TPUT@ </b>simply sets the exit code (<b>0 </b>for TRUE if the
+               terminal has the capability, <b>1 </b>for FALSE if it does not),
+               and writes nothing to the standard output.
+
+       Before using a value returned on the standard output, the
+       application should test the exit code (e.g., <b>$?</b>, see <b>sh</b>(1)) to be
+       sure it is <b>0</b>.  (See the <b>EXIT CODES </b>and <b>DIAGNOSTICS </b>sections.)
+       For a complete list of capabilities and the <i>capname</i> associated
+       with each, see <a href="https://man7.org/linux/man-pages/man5/terminfo.5.html">terminfo(5)</a>.
+
+   <b>Options</b>
+       <b>-S     </b>allows more than one capability per invocation of <b>@TPUT@</b>.
+              The capabilities must be passed to <b>@TPUT@ </b>from the
+              standard input instead of from the command line (see
+              example).  Only one <i>capname</i> is allowed per line.  The <b>-S</b>
+              option changes the meaning of the <b>0 </b>and <b>1 </b>boolean and
+              string exit codes (see the EXIT CODES section).
+
+              Because some capabilities may use <i>string</i> parameters rather
+              than <i>numbers</i>, <b>@TPUT@ </b>uses a table and the presence of
+              parameters in its input to decide whether to use
+              <b>tparm</b>(3X), and how to interpret the parameters.
+
+       <b>-T</b><i>type</i> indicates the <i>type</i> of terminal.  Normally this option is
+              unnecessary, because the default is taken from the
+              environment variable <b>TERM</b>.  If <b>-T </b>is specified, then the
+              shell variables <b>LINES </b>and <b>COLUMNS </b>will also be ignored.
+
+       <b>-V     </b>reports the version of ncurses which was used in this
+              program, and exits.
+
+       <b>-x     </b>do not attempt to clear the terminal's scrollback buffer
+              using the extended “E3” capability.
+
+   <b>Commands</b>
+       A few commands (<b>init</b>, <b>reset </b>and <b>longname</b>) are special; they are
+       defined by the <b>@TPUT@ </b>program.  The others are the names of
+       <i>capabilities</i> from the terminal database (see <a href="https://man7.org/linux/man-pages/man5/terminfo.5.html">terminfo(5)</a> for a
+       list).  Although <b>init </b>and <b>reset </b>resemble capability names, <b>@TPUT@</b>
+       uses several capabilities to perform these special functions.
+
+       <i>capname</i>
+              indicates the capability from the terminal database.
+
+              If the capability is a string that takes parameters, the
+              arguments following the capability will be used as
+              parameters for the string.
+
+              Most parameters are numbers.  Only a few terminal
+              capabilities require string parameters; <b>@TPUT@ </b>uses a
+              table to decide which to pass as strings.  Normally <b>@TPUT@</b>
+              uses <b>tparm</b>(3X) to perform the substitution.  If no
+              parameters are given for the capability, <b>@TPUT@ </b>writes the
+              string without performing the substitution.
+
+       <b>init   </b>If the terminal database is present and an entry for the
+              user's terminal exists (see <b>-T</b><i>type</i>, above), the following
+              will occur:
+
+              (1)  first, <b>@TPUT@ </b>retrieves the current terminal mode
+                   settings for your terminal.  It does this by
+                   successively testing
+
+                   •   the standard error,
+
+                   •   standard output,
+
+                   •   standard input and
+
+                   •   ultimately “/dev/tty”
+
+                   to obtain terminal settings.  Having retrieved these
+                   settings, <b>@TPUT@ </b>remembers which file descriptor to
+                   use when updating settings.
+
+              (2)  if the window size cannot be obtained from the
+                   operating system, but the terminal description (or
+                   environment, e.g., <b>LINES </b>and <b>COLUMNS </b>variables
+                   specify this), update the operating system's notion
+                   of the window size.
+
+              (3)  the terminal modes will be updated:
+
+                   •   any delays (e.g., newline) specified in the entry
+                       will be set in the tty driver,
+
+                   •   tabs expansion will be turned on or off according
+                       to the specification in the entry, and
+
+                   •   if tabs are not expanded, standard tabs will be
+                       set (every 8 spaces).
+
+              (4)  if present, the terminal's initialization strings
+                   will be output as detailed in the <a href="https://man7.org/linux/man-pages/man5/terminfo.5.html">terminfo(5)</a> section
+                   on <i>Tabs and Initialization</i>,
+
+              (5)  output is flushed.
+
+              If an entry does not contain the information needed for
+              any of these activities, that activity will silently be
+              skipped.
+
+       <b>reset  </b>This is similar to <b>init</b>, with two differences:
+
+              (1)  before any other initialization, the terminal modes
+                   will be reset to a “sane” state:
+
+                   •   set cooked and echo modes,
+
+                   •   turn off cbreak and raw modes,
+
+                   •   turn on newline translation and
+
+                   •   reset any unset special characters to their
+                       default values
+
+              (2)  Instead of putting out <i>initialization</i> strings, the
+                   terminal's <i>reset</i> strings will be output if present
+                   (<b>rs1</b>, <b>rs2</b>, <b>rs3</b>, <b>rf</b>).  If the <i>reset</i> strings are not
+                   present, but <i>initialization</i> strings are, the
+                   <i>initialization</i> strings will be output.
+
+              Otherwise, <b>reset </b>acts identically to <b>init</b>.
+
+       <b>longname</b>
+              If the terminal database is present and an entry for the
+              user's terminal exists (see <b>-T</b><i>type</i> above), then the long
+              name of the terminal will be put out.  The long name is
+              the last name in the first line of the terminal's
+              description in the <b>terminfo </b>database [see <a href="https://man7.org/linux/man-pages/man5/term.5.html">term(5)</a>].
+
+   <b>Aliases</b>
+       <b>@TPUT@ </b>handles the <b>clear</b>, <b>init </b>and <b>reset </b>commands specially: it
+       allows for the possibility that it is invoked by a link with
+       those names.
+
+       If <b>@TPUT@ </b>is invoked by a link named <b>reset</b>, this has the same
+       effect as <b>@TPUT@ reset</b>.  The <b>@TSET@</b>(1) utility also treats a link
+       named <b>reset </b>specially.
+
+       Before ncurses 6.1, the two utilities were different from each
+       other:
+
+       •   <b>@TSET@ </b>utility reset the terminal modes and special
+           characters (not done with <b>@TPUT@</b>).
+
+       •   On the other hand, <b>@TSET@</b>'s repertoire of terminal
+           capabilities for resetting the terminal was more limited,
+           i.e., only <b>reset_1string</b>, <b>reset_2string </b>and <b>reset_file </b>in
+           contrast to the tab-stops and margins which are set by this
+           utility.
+
+       •   The <b>reset </b>program is usually an alias for <b>@TSET@</b>, because of
+           this difference with resetting terminal modes and special
+           characters.
+
+       With the changes made for ncurses 6.1, the <i>reset</i> feature of the
+       two programs is (mostly) the same.  A few differences remain:
+
+       •   The <b>@TSET@ </b>program waits one second when resetting, in case
+           it happens to be a hardware terminal.
+
+       •   The two programs write the terminal initialization strings to
+           different streams (i.e., the standard error for <b>@TSET@ </b>and
+           the standard output for <b>@TPUT@</b>).
+
+           <b>Note: </b>although these programs write to different streams,
+           redirecting their output to a file will capture only part of
+           their actions.  The changes to the terminal modes are not
+           affected by redirecting the output.
+
+       If <b>@TPUT@ </b>is invoked by a link named <b>init</b>, this has the same
+       effect as <b>@TPUT@ init</b>.  Again, you are less likely to use that
+       link because another program named <b>init </b>has a more well-
+       established use.
+
+   <b>Terminal Size</b>
+       Besides the special commands (e.g., <b>clear</b>), @TPUT@ treats certain
+       terminfo capabilities specially: <b>lines </b>and <b>cols</b>.  @TPUT@ calls
+       <b>setupterm</b>(3X) to obtain the terminal size:
+
+       •   first, it gets the size from the terminal database (which
+           generally is not provided for terminal emulators which do not
+           have a fixed window size)
+
+       •   then it asks the operating system for the terminal's size
+           (which generally works, unless connecting via a serial line
+           which does not support <i>NAWS</i>: negotiations about window size).
+
+       •   finally, it inspects the environment variables <b>LINES </b>and
+           <b>COLUMNS </b>which may override the terminal size.
+
+       If the <b>-T </b>option is given @TPUT@ ignores the environment
+       variables by calling <b>use_tioctl(TRUE)</b>, relying upon the operating
+       system (or finally, the terminal database).
+</pre>

@@ -1,0 +1,51 @@
+<pre>
+       The chmem command sets a particular size or range of memory
+       online or offline.
+
+       •   Specify <i>SIZE</i> as &lt;size&gt;[m|M|g|G]. With m or M, &lt;size&gt;
+           specifies the memory size in MiB (1024 x 1024 bytes). With g
+           or G, &lt;size&gt; specifies the memory size in GiB (1024 x 1024 x
+           1024 bytes). The default unit is MiB.
+
+       •   Specify <i>RANGE</i> in the form 0x&lt;start&gt;-0x&lt;end&gt; as shown in the
+           output of the <a href="https://man7.org/linux/man-pages/man1/lsmem.1.html">lsmem(1)</a> command. &lt;start&gt; is the hexadecimal
+           address of the first byte and &lt;end&gt; is the hexadecimal
+           address of the last byte in the memory range.
+
+       •   Specify <i>BLOCKRANGE</i> in the form &lt;first&gt;-&lt;last&gt; or &lt;block&gt; as
+           shown in the output of the <a href="https://man7.org/linux/man-pages/man1/lsmem.1.html">lsmem(1)</a> command. &lt;first&gt; is the
+           number of the first memory block and &lt;last&gt; is the number of
+           the last memory block in the memory range. Alternatively a
+           single block can be specified. <i>BLOCKRANGE</i> requires the
+           <b>--blocks </b>option.
+
+       •   Specify <i>ZONE</i> as the name of a memory zone, as shown in the
+           output of the <b>lsmem -o +ZONES </b>command. The output shows one
+           or more valid memory zones for each memory range. If multiple
+           zones are shown, then the memory range currently belongs to
+           the first zone. By default, <b>chmem </b>will set memory online to
+           the zone Movable, if this is among the valid zones. This
+           default can be changed by specifying the <b>--zone </b>option with
+           another valid zone. For memory ballooning, it is recommended
+           to select the zone Movable for memory online and offline, if
+           possible. Memory in this zone is much more likely to be able
+           to be offlined again, but it cannot be used for arbitrary
+           kernel allocations, only for migratable pages (e.g.,
+           anonymous and page cache pages). Use the <b>--help </b>option to see
+           all available zones.
+
+       <i>SIZE</i> and <i>RANGE</i> must be aligned to the Linux memory block size, as
+       shown in the output of the <a href="https://man7.org/linux/man-pages/man1/lsmem.1.html">lsmem(1)</a> command.
+
+       Setting memory online can fail for various reasons. On
+       virtualized systems it can fail if the hypervisor does not have
+       enough memory left, for example because memory was overcommitted.
+       Setting memory offline can fail if Linux cannot free the memory.
+       If only part of the requested memory can be set online or
+       offline, a message tells you how much memory was set online or
+       offline instead of the requested amount.
+
+       When setting memory online <b>chmem </b>starts with the lowest memory
+       block numbers. When setting memory offline <b>chmem </b>starts with the
+       highest memory block numbers.
+</pre>

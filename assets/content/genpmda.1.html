@@ -1,0 +1,20 @@
+<pre>
+       <b>genpmda </b>is a rapid application development tool for creating new
+       Performance Metrics Domain Agents, see <a href="https://man7.org/linux/man-pages/man3/PMDA.3.html">PMDA(3)</a>.  It provides a
+       very easy and efficient way to extend the Performance Co-pilot
+       (PCP) with new performance metrics without needing to understand
+       the low level details of how PMDAs are constructed.
+
+       <b>genpmda </b>reads a config file containing an augmented Performance
+       Metrics Name Space, see <a href="https://man7.org/linux/man-pages/man5/PMNS.5.html">PMNS(5)</a>, and automatically generates
+       virtually all of the source code to implement a fully functional
+       PMDA, including the Makefile, name space, support scripts for
+       configuring the new PMDA, and the metrics help text.  Fairly
+       simple PMDAs can be automatically generated from the config file
+       without writing any additional code.  More complicated PMDAs,
+       e.g. containing multiple instance domains, require only the
+       refresh methods for the instance domains to be written manually.
+
+       An example of the config file format accepted by <b>genpmda </b>is given
+       below.
+</pre>

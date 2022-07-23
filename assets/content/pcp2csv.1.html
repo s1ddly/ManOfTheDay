@@ -1,0 +1,97 @@
+<pre>
+       <b>pmrep </b>is a customizable performance metrics reporting tool.  Any
+       available performance metric, live or archived, system and/or
+       application, can be selected for reporting using one of the
+       output alternatives listed below together with applicable
+       formatting options.
+
+       <b>pmrep </b>collects selected metric values through the facilities of
+       the Performance Co-Pilot (PCP), see <a href="https://man7.org/linux/man-pages/man1/PCPIntro.1.html">PCPIntro(1)</a>.  The metrics to
+       be reported are specified on the command line, in a configuration
+       file, or both.  Metrics can be automatically converted and scaled
+       using the PCP facilities, either by default or by per-metric
+       scaling specifications.  In addition to the existing metrics,
+       derived metrics can be defined using the arithmetic expressions
+       described in <a href="https://man7.org/linux/man-pages/man3/pmRegisterDerived.3.html">pmRegisterDerived(3)</a>.
+
+       A wide range of metricsets (see below) is included by default,
+       providing reports on per-process details, NUMA performance,
+       mimicking other tools like <a href="https://man7.org/linux/man-pages/man1/sar.1.html">sar(1)</a> and more, see the <b>pmrep</b>
+       configuration files under <i>$PCP_SYSCONF_DIR/pmrep</i> (typically
+       <i>/etc/pcp/pmrep</i>) for details.  Tab completion for options,
+       metrics, and metricsets is available for bash and zsh.
+
+       Unless directed to another host by the <b>-h </b>option, <b>pmrep </b>will
+       contact the Performance Metrics Collector Daemon (PMCD, see
+       <a href="https://man7.org/linux/man-pages/man1/pmcd.1.html">pmcd(1)</a>) on the local host.
+
+       The <b>-a </b>option causes <b>pmrep </b>to use the specified set of archive
+       logs rather than connecting to a PMCD.  The <b>-a </b>and <b>-h </b>options are
+       mutually exclusive.
+
+       The <b>-L </b>option causes <b>pmrep </b>to use a local context to collect
+       metrics from DSO PMDAs (Performance Metrics Domain Agents,
+       ``plugins'') on the local host without PMCD.  Only some metrics
+       are available in this mode.  The <b>-a</b>, <b>-h</b>, and <b>-L </b>options are
+       mutually exclusive.
+
+       The metrics of interest are named in the <i>metricspec</i> argument(s).
+       If a metricspec specifies a non-leaf node in the Performance
+       Metrics Name Space (PMNS), then <b>pmrep </b>will recursively descend
+       the PMNS and report on all leaf nodes (i.e., metrics) for that
+       metricspec.  Use <a href="https://man7.org/linux/man-pages/man1/pminfo.1.html">pminfo(1)</a> to list all the metrics (PMNS lead
+       nodes) and their descriptions.
+
+       A <i>metricspec</i> has three different forms.  First, on the command
+       line it can start with a colon (``:'') to indicate a <i>metricset</i> to
+       be read from a <b>pmrep </b>configuration file (see <a href="https://man7.org/linux/man-pages/man5/pmrep.conf.5.html">pmrep.conf(5)</a>),
+       which can then consist of any number of metrics.  Second, a
+       <i>metricspec</i> starting with non-colon specifies a PMNS node as
+       described above, optionally followed by metric output formatting
+       definitions.  This so-called <i>compact form</i> of a metricspec is
+       defined as follows:
+
+     metric[,label[,instances[,unit/scale[,type[,width[,precision[,limit]]]]]]]
+
+       A valid PMNS node (<i>metric</i>) is mandatory.  It can be followed by a
+       text <i>label</i> used with <i>stdout</i> output.  The optional <i>instances</i>
+       definition restricts <i>csv</i> and <i>stdout</i> reporting to the specified
+       instances of the metric so non-matching instances will be
+       filtered out (see <b>-i</b>).  An optional <i>unit/scale</i> is applicable for
+       dimension-compatible, non-string metrics.  See below for
+       supported <i>unit/scale</i> specifications.  By default, cumulative
+       counter metrics are converted to rates, an optional <i>type</i> can be
+       set to <b>raw </b>to disable this rate conversion.  For <i>stdout</i> output a
+       numeric <i>width</i> can be used to set the width of the output column
+       for this metric.  Too wide strings in the output will be
+       truncated to fit the column.  A metric-specific <i>precision</i> can be
+       provided for numeric non-integer output values.  Lastly, a
+       metric-specific <i>limit</i> can be set for filtering out numeric values
+       per the limit.
+
+       As a special case for metrics that are counters with time units
+       (nanoseconds to hours), the <i>unit/scale</i> can be used to change the
+       default reporting (for example, milliseconds / second) to
+       normalize to the range zero to one by setting this to <b>sec </b>(see
+       also <b>-y </b>and <b>-Y</b>).
+
+       The following <i>metricspec</i> requests the metric <b>kernel.all.sysfork</b>
+       to be reported under the text label <b>forks</b>, converting to the
+       metric default rate count/s in an <b>8 </b>wide column.  Although the
+       definitions in this <i>compact form</i> are optional, they must always
+       be provided in the order specified above, thus the commas.
+
+               kernel.all.sysfork,forks,,,,8
+
+       The third form of a metricspec, <i>verbose form</i>, is described and
+       valid only in <a href="https://man7.org/linux/man-pages/man5/pmrep.conf.5.html">pmrep.conf(5)</a>.
+
+       Derived metrics are specified like regular PMNS leaf node
+       metrics.
+
+       Options via environment values (see <a href="https://man7.org/linux/man-pages/man3/pmGetOptions.3.html">pmGetOptions(3)</a>) override the
+       corresponding built-in default values (if any).  Configuration
+       file options override the corresponding environment variables (if
+       any).  Command line options override the corresponding
+       configuration file options (if any).
+</pre>

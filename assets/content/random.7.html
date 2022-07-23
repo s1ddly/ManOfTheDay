@@ -1,0 +1,112 @@
+<pre>
+       The kernel random-number generator relies on entropy gathered
+       from device drivers and other sources of environmental noise to
+       seed a cryptographically secure pseudorandom number generator
+       (CSPRNG).  It is designed for security, rather than speed.
+
+       The following interfaces provide access to output from the kernel
+       CSPRNG:
+
+       *  The <i>/dev/urandom</i> and <i>/dev/random</i> devices, both described in
+          <a href="https://man7.org/linux/man-pages/man4/random.4.html">random(4)</a>.  These devices have been present on Linux since
+          early times, and are also available on many other systems.
+
+       *  The Linux-specific <a href="https://man7.org/linux/man-pages/man2/getrandom.2.html">getrandom(2)</a> system call, available since
+          Linux 3.17.  This system call provides access either to the
+          same source as <i>/dev/urandom</i> (called the <i>urandom</i> source in this
+          page) or to the same source as <i>/dev/random</i> (called the <i>random</i>
+          source in this page).  The default is the <i>urandom</i> source; the
+          <i>random</i> source is selected by specifying the <b>GRND_RANDOM </b>flag
+          to the system call.  (The <a href="https://man7.org/linux/man-pages/man3/getentropy.3.html">getentropy(3)</a> function provides a
+          slightly more portable interface on top of <a href="https://man7.org/linux/man-pages/man2/getrandom.2.html">getrandom(2)</a>.)
+
+   <b>Initialization of the entropy pool</b>
+       The kernel collects bits of entropy from the environment.  When a
+       sufficient number of random bits has been collected, the entropy
+       pool is considered to be initialized.
+
+   <b>Choice of random source</b>
+       Unless you are doing long-term key generation (and most likely
+       not even then), you probably shouldn't be reading from the
+       <i>/dev/random</i> device or employing <a href="https://man7.org/linux/man-pages/man2/getrandom.2.html">getrandom(2)</a> with the <b>GRND_RANDOM</b>
+       flag.  Instead, either read from the <i>/dev/urandom</i> device or
+       employ <a href="https://man7.org/linux/man-pages/man2/getrandom.2.html">getrandom(2)</a> without the <b>GRND_RANDOM </b>flag.  The
+       cryptographic algorithms used for the <i>urandom</i> source are quite
+       conservative, and so should be sufficient for all purposes.
+
+       The disadvantage of <b>GRND_RANDOM </b>and reads from <i>/dev/random</i> is
+       that the operation can block for an indefinite period of time.
+       Furthermore, dealing with the partially fulfilled requests that
+       can occur when using <b>GRND_RANDOM </b>or when reading from <i>/dev/random</i>
+       increases code complexity.
+
+   <b>Monte Carlo and other probabilistic sampling applications</b>
+       Using these interfaces to provide large quantities of data for
+       Monte Carlo simulations or other programs/algorithms which are
+       doing probabilistic sampling will be slow.  Furthermore, it is
+       unnecessary, because such applications do not need
+       cryptographically secure random numbers.  Instead, use the
+       interfaces described in this page to obtain a small amount of
+       data to seed a user-space pseudorandom number generator for use
+       by such applications.
+
+   <b>Comparison between getrandom, /dev/urandom, and /dev/random</b>
+       The following table summarizes the behavior of the various
+       interfaces that can be used to obtain randomness.  <b>GRND_NONBLOCK</b>
+       is a flag that can be used to control the blocking behavior of
+       <a href="https://man7.org/linux/man-pages/man2/getrandom.2.html">getrandom(2)</a>.  The final column of the table considers the case
+       that can occur in early boot time when the entropy pool is not
+       yet initialized.
+
+       ┌──────────────┬──────────────┬────────────────┬────────────────────┐
+       │<b>Interface     </b>│ <b>Pool         </b>│ <b>Blocking       </b>│ <b>Behavior when pool </b>│
+       │              │              │ <b>behavior       </b>│ <b>is not yet ready   </b>│
+       ├──────────────┼──────────────┼────────────────┼────────────────────┤
+       │<i>/dev/random</i>   │ Blocking     │ If entropy too │ Blocks until       │
+       │              │ pool         │ low, blocks    │ enough entropy     │
+       │              │              │ until there is │ gathered           │
+       │              │              │ enough entropy │                    │
+       │              │              │ again          │                    │
+       ├──────────────┼──────────────┼────────────────┼────────────────────┤
+       │<i>/dev/urandom</i>  │ CSPRNG       │ Never blocks   │ Returns output     │
+       │              │ output       │                │ from uninitialized │
+       │              │              │                │ CSPRNG (may be low │
+       │              │              │                │ entropy and        │
+       │              │              │                │ unsuitable for     │
+       │              │              │                │ cryptography)      │
+       ├──────────────┼──────────────┼────────────────┼────────────────────┤
+       │<b>getrandom</b>()   │ Same as      │ Does not block │ Blocks until pool  │
+       │              │ <i>/dev/urandom</i> │ once is pool   │ ready              │
+       │              │              │ ready          │                    │
+       ├──────────────┼──────────────┼────────────────┼────────────────────┤
+       │<b>getrandom</b>()   │ Same as      │ If entropy too │ Blocks until pool  │
+       │<b>GRND_RANDOM   </b>│ <i>/dev/random</i>  │ low, blocks    │ ready              │
+       │              │              │ until there is │                    │
+       │              │              │ enough entropy │                    │
+       │              │              │ again          │                    │
+       ├──────────────┼──────────────┼────────────────┼────────────────────┤
+       │<b>getrandom</b>()   │ Same as      │ Does not block │ <b>EAGAIN             </b>│
+       │<b>GRND_NONBLOCK </b>│ <i>/dev/urandom</i> │ once is pool   │                    │
+       │              │              │ ready          │                    │
+       ├──────────────┼──────────────┼────────────────┼────────────────────┤
+       │<b>getrandom</b>()   │ Same as      │ <b>EAGAIN </b>if not  │ <b>EAGAIN             </b>│
+       │<b>GRND_RANDOM </b>+ │ <i>/dev/random</i>  │ enough entropy │                    │
+       │<b>GRND_NONBLOCK </b>│              │ available      │                    │
+       └──────────────┴──────────────┴────────────────┴────────────────────┘
+   <b>Generating cryptographic keys</b>
+       The amount of seed material required to generate a cryptographic
+       key equals the effective key size of the key.  For example, a
+       3072-bit RSA or Diffie-Hellman private key has an effective key
+       size of 128 bits (it requires about 2^128 operations to break) so
+       a key generator needs only 128 bits (16 bytes) of seed material
+       from <i>/dev/random</i>.
+
+       While some safety margin above that minimum is reasonable, as a
+       guard against flaws in the CSPRNG algorithm, no cryptographic
+       primitive available today can hope to promise more than 256 bits
+       of security, so if any program reads more than 256 bits (32
+       bytes) from the kernel random pool per invocation, or per
+       reasonable reseed interval (not less than one minute), that
+       should be taken as a sign that its cryptography is <i>not</i> skillfully
+       implemented.
+</pre>

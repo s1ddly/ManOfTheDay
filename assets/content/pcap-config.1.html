@@ -1,0 +1,16 @@
+<pre>
+       When run with the <b>--cflags </b>option, <i>pcap-config</i> writes to the
+       standard output the <b>-I </b>compiler flags required to include
+       libpcap's header files.  When run with the <b>--libs </b>option, <i>pcap-</i>
+       <i>config</i> writes to the standard output the <b>-L </b>and <b>-l </b>linker flags
+       required to link with libpcap, including <b>-l </b>flags for libraries
+       required by libpcap.  When run with the <b>--additional-libs </b>option,
+       <i>pcap-config</i> writes to the standard output the <b>-L </b>and <b>-l </b>flags for
+       libraries required by libpcap, but not the <b>-lpcap </b>flag to link
+       with libpcap itself.
+
+       By default, it writes flags appropriate for compiling with a
+       dynamically-linked version of libpcap; the <b>--static </b>flag causes
+       it to write flags appropriate for compiling with a statically-
+       linked version of libpcap.
+</pre>

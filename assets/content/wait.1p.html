@@ -1,0 +1,22 @@
+<pre>
+       When an asynchronous list (see <i>Section 2.9.3.1</i>, <i>Examples</i>) is
+       started by the shell, the process ID of the last command in each
+       element of the asynchronous list shall become known in the
+       current shell execution environment; see <i>Section 2.12</i>, <i>Shell</i>
+       <i>Execution Environment</i>.
+
+       If the <i>wait</i> utility is invoked with no operands, it shall wait
+       until all process IDs known to the invoking shell have terminated
+       and exit with a zero exit status.
+
+       If one or more <i>pid</i> operands are specified that represent known
+       process IDs, the <i>wait</i> utility shall wait until all of them have
+       terminated. If one or more <i>pid</i> operands are specified that
+       represent unknown process IDs, <i>wait</i> shall treat them as if they
+       were known process IDs that exited with exit status 127. The exit
+       status returned by the <i>wait</i> utility shall be the exit status of
+       the process requested by the last <i>pid</i> operand.
+
+       The known process IDs are applicable only for invocations of <i>wait</i>
+       in the current shell execution environment.
+</pre>

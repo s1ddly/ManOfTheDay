@@ -1,0 +1,31 @@
+<pre>
+       <b>nss-resolve </b>is a plug-in module for the GNU Name Service Switch
+       (NSS) functionality of the GNU C Library (<b>glibc</b>) enabling it to
+       resolve hostnames via the <a href="https://man7.org/linux/man-pages/man8/systemd-resolved.8.html">systemd-resolved(8)</a> local network name
+       resolution service. It replaces the <b>nss-dns </b>plug-in module that
+       traditionally resolves hostnames via DNS.
+
+       To activate the NSS module, add "resolve [!UNAVAIL=return]" to
+       the line starting with "hosts:" in /etc/nsswitch.conf.
+       Specifically, it is recommended to place "resolve" early in
+       /etc/nsswitch.conf's "hosts:" line. It should be before the
+       "files" entry, since systemd-resolved supports /etc/hosts
+       internally, but with caching. To the contrary, it should be after
+       "mymachines", to give hostnames given to local VMs and containers
+       precedence over names received over DNS. Finally, we recommend
+       placing "dns" somewhere after "resolve", to fall back to <b>nss-dns</b>
+       if systemd-resolved.service is not available.
+
+       Note that <b>systemd-resolved </b>will synthesize DNS resource records
+       in a few cases, for example for "localhost" and the current local
+       hostname, see <a href="https://man7.org/linux/man-pages/man8/systemd-resolved.8.html">systemd-resolved(8)</a> for the full list. This
+       duplicates the functionality of <a href="https://man7.org/linux/man-pages/man8/nss-myhostname.8.html">nss-myhostname(8)</a>, but it is
+       still recommended (see examples below) to keep <b>nss-myhostname</b>
+       configured in /etc/nsswitch.conf, to keep those names resolveable
+       if <b>systemd-resolved </b>is not running.
+
+       Please keep in mind that <b>nss-myhostname </b>(and <b>nss-resolve</b>) also
+       resolve in the other direction — from locally attached IP
+       addresses to hostnames. If you rely on that lookup being provided
+       by DNS, you might want to order things differently.
+</pre>

@@ -1,0 +1,24 @@
+<pre>
+       <b>getpcaps </b>displays the capabilities on the processes indicated by
+       the <i>pid</i> value(s) given on the command line.  A <i>pid</i> of 0 displays
+       the capabilities of the process that is running <b>getpcaps </b>itself.
+
+       The capabilities are displayed in the <a href="https://man7.org/linux/man-pages/man3/cap_from_text.3.html">cap_from_text(3)</a> format.
+
+       Optional arguments:
+
+       <b>--help </b>or <b>--usage</b>
+              Displays usage information and exits.
+
+       <b>--ugly </b>or <b>--legacy</b>
+              Displays output in a somewhat ugly legacy format.
+
+       <b>--verbose</b>
+              Displays usage in a legacy-like format but not quite so
+              ugly in modern default terminal fonts.
+
+       <b>--iab  </b>Displays IAB tuple capabilities from the process. The
+              output format here is unique. Double quotes encase the
+              regular process capabilities and square brackets encase
+              the IAB tuple.
+</pre>

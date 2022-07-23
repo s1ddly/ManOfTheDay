@@ -1,0 +1,35 @@
+<pre>
+       <b>pminfo </b>displays various types of information about performance
+       metrics available through the facilities of the Performance Co-
+       Pilot (PCP).
+
+       The metrics of interest are named in the <i>metricname</i> arguments.
+       If <i>metricname</i> is a non-leaf node in the PMNS, then <b>pminfo </b>will
+       recursively descend the PMNS and report on all leaf nodes.  If no
+       <i>metricname</i> argument is given, the root of the PMNS is used.
+
+       If the <i>metricname</i> argument is in numeric dotted notation, it is
+       interpreted as either a 3-dotted <i>pmid</i> (metric identifier -
+       domain, cluster, item numbers) or a 2-dotted <i>indom</i> (instance
+       domain identifier - domain, serial number).  In the <i>pmid</i> case, a
+       reverse PMID-to-name lookup is performed, and in the <i>indom</i> case,
+       the instance domain is reported directly.  This latter mode can
+       be used to report the instance domain ``one line'' and long form
+       help text summaries.
+
+       Unless directed to another host by the <b>-h </b>option, by default
+       <b>pminfo </b>will contact the Performance Metrics Collector Daemon
+       (PMCD) on the local host.  The connection to a PMCD is only
+       required if <b>pminfo </b>requires distributed PMNS information, and/or
+       meta-data describing metrics, and/or metric values, and/or help
+       text.
+
+       The <b>-a </b>option causes <b>pminfo </b>to use the specified set of archives
+       rather than connecting to a PMCD.
+
+       The <b>-L </b>option causes <b>pminfo </b>to use a local context to collect
+       metrics from PMDAs on the local host without PMCD.  Only some
+       metrics are available in this mode.
+
+       The <b>-a, -h </b>and <b>-L </b>options are mutually exclusive.
+</pre>

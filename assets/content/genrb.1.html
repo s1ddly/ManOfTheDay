@@ -1,0 +1,18 @@
+<pre>
+       <b>genrb </b>converts the resource <i>bundle</i> source files passed on the
+       command line to their binary form or to a Java source file for
+       use with ICU4J.  The resulting binary files have a <b>.res </b>extension
+       while resource bundle source files typically have a <b>.txt</b>
+       extension. Java source files have a <b>java </b>extension and follow the
+       ICU4J naming conventions.
+
+       It is customary to name the resource bundles by their locale
+       name, i.e. to use a local identifier for the <i>bundle</i> filename,
+       e.g.  <b>ja_JP.txt </b>for Japanese (Japan) data, or <b>root.txt </b>for the
+       root bundle.  In any case, <b>genrb </b>will produce a file whose base
+       name is the name of the locale found in the resource file, not
+       the base name of the resource file itself.
+
+       The binary files can be read directly by ICU, or used by
+       <a href="https://man7.org/linux/man-pages/man1/pkgdata.1.html">pkgdata(1)</a> for incorporation into a larger archive or library.
+</pre>

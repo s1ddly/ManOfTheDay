@@ -1,0 +1,47 @@
+<pre>
+     <b>rpc.idmapd </b>is the NFSv4 ID &lt;-&gt; name mapping daemon.  It provides
+     functionality to the NFSv4 kernel client and server, to which it
+     communicates via upcalls, by translating user and group IDs to
+     names, and vice versa.
+
+     The system derives the part of the string by performing a password
+     or group lookup.  The lookup mechanism is configured in
+     <i>/etc/idmapd.conf</i>
+
+     By default, the part of the string is the system's DNS domain name.
+     It can also be specified in <i>/etc/idmapd.conf</i> if the system is
+     multi-homed, or if the system's DNS domain name does not match the
+     name of the system's Kerberos realm.
+
+     When the domain is not specified in /etc/idmapd.conf the local DNS
+     server will be queried for the <b>_nfsv4idmapdomain </b>text record. If
+     the record exists that will be used as the domain. When the record
+     does not exist, the domain part of the DNS domain will used.
+
+     Note that on more recent kernels only the NFSv4 server uses
+     <b>rpc.idmapd</b>.  The NFSv4 client instead uses nfsidmap(8), and only
+     falls back to <b>rpc.idmapd </b>if there was a problem running the
+     nfsidmap(8) program.
+
+     The options are as follows:
+
+     <b>-h           </b>Display usage message.
+
+     <b>-v           </b>Increases the verbosity level (can be specified
+                  multiple times).
+
+     <b>-f           </b>Runs <b>rpc.idmapd </b>in the foreground and prints all
+                  output to the terminal.
+
+     <b>-p </b><i>path</i>      Specifies the location of the RPC pipefs to be <i>path</i>.
+                  The default value is "/var/lib/nfs/rpc_pipefs".
+
+     <b>-c </b><i>path</i>      Use configuration file <i>path</i>.  This option is
+                  deprecated.
+
+     <b>-C           </b>Client-only: perform no idmapping for any NFS server,
+                  even if one is detected.
+
+     <b>-S           </b>Server-only: perform no idmapping for any NFS client,
+                  even if one is detected.
+</pre>

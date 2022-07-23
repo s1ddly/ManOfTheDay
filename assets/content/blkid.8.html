@@ -1,0 +1,37 @@
+<pre>
+       The <b>blkid </b>program is the command-line interface to working with
+       the <a href="https://man7.org/linux/man-pages/man3/libblkid.3.html">libblkid(3)</a> library. It can determine the type of content
+       (e.g., filesystem or swap) that a block device holds, and also
+       the attributes (tokens, NAME=value pairs) from the content
+       metadata (e.g., LABEL or UUID fields).
+
+       <b>It is recommended to use lsblk</b>(8) <b>command to get information</b>
+       <b>about block devices, or lsblk --fs to get an overview of</b>
+       <b>filesystems, or findmnt</b>(8) <b>to search in already mounted</b>
+       <b>filesystems.</b>
+
+          <a href="https://man7.org/linux/man-pages/man8/lsblk.8.html">lsblk(8)</a> provides more information, better control on
+          output formatting, easy to use in scripts and it does
+          not require root permissions to get actual information.
+          <b>blkid </b>reads information directly from devices and for
+          non-root users it returns cached unverified information.
+          <b>blkid </b>is mostly designed for system services and to test
+          <a href="https://man7.org/linux/man-pages/man3/libblkid.3.html">libblkid(3)</a> functionality.
+
+       When <i>device</i> is specified, tokens from only this device are
+       displayed. It is possible to specify multiple <i>device</i> arguments on
+       the command line. If none is given, all partitions or
+       unpartitioned devices which appear in <i>/proc/partitions</i> are shown,
+       if they are recognized.
+
+       <b>blkid </b>has two main forms of operation: either searching for a
+       device with a specific NAME=value pair, or displaying NAME=value
+       pairs for one or more specified devices.
+
+       For security reasons <b>blkid </b>silently ignores all devices where the
+       probing result is ambivalent (multiple colliding filesystems are
+       detected). The low-level probing mode (<b>-p</b>) provides more
+       information and extra exit status in this case. It’s recommended
+       to use <a href="https://man7.org/linux/man-pages/man8/wipefs.8.html">wipefs(8)</a> to get a detailed overview and to erase obsolete
+       stuff (magic strings) from the device.
+</pre>

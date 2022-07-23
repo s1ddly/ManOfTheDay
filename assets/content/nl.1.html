@@ -1,0 +1,71 @@
+<pre>
+       Write each FILE to standard output, with line numbers added.
+
+       With no FILE, or when FILE is -, read standard input.
+
+       Mandatory arguments to long options are mandatory for short
+       options too.
+
+       <b>-b</b>, <b>--body-numbering</b>=<i>STYLE</i>
+              use STYLE for numbering body lines
+
+       <b>-d</b>, <b>--section-delimiter</b>=<i>CC</i>
+              use CC for logical page delimiters
+
+       <b>-f</b>, <b>--footer-numbering</b>=<i>STYLE</i>
+              use STYLE for numbering footer lines
+
+       <b>-h</b>, <b>--header-numbering</b>=<i>STYLE</i>
+              use STYLE for numbering header lines
+
+       <b>-i</b>, <b>--line-increment</b>=<i>NUMBER</i>
+              line number increment at each line
+
+       <b>-l</b>, <b>--join-blank-lines</b>=<i>NUMBER</i>
+              group of NUMBER empty lines counted as one
+
+       <b>-n</b>, <b>--number-format</b>=<i>FORMAT</i>
+              insert line numbers according to FORMAT
+
+       <b>-p</b>, <b>--no-renumber</b>
+              do not reset line numbers for each section
+
+       <b>-s</b>, <b>--number-separator</b>=<i>STRING</i>
+              add STRING after (possible) line number
+
+       <b>-v</b>, <b>--starting-line-number</b>=<i>NUMBER</i>
+              first line number for each section
+
+       <b>-w</b>, <b>--number-width</b>=<i>NUMBER</i>
+              use NUMBER columns for line numbers
+
+       <b>--help </b>display this help and exit
+
+       <b>--version</b>
+              output version information and exit
+
+       Default options are: <b>-bt -d</b>'\:' <b>-fn -hn -i1 -l1 -n</b>'rn' <b>-s</b>&lt;TAB&gt;
+       <b>-v1 -w6</b>
+
+       CC are two delimiter characters used to construct logical page
+       delimiters; a missing second character implies ':'.
+
+       STYLE is one of:
+
+       a      number all lines
+
+       t      number only nonempty lines
+
+       n      number no lines
+
+       pBRE   number only lines that contain a match for the basic
+              regular expression, BRE
+
+       FORMAT is one of:
+
+       ln     left justified, no leading zeros
+
+       rn     right justified, no leading zeros
+
+       rz     right justified, leading zeros
+</pre>

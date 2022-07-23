@@ -1,0 +1,21 @@
+<pre>
+       <b>mkfs.minix </b>creates a Linux MINIX filesystem on a device (usually
+       a disk partition).
+
+       The <i>device</i> is usually of the following form:
+
+           /dev/hda[1-8] (IDE disk 1)
+           /dev/hdb[1-8] (IDE disk 2)
+           /dev/sda[1-8] (SCSI disk 1)
+           /dev/sdb[1-8] (SCSI disk 2)
+
+       The device may be a block device or an image file of one, but
+       this is not enforced. Expect not much fun on a character device
+       :-).
+
+       The <i>size-in-blocks</i> parameter is the desired size of the file
+       system, in blocks. It is present only for backwards
+       compatibility. If omitted the size will be determined
+       automatically. Only block counts strictly greater than 10 and
+       strictly less than 65536 are allowed.
+</pre>

@@ -1,0 +1,119 @@
+<pre>
+       The <b>lttng create </b>command creates a new tracing session.
+
+       A tracing session is a named container of channels, which in turn
+       contain event rules. It is domain-agnostic, in that channels and
+       event rules can be enabled for the user space tracer and/or the
+       Linux kernel tracer.
+
+       On execution, an <b>.lttngrc </b>file is created, if it does not exist,
+       in the user’s home directory. This file contains the name of the
+       current tracing session. When creating a new tracing session with
+       <b>lttng create</b>, the current tracing session is set to this new
+       tracing session. The <a href="https://man7.org/linux/man-pages/man1/lttng-set-session.1.html">lttng-set-session(1)</a> command can be used to
+       set the current tracing session without manually editing the
+       <b>.lttngrc </b>file.
+
+       If <i>SESSION</i> is omitted, a session name is automatically created
+       having this form: <b>auto-YYYYmmdd-HHMMSS</b>. <i>SESSION</i> <b>must not </b>contain
+       the character <b>/</b>.
+
+       The <b>--shm-path </b>option can be used to specify the path to the
+       shared memory holding the ring buffers. Specifying a location on
+       an NVRAM file system makes it possible to retrieve the latest
+       recorded trace data when the system reboots after a crash. To
+       view the events of ring buffer files after a system crash, use
+       the <a href="https://man7.org/linux/man-pages/man1/lttng-crash.1.html">lttng-crash(1)</a> utility.
+
+       Tracing sessions are destroyed using the <a href="https://man7.org/linux/man-pages/man1/lttng-destroy.1.html">lttng-destroy(1)</a>
+       command.
+
+   <b>Creation modes</b>
+       There are four tracing session modes:
+
+       Local mode
+           Traces the local system and writes the trace to the local
+           file system. The <b>--output </b>option specifies the trace path.
+           Using <b>--set-url</b>=file://<i>PATH</i> is the equivalent of using
+           <b>--output</b>=<i>PATH</i>. The file system output can be disabled using
+           the <b>--no-output </b>option.
+
+           If none of the options mentioned above are used, then the
+           trace is written locally in the <b>$LTTNG_HOME/lttng-traces</b>
+           directory (<b>$LTTNG_HOME </b>defaults to <b>$HOME</b>).
+
+       Network streaming mode
+           Traces the local system and sends the trace over the network
+           to a listening relay daemon (see <a href="https://man7.org/linux/man-pages/man8/lttng-relayd.8.html">lttng-relayd(8)</a>). The <b>--set-</b>
+           <b>url</b>, or <b>--ctrl-url </b>and <b>--data-url </b>options set the trace
+           output destination (see the <i>URL format</i> section below).
+
+       Snapshot mode
+           Traces the local system without writing the trace to the
+           local file system (implicit <b>--no-output </b>option). Channels are
+           automatically configured to be snapshot-ready on creation
+           (see <a href="https://man7.org/linux/man-pages/man1/lttng-enable-channel.1.html">lttng-enable-channel(1)</a>). The <a href="https://man7.org/linux/man-pages/man1/lttng-snapshot.1.html">lttng-snapshot(1)</a> command
+           is used to take snapshots of the current ring buffers. The
+           <b>--set-url</b>, or <b>--ctrl-url </b>and <b>--data-url </b>options set the
+           default snapshot output destination.
+
+       Live mode
+           Traces the local system, sending trace data to an LTTng relay
+           daemon over the network (see <a href="https://man7.org/linux/man-pages/man8/lttng-relayd.8.html">lttng-relayd(8)</a>). The <b>--set-url</b>,
+           or <b>--ctrl-url </b>and <b>--data-url </b>options set the trace output
+           destination. The live output URLs cannot use the <b>file://</b>
+           protocol (see the <i>URL format</i> section below).
+
+   <b>URL format</b>
+       The <b>--set-url</b>, <b>--ctrl-url</b>, and <b>--data-url </b>options' arguments are
+       URLs.
+
+       The format of those URLs is one of:
+
+           file://<i>TRACEPATH</i>
+           <i>NETPROTO</i>://(<i>HOST</i> | <i>IPADDR</i>)[:<i>CTRLPORT</i>[:<i>DATAPORT</i>]][/<i>TRACEPATH</i>]
+
+       The <b>file:// </b>protocol targets the <b>local file system </b>and can only
+       be used as the <b>--set-url </b>option’s argument when the session is
+       created in <i>local</i> or <i>snapshot</i> mode.
+
+       <i>TRACEPATH</i>
+           Absolute path to trace files on the local file system.
+
+       The other version is available when the session is created in
+       <i>network streaming</i>, <i>snapshot</i>, or <i>live</i> mode.
+
+       <i>NETPROTO</i>
+           Network protocol, amongst:
+
+           <b>net</b>
+               TCP over IPv4; the default values of <i>CTRLPORT</i> and
+               <i>DATAPORT</i> are respectively 5342 and 5343.
+
+           <b>net6</b>
+               TCP over IPv6: same default ports as the <b>net </b>protocol.
+
+           <b>tcp</b>
+               Same as the <b>net </b>protocol; can only be used with the
+               <b>--ctrl-url </b>and <b>--data-url </b>options together.
+
+           <b>tcp6</b>
+               Same as the <b>net6 </b>protocol; can only be used with the
+               <b>--ctrl-url </b>and <b>--data-url </b>options together.
+
+       (<i>HOST</i> | <i>IPADDR</i>)
+           Hostname or IP address (IPv6 address <b>must </b>be enclosed in
+           brackets (<b>[ </b>and <b>]</b>); see RFC 2732
+           &lt;<a href="https://man7.org/linux/man-pagestps://www.ietf.org/rfc/rfc2732.txt">https://www.ietf.org/rfc/rfc2732.txt</a>&gt;).
+
+       <i>CTRLPORT</i>
+           Control port.
+
+       <i>DATAPORT</i>
+           Data port.
+
+       <i>TRACEPATH</i>
+           Path of trace files on the remote file system. This path is
+           relative to the base output directory set on the relay daemon
+           side; see <a href="https://man7.org/linux/man-pages/man8/lttng-relayd.8.html">lttng-relayd(8)</a>.
+</pre>

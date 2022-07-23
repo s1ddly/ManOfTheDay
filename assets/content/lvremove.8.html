@@ -1,0 +1,30 @@
+<pre>
+       lvremove removes one or more LVs. For standard LVs, this returns
+       the logical extents that were used by the LV to the VG for use by
+       other LVs.
+
+       Confirmation will be requested before deactivating any active LV
+       prior to removal.  LVs cannot be deactivated or removed while
+       they are open (e.g.  if they contain a mounted filesystem).
+       Removing an origin LV will also remove all dependent snapshots.
+
+       When a single force option is used, LVs are removed without
+       confirmation, and the command will try to deactivate unused LVs.
+
+       To remove damaged LVs, two force options may be required (<b>-ff</b>).
+
+       <b>Historical LVs</b>
+
+       If the configuration setting <b>metadata/record_lvs_history </b>is
+       enabled and the LV being removed forms part of the history of at
+       least one LV that is still present, then a simplified
+       representation of the LV will be retained. This includes the time
+       of removal (<b>lv_time_removed </b>reporting field), creation time
+       (<b>lv_time</b>), name (<b>lv_name</b>), LV uuid (<b>lv_uuid</b>) and VG name
+       (<b>vg_name</b>). This allows later reporting to see the ancestry chain
+       of thin snapshot volumes, even after some intermediate LVs have
+       been removed. The names of such historical LVs acquire a hyphen
+       as a prefix (e.g. '-lvol1') and cannot be reactivated.  Use
+       lvremove a second time, with the hyphen, to remove the record of
+       the former LV completely.
+</pre>
