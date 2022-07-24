@@ -48,17 +48,17 @@
 						
 						document.getElementById("man_name").innerText = nameVal;
 						
-						fName = contentRef[1].split(",")[2].split("/")
-						
 						manContent = document.getElementById("man_content");
 						manContent.innerHTML = httpGet("assets/content/".concat(contentRef[i].split(",")[2].split("/")[contentRef[i].split(",")[2].split("/").length - 1]));
 						
-						//nameArr = contentRef[i].split(",")[2].split("/")[-1].split(".");
+
 						if (nameArr.length == 3){
 							document.getElementById("man_name").innerText = nameArr[0];
 						} else {
 							document.getElementById("man_name").innerText = nameArr.slice(0,-2).join(".");
 						}
+
+						document.getElementById("man_url").href = contentRef[i].split(",")[2];
 						
 						return 0;
 					}
@@ -66,13 +66,18 @@
 			}
 			
 			function randMan() {
-				
-				//return Math.floor(Math.random() * (Math.floor(#) - Math.ceil(#)) + Math.ceil(#));
+				populateTextFromNumber(Math.floor(Math.random() * (Math.floor(1) - Math.ceil(2793)) + Math.ceil(2793)));
+			}
+			
+			function dayman() {
+				var now = new Date();
+				var fullDaysSinceEpoch = Math.floor(now/8.64e7);
+				populateTextFromNumber(fullDaysSinceEpoch % 2793);
 			}
 			
 		</script>
     </head>
-    <body onload="populateTextFromFile('watch.1.html')">
+    <body onload="dayman()">
         <!-- Responsive navbar-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container px-5">
@@ -95,7 +100,7 @@
 					<div id="man_content"></div>
 				</div>
                 <div class="col-lg-5">
-                    <a href="#!" style="color: var(--bs-body-color); text-decoration: none;" onMouseOver="this.style.color='#0d6efd'" onMouseOut="this.style.color='#212529'" ><h1 class="font-weight-light" id="man_name"></h1></a>
+                    <a href="#!" style="color: var(--bs-body-color); text-decoration: none;" onMouseOver="this.style.color='#0d6efd'" onMouseOut="this.style.color='#212529'" id="man_url" target="_blank"><h1 class="font-weight-light" id="man_name"></h1></a>
 					<!--<p>This is a template that is great for small businesses. It doesn't have too much fancy flare to it, but it makes a great use of the standard Bootstrap core components. Feel free to use this template for any project you want!</p>-->
                 </div>
             </div>
