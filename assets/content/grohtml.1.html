@@ -1,0 +1,23 @@
+<pre>
+       The GNU <i>roff</i> system's HTML support consists of a preprocessor,
+       <i>pre-grohtml</i>, and a device driver, <i>post-grohtml</i>; together, they
+       translate <a href="https://man7.org/linux/man-pages/man7/roff.7.html">roff(7)</a> documents to HTML.  Users should always invoke
+       <i>grohtml</i> via the <a href="https://man7.org/linux/man-pages/man1/groff.1.html">groff(1)</a> command with the <b>-Thtml </b>option.  If no
+       operands are given, or if <i>file</i> is “<b>-</b>”, <i>grohtml</i> reads the standard
+       input stream.  Output is written to the standard output stream.
+       When <i>grohtml</i> is run by <i>groff</i>, options can be passed to <i>grohtml</i>
+       using <i>groff</i>'s <b>-P </b>option.
+
+       <i>grohtml</i> invokes <i>groff</i> twice.  In the first pass, the preprocessor
+       <i>pre-grohtml</i> renders pictures, equations, and tables as images in
+       PostScript format using the <b>ps </b>output driver.  In the second
+       pass, the output driver <i>post-grohtml</i> translates the output of
+       <i>troff</i>(1) to HTML.
+
+       <i>grohtml</i> always writes output encoded in UTF-8 and has built-in
+       entities for all non-composite Unicode characters.  In spite of
+       this, <i>groff</i> may issue warnings about unknown special characters
+       if they can't be found during the first pass.  Such warnings can
+       be safely ignored unless the special characters appear inside a
+       table or equation.
+</pre>

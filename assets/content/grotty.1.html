@@ -1,0 +1,77 @@
+<pre>
+       The GNU <i>roff</i> TTY (“Teletype”) output driver translates the output
+       of <i>troff</i>(1) into a form suitable for typewriter-like devices,
+       including terminal emulators.  Normally, <i>grotty</i> is invoked by
+       <a href="https://man7.org/linux/man-pages/man1/groff.1.html">groff(1)</a> when the latter is given one of the <b>-Tascii</b>, <b>-Tlatin1</b>,
+       or <b>-Tutf8 </b>options on systems using ISO character encoding
+       standards, or with <b>-Tcp1047 </b>or <b>-Tutf8 </b>on EBCDIC-based hosts.  If
+       no <i>file</i> arguments are given, or if <i>file</i> is “-”, <i>grotty</i> reads the
+       standard input stream.  Output is written to the standard output
+       stream.
+
+       By default, <i>grotty</i> emits SGR escape sequences (from ISO 6429,
+       popularly called “ANSI escapes”) to change text attributes (bold,
+       italic, underline, reverse-video, and colors).  Devices
+       supporting the appropriate sequences can view <i>roff</i> documents
+       using eight different background and foreground colors.
+
+       In keeping with long-standing practice and the rarity of
+       terminals, hardware or emulated, that support oblique or italic
+       fonts, italicized text is represented with underlining by
+       default—but see the <b>-i </b>option below.
+
+       Following ISO 6429, the following colors are defined in <i>tty.tmac</i>:
+       black, white, red, green, blue, yellow, magenta, and cyan.
+       Unrecognized colors are mapped to the default color, which is
+       dependent on the settings of the terminal.
+
+   <b>SGR support in pagers</b>
+       When paging <i>grotty</i>'s output with <a href="https://man7.org/linux/man-pages/man1/less.1.html">less(1)</a>, the latter program must
+       be instructed to pass SGR sequences through to the device; its <b>-R</b>
+       option is one way to achieve this.  Consequently, programs like
+       <a href="https://man7.org/linux/man-pages/man1/man.1.html">man(1)</a> which page <i>roff</i> documents with <i>less</i> must call it with an
+       appopriate option.
+
+   <b>Legacy output format</b>
+       The <b>-c </b>option tells <i>grotty</i> to use an output format compatible
+       with paper terminals, like the Teletype machines for which <i>roff</i>
+       and <i>nroff</i> were first developed but which are no longer in wide
+       use.  SGR escape sequences are not emitted.  Instead, <i>grotty</i>
+       overstrikes, representing a bold character <i>c</i> with the sequence
+       “<i>c</i> BACKSPACE <i>c</i>” an italic character <i>c</i> with the sequence
+       “<b>_ </b>BACKSPACE <i>c</i>”, and bold italics with “<b>_ </b>BACKSPACE <i>c</i>
+       BACKSPACE <i>c</i>”.  Furthermore, color output is disabled.  The same
+       effect can be achieved either by setting the <i>GROFF_NO_SGR</i>
+       environment variable or by using a <i>groff</i> escape sequence within
+       the document; see subsection “Device control commands”, below.
+
+       The legacy output format can be rendered on a video terminal (or
+       emulator) by piping <i>grotty</i>'s output through <a href="https://man7.org/linux/man-pages/man1/ul.1.html">ul(1)</a>, which may
+       render bold italics as reverse video.  Some implementations of
+       <a href="https://man7.org/linux/man-pages/man1/more.1.html">more(1)</a> are also able to display these sequences; you may wish to
+       experiment with that command's <b>-b </b>option.  <i>less</i> renders legacy
+       bold and italics without requiring options.  In contrast to the
+       terminal output drivers of some other <i>roff</i> implementations,
+       <i>grotty</i> never outputs reverse line feeds.  There is therefore no
+       need to filter its output through <a href="https://man7.org/linux/man-pages/man1/col.1.html">col(1)</a>.
+
+   <b>Device control commands</b>
+       <i>grotty</i> understands a single device control function produced
+       using the <i>roff</i> <b>\X </b>escape sequence in a document.
+
+       <b>\X'tty: sgr </b>[<i>n</i>]<b>'</b>
+              If <i>n</i> is non-zero or missing, enable SGR sequences (this is
+              the default); otherwise, use the legacy output format.
+
+   <b>Device description files</b>
+       If <i>DESC</i> file for the character encoding contains the keyword
+       “<b>unicode</b>”, <i>grotty</i> emits Unicode characters in UTF-8 encoding.
+       Otherwise, it emits characters in a single-byte encoding
+       depending on the data in the font description files.  See
+       <a href="https://man7.org/linux/man-pages/man5/groff_font.5.html">groff_font(5)</a> for more details.
+
+       A font description file may contain a command “<b>internalname </b><i>n</i>”
+       where <i>n</i> is a decimal integer.  If the 01 bit in <i>n</i> is set, then
+       the font is treated as an italic font; if the 02 bit is set, then
+       it is treated as a bold font.
+</pre>

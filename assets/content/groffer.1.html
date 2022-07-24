@@ -1,0 +1,39 @@
+<pre>
+       The <b>groffer </b>program is the easiest way to use <a href="https://man7.org/linux/man-pages/man1/groff.1.html">groff(1)</a>.  It can
+       display arbitrary documents written in the <i>groff</i> language, see
+       <a href="https://man7.org/linux/man-pages/man7/groff.7.html">groff(7)</a>, or other <i>roff</i> languages, see <a href="https://man7.org/linux/man-pages/man7/roff.7.html">roff(7)</a>, that are
+       compatible to the original <i>troff</i> language.  It finds and runs all
+       necessary <i>groff</i> preprocessors, such as <b>chem</b>.
+
+       The <b>groffer </b>program also includes many of the features for
+       finding and displaying the Unix manual pages (<i>man pages</i>), such
+       that it can be used as a replacement for a <a href="https://man7.org/linux/man-pages/man1/man.1.html">man(1)</a> program.
+       Moreover, compressed files that can be handled by <b>gzip</b>(1) or
+       <b>bzip2</b>(1) are decompressed on-the-fly.
+
+       The normal usage is quite simple by supplying a file name or name
+       of a <i>man page</i> without further options.  But the option handling
+       has many possibilities for creating special behaviors.  This can
+       be done either in configuration files, with the shell environment
+       variable <i>GROFFER_OPT</i>, or on the command line.
+
+       The output can be generated and viewed in several different ways
+       available for <i>groff</i>.  This includes the X Window System-based
+       <i>groff</i> program <b>gxditview</b>(1), each <i>PostScript</i>, <i>PDF</i>, or <i>DVI</i> display
+       program, a web browser by generating <i>HTML</i> or <i>XHTML</i> in <i>www mode</i>,
+       or several <i>text modes</i> in text terminals.
+
+       Most of the options that must be named when running <b>groff</b>
+       directly are determined automatically for <b>groffer</b>, due to the
+       internal usage of the <a href="https://man7.org/linux/man-pages/man1/grog.1.html">grog(1)</a> program.  But all parts can also be
+       controlled manually by arguments.
+
+       Several file names can be specified on the command-line
+       arguments.  They are transformed into a single document in the
+       normal way of <b>groff</b>.
+
+       Option handling is done in GNU style.  Options and file names can
+       be mixed freely.  The option “<b>--</b>” closes the option handling, all
+       following arguments are treated as file names.  Long options can
+       be abbreviated in several ways.
+</pre>

@@ -1,0 +1,69 @@
+<pre>
+       GNU <i>soelim</i> is a preprocessor for the <a href="https://man7.org/linux/man-pages/man7/groff.7.html">groff(7)</a> document formatting
+       system.  <i>soelim</i> works as a filter to eliminate source requests in
+       <a href="https://man7.org/linux/man-pages/man7/roff.7.html">roff(7)</a> input files; that is, it replaces lines of the form “<b>.so</b>
+       <i>macro-file</i>” within each text <i>input-file</i> with the contents of
+       <i>macro-file</i>, recursively.  By default, it writes <b>.lf </b>requests as
+       well to record the name and line number of each <i>input-file</i> and
+       <i>macro-file</i>, so that any diagnostics produced by later processing
+       can be accurately traced to the original input.  Options allow
+       this information to be suppressed (<b>-r</b>) or supplied in TeX
+       comments instead (<b>-t</b>).  In the absence of <i>input-file</i> arguments,
+       <i>soelim</i> reads the standard input stream.  Output is written to the
+       standard output stream.
+
+       To embed a backslash “<b>\</b>” in the name of a <i>macro-file</i>, write “<b>\\</b>”
+       or “<b>\e</b>”.  To embed a space, write “<b>\ </b>” (backslash followed by a
+       space).  Any other escape sequence in <i>macro-file</i>, including
+       “<b>\[rs]</b>”, prevents <i>soelim</i> from replacing the source request.
+
+       The dot must be at the beginning of a line and must be followed
+       by “<b>so</b>” without intervening spaces or tabs for <i>soelim</i> to handle
+       it.  This convention allows source requests to be “protected”
+       from processing by <i>soelim</i>, for instance as part of macro
+       definitions or <b>.if </b>requests.
+
+       There must also be at least one space between “<b>so</b>” and its <i>macro-</i>
+       <i>file</i> argument.  The <b>-C </b>option overrides this requirement.
+
+       The foregoing is the limit of <i>soelim</i>'s understanding of <i>roff</i>
+       languages; it does not, for example, replace the input line
+              .if 1 .so otherfile
+       with the contents of <i>otherfile</i>.  With its <b>-r </b>option, therefore,
+       <i>soelim</i> can be used to process text files in general, to flatten a
+       tree of input documents.
+
+       <i>soelim</i> was designed to handle situations where the target of a
+       <i>roff</i> source request requires a preprocessor such as <i>eqn</i>(1),
+       <i>pic</i>(1), <i>refer</i>(1), or <i>tbl</i>(1).  The usual processing sequence of
+       <a href="https://man7.org/linux/man-pages/man1/groff.1.html">groff(1)</a> is as follows.
+
+                 input        sourced
+                 file          file
+                   ⎪             ⎪
+                   ↓             ↓
+               preprocessor ⎯→ troff ⎯→ postprocessor
+                                             ⎪
+                                             ↓
+                                          output
+                                           file
+
+       That is, files sourced with <b>.so </b>are normally read <i>only</i> by <i>troff</i>
+       (the actual formatter).  <i>soelim</i> is <i>not</i> required for <i>troff</i> to
+       source files.
+
+       If a file to be sourced should also be preprocessed, it must
+       already be read <i>before</i> the input file passes through the
+       preprocessor.  <i>soelim</i>, normally invoked via <i>groff</i>'s <b>-s </b>option,
+       handles this.
+
+                 input
+                 file
+                   ⎪
+                   ↓
+                 soelim ⎯→ preprocessor ⎯→ troff ⎯→ postprocessor
+                   ↑                                     ⎪
+                   ⎪                                     ↓
+                sourced                               output
+                 file                                  file
+</pre>

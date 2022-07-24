@@ -1,0 +1,28 @@
+<pre>
+       <i>nroff</i> formats documents written in the <a href="https://man7.org/linux/man-pages/man7/roff.7.html">roff(7)</a> language for
+       typewriter-like devices such as terminal emulators.  GNU <i>nroff</i>
+       emulates the AT&amp;T <i>nroff</i> command using <a href="https://man7.org/linux/man-pages/man1/groff.1.html">groff(1)</a>.  <i>nroff</i> generates
+       output via <a href="https://man7.org/linux/man-pages/man1/grotty.1.html">grotty(1)</a>, <i>groff</i>'s terminal output driver, which needs
+       to know the character encoding scheme used by the device.
+       Consequently, acceptable arguments to the <b>-T </b>option are <b>ascii</b>,
+       <b>latin1</b>, <b>utf8</b>, and <b>cp1047</b>; any others are ignored.  If neither the
+       <i>GROFF_TYPESETTER</i> environment variable nor the <b>-T </b>command-line
+       option (which overrides the environment variable) specifies a
+       (valid) device, <i>nroff</i> consults the locale to select an
+       appropriate output device.  It first tries the <a href="https://man7.org/linux/man-pages/man1/locale.1.html">locale(1)</a> program,
+       then checks several locale-related environment variables; see
+       section “Environment”, below.  If all of the foregoing fail,
+       <b>-Tascii </b>is implied.
+
+       The <b>-b</b>, <b>-c</b>, <b>-C</b>, <b>-d</b>, <b>-E</b>, <b>-i</b>, <b>-m</b>, <b>-M</b>, <b>-n</b>, <b>-o</b>, <b>-r</b>, <b>-U</b>, <b>-w</b>, <b>-W</b>, and
+       <b>-z </b>options have the effects described in <i>troff</i>(1).  <b>-c </b>and <b>-h</b>
+       imply “<b>-P-c</b>” and “<b>-P-h</b>”, respectively; <b>-c </b>is also interpreted
+       directly by <i>troff</i>.  In addition, this implementation ignores the
+       AT&amp;T <i>nroff</i> options <b>-e</b>, <b>-q</b>, and <b>-s </b>(which are not implemented in
+       <i>groff</i>).  The options <b>-k</b>, <b>-K</b>, <b>-p</b>, <b>-P</b>, <b>-t</b>, and <b>-S </b>are documented in
+       <a href="https://man7.org/linux/man-pages/man1/groff.1.html">groff(1)</a>.  <b>-V </b>causes <i>nroff</i> to display the constructed <i>groff</i>
+       command on the standard output stream, but does not execute it.
+       <b>-v </b>and <b>--version </b>show version information about <i>nroff</i> and the
+       programs it runs, while <b>--help </b>displays a usage message; all exit
+       afterward.
+</pre>

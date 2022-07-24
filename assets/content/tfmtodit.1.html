@@ -1,0 +1,50 @@
+<pre>
+       <i>tfmtodit</i> creates a font file for use with the <b>dvi </b>output driver
+       of <a href="https://man7.org/linux/man-pages/man1/groff.1.html">groff(1)</a>.  <i>tfm-file</i> is the name of the TeX font metric file
+       for the font.  <i>map-file</i> is a file giving the <i>groff</i> names for
+       characters in the font; this file should consist of a sequence of
+       lines of the form
+              <i>i c1</i> ... <i>cn</i>
+       where <i>i</i> is a decimal integer giving the position of the character
+       in the font, and <i>c1</i> through <i>cn</i> are are the <i>groff</i> names of the
+       character.  If a character has no <i>groff</i> names but exists in <i>tfm-</i>
+       <i>file</i>, then it will be put in the <i>groff</i> font file as an unnamed
+       character.  The <i>groff</i> font file is written to <i>font</i>.
+
+       The <b>-s </b>option should be given if the font is “special”, meaning
+       that <i>groff</i> should search it whenever a character is not found in
+       the current font.  In that case, <i>font</i> should be listed as an
+       argument to the <b>fonts </b>directive in the <i>DESC</i> file; if it is not
+       special, there is no need to list it, since <i>groff</i> can
+       automatically mount it when it is first used.
+
+       To do a good job of math typesetting, <i>groff</i> requires font metric
+       information not present in <i>tfm-file</i>.  This is because TeX has
+       separate math italic fonts, whereas <i>groff</i> uses normal italic
+       fonts for math.  The additional information required by <i>groff</i> is
+       given by the two arguments to the <b>math_fit </b>macro in the Metafont
+       programs for the Computer Modern fonts.  In a text font (a font
+       for which <b>math_fit </b>is false), Metafont normally ignores these two
+       arguments.  Metafont can be made to put this information into the
+       GF (“generic font”) files it produces by loading the following
+       definition after <b>cmbase </b>when creating <i>cm.base</i>.
+              def ignore_math_fit(expr left_adjustment,right_adjustment) =
+                  special "adjustment";
+                  numspecial left_adjustment*16/designsize;
+                  numspecial right_adjustment*16/designsize;
+                  enddef;
+
+       For the EC font family, load the following definition after
+       <b>exbase</b>—it is probably easiest to patch <i>exbase.mf</i> locally.
+              def ignore_math_fit(expr left_adjustment,right_adjustment) =
+                  ori_special "adjustment";
+                  ori_numspecial left_adjustment*16/designsize;
+                  ori_numspecial right_adjustment*16/designsize;
+                  enddef;
+       The only difference from the previous example is the “ori_”
+       prefix to “special” and “numspecial”.
+
+       The GF file created using this modified <i>cm.base</i> or <i>exbase.mf</i>
+       should be specified with the <b>-g </b>option, which should <i>not</i> be given
+       for a font for which <b>math_fit </b>is true.
+</pre>

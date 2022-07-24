@@ -1,0 +1,31 @@
+<pre>
+       <i>pdfmom</i> is a wrapper around <a href="https://man7.org/linux/man-pages/man1/groff.1.html">groff(1)</a> that facilitates the
+       production of PDF documents from files formatted with the <i>mom</i>
+       macros.
+
+       <i>pdfmom</i> prints to the standard output, so output must usually be
+       redirected to a destination file.  The size of the final PDF can
+       be reduced by piping the output through <b>ps2pdf</b>(1).
+
+       If called with the <b>-Tpdf </b>option (which is the default), <i>pdfmom</i>
+       processes files using <i>groff</i>'s native PDF driver, <a href="https://man7.org/linux/man-pages/man1/gropdf.1.html">gropdf(1)</a>.  If
+       <b>-Tps </b>is given, processing is passed over to <i>pdfroff</i>, which uses
+       <i>groff</i>'s PostScript driver.  In either case, multiple runs of the
+       source file are performed in order to satisfy any forward
+       references in the document.
+
+       <i>pdfmom</i> accepts all the same options as <i>groff</i>.  If <b>-Tps </b>is given,
+       the options associated with <i>pdfroff</i> are accepted as well.  Please
+       note that when <i>pdfmom</i> calls <i>pdfroff</i>, the
+              <b>-mpdfmark -mom --no-toc</b>
+       options are implied and should not be given on the command line.
+       Equally, it is not necessary to supply the <b>-mom </b>or <b>-m mom </b>options
+       when <b>-Tps </b>is absent.
+
+       PDF integration with the <i>mom</i> macros is discussed in full in the
+       manual “Producing PDFs with <i>groff</i> and <i>mom</i>”, which was itself
+       produced with <i>pdfmom</i>.
+
+       If called with the <b>-v </b>option, <i>pdfmom</i> simply displays its version
+       information and exits.
+</pre>

@@ -1,0 +1,27 @@
+<pre>
+       <i>indxbib</i> makes an inverted index for the bibliographic databases
+       in each <i>file</i> for use with <i>refer</i>(1), <i>lookbib</i>(1), and <i>lkbib</i>(1).
+       Each created index is named file<i>.i</i>; writing is done to a
+       temporary file which is then renamed to this.  If no <i>file</i>
+       operands are given on the command line because the <b>-f </b>option has
+       been used, and no <b>-o </b>option is given, the index will be named
+       <i>Ind.i</i>.
+
+       Bibliographic databases are divided into records by blank lines.
+       Within a record, each field starts with a <b>% </b>character at the
+       beginning of a line.  Fields have a one letter name that follows
+       the <b>% </b>character.
+
+       The values set by the <b>-c</b>, <b>-n</b>, <b>-l</b>, and <b>-t </b>options are stored in
+       the index: when the index is searched, keys will be discarded and
+       truncated in a manner appropriate to these options; the original
+       keys will be used for verifying that any record found using the
+       index actually contains the keys.  This means that a user of an
+       index need not know whether these options were used in the
+       creation of the index, provided that not all the keys to be
+       searched for would have been discarded during indexing and that
+       the user supplies at least the part of each key that would have
+       remained after being truncated during indexing.  The value set by
+       the <b>-i </b>option is also stored in the index and will be used in
+       verifying records found using the index.
+</pre>

@@ -1,0 +1,18 @@
+<pre>
+       <i>eqn2graph</i> reads a one-line <i>eqn</i>(1) equation from the standard
+       input and writes an image file, by default in Portable Network
+       Graphics (PNG) format, to the standard output.
+
+       The input EQN code should <i>not</i> be preceded by the <b>.EQ </b>macro that
+       normally precedes it within <a href="https://man7.org/linux/man-pages/man1/groff.1.html">groff(1)</a> macros; nor do you need to
+       have dollar-sign or other delimiters around the equation.
+
+       Arguments not recognized by <i>eqn2graph</i> are passed to the
+       ImageMagick or GraphicsMagick program <i>convert</i>(1).  By specifying
+       these, you can give your image a border, set the image's pixel
+       density, or perform other useful transformations.
+
+       The output image is clipped using <i>convert</i>'s <b>-trim </b>option to the
+       smallest possible bounding box that contains all the black
+       pixels.
+</pre>

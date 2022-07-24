@@ -1,0 +1,17 @@
+<pre>
+       <i>grap2graph</i> reads a <b>grap</b>(1) program from the standard input and
+       writes an image file, by default in Portable Network Graphics
+       (PNG) format, to the standard output.
+
+       The input GRAP code should <i>not</i> be wrapped with the <b>.G1 </b>and <b>.G2</b>
+       macros that normally guard it within <a href="https://man7.org/linux/man-pages/man1/groff.1.html">groff(1)</a> documents.
+
+       Arguments not recognized by <i>grap2graph</i> are passed to the
+       ImageMagick or GraphicsMagick program <i>convert</i>(1).  By specifying
+       these, you can give your image a border, set the image's pixel
+       density, or perform other useful transformations.
+
+       The output image is clipped using <i>convert</i>'s <b>-trim </b>option to the
+       smallest possible bounding box that contains all the black
+       pixels.
+</pre>

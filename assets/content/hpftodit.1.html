@@ -1,0 +1,52 @@
+<pre>
+       <i>hpftodit</i> creates a font file for use with a Hewlett-Packard
+       LaserJet 4-series (or newer) printer with the <a href="https://man7.org/linux/man-pages/man1/grolj4.1.html">grolj4(1)</a>, output
+       driver of <a href="https://man7.org/linux/man-pages/man1/groff.1.html">groff(1)</a>, using data from an HP tagged font metric
+       (TFM) file.  <i>tfm-file</i> is the name of the TFM file for the font;
+       Intellifont and TrueType TFM files are supported, but symbol set
+       TFM files are not.  <i>map-file</i> is a file giving the <i>groff</i> names for
+       characters in the font; this file should consist of a sequence of
+       lines of the form
+              <i>m u c1 c2</i> ... [# <i>comment</i>]
+       where <i>m</i> is a decimal integer giving the MSL (Master Symbol List)
+       number of the character, <i>u</i> is a hexadecimal integer giving the
+       Unicode value of the character, and <i>c1</i>, <i>c2</i>, ...  are the <i>groff</i>
+       names of the character (see <a href="https://man7.org/linux/man-pages/man7/groff_char.7.html">groff_char(7)</a> for a list).  The
+       values can be separated by any whitespace; the Unicode value must
+       use uppercase digits A–F, and must be without a leading “<b>0x</b>”,
+       “<b>u</b>”, or “<b>U+</b>”.  Unicode values corresponding to composite glyphs
+       are decomposed; e.g., “<b>u00C0</b>” becomes “<b>u0041_0300</b>”.  The name for
+       a glyph without a <i>groff</i> name may be given as <b>u</b><i>XXXX</i> if the glyph
+       corresponds to a Unicode value, or as an unnamed glyph “<b>---</b>”.  If
+       the given Unicode value is in the Private Use Area
+       (0xE000–0xF8FF), the glyph is included as an unnamed glyph.
+       Refer to <b>groff_diff</b>(1) for additional information about unnamed
+       glyphs and how to access them.
+
+       Blank lines and lines beginning with “<b>#</b>” are ignored.  A “<b>#</b>”
+       following one or more <i>groff</i> names begins a comment.  Because “<b>#</b>”
+       is a valid <i>groff</i> name, it must appear first in a list of <i>groff</i>
+       names if a comment is included, e.g.,
+              3   0023   #   # number sign
+       or
+              3   0023   # sh   # number sign
+       rather than
+              3   0023   sh #   # number sign
+       which will treat the first “<b>#</b>” as the beginning of the comment.
+
+       The <i>groff</i> font file is written to the specified <i>output-font</i>; if
+       this operand is “<b>-</b>”, the font file is written to the standard
+       output stream.
+
+       The <b>-s </b>option should be given if the font is special (a font is
+       “special” if <i>groff</i> should search it whenever a character is not
+       found in the current font).  If the font is special, it should be
+       listed in the <b>fonts </b>command in the <i>DESC</i> file; if it is not
+       special, there is no need to list it, since <i>groff</i> can
+       automatically mount it when it's first used.
+
+       If the <b>-i </b>option is used, <i>hpftodit</i> automatically will generate an
+       italic correction, a left italic correction and a subscript
+       correction for each character (the significance of these
+       parameters is explained in <a href="https://man7.org/linux/man-pages/man5/groff_font.5.html">groff_font(5)</a>).
+</pre>

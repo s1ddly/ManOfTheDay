@@ -1,0 +1,16 @@
+<pre>
+       <b>grops </b>translates the output of GNU <b>troff </b>to PostScript.  Normally
+       <b>grops </b>should be invoked by using the groff command with a <b>-Tps</b>
+       option.  (Actually, this is the default for groff.)  If no files
+       are given, <b>grops </b>reads the standard input.  A filename of <b>- </b>also
+       causes <b>grops </b>to read the standard input.  PostScript output is
+       written to the standard output.  When <b>grops </b>is run by <b>groff</b>
+       options can be passed to <b>grops </b>using <b>groff</b>'s <b>-P </b>option.
+
+       Note that <b>grops </b>doesn't produce a valid document structure
+       (conforming to the Document Structuring Convention) if called
+       with multiple file arguments.  To print such concatenated output
+       it is necessary to deactivate DSC handling in the printing
+       program or previewer.  See section “Font Installation” below for
+       a guide how to install fonts for <b>grops</b>.
+</pre>

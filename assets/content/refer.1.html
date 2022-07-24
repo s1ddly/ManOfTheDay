@@ -1,0 +1,56 @@
+<pre>
+       The GNU implementation of <i>refer</i> is part of the <a href="https://man7.org/linux/man-pages/man1/groff.1.html">groff(1)</a> document
+       formatting system.  <i>refer</i> is a <i>troff</i>(1) preprocessor that
+       prepares bibilographic citations by looking up keywords specified
+       in a <a href="https://man7.org/linux/man-pages/man7/roff.7.html">roff(7)</a> input document, obviating the need to type such
+       annotations, and permitting the citation style in formatted
+       output to be altered independently and systematically.  It copies
+       the contents of each <i>file</i> to the standard output stream, except
+       that it interprets lines between <b>.[ </b>and <b>.] </b>as citations to be
+       translated into <i>groff</i> input, and lines between <b>.R1 </b>and <b>.R2 </b>as
+       instructions regarding how citations are to be processed.
+       Normally, <i>refer</i> is not executed directly by the user, but invoked
+       by specifying the <b>-R </b>option to <a href="https://man7.org/linux/man-pages/man1/groff.1.html">groff(1)</a>.  If no <i>file</i> operands are
+       given on the command line, or if <i>file</i> is “<b>-</b>”, the standard input
+       stream is read.
+
+       Each citation specifies a reference.  The citation can specify a
+       reference that is contained in a bibliographic database by giving
+       a set of keywords that only that reference contains.
+       Alternatively it can specify a reference by supplying a database
+       record in the citation.  A combination of these alternatives is
+       also possible.
+
+       For each citation, <i>refer</i> can produce a mark in the text.  This
+       mark consists of some label which can be separated from the text
+       and from other labels in various ways.  For each reference it
+       also outputs <a href="https://man7.org/linux/man-pages/man7/groff.7.html">groff(7)</a> language commands that can be used by a
+       macro package to produce a formatted reference for each citation.
+       The output of <i>refer</i> must therefore be processed using a suitable
+       macro package, such as <i>me</i>, <i>mm</i>, <i>mom</i>, or <i>ms</i>.  The commands to
+       format a citation's reference can be output immediately after the
+       citation, or the references may be accumulated, and the commands
+       output at some later point.  If the references are accumulated,
+       then multiple citations of the same reference will produce a
+       single formatted reference.
+
+       The interpretation of lines between <b>.R1 </b>and <b>.R2 </b>as prepreocessor
+       commands is a new feature of GNU <i>refer</i>.  Documents making use of
+       this feature can still be processed by AT&amp;T <i>refer</i> just by adding
+       the lines
+              .de R1
+              .ig R2
+              ..
+       to the beginning of the document.  This will cause <i>troff</i>(1) to
+       ignore everything between <b>.R1 </b>and <b>.R2</b>.  The effect of some
+       commands can also be achieved by options.  These options are
+       supported mainly for compatibility with AT&amp;T <i>refer</i>.  It is
+       usually more convenient to use commands.
+
+       <i>refer</i> generates <b>.lf </b>requests so that file names and line numbers
+       in messages produced by commands that read <i>refer</i> output will be
+       correct; it also interprets lines beginning with <b>.lf </b>so that file
+       names and line numbers in the messages and <b>.lf </b>lines that it
+       produces will be accurate even if the input has been preprocessed
+       by a command such as <i>soelim</i>(1).
+</pre>

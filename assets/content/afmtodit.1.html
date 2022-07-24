@@ -1,0 +1,56 @@
+<pre>
+       <i>afmtodit</i> converts an Adobe Font Metric file, <i>afm-file</i>, for use
+       with the <b>ps </b>and <b>pdf </b>output drivers of <a href="https://man7.org/linux/man-pages/man1/groff.1.html">groff(1)</a>.  <i>map-file</i>
+       associates a <i>groff</i> character name with a PostScript character
+       name.  Output is written to <i>font</i>, a file named for the intended
+       <i>groff</i> font name (but see the <b>-o </b>option).
+
+       <i>afm-file</i> should contain a sequence of lines of the form
+              <i>ps-char groff-char</i>
+       where <i>ps-char</i> is the PostScript name of the character and <i>groff-</i>
+       <i>char</i> is the <i>groff</i> name of the character (as used in the <i>groff</i>
+       font file).  The same <i>ps-char</i> can occur multiple times in the
+       file; each <i>groff-char</i> must occur at most once.  Lines starting
+       with “#” and blank lines are ignored.  If the file isn't found in
+       the current directory, it is sought in the <i>devps/generate</i>
+       subdirectory of the default font directory.
+
+       If a PostScript character is not mentioned in <i>map-file</i>, and a
+       generic <i>groff</i> glyph name can't be deduced using the Adobe Glyph
+       List (AGL, built into <i>afmtodit</i>), then <i>afmtodit</i> puts the
+       PostScript character into the <i>groff</i> font file as an unnamed
+       character which can only be accessed by the “\N” escape sequence
+       in a <i>roff</i> document.  In particular, this is true for glyph
+       variants named in the form “<i>foo</i>.<i>bar</i>“; all glyph names containing
+       one or more periods are mapped to unnamed entities.  Unless <b>-e </b>is
+       specified, the encoding defined in the AFM file (i.e., entries
+       with non-negative character codes) is used.  Refer to section
+       “Using Symbols” in <i>Groff: The GNU Implementation of troff</i>, the
+       <i>groff</i> Texinfo manual, which describes how <i>groff</i> glyph names are
+       constructed.
+
+       Characters not encoded in the AFM file (i.e., entries which have
+       “-1” as the character code) are still available in <i>groff</i>; they
+       get glyph index values greater than 255 (or greater than the
+       biggest character code used in the AFM file in the unlikely case
+       that it is greater than 255) in the <i>groff</i> font file.  Glyph
+       indices of unencoded characters don't have a specific order; it
+       is best to access them with glyph names only.
+
+       If there is a downloadable font file for the font, it may be
+       listed in the file <i>/usr/local/share/groff/1.23.0/font/devps/</i>
+       <i>download</i>; see <a href="https://man7.org/linux/man-pages/man1/grops.1.html">grops(1)</a>.
+
+       If the <b>-i </b>option is used, <i>afmtodit</i> automatically generates an
+       italic correction, a left italic correction, and a subscript
+       correction for each character (the significance of these is
+       explained in <a href="https://man7.org/linux/man-pages/man5/groff_font.5.html">groff_font(5)</a>); they can be specified for individual
+       characters by adding to the <i>afm-file</i> lines of the form:
+              italicCorrection <i>ps-char n</i>
+              leftItalicCorrection <i>ps-char n</i>
+              subscriptCorrection <i>ps-char n</i>
+       where <i>ps-char</i> is the PostScript name of the character, and <i>n</i> is
+       the desired value of the corresponding parameter in thousandths
+       of an em.  Such parameters are normally needed only for italic
+       (or oblique) fonts.
+</pre>

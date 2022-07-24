@@ -1,0 +1,49 @@
+<pre>
+       <i>chem</i> produces chemical structure diagrams.  Today's version is
+       best suited for organic chemistry (bonds, rings).  The <i>chem</i>
+       program is a <i>groff</i> preprocessor like <i>eqn</i>, <i>pic</i>, <i>tbl</i>, etc.  It
+       generates <i>pic</i> output such that all <i>chem</i> parts are translated into
+       diagrams of the <i>pic</i> language.
+
+       If no operands are given, or if <i>file</i> is “<b>-</b>”, <i>chem</i> reads the
+       standard input stream.  <b>-h </b>and <b>--help </b>display a usage message,
+       whereas <b>-v </b>and <b>--version </b>display version information; all exit.
+
+       The program <i>chem</i> originates from the Perl source file <i>chem.pl</i>.
+       It tells <i>pic</i> to include a copy of the macro file <i>chem.pic</i>.
+       Moreover the <i>groff</i> source file <i>pic.tmac</i> is loaded.
+
+       In a style reminiscent of <i>eqn</i> and <i>pic</i>, the <i>chem</i> diagrams are
+       written in a special language.
+
+       A set of <i>chem</i> lines looks like this
+
+              .cstart
+              <i>chem data</i>
+              .cend
+
+       Lines containing the keywords <b>.cstart </b>and <b>.cend </b>start and end the
+       input for <i>chem</i>, respectively.  In <i>pic</i> context, i.e., after the
+       call of <b>.PS</b>, <i>chem</i> input can optionally be started by the line
+       <b>begin chem </b>and ended by the line with the single word <b>end</b>
+       instead.
+
+       Anything outside these initialization lines is copied through
+       without modification; all data between the initialization lines
+       is converted into <i>pic</i> commands to draw the diagram.
+
+       As an example,
+
+              .cstart
+              CH3
+              bond
+              CH3
+              .cend
+
+       prints two <b>CH3 </b>groups with a bond between them.
+
+       If you want to create just <i>groff</i> output, you must run <i>chem</i>
+       followed by <i>groff</i> with the option <b>-p </b>for the activation of <i>pic</i>:
+
+              <i>chem</i> [<i>file</i> ...] <b>| groff -p </b>...
+</pre>

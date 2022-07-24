@@ -1,0 +1,105 @@
+<pre>
+       The GNU implementation of the <i>mm</i> macro package is part of the
+       <i>groff</i> document formatting system.  The <i>mm</i> package is suitable for
+       the composition of letters, memoranda, reports, and books.
+
+       <i>groff mm</i> is intended to be compatible with the <i>mm</i> implementation
+       found in the AT&amp;T Documenter's Workbench (DWB), with the
+       following limitations.
+
+       •      No Bell Labs localisms are implemented.
+
+       •      The macros <b>OK </b>and <b>PM </b>are not implemented.
+
+       •      Cut marks are not supported.
+
+   <b>Localization</b>
+       <i>groff mm</i> is designed to be easily localized.  Strings that can
+       appear in output are collected in the file <i>/usr/local/share/</i>
+       <i>groff/1.23.0/tmac/</i>xx<i>.tmac</i>, where <i>xx</i> is an ISO 639 two-letter
+       language identifier.  For Swedish, this is <i>sv.tmac</i>; “sv”, not
+       “se”.
+
+       This package can also be localized by site or territory; for
+       example, <i>/usr/local/share/groff/1.23.0/tmac/mse.tmac</i> illustrates
+       how to adapt the output to a national standard using its ISO 3166
+       territory code.  Such a package can define an internal string
+       that causes a macro file called territory<i>_locale</i> to be loaded at
+       package initialization.  If this mechanism is not used, a macro
+       file called <i>locale</i> is loaded instead.  No diagnostic is produced
+       if these macro files do not exist.
+
+   <b>Registers and strings</b>
+       The behavior of many macros can be configured by registers and
+       strings.  A register is assigned with the <b>nr </b>request.
+
+              <b>.nr </b><i>ident</i> [<b>±</b>]<i>n</i> [<i>i</i>]
+
+       <i>ident</i> is the name of the register, and <i>n</i> is the value to be
+       assigned.  <i>n</i> can be prefixed with a plus or minus sign if
+       incrementation or decrementation (respectively) of the register's
+       existing value is desired.  If assignment of a (possibly)
+       negative <i>n</i> is required, further prefix it with a zero or enclose
+       it in parentheses.  If <i>i</i> is specified, the register is
+       automatically modified by <i>i</i> prior to interpolation if a plus or
+       minus sign is included in the escape sequence as follows.
+
+              <b>\n</b>[<b>±</b>]<b>[</b><i>ident</i><b>]</b>
+
+       <i>i</i> can be negative; it combines algebraically with the sign in the
+       interpolation escape.
+
+       Strings are defined with the <b>ds </b>request.
+
+              <b>.ds </b><i>ident string</i>
+
+       The string is assigned everything up to the end of the line,
+       including trailing spaces.  It is a good practice to end <i>string</i>
+       with a comment escape sequence (<b>\"</b>) so that extraneous spaces do
+       not intrude during document maintenance.  To include leading
+       spaces in <i>string</i>, prefix it with a double quote.  Strings are
+       interpolated with the <b>\* </b>escape sequence.
+
+              <b>\*[</b><i>ident</i><b>]</b>
+
+       Register and string name spaces are distinct, but strings and
+       macros share a name space.  Defining a string with the same name
+       as an <i>mm</i> macro is not supported and may cause incorrect
+       rendering, the emission of diagnostic messages, and an error exit
+       status from <i>troff</i>.
+
+   <b>Register format</b>
+       A register is interpolated using Arabic numerals if no other
+       format has been assigned to it.  Assign a format to a register
+       with the <b>af </b>request.
+
+              <b>.af </b><i>R c</i>
+
+       <i>R</i> is the name of the register, and <i>c</i> is the format.  If <i>c</i> is a
+       sequence of Arabic numerals, their quantity defines a zero-padded
+       minimum width for the interpolated register value.
+
+              <b>Form   Sequence</b>
+              1      0, 1, 2, 3, ..., 10, ...
+              001    000, 001, 002, 003, ..., 1000, ...
+              i      0, i, ii, iii, iv, ...
+              I      0, I, II, III, IV, ...
+              a      0, a, b, c, ..., z, aa, ab, ...
+              A      0, A, B, C, ..., Z, AA, AB, ...
+
+   <b>Fonts</b>
+       In <i>groff mm</i>, the fonts (or rather, font styles) <b>R </b>(normal),
+       <b>I </b>(italic), and <b>B </b>(bold) are mounted at font positions <b>1</b>, <b>2</b>,
+       and <b>3</b>, respectively.  Internally, font positions are used for
+       backwards compatibility.  From a practical point of view, it
+       doesn't make a big difference—a different font family can still
+       be selected by invoking <i>groff</i>'s <b>fam </b>request or using its <b>-f</b>
+       command-line option.  On the other hand, if you want to replace
+       just, for example, font <b>I </b>with Zapf Chancery Medium italic
+       (available on <i>groff</i>'s <b>pdf </b>and <b>ps </b>output devices), you have to use
+       the <b>fp </b>request, replacing the font at position 2 with
+       “<b>.fp 2 ZCMI</b>”).  Because the cover sheet, memorandum type, and
+       <i>refer</i>(1) integration macros explicitly request fonts named <b>B</b>, <b>I</b>,
+       and <b>R</b>, you will also need to remap these font names with the <b>ftr</b>
+       request, for instance with “<b>.ftr I ZCMI</b>”.
+</pre>

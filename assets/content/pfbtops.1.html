@@ -1,0 +1,15 @@
+<pre>
+       <i>pfbtops</i> translates a PostScript font in Printer Font Binary (PFB)
+       format to Printer Font ASCII (PFA) format, splitting overlong
+       lines in text packets into smaller chunks.  If <i>pfb-file</i> is
+       omitted, the PFB file will be read from the standard input
+       stream.  The PFA font will be written on the standard output
+       stream.  PostScript fonts for MS-DOS were historically supplied
+       in PFB format.
+
+       The resulting PFA font can be used with <a href="https://man7.org/linux/man-pages/man1/groff.1.html">groff(1)</a> if it is first
+       listed in <i>/usr/local/share/groff/1.23.0/font/devps/download</i> and
+       <i>/usr/local/share/groff/1.23.0/font/devpdf/download</i>.  The <b>--help</b>
+       option displays a usage message, while <b>-v </b>and <b>--version </b>show
+       version information; all exit afterward.
+</pre>

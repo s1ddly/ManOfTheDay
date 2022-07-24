@@ -1,0 +1,196 @@
+<pre>
+       The GNU implementation of the <i>me</i> macro package is part of the
+       <i>groff</i> document formatting system.  The <i>me</i> package of macro
+       definitions for the <i>roff</i> language provides a convenient facility
+       for preparing technical papers in various formats.  This version
+       is based on the <i>me</i> distributed with 4.4BSD and can be used with
+       the GNU <i>troff</i> formatter as well as those descended from AT&amp;T
+       <i>troff</i>.
+
+       Many <i>roff</i> requests are unsafe in conjunction with this package;
+       however, the following requests may be used with impunity after
+       the first <b>pp </b>macro call.
+
+       <b>.bp     </b>begin new page
+       <b>.br     </b>break output line here
+       <b>.sp </b><i>n</i>   insert <i>n</i> spacing lines
+       <b>.ls </b><i>n</i>   (line spacing) <i>n</i>=1 single, <i>n</i>=2 double
+       <b>.na     </b>no alignment of right margin
+       <b>.ce </b><i>n</i>   center next <i>n</i> lines
+       <b>.ul </b><i>n</i>   underline next <i>n</i> lines
+
+       <i>Note:</i> In contrast to its behavior with other macro packages and
+       “raw” <i>roff</i>, when using the <i>me</i> package, the <b>.sp </b>request (redefined
+       by <i>me</i> as a macro) will <i>not</i> put space at the top of a page.
+
+       Output of the <i>grn</i>, <i>pic</i>, <i>eqn</i>, <i>refer</i>, and <i>tbl</i> preprocessors is
+       acceptable as input.
+
+   <b>Macro reference</b>
+       Numeric arguments to macros are denoted with lowercase letters
+       and string arguments with uppercase.  An optional macro argument
+       such as <i>x</i> appears in brackets, <b>[</b><i>x</i><b>].  </b>Arguments to macros
+       generally must be quoted if they contain spaces or tabs.  An
+       exception is the argument to header and footer macros, which
+       require some explanation.  They take the form “<i>c left c middle c</i>
+       <i>right c</i>”, with spaces added here for clarity.  The strings <i>left</i>,
+       <i>middle</i>, and <i>right</i> correspond to their page placement and can
+       contain unprotected spaces and/or tabs, but must not contain the
+       (non-space) character <i>c</i>, which delimits them.  For brevity, the
+       table presents header and footer arguments as <i>clcmcrc</i>.  Popular
+       choices for <i>c</i> are the neutral apostrophe “<b>'</b>” and the neutral
+       double quote “<b>"</b>”.
+
+       This list is incomplete; some requests are too complex to
+       summarize in a table, and some that are listed below accept
+       additional arguments not shown.  See the “-me Reference Manual”
+       for further details.
+
+       <b>Macro             Initial   Causes   Explanation</b>
+                         <b>Value     Break</b>
+       ──────────────────────────────────────────────────────────────────
+       <b>.(c               </b>-         yes      Begin centered block.
+       <b>.(d               </b>-         no       Begin delayed text.
+
+       <b>.(f               </b>-         no       Begin footnote.
+       <b>.(l               </b>-         yes      Begin list.
+       <b>.(q               </b>-         yes      Begin major quote.
+       <b>.(x </b>[<i>X</i>]           -         no       Begin item in index (named
+                                            <i>X</i>).
+       <b>.(z               </b>-         no       Begin floating keep.
+       <b>.)c               </b>-         yes      End centered block.
+       <b>.)d               </b>-         yes      End delayed text.
+       <b>.)f               </b>-         yes      End footnote.
+       <b>.)l               </b>-         yes      End list.
+       <b>.)q               </b>-         yes      End major quote.
+       <b>.)x               </b>-         yes      End index item.
+       <b>.)z               </b>-         yes      End floating keep.
+       <b>.++ </b><i>M</i> [<i>clcmcrc</i>]   -         no       Define paper section as <i>M</i>,
+                                            which must be one of <b>C</b>
+                                            (chapter), <b>A </b>(appendix), <b>P</b>
+                                            (preliminary, i.e., front
+                                            matter or table of
+                                            contents), <b>AB </b>(abstract), <b>B</b>
+                                            (bibliography), <b>RC </b>(chapters
+                                            renumbered from page one
+                                            each chapter), or <b>RA</b>
+                                            (appendix renumbered from
+                                            page one) (and set page
+                                            header to <i>clcmcrc</i>).
+       <b>.+c </b>[<i>T</i>]           -         yes      Begin chapter (or appendix,
+                                            etc., as set by <b>.++</b>) (with
+                                            title <i>T</i>).
+       <b>.1c               </b>1         yes      One-column format on a new
+                                            page.
+       <b>.2c               </b>1         yes      Two-column format.
+       <b>.EN               </b>-         yes      Space after equation
+                                            produced by <i>eqn</i> or <i>neqn</i>.
+       <b>.EQ </b>[<i>M</i> [<i>T</i>]]       -         yes      Begin displayed equation
+                                            (with indentation <i>M</i>, which
+                                            must be one of <b>C </b>(centered,
+                                            default), <b>I </b>(indented), or <b>L</b>
+                                            (justified left) (and title
+                                            <i>T</i> in right margin)).
+       <b>.GE               </b>-         yes      End <i>grn</i> picture, leaving the
+                                            current position at the
+                                            bottom of the picture.
+       <b>.GF               </b>-         yes      End <i>grn</i> picture, leaving the
+                                            current position at the top
+                                            of the picture.
+       <b>.GS               </b>-         yes      Begin <i>grn</i> picture.
+       <b>.IE               </b>-         yes      End <i>ideal</i> picture, leaving
+                                            the current position at the
+                                            bottom of the picture.
+       <b>.IF               </b>-         yes      End <i>ideal</i> picture, leaving
+                                            the current position at the
+                                            top of the picture.
+       <b>.IS               </b>-         yes      Begin <i>ideal</i> picture.
+       <b>.PE               </b>-         yes      End <i>pic</i> picture, leaving the
+                                            current position at the
+                                            bottom of the picture.
+       <b>.PF               </b>-         yes      End <i>pic</i> picture, leaving the
+                                            current position at the top
+                                            of the picture.
+       <b>.PS               </b>-         yes      Begin <i>pic</i> picture.
+       <b>.TE               </b>-         yes      End <i>tbl</i> table.
+       <b>.TH               </b>-         yes      End heading of <i>tbl</i> table.
+       <b>.TS </b>[<b>H</b>]           -         yes      Begin <i>tbl</i> table; if <b>H</b>, table
+                                            repeats heading on each
+                                            page.
+
+       <b>.b </b>[<i>X</i> [<i>Y</i>]]        -         no       Print <i>X</i> in bold (appending <i>Y</i>
+                                            in the previous font); if no
+                                            arguments, switch to bold.
+       <b>.ba </b><i>n</i>             0         yes      Augment the base indent (for
+                                            regular text, like
+                                            paragraphs) by <i>n</i>.
+       <b>.bc               </b>-         yes      Begin new column.
+       <b>.bi </b>[<i>X</i> [<i>Y</i>]]       -         no       Print <i>X</i> in bold italics
+                                            (appending <i>Y</i> in the previous
+                                            font); if no arguments,
+                                            switch to bold italics.
+       <b>.bu               </b>-         yes      Begin bulleted paragraph.
+       <b>.bx </b>[<i>X</i> [<i>Y</i>]]       -         no       Print <i>X</i> in a box (with Y
+                                            appended).  Renders reliably
+                                            only if filling disabled.
+       <b>.ef </b><i>clcmcrc</i>       """"      no       Set even-numbered page
+                                            footer.
+       <b>.eh </b><i>clcmcrc</i>       """"      no       Set even-numbered page
+                                            header.
+       <b>.fo </b><i>clcmcrc</i>       """"      no       Set page footer.
+       <b>.hx               </b>-         no       Suppress headers and footers
+                                            on next page.
+       <b>.he </b><i>clcmcrc</i>       """"      no       Set page header.
+       <b>.hl               </b>-         yes      Draw a horizontal line.
+       <b>.i </b>[<i>X</i> [<i>Y</i>]]        -         no       Print <i>X</i> in italics
+                                            (appending <i>Y</i> in the previous
+                                            font); if no arguments,
+                                            switch to italics.
+       <b>.ip </b>[<i>X</i> [<i>n</i>]]       <i>n</i>=5n      yes      Start indented paragraph
+                                            (with hanging tag <i>X</i> (and
+                                            indentation <i>n</i>)).
+       <b>.lp               </b>-         yes      Begin paragraph with first
+                                            line flush left.
+       <b>.n1               </b>-         no       Number lines from one, in
+                                            margin, on each page.
+       <b>.n2 </b>[<i>N</i>]           -         no       Number lines from <i>N</i>, in
+                                            margin.  Stop numbering if <i>N</i>
+                                            missing; resume where
+                                            stopped with number <i>N</i> if
+                                            unsigned, or resume with
+                                            number incremented by ±<i>N</i>.
+       <b>.np               </b>1         yes      Start numbered paragraph.
+       <b>.of </b><i>clcmcrc</i>       """"      no       Set odd-numbered page
+                                            footer.
+       <b>.oh </b><i>clcmcrc</i>       """"      no       Set odd-numbered page
+                                            header.
+       <b>.pd               </b>-         yes      Print delayed text.
+       <b>.pp               </b>-         yes      Begin paragraph with
+                                            indented first line.
+       <b>.r </b>[<i>X</i> [<i>Y</i>]]        -         no       Print <i>X</i> in roman (appending
+                                            <i>Y</i> in the previous font); if
+                                            no arguments, switch to
+                                            roman.
+       <b>.re               </b>0.5i      no       Reset tabs to default
+                                            values.
+       <b>.sh </b>[<i>n</i> [<i>T</i>]]       <i>n</i>=1       yes      Start numbered section;
+                                            print section number (set to
+                                            <i>n</i> (and title <i>T</i>)) in bold.
+       <b>.sk               </b>-         no       Leave the next page blank.
+                                            Only one page is remembered
+                                            ahead.
+       <b>.sm </b><i>X</i> [<i>Y</i>]         -         no       Print <i>X</i> in a smaller point
+                                            size (appending <i>Y</i> at the
+                                            previous size).
+
+       <b>.sz </b><i>n</i>             10p       no       Augment the point size by <i>n</i>
+                                            points.
+       <b>.tp               </b>-         yes      Begin title page.
+       <b>.u </b><i>X</i> [<i>Y</i>]          -         no       Underline <i>X</i> (appending <i>Y</i>
+                                            without underlining).
+                                            Renders reliably only if
+                                            filling disabled.
+       <b>.uh </b>[<i>T</i>]           -         yes      Start unnumbered section
+                                            (and print title <i>T</i> in bold).
+       <b>.xp </b>[<i>X</i>]           -         no       Print index (named <i>X</i>).
+</pre>
