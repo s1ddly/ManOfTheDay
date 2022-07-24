@@ -18,17 +18,53 @@
 				xmlHttp.send( null );
 				return xmlHttp.responseText;
 			}
-			function populateText(fileName){
+			
+			function populateTextFromFile(fileName){
+				//Below populates the content based off the list of files
 				manContent = document.getElementById("man_content");
 				manContent.innerHTML = httpGet("assets/content/".concat(fileName));
+				
+				//Below code block populates for the name
 				nameArr = fileName.split(".");
 				if (nameArr.length == 3){
 					document.getElementById("man_name").innerText = nameArr[0];
 				} else {
 					document.getElementById("man_name").innerText = nameArr.slice(0,-2).join(".");
 				}
-				
 			}
+			
+			function populateTextFromNumber(innum){
+				contentRef = httpGet("assets/content.csv").split("\r\n");
+				for (var i = 0; i < contentRef.length; i++){
+					if (contentRef[i].split(",")[0] == innum){
+						procNameArr = contentRef[i].split(",")[2].split("/")
+						nameArr = procNameArr[procNameArr.length - 1].split(".");
+						nameVal = "";
+						if (nameArr.length == 3){
+							nameVal = nameArr[0];
+						} else {
+							nameVal = nameArr.slice(0,-2).join(".");
+						}
+						
+						document.getElementById("man_name").innerText = nameVal;
+						
+						fName = contentRef[1].split(",")[2].split("/")
+						
+						manContent = document.getElementById("man_content");
+						manContent.innerHTML = httpGet("assets/content/".concat(contentRef[i].split(",")[2].split("/")[contentRef[i].split(",")[2].split("/").length - 1]));
+						
+						//nameArr = contentRef[i].split(",")[2].split("/")[-1].split(".");
+						if (nameArr.length == 3){
+							document.getElementById("man_name").innerText = nameArr[0];
+						} else {
+							document.getElementById("man_name").innerText = nameArr.slice(0,-2).join(".");
+						}
+						
+						return 0;
+					}
+				}
+			}
+			
 			function randMan() {
 				
 				//return Math.floor(Math.random() * (Math.floor(#) - Math.ceil(#)) + Math.ceil(#));
@@ -36,7 +72,7 @@
 			
 		</script>
     </head>
-    <body onload="populateText('libnss_systemd.so.2.8.html')">
+    <body onload="populateTextFromFile('watch.1.html')">
         <!-- Responsive navbar-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container px-5">
@@ -59,7 +95,7 @@
 					<div id="man_content"></div>
 				</div>
                 <div class="col-lg-5">
-                    <a href="#!" style="color: var(--bs-body-color); text-decoration: none;" onMouseOver="this.style.color='#0d6efd'" onMouseOut="this.style.color='#212529'" ><h1 class="font-weight-light" id="man_name">test</h1></a>
+                    <a href="#!" style="color: var(--bs-body-color); text-decoration: none;" onMouseOver="this.style.color='#0d6efd'" onMouseOut="this.style.color='#212529'" ><h1 class="font-weight-light" id="man_name"></h1></a>
 					<!--<p>This is a template that is great for small businesses. It doesn't have too much fancy flare to it, but it makes a great use of the standard Bootstrap core components. Feel free to use this template for any project you want!</p>-->
                 </div>
             </div>
@@ -75,7 +111,7 @@
                             <h2 class="card-title">Card One</h2>
                             <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem magni quas ex numquam, maxime minus quam molestias corporis quod, ea minima accusamus.</p>
                         </div>
-                        <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!">More Info</a></div>
+                        <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!" onclick="populateTextFromNumber(parseInt(prompt()))">genrand</a></div>
                     </div>
                 </div>
                 <div class="col-md-4 mb-5">
