@@ -10,8 +10,33 @@
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
+		<script>
+			function httpGet(theUrl)
+			{
+				var xmlHttp = new XMLHttpRequest();
+				xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+				xmlHttp.send( null );
+				return xmlHttp.responseText;
+			}
+			function populateText(fileName){
+				manContent = document.getElementById("man_content");
+				manContent.innerHTML = httpGet("assets/content/".concat(fileName));
+				nameArr = fileName.split(".");
+				if (nameArr.length == 3){
+					document.getElementById("man_name").innerText = nameArr[0];
+				} else {
+					document.getElementById("man_name").innerText = nameArr.slice(0,-2).join(".");
+				}
+				
+			}
+			function randMan() {
+				
+				//return Math.floor(Math.random() * (Math.floor(#) - Math.ceil(#)) + Math.ceil(#));
+			}
+			
+		</script>
     </head>
-    <body>
+    <body onload="populateText('libnss_systemd.so.2.8.html')">
         <!-- Responsive navbar-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container px-5">
@@ -29,11 +54,13 @@
         <div class="container px-4 px-lg-5">
             <!-- Heading Row-->
             <div class="row gx-4 gx-lg-5 align-items-center my-5">
-                <div class="col-lg-7"><img class="img-fluid rounded mb-4 mb-lg-0" src="https://dummyimage.com/900x400/dee2e6/6c757d.jpg" alt="..." /></div>
+                <div class="col-lg-7">
+					<!-- <img class="img-fluid rounded mb-4 mb-lg-0" src="https://dummyimage.com/900x400/dee2e6/6c757d.jpg" alt="..." /> -->
+					<div id="man_content"></div>
+				</div>
                 <div class="col-lg-5">
-                    <h1 class="font-weight-light">Business Name or Tagline</h1>
-                    <p>This is a template that is great for small businesses. It doesn't have too much fancy flare to it, but it makes a great use of the standard Bootstrap core components. Feel free to use this template for any project you want!</p>
-                    <a class="btn btn-primary" href="#!">Call to Action!</a>
+                    <a href="#!" style="color: var(--bs-body-color); text-decoration: none;" onMouseOver="this.style.color='#0d6efd'" onMouseOut="this.style.color='#212529'" ><h1 class="font-weight-light" id="man_name">test</h1></a>
+					<!--<p>This is a template that is great for small businesses. It doesn't have too much fancy flare to it, but it makes a great use of the standard Bootstrap core components. Feel free to use this template for any project you want!</p>-->
                 </div>
             </div>
             <!-- Call to Action-->
