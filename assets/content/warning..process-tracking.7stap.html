@@ -1,0 +1,30 @@
+<pre>
+       These errors and warnings occur when the kernel systemtap is
+       running on lacks support for user-space process tracking
+       facilities.
+
+   <b>COMPILE-TIME ERROR</b>
+       The error
+
+              ERROR: user-space process-tracking facilities not available
+
+       occurs when the script contains a uprobes probe point that the
+       current kernel does not support.
+
+   <b>RUNTIME WARNINGS</b>
+       The warning,
+
+              WARNING: process-tracking facilities are not available in this kernel
+
+       and the related message,
+
+              WARNING: cannot track target in process '...'
+
+       both occur at runtime when running on a kernel (generally an
+       older version) that has neither utrace functionality nor an
+       acceptable substitute.
+
+       The script should still load and run. However, probes that rely
+       on availability of process-tracking facilities will silently fail
+       to trigger.
+</pre>

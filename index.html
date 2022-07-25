@@ -33,11 +33,11 @@
 				}
 			}
 			
-			function populateTextFromNumber(innum){
+			function populateTextFromNumber(innum, name_id, content_id, url_id){
 				contentRef = httpGet("assets/content.csv").split("\r\n");
 				for (var i = 0; i < contentRef.length; i++){
 					if (contentRef[i].split(",")[0] == innum){
-						procNameArr = contentRef[i].split(",")[2].split("/")
+						procNameArr = contentRef[i].split(",")[2].split("/");
 						nameArr = procNameArr[procNameArr.length - 1].split(".");
 						nameVal = "";
 						if (nameArr.length == 3){
@@ -46,19 +46,20 @@
 							nameVal = nameArr.slice(0,-2).join(".");
 						}
 						
-						document.getElementById("man_name").innerText = nameVal;
+						document.getElementById(name_id).innerText = nameVal;
 						
-						manContent = document.getElementById("man_content");
+						manContent = document.getElementById(content_id);
 						manContent.innerHTML = httpGet("assets/content/".concat(contentRef[i].split(",")[2].split("/")[contentRef[i].split(",")[2].split("/").length - 1]));
 						
 
 						if (nameArr.length == 3){
-							document.getElementById("man_name").innerText = nameArr[0];
+							document.getElementById(name_id).innerText = nameArr[0];
 						} else {
-							document.getElementById("man_name").innerText = nameArr.slice(0,-2).join(".");
+							document.getElementById(name_id).innerText = nameArr.slice(0,-2).join(".");
 						}
 
-						document.getElementById("man_url").href = contentRef[i].split(",")[2];
+						document.getElementById(url_id).href = contentRef[i].split(",")[2];
+						document.getElementById(url_id).target = "_blank"
 						
 						return 0;
 					}
@@ -66,13 +67,13 @@
 			}
 			
 			function randMan() {
-				populateTextFromNumber(Math.floor(Math.random() * (Math.floor(1) - Math.ceil(2793)) + Math.ceil(2793)));
+				populateTextFromNumber(Math.floor(Math.random() * (Math.floor(1) - Math.ceil(2793)) + Math.ceil(2793)), "rand_name", "rand_content", "rand_url");
 			}
 			
 			function dayman() {
 				var now = new Date();
 				var fullDaysSinceEpoch = Math.floor(now/8.64e7);
-				populateTextFromNumber(fullDaysSinceEpoch % 2793);
+				populateTextFromNumber(fullDaysSinceEpoch % 2793, "man_name", "man_content", "man_url");
 			}
 			
 		</script>
@@ -100,52 +101,35 @@
 					<div id="man_content"></div>
 				</div>
                 <div class="col-lg-5">
+					<p>Man of the Day:</p>
                     <a href="#!" style="color: var(--bs-body-color); text-decoration: none;" onMouseOver="this.style.color='#0d6efd'" onMouseOut="this.style.color='#212529'" id="man_url" target="_blank"><h1 class="font-weight-light" id="man_name"></h1></a>
 					<!--<p>This is a template that is great for small businesses. It doesn't have too much fancy flare to it, but it makes a great use of the standard Bootstrap core components. Feel free to use this template for any project you want!</p>-->
                 </div>
             </div>
             <!-- Call to Action-->
-            <div class="card text-white bg-secondary my-5 py-4 text-center">
+            <!--<div class="card text-white bg-secondary my-5 py-4 text-center">
                 <div class="card-body"><p class="text-white m-0">This call to action card is a great place to showcase some important information or display a clever tagline!</p></div>
-            </div>
+            </div>-->
             <!-- Content Row-->
-            <div class="row gx-4 gx-lg-5">
-                <div class="col-md-4 mb-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 mb-5">
                     <div class="card h-100">
                         <div class="card-body">
-                            <h2 class="card-title">Card One</h2>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem magni quas ex numquam, maxime minus quam molestias corporis quod, ea minima accusamus.</p>
+                            <a href="javascript: randMan();" style="color: var(--bs-body-color); text-decoration: none;" onMouseOver="this.style.color='#0d6efd'" onMouseOut="this.style.color='#212529'" id="rand_url"><h2 class="card-title" id="rand_name">RandMan</h2></a>
+                            <!--<p class="card-text"></p>-->
+							<div id="rand_content"><p>Click on the button below to pull up a random man entry</p></div>
                         </div>
-                        <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!" onclick="populateTextFromNumber(parseInt(prompt()))">genrand</a></div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-5">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h2 class="card-title">Card Two</h2>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod tenetur ex natus at dolorem enim! Nesciunt pariatur voluptatem sunt quam eaque, vel, non in id dolore voluptates quos eligendi labore.</p>
-                        </div>
-                        <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!">More Info</a></div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-5">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h2 class="card-title">Card Three</h2>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem magni quas ex numquam, maxime minus quam molestias corporis quod, ea minima accusamus.</p>
-                        </div>
-                        <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!">More Info</a></div>
+                        <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!" onclick="randMan()">Randman!</a></div>
                     </div>
                 </div>
             </div>
         </div>
         <!-- Footer-->
-        <footer class="py-5 bg-dark">
-            <div class="container px-4 px-lg-5"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p></div>
+        <footer class="py-4 bg-dark">
+            <!--<div class="container px-4 px-lg-5"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p></div>-->
+			<div class="container px-4 px-lg-5"><p class="m-0 text-center text-white">This webpage was made by using a <a href="https://startbootstrap.com/template/small-business" target="_blank">Template</a> under the MIT <a href="https://github.com/StartBootstrap/startbootstrap-small-business/blob/master/LICENSE" target="_blank">License</a></p></div>
         </footer>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
     </body>
 </html>
