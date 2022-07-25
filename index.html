@@ -7,9 +7,9 @@
         <meta name="author" content="" />
         <title>Man of the day</title>
         <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="ManOfTheDay/assets/favicon.ico" />
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="ManOfTheDay/css/styles.css" rel="stylesheet" />
+        <link href="css/styles.css" rel="stylesheet" />
 		<script>
 			function httpGet(theUrl)
 			{
@@ -22,7 +22,7 @@
 			function populateTextFromFile(fileName){
 				//Below populates the content based off the list of files
 				manContent = document.getElementById("man_content");
-				manContent.innerHTML = httpGet("ManOfTheDay/assets/content/".concat(fileName));
+				manContent.innerHTML = httpGet("assets/content/".concat(fileName));
 				
 				//Below code block populates for the name
 				nameArr = fileName.split(".");
@@ -34,7 +34,7 @@
 			}
 			
 			function populateTextFromNumber(innum, name_id, content_id, url_id){
-				contentRef = httpGet("ManOfTheDay/assets/content.csv").split("\r\n");
+				contentRef = httpGet("assets/content.csv").split("\r\n");
 				for (var i = 0; i < contentRef.length; i++){
 					if (contentRef[i].split(",")[0] == innum){
 						procNameArr = contentRef[i].split(",")[2].split("/");
@@ -49,7 +49,7 @@
 						document.getElementById(name_id).innerText = nameVal;
 						
 						manContent = document.getElementById(content_id);
-						manContent.innerHTML = httpGet("ManOfTheDay/assets/content/".concat(contentRef[i].split(",")[2].split("/")[contentRef[i].split(",")[2].split("/").length - 1]));
+						manContent.innerHTML = httpGet("assets/content/".concat(contentRef[i].split(",")[2].split("/")[contentRef[i].split(",")[2].split("/").length - 1]));
 						
 
 						if (nameArr.length == 3){
