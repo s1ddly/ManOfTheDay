@@ -34,7 +34,7 @@
 			}
 			
 			function populateTextFromNumber(innum, name_id, content_id, url_id){
-				contentRef = httpGet("assets/content.csv").split("\r\n");
+				contentRef = httpGet("assets/content.csv").split("\n");
 				for (var i = 0; i < contentRef.length; i++){
 					if (contentRef[i].split(",")[0] == innum){
 						procNameArr = contentRef[i].split(",")[2].split("/");
@@ -59,7 +59,7 @@
 						}
 
 						document.getElementById(url_id).href = contentRef[i].split(",")[2];
-						document.getElementById(url_id).target = "_blank"
+						document.getElementById(url_id).target = "_blank";
 						
 						return 0;
 					}
